@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>COMSOL Simulation Dashboard — MXene/BaTiO₃ RVE</title>
+<title>COMSOL Simulation Dashboard</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -157,7 +157,7 @@ body {
   <aside class="sidebar">
     <div class="sidebar-brand">COMSOL Pipeline</div>
     <div>
-      <div style="font-size: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">Scheme 1 — MXene/BTO RVE</div>
+      <div style="font-size: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">Multiphysics RVE Model</div>
       <div class="sidebar-stage" id="stage-list">
         <div class="stage-item done"><span class="stage-dot"></span> 01 Design</div>
         <div class="stage-item done"><span class="stage-dot"></span> 02 Build Model</div>
@@ -192,7 +192,7 @@ body {
         <div class="metric"><div class="metric-label">Max E-Field</div><div class="metric-value blue" id="m-emax">--</div><div class="metric-unit">kV/m</div></div>
         <div class="metric"><div class="metric-label">Max von Mises Stress</div><div class="metric-value" id="m-stress">--</div><div class="metric-unit">MPa</div></div>
         <div class="metric"><div class="metric-label">Mesh Elements</div><div class="metric-value" id="m-mesh">1502</div><div class="metric-unit">elements</div></div>
-        <div class="metric"><div class="metric-label">BTO Particles</div><div class="metric-value">3</div><div class="metric-unit">r=45nm</div></div>
+        <div class="metric"><div class="metric-label">Piezo Particles</div><div class="metric-value">3</div><div class="metric-unit">r=45nm</div></div>
         <div class="metric"><div class="metric-label">RVE Dimensions</div><div class="metric-value">250&#215;400</div><div class="metric-unit">nm</div></div>
       </div>
       <div class="card">
@@ -211,9 +211,9 @@ body {
     <!-- 3D Model Tab -->
     <section class="tab-content" id="tab-model3d" style="position:relative; padding:0;">
       <div class="model-legend">
-        <div class="legend-item"><span class="legend-swatch" style="background:#5b9bd5;"></span> MXene Matrix</div>
-        <div class="legend-item"><span class="legend-swatch" style="background:#e8c547;"></span> BaTiO₃ (x3)</div>
-        <div class="legend-item"><span class="legend-swatch" style="background:#2a2a35;"></span> GCE Substrate</div>
+        <div class="legend-item"><span class="legend-swatch" style="background:#5b9bd5;"></span>Matrix Material</div>
+        <div class="legend-item"><span class="legend-swatch" style="background:#e8c547;"></span>Piezo Particles (x3)</div>
+        <div class="legend-item"><span class="legend-swatch" style="background:#2a2a35;"></span>Substrate Layer</div>
       </div>
       <canvas id="model-canvas"></canvas>
     </section>
@@ -236,14 +236,14 @@ body {
         <div class="doc-item"><span class="doc-icon">&#128196;</span><div><div class="doc-name">GUI_MANUAL_V2.md</div><div class="doc-desc">GUI verification manual for multi-particle RVE model</div></div></div>
         <div class="doc-item"><span class="doc-icon">&#128196;</span><div><div class="doc-name">MODEL_DIAGNOSIS.md</div><div class="doc-desc">Model diagnosis checklist (9 inspection points)</div></div></div>
         <div class="doc-item"><span class="doc-icon">&#128196;</span><div><div class="doc-name">API_FINDINGS.md</div><div class="doc-desc">mph API findings: column-major arrays, property modes</div></div></div>
-        <div class="doc-item"><span class="doc-icon">&#128196;</span><div><div class="doc-name">config_scheme1.py</div><div class="doc-desc">Complete parameter definitions (BTO, MXene, GCE)</div></div></div>
+        <div class="doc-item"><span class="doc-icon">&#128196;</span><div><div class="doc-name">config.py</div><div class="doc-desc">Complete simulation parameter definitions</div></div></div>
       </div>
     </section>
 
     <!-- Parameters Tab -->
     <section class="tab-content" id="tab-parameters">
       <div class="card">
-        <div class="card-header">BaTiO₃ Material Parameters (Zgonik 1994)</div>
+        <div class="card-header">Piezoelectric Material Parameters</div>
         <table class="param-table">
           <tr><th>Parameter</th><th>Value</th><th>Description</th></tr>
           <tr><td>d₃₃</td><td>90 pC/N</td><td>Longitudinal piezo strain constant</td></tr>
@@ -258,14 +258,14 @@ body {
         </table>
       </div>
       <div class="card">
-        <div class="card-header">MXene & GCE Parameters</div>
+        <div class="card-header">Model Parameters</div>
         <table class="param-table">
           <tr><th>Parameter</th><th>Value</th><th>Description</th></tr>
-          <tr><td>E_MX</td><td>483.5 GPa</td><td>MXene Young modulus (Rong 2024)</td></tr>
-          <tr><td>ν_MX</td><td>0.20</td><td>MXene Poisson ratio</td></tr>
-          <tr><td>σ_MX</td><td>10⁴ S/cm</td><td>MXene conductivity</td></tr>
-          <tr><td>E_gce</td><td>12 GPa</td><td>GCE Young modulus</td></tr>
-          <tr><td>Uz_app</td><td>50 nm</td><td>Applied z-displacement</td></tr>
+          <tr><td>E_mat</td><td>200 GPa</td><td>Matrix Young modulus</td></tr>
+          <tr><td>nu</td><td>0.30</td><td>Poisson ratio</td></tr>
+          <tr><td>rho</td><td>5000 kg/m3</td><td>Density</td></tr>
+          <tr><td>E_sub</td><td>50 GPa</td><td>Substrate Young modulus</td></tr>
+          <tr><td>Uz_app</td><td>1 nm</td><td>Applied displacement</td></tr>
         </table>
       </div>
     </section>
@@ -277,7 +277,7 @@ body {
         <div class="log-container" id="log-content">
           <div class="log-line">[09:10:33] <span class="success">BUILD OK</span> — 5 domains, 22 boundaries</div>
           <div class="log-line">[09:10:35] Material setup: cE 6x6 4mm, dET 3x6, epsrS diagonal</div>
-          <div class="log-line">[09:10:37] Mesh: 1,502 elements (FreeTri, BTO refinement 5nm)</div>
+          <div class="log-line">[09:10:37] Mesh: 1,502 elements (FreeTri, domain refinement 5nm)</div>
           <div class="log-line">[09:10:40] Study std1 (Stationary) created</div>
           <div class="log-line">[09:15:00] <span class="warn">WARNING</span> — FloatingPotential removed (singular matrix)</div>
           <div class="log-line">[09:20:00] sE compliance matrix computed from cE (6x6, column-major)</div>
@@ -377,7 +377,7 @@ const grid = new THREE.GridHelper(8, 20, '#1e2636', '#0d1018');
 grid.position.y = -0.1;
 scene.add(grid);
 
-// MXene matrix: semi-transparent cylinder
+// Matrix: semi-transparent cylinder
 const mxGeom = new THREE.CylinderGeometry(R, R, H_mx, 64, 1, true);
 const mxMat = new THREE.MeshPhysicalMaterial({
   color: '#5b9bd5',
@@ -404,14 +404,14 @@ botRing.rotation.x = Math.PI / 2;
 botRing.position.y = H_gce;
 scene.add(botRing);
 
-// GCE substrate: dark cylinder
+// Substrate: dark cylinder
 const gceGeom = new THREE.CylinderGeometry(R, R, H_gce, 64);
 const gceMat = new THREE.MeshStandardMaterial({ color: '#2a2a35', metalness: 0.4, roughness: 0.6 });
 const gceMesh = new THREE.Mesh(gceGeom, gceMat);
 gceMesh.position.y = H_gce / 2;
 scene.add(gceMesh);
 
-// BTO particles: 3 golden spheres
+// Piezo particles: 3 golden spheres
 const btoGeom = new THREE.SphereGeometry(a, 48, 48);
 const btoMat = new THREE.MeshStandardMaterial({
   color: '#e8c547',
@@ -476,7 +476,7 @@ function createLabel(text, position, color = '#e4e8f0') {
   return sprite;
 }
 btoPositions.forEach(({ z }, i) => {
-  scene.add(createLabel(`BTO-${i+1}`, new THREE.Vector3(a + 0.4, z, 0), '#e8c547'));
+  scene.add(createLabel(`Particle-${i+1}`, new THREE.Vector3(a + 0.4, z, 0), '#e8c547'));
 });
 
 // Animation
