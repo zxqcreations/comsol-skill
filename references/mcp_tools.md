@@ -1,6 +1,21 @@
 # COMSOL MCP Tools Reference
 
-The COMSOL MCP server provides programmatic access to COMSOL Multiphysics. Use these tools alongside mph for results evaluation, image export, and session management.
+The COMSOL MCP server provides programmatic access to COMSOL Multiphysics.  
+Server location within this skill: `mcp_server/src/server.py`
+
+## Why MCP + mph (Not mph Alone)
+
+| Operation | mph API | MCP | Best Choice |
+|-----------|---------|-----|-------------|
+| Build model (geometry, physics, BCs) | Full control | Limited | **mph** |
+| Set piezo d-matrix (flat arrays) | Works | Cannot | **mph** |
+| Parameter sweeps | Scriptable | Manual | **mph** |
+| Result evaluation (after Java solve) | Returns -inf/nan | Works | **MCP** |
+| Image/plot export | None | `results_export_image` | **MCP** |
+| PDF documentation search | None | `pdf_search` | **MCP** |
+| Quick model inspection | Needs loading | `model_inspect` | **MCP** |
+
+**mph builds, MCP checks.** They share the same COMSOL license but connect independently — when mph's `model.evaluate()` breaks after a Java API solve, MCP is the fallback. Use these tools alongside mph for results evaluation, image export, and session management.
 
 ## Session Management
 

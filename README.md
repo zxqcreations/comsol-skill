@@ -17,6 +17,8 @@ comsol-skill/
 ├── SKILL.md                          # Main skill definition
 ├── README.md                         # This file
 ├── .gitignore
+├── mcp_server/                       # COMSOL MCP server (Python)
+│   └── src/tools/                    # geometry, mesh, model, physics, results, session, study
 ├── web/
 │   └── index.html                    # Three.js dashboard with 3D model preview
 ├── scripts/

@@ -161,6 +161,7 @@ When ANY error or unexpected behavior occurs during modeling or simulation:
 - `references/api_echem.md` — **Electrochemistry**: Current Distribution, Butler-Volmer
 - `references/api_acoustics_mems.md` — **Acoustics + MEMS**: Pressure Acoustics, Couplings
 - `references/mcp_tools.md` — **COMSOL MCP tools**: Session, geometry, physics, results, docs
+- `mcp_server/` — **Full COMSOL MCP server** (Python, runs alongside mph)
 
 ## Module Coverage (13/13 Complete)
 
