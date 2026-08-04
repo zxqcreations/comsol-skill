@@ -558,3 +558,18 @@ Key gotchas (from lessons_learned.md):
 - `ChargeConservationPiezo` (tag `ccp*`) is the piezo domain node in Electrostatics; coupling type `PiezoelectricEffect`
   with properties `Solid_physics` / `Electrostatics_physics`.
 - With `Displacement1`, use `setIndex('U0', value, i)` per component.
+
+## Expression Reference
+
+| Expression | Unit | Description |
+|-----------|------|-------------|
+| `solid.mises` | Pa | von Mises stress |
+| `solid.disp` | m | Total displacement |
+| `solid.u`, `solid.v`, `solid.w` | m | Displacement components |
+| `solid.Ws` | J/m^3 | Strain energy density |
+| `solid.sx`, `solid.sy`, `solid.sz` | Pa | Normal stress |
+| `solid.ex`, `solid.ey`, `solid.ez` | 1 | Normal strain |
+| `solid.epsilonvol` | 1 | Volumetric strain |
+| `es.V` | V | Electric potential (piezo) |
+| `es.normE` | V/m | Electric field magnitude |
+| `es.Dz` | C/m^2 | Electric displacement, z |

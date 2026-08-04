@@ -286,3 +286,14 @@ For heterojunctions (GaAs/AlGaAs, Si/SiGe, etc.):
 - **Triangular well quantization**: For MOSFET inversion layers, use Schrodinger-Poisson coupling
 - **Heterojunctions**: Require careful band alignment (electron affinity difference = ∆E_c)
 - **Surface recombination velocity v_s**: ~10⁴ cm/s for unpassivated Si, ~1 cm/s for passivated
+
+## mph API Usage
+
+```python
+semi = comp.physics().create('semi', 'Semiconductor', 'geom1')
+semi.set('CarrierStatistics', 'MaxwellBoltzmann')
+doping = semi.feature().create('dop1', 'DopingProfile', 2)
+ohmic = semi.feature().create('oc1', 'OhmicContact', 1)
+ohmic.set('V0', '0[V]')
+model.evaluate('semi.n', '1/cm^3')
+```

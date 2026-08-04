@@ -154,3 +154,11 @@ Line/point: `ht.Qltot` (W/m), `ht.Qptot` (W).
 Other predefined: `ht.Tref` (reference temperature), `ht.alpha` (damage indicator), `ht.alphanecr`, `ht.theta_d`, `ht.theta_d_sm`, `ht.T_dp` (dew point), `ht.T_eq` (equivalent temp), `ht.psat` (saturation pressure), `ht.phi` (relative humidity), `ht.Lv` (latent heat of evaporation); `ht.kxx/kyy/kzz` (anisotropic conductivity), `ht.kmean`, `ht.alphaTdxx/…`, `ht.alphaTdMean` (thermal diffusivity). All flux/source variables except `turbflux`/`Qptot` also exist with `_material` suffix (evaluated in material frame), e.g. `ht.ndflux_material`.
 
 Thin structures: flux on a Thin Layer is NOT in `ht.ntfluxInt`; use local `ht.sls1.n
+## mph API Usage
+
+```python
+ht = comp.physics().create('ht', 'HeatTransferInSolids', 'geom1')
+ht.feature().create('temp1', 'TemperatureBoundary', 1).set('T0', '373.15[K]')
+ht.feature().create('hf1', 'HeatFluxBoundary', 1).set('q0', '1e4[W/m^2]')
+model.evaluate('ht.Tmax', 'K')
+```

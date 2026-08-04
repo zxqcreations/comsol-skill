@@ -383,3 +383,12 @@ solid + ht + `ThermalExpansion` coupling with `Thermoelastic damping` enabled; `
 - `ThinFilmFlow` (`tff`, `ThinFilmFlowDomain`) interfaces solve the (modified) Reynolds equation: full form (pressure + density) and pressure-only form (`EquationType` setting); include squeeze-film and slide-film damping; rarefaction via slip length / Knudsen number.
 - Boundary-condition variant: **Thin-Film Damping** on solid/Electromechanics/Piezoelectricity/Joule Heating interfaces (thin gap between moving and fixed walls, gas squeeze-film).
 - Example apps: microresistor beam, microresonator damping models under `MEMS_Module/...`.
+
+## mph API Usage
+
+```python
+acpr = comp.physics().create('acpr', 'PressureAcoustics', 'geom1')
+src = acpr.feature().create('nv1', 'NormalVelocity', 1)
+src.set('nvel', '0.01[m/s]')
+model.evaluate('acpr.p_t', 'Pa')
+```

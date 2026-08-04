@@ -119,3 +119,13 @@ COMSOL 6.4 · mph Python API · Based on official Electric Discharge Module User
 - **E/N scaling**: Townsend coefficients tabulated vs reduced electric field E/N (Td = 10⁻²¹ V·m²)
 - **Dielectric barriers**: Surface charge σ stored as boundary ODE; integrates ion/electron fluxes over time
 - **Secondary emission γ**: ~0.001–0.1; critical for DC glow sustainment
+
+## mph API Usage
+
+```python
+ed = comp.physics().create('ed', 'ElectricDischarge', 'geom1')
+gnd = ed.feature().create('gnd1', 'Ground', 1)
+anode = ed.feature().create('pot1', 'ElectricPotential', 1)
+anode.set('V0', '10[kV]')
+model.evaluate('ed.Ne', '1/m^3')
+```

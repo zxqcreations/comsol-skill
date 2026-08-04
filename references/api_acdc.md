@@ -306,3 +306,21 @@ Capacitance / inductance via energy method: C = 2·intWe/V², L = 2·intWm/I² (
 - **Circuit coupling**: `Terminal` (es/ec) with type Circuit, or mf `Coil` excitation Circuit (current/voltage), bind to `ElectricalCircuit` interface nodes (External I vs U / External U vs I / External I-Terminal) via terminal name.
 - **2D axisymmetry**: axial-symmetry boundary at r=0 auto-adds `AxialSymmetry` node; axis-specific features: Line Charge (on Axis), Point Charge (on Axis), Line Current (on Axis), Magnetic Point Dipole (on Axis).
 - **Feature tag prefixes** (from tags.json): ChargeConservation→`ccn*`, Ground→`gnd*`, ElectricPotential→`pot*`, Terminal→`term*`, FloatingPotential→`fp*`, ZeroCharge→`zc*`, SurfaceChargeDensity→`sfcd*`, SpaceChargeDensity→`scd*`, CurrentConservation→`cucn*`, ElectricInsulation→`ein*`, NormalCurrentDensity→`ncd*`, MagneticInsulation→`mi*`, AmperesLaw→`al*`, PerfectMagneticConductor→`pmc*`, PerfectElectricConductor→`pec*`, WaveEquationElectric→`wee*`.
+
+## mph API Usage
+
+```python
+# Electrostatics
+es = comp.physics().create('es', 'Electrostatics', 'geom1')
+gnd = es.feature().create('gnd1', 'Ground', 1)
+term = es.feature().create('term1', 'Terminal', 1)
+term.set('V0', '10[V]')
+
+# Electric Currents
+ec = comp.physics().create('ec', 'ElectricCurrents', 'geom1')
+ec.feature().create('pot1', 'ElectricPotential', 1).set('V0', '5[V]')
+
+# Magnetic Fields
+mf = comp.physics().create('mf', 'MagneticFields', 'geom1')
+mf.feature().create('coil1', 'Coil', 2).set('Icoil', '1[A]')
+```
