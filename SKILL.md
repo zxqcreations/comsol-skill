@@ -125,3 +125,9 @@ sel.set('xmax', str(float_value))    # Raw float ❌ (interpreted as meters, not
 - `references/tags_selections.md` — Selection types
 - `references/tags_functions.md` — Function types
 - `references/tags_batches.md` — Batch/sweep types
+- `references/api_core.md` — **COMSOL core API**: Geometry, Mesh, Studies, Results (from official docs)
+- `references/api_structural.md` — **Structural Mechanics**: Solid, Piezo, Shell, Beam, Multibody
+- `references/api_acdc.md` — **AC/DC Module**: Electrostatics, Currents, Magnetic Fields
+- `references/api_thermal_cfd.md` — **Heat Transfer + CFD**: Thermal, Laminar, Turbulent Flow
+- `references/api_echem.md` — **Electrochemistry + Chemical**: Current distribution, Transport
+- `references/api_acoustics_mems.md` — **Acoustics + MEMS**: Pressure acoustics, Multiphysics
