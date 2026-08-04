@@ -86,6 +86,34 @@ sel.set('xmax', str(float_value))    # Raw float ❌ (interpreted as meters, not
 | Permittivity | `epsilonrS` (mode: `epsilonrS_mat`) | `epsS_mat`, `epsS11` |
 | Density mode | `rho_mat = 'userdef'` | Direct `rho` set without mode |
 
+## Diagnostic Strategy: PDF-First Troubleshooting
+
+When ANY error or unexpected behavior occurs during modeling or simulation:
+
+1. **DO NOT GUESS** — identify the exact error message or symptom
+2. **CONSULT THE PDF** — search `D:\ENV\COMSOL64\Multiphysics\doc\pdf\<Module>\*UsersGuide.pdf` for:
+   - The exact feature/property name causing the error
+   - The equation or theory section explaining the physics
+   - The reference section listing valid property values and feature types
+3. **CROSS-REFERENCE with tags.json** — verify feature type names and property names match COMSOL 6.4
+4. **APPLY the fix** — with verified API calls, not trial-and-error
+
+**Most common diagnostic paths:**
+- `setIndex fails with "not a scalar"` → PDF Reference section for that feature → use `set(name, flat_array)` instead
+- `singular matrix` → PDF Theory section → check boundary conditions completeness
+- `-Inf in results` → PDF Physics interface section → verify all required BCs present
+- `feature creation fails` → `tags.json` search → verify exact feature type string
+- `property silently ignored` → PDF feature settings section → check `*_mat='userdef'` requirement
+
+**PDF locations for common lookups:**
+| Issue Type | PDF to Search | Section |
+|-----------|--------------|---------|
+| Feature type names | `tags.json` in mph package | — |
+| Property names for feature X | `<Module>UsersGuide.pdf` | "Reference" or "Settings" chapter |
+| Material model parameters | `StructuralMechanicsModuleUsersGuide.pdf` | "Material Models" chapter |
+| Solver settings | `COMSOL_Multiphysics/COMSOLMultiphysicsUsersGuide.pdf` | "Solvers" chapter |
+| BC completeness | `<Module>UsersGuide.pdf` | Theory chapter for the physics interface |
+
 ## Standard Pipeline
 
 ```

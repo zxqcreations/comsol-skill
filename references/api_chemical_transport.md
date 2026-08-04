@@ -1,607 +1,261 @@
-# Chemical Species Transport Module — API Reference
+# Chemical Species Transport Module — Comprehensive API Reference
 
-Extracted from COMSOL 6.4 documentation and mph tags.json.
+Transport of Diluted/Concentrated Species, Reaction Engineering, Chemistry
 
-## Feature Types (6 found)
+COMSOL 6.4 · mph Python API · Extracted from official documentation and tags.json
 
-| Feature Name | Tag | Parent Interface |
-|-------------|-----|------------------|
-| `Chemistry` | `chem` | physics |
-| `ReactionChem` | `rch*` | Chemistry |
-| `ReversibleReactionGroup` | `rgr*` | Chemistry |
-| `SpeciesChem` | `sch*` | Chemistry |
-| `SpeciesGroup` | `sg_rgr*` | Chemistry |
-| `SpeciesThermodynamics` | `sthm*` | SpeciesGroup |
+---
 
-## Documentation Structure (api_chemical_extract.txt)
+## Contents
 
-```
-  TOC:   Contents (p.3)
-  TOC:   User’s Guide Introduction (p.17)
-  TOC:     About the Chemical Reaction Engineering Module (p.18)
-  TOC:       The Scope of the Chemical Reaction Engineering Module (p.18)
-  TOC:       The Chemical Reaction Engineering Module Physics Interface Guide (p.19)
-  TOC:       The Material Database (p.24)
-  TOC:       Common Physics Interface and Feature Settings and Nodes (p.24)
-  TOC:       Where Do I Access the Documentation and Application Libraries? (p.25)
-  TOC:     Overview of the User’s Guide (p.28)
-  TOC:   The Chemistry and Reaction Engineering Interfaces (p.31)
-  TOC:     Overview of the Reaction Engineering and Chemistry Interfaces (p.32)
-  TOC:       Using the Reaction Node (p.33)
-  TOC:       Using the Species Node (p.36)
-  TOC:       Using the Equation View Node — Reactions and Species (p.39)
-  TOC:     Theory for the Reaction Engineering and Chemistry Interfaces (p.40)
-  TOC:       Reaction Kinetics and Rate Expressions (p.40)
-  TOC:       The Equilibrium Constant (p.41)
-  TOC:       Handling of Equilibrium Reactions (p.45)
-  TOC:       Reactor Types in the Reaction Engineering Interface (p.48)
-  TOC:       Transport Properties (p.55)
-  TOC:       CHEMKIN Data and NASA Polynomials (p.59)
-  TOC:       Working with Predefined Expressions (p.60)
-  TOC:       References for the Reaction Engineering Interface (p.62)
-  TOC:     The Reaction Engineering Interface (p.63)
-  TOC:       Features Nodes Available for the Reaction Engineering Interface (p.72)
-  TOC:       Initial Values (p.72)
-  TOC:       Reaction (p.73)
-  TOC:       Species (p.79)
-  TOC:       Reversible Reaction Group (p.83)
-  TOC:       Equilibrium Reaction Group (p.85)
-  TOC:   Introducing the Chemical Reaction Engineering Module (p.5)
-  TOC:   Chemical Reaction Engineering Simulations (p.6)
-  TOC:     Modeling Strategy (p.7)
-  TOC:     Investigating Chemical Reaction Kinetics — Modeling Perfectly Mixed and Plug Flow Reactors (p.8)
-  TOC:     Investigating Reactors and Systems — Modeling Space Dependency (p.9)
-  TOC:   Chemical Reaction Engineering Module Interfaces (p.11)
-  TOC:     The Physics Interface List by Space Dimension and Study Type (p.18)
-  TOC:   Tutorial Model: NOx and Ammonia Conversion in a Monolithic Reactor (p.22)
-  TOC:     Introduction (p.22)
-  TOC:     Tutorial Modeling Strategy (p.23)
-  TOC:     Chemistry (p.24)
-  TOC:     Single Channel Model (p.26)
-  TOC:     Results for the Single Channel Model (p.28)
-  TOC:     Monolith Reactor Model (p.38)
-  TOC:     Results for the Monolith Reactor Model (p.43)
-  TOC:     Summary (p.50)
-  TOC:     References (p.50)
-  TOC:     Note on the Models (p.51)
-  TOC:   Modeling Instructions: Single Channel Model (p.52)
-  TOC:     Model Wizard (p.52)
-```
+1. [Physics Interfaces](#physics-interfaces)
+2. [Domain Features](#domain-features)
+3. [Boundary Conditions](#boundary-conditions)
+4. [Edge & Point Conditions](#edge-point-conditions)
+5. [Pair Conditions](#pair-conditions)
+6. [Expression Reference](#expression-reference)
+7. [Multiphysics Couplings](#multiphysics-couplings)
+8. [Common Patterns & Notes](#common-patterns)
 
-## Key API Content (58 sections)
+---
 
-### Section 1
+## 1. Physics Interfaces
 
-```
-=== ChemicalReactionEngineeringModuleUsersGuide.pdf ===
-Pages: 570
-  TOC:   Contents (p.3)
-  TOC:   User’s Guide Introduction (p.17)
-  TOC:     About the Chemical Reaction Engineering Module (p.18)
-  TOC:       The Scope of the Chemical Reaction Engineering Module (p.18)
-  TOC:       The Chemical Reaction Engineering Module Physics Interface Guide (p.19)
-  TOC:       The Material Database (p.24)
-  TOC:       Common Physics Interface and Feature Settings and Nodes (p.24)
-  TOC:       Where Do I Access the Documentation and Application Libraries? (p.25)
-  TOC:     Overview of the User’s Guide (p.28)
-  TOC:   The Chemistry and Reaction Engineering Interfaces (p.31)
-  TOC:     Overview of the Reaction Engineering and Chemistry Interfaces (p.32)
-  TOC:       Using the Reaction Node (p.33)
-  TOC:       Using the Species Node (p.36)
-  TOC:       Using the Equation View Node — Reactions and Species (p.39)
-  TOC:     Theory for the Reaction Engineering and Chemistry Interfaces (p.40)
-  TOC:    
-```
+| Interface | mph Tag | COMSOL Name | Description |
+|-----------|---------|-------------|-------------|
+| `?` | `` | ? |  (3 features) |
+| `BoltzmannEquation` | `be` | BoltzmannEquation |  (1 features) |
+| `ChargeTransport` | `ct` | ChargeTransport | Chemical species transport (1 features) |
+| `Chemistry` | `chem` | Chemistry |  (5 features) |
+| `CoefficientFormPDE` | `c` | CoefficientFormPDE | Mathematics PDE interface (2 features) |
+| `ColdPlasma` | `plas` | ColdPlasma | Plasma discharge (5 features) |
+| `ConcentratedSpecies` | `tcs` | ConcentratedSpecies | Chemical species transport (7 features) |
+| `ConvectionDiffusionEquation` | `cdeq` | ConvectionDiffusionEquation |  (4 features) |
+| `CurrentDistributionBEM` | `cdbem` | CurrentDistributionBEM |  (1 features) |
+| `CurrentDistributionShell` | `cdsh` | CurrentDistributionShell |  (1 features) |
+| `CurvilinearCoordinates` | `cc` | CurvilinearCoordinates |  (4 features) |
+| `DarcysLaw` | `dl` | DarcysLaw |  (1 features) |
+| `DilutedSpecies` | `tds` | DilutedSpecies | Chemical species transport (15 features) |
+| `DilutedSpeciesInPorousMedia` | `tds` | DilutedSpeciesInPorousMedia | Chemical species transport (22 features) |
+| `ElectrophoreticTransport` | `el` | ElectrophoreticTransport | Chemical species transport (14 features) |
+| `FluidParticleTracing` | `fpt` | FluidParticleTracing |  (2 features) |
+| `FreeAndPorousMediaFlow` | `fp` | FreeAndPorousMediaFlow |  (8 features) |
+| `GeneralFormPDE` | `g` | GeneralFormPDE | Mathematics PDE interface (2 features) |
+| `HeatTransfer` | `ht` | HeatTransfer |  (1 features) |
+| `HeatTransferInBuildingMaterials` | `ht` | HeatTransferInBuildingMaterials |  (1 features) |
+| `HeatTransferInFluids` | `ht` | HeatTransferInFluids |  (6 features) |
+| `HeatTransferInMoistAir` | `ht` | HeatTransferInMoistAir |  (1 features) |
+| `HeatTransferInShellsLM` | `htlsh` | HeatTransferInShellsLM |  (2 features) |
+| `HeatTransferInSolidsAndFluids` | `ht` | HeatTransferInSolidsAndFluids |  (3 features) |
+| `HeatTransferPipes` | `htp` | HeatTransferPipes |  (1 features) |
+| `HeavySpeciesTransport` | `hs` | HeavySpeciesTransport | Chemical species transport (2 features) |
+| `LaplaceEquation` | `lpeq` | LaplaceEquation |  (2 features) |
+| `MagneticFieldsNoCurrentsBoundaryElements` | `mfncbe` | MagneticFieldsNoCurrentsBoundaryElements | Boundary element method EM (2 features) |
+| `MagnetostaticsNoCurrents` | `mfnc` | MagnetostaticsNoCurrents |  (2 features) |
+| `MoistureTransportInAir` | `mt` | MoistureTransportInAir | Chemical species transport (1 features) |
+| `MoistureTransportInBuildingMaterials` | `mt` | MoistureTransportInBuildingMaterials | Chemical species transport (1 features) |
+| `NonisothermalPipeFlow` | `nipfl` | NonisothermalPipeFlow |  (1 features) |
+| `PhaseTransport` | `phtr` | PhaseTransport | Chemical species transport (1 features) |
+| `PhaseTransportPorousMedia` | `phtr` | PhaseTransportPorousMedia | Chemical species transport (10 features) |
+| `PlasmaTimePeriodic` | `ptp` | PlasmaTimePeriodic | Plasma discharge (4 features) |
+| `PoroelasticWavesSinglePhysics` | `pelw` | PoroelasticWavesSinglePhysics |  (1 features) |
+| `PorousMedia` | `tds` | PorousMedia |  (3 features) |
+| `PorousMediaHeatTransfer` | `ht` | PorousMediaHeatTransfer |  (25 features) |
+| `PrimaryCurrentDistribution` | `cd` | PrimaryCurrentDistribution |  (1 features) |
+| `ReactionEng` | `re` | ReactionEng | Reaction engineering (11 features) |
+| `RotatingMachineryMagnetic` | `rmm` | RotatingMachineryMagnetic |  (2 features) |
+| `SchrodingerEquation` | `schr` | SchrodingerEquation |  (1 features) |
+| `SecondaryCurrentDistribution` | `cd` | SecondaryCurrentDistribution |  (2 features) |
+| `SolidMechanics` | `solid` | SolidMechanics |  (1 features) |
+| `SurfaceReactions` | `sr*` | SurfaceReactions | Reaction engineering (4 features) |
+| `TertiaryCurrentDistributionNernstPlanck` | `tcd` | TertiaryCurrentDistributionNernstPlanck |  (21 features) |
+| `TertiaryElectroanalysis` | `tcd` | TertiaryElectroanalysis |  (5 features) |
+| `empty` | `` | empty |  (2 features) |
+| `mixed` | `` | mixed |  (2 features) |
+| `solid` | `` | solid |  (4 features) |
+| `surface` | `` | surface |  (1 features) |
 
-### Section 2
+---
 
-```
-3 ---
-C O N T E N T S  | 3
-C o n t e n t s
-Chapt e r 1: U s e r ’ s  G u i d e  I n t r o d u c t i o n
-About the Chemical Reaction Engineering Module 
- 18
-The Scope of the Chemical Reaction Engineering Module   .   .   .   .   .   .   .  18
-The Chemical Reaction Engineering Module Physics Interface Guide   .   .   .  19
-The Material Database.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  24
-Common Physics Interface and Feature Settings and Nodes    .   .   .   .   .   .  24
-Where Do I Access the Documentation and Application Libraries? .   .   .   .  25
-Overview of the User’s Guide 
- 28
-C h a p t e r  2 :  T h e  C h e m i s t r y  a n d  R e a c t i o n  
-E n g i n e e r i n g  I n t e r f a c e s
-Overview of the Reaction Engineering and Chemistry 
-Interfaces 
- 32
-Using the Reaction Node.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  33
-Using the Species Node  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  
-```
+## 2. Domain Features
 
-### Section 3
+| Feature Name | mph Tag | Interface | Key Properties |
+|-------------|---------|-----------|---------------|
+| `ReactionWithTurbulenceModel` | `treac*` |  | — |
+| `ConvectionDiffusionEquation` | `cdeq*` |  | — |
+| `FluidPorousMedium` | `fluid*` |  | — |
+| `PorousMatrixPorousMedium` | `pm*` |  | — |
+| `PorousMedium` | `porous*` |  | FluidPorousMedium, PorousMatrixPorousMedium |
+| `FluidPorousMedium` | `fluid*` |  | — |
+| `GasUnsaturatedPorousMedium` | `gas*` |  | — |
+| `LiquidUnsaturatedPorousMedium` | `liquid*` |  | — |
+| `PorousMatrixPorousMedium` | `pm*` |  | — |
+| `PorousMedium` | `porous*` |  | Adsorptions, Dispersion, FluidPorousMedium, PorousMatrixPorousMedium |
+| `UnsaturatedPorousMedium` | `usporous*` |  | Adsorptions, Dispersion, GasUnsaturatedPorousMedium, LiquidUnsaturatedPorousMedium, PorousMatrixPorousMedium |
+| `FluidPorousMediumHeatTransferModel` | `fluid*` |  | — |
+| `PorousMatrixPorousMediumHeatTransferModel` | `pm*` |  | — |
+| `PorousMediumHeatTransferModel` | `porous*` |  | FluidPorousMediumHeatTransferModel, PorousMatrixPorousMediumHeatTransferModel |
+| `PorousMediumDiscontinuity` | `pmd*` |  | — |
+| `FluidHeatTransferModel` | `fluid*` |  | Opacity |
+| `FluidPorousMediumHeatTransferModel` | `fluid*` |  | PhaseChangeMaterial |
+| `ImmobileFluidPorousMaterial` | `imf*` |  | — |
+| `IsothermalDomainInterface` | `idi*` |  | LayerOpacity |
+| `PhaseChangeMaterial` | `phc*` |  | — |
+| `PorousMatrixPorousMediumHeatTransferModel` | `pm*` |  | — |
+| `PorousMediumHeatTransferModel` | `porous*` |  | FluidPorousMediumHeatTransferModel, PhaseChangeMaterial, ImmobileFluidPorousMaterial, PorousMatrixPorousMediumHeatTransferModel |
+| `PorousMediumLayeredShell` | `pmls*` |  | init, ThermalInsulation |
+| `SolidHeatTransferModel` | `solid*` |  | Opacity |
+| `PartitionDomains` | `pard*` |  | — |
+| `PartitionDomains` | `pard*` |  | — |
+| `PartitionDomains` | `pard*` |  | — |
+| `PartitionDomains` | `pard*` |  | — |
 
-```
-4 ---
-4 | C O N T E N T S
-The Reaction Engineering Interface 
- 63
-Features Nodes Available for the Reaction Engineering Interface.   .   .   .   .  72
-Initial Values    .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  72
-Reaction  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  73
-Species    .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  79
-Reversible Reaction Group .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  83
-Equilibrium Reaction Group.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  85
-Species Group .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  86
-Additional Source   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  87
-Species Activity   .   .   .   .   .   .   .   .   .   .   .   .   .  
-```
+---
 
-### Section 4
+## 3. Boundary Conditions
 
-```
-5 ---
-C O N T E N T S  | 5
-The Transport of Diluted Species Interface 
- 134
-The Transport of Diluted Species in Porous Media Interface   .   .   .   .   .    138
-The Transport of Diluted Species in Porous Catalysts Interface  .   .   .   .    139
-The Transport of Diluted Species in Packed Beds Interface .   .   .   .   .   .    140
-Domain, Boundary, and Pair Nodes for the Transport of Diluted 
-Species Interface.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    141
-Prescribing Conditions on Fluid–Solid Interfaces .   .   .   .   .   .   .   .   .   .    143
-Species Properties   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    143
-Fluid   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    144
-Solid    .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    146
-Initial Values    .   .   .   .   .   .   .   .   .   .   
-```
+| BC Name | mph Tag | Interface | Key Properties |
+|---------|---------|-----------|---------------|
+| `PeriodicCondition` | `pc*` |  | — |
+| `DirichletBoundary` | `dir*` |  | — |
+| `ZeroFluxBoundary` | `zflx*` |  | — |
+| `BoundaryReactionCoefficients` | `rc*` |  | — |
+| `FluxBoundary` | `fl*` |  | — |
+| `WallDriftDiffusion` | `wall*` |  | — |
+| `WallDefault` | `wall*` |  | — |
+| `WallDriftDiffusion` | `wall*` |  | — |
+| `FluxBoundary` | `flux*` |  | — |
+| `ZeroFluxBoundary` | `zflx*` |  | — |
+| `FluxBoundary` | `flux*` |  | — |
+| `ZeroFluxBoundary` | `zflx*` |  | — |
+| `HeatFluxBoundary` | `hf*` |  | — |
+| `HeatFluxBoundary` | `hf*` |  | — |
+| `HeatFluxBoundary` | `hf*` |  | — |
+| `HeatFluxBoundary` | `hf*` |  | — |
+| `FluxBoundary` | `flux*` |  | — |
+| `ZeroFluxBoundary` | `zflx*` |  | — |
+| `BoundaryHeatSource` | `bhs*` |  | — |
+| `ContinuityOnInteriorBoundary` | `cib*` |  | — |
+| `HeatFluxBoundary` | `hf*` |  | — |
+| `OpenBoundary` | `open*` |  | — |
+| `TemperatureBoundary` | `temp*` |  | — |
+| `InletBoundary` | `inl*` |  | — |
+| `OutletBoundary` | `out*` |  | — |
+| `Wall` | `wall*` |  | WallBC |
+| `WallBC` | `wallbc*` |  | — |
 
-### Section 5
+---
 
-```
-6 ---
-6 | C O N T E N T S
-Unsaturated Porous Medium   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    167
-Liquid  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    167
-Gas .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    170
-Adsorption  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    170
-Volatilization   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    172
-Packed Bed (Moving Packed Bed).   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    173
-Pellets .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    174
-Diffusion (Transport of Diluted Species) .   .   .   .   .   .   .   .   .   .   .   .   .    177
-Shrinking Core Reactions    .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   . 
-```
+## 4. Edge & Point Conditions
 
-### Section 6
+| Name | mph Tag | Type | Interface |
+|------|---------|------|-----------|
+| `ReactionChem` | `rch*` | Other |  |
+| `ReversibleReactionGroup` | `rgr*` | Other |  |
+| `SpeciesChem` | `sch*` | Other |  |
+| `SpeciesGroup` | `sg_rgr*` | Other |  |
+| `SpeciesThermodynamics` | `sthm*` | Other |  |
+| `ConvectionDiffusionMigration` | `cdm*` | Other |  |
+| `Inflow` | `in*` | Other |  |
+| `NoFlux` | `nflx*` | Other |  |
+| `Outflow` | `out*` | Other |  |
+| `ReactionSources` | `reac*` | Other |  |
+| `TCSPorousMediaTransportProperties` | `pmtcs*` | Other |  |
+| `AxialSymmetry` | `axi*` | Other |  |
+| `Concentration` | `conc*` | Other |  |
+| `ElectricInsulation` | `ein*` | Other |  |
+| `ElectrodeReaction` | `er*` | Other |  |
+| `ElectrodeSurface` | `es*` | Other |  |
+| `Electrolyte` | `ice*` | Other |  |
+| `ElectrolytePotential` | `eip*` | Other |  |
+| `ElectrolytePotentialPoint` | `eip*` | Point |  |
+| `EquilibriumReaction` | `eqreac*` | Other |  |
+| `GlobalConstraint` | `gconstr*` | Other |  |
+| `HighlyConductivePorousElectrode` | `hcpce*` | Other |  |
+| `Inflow` | `in*` | Other |  |
+| `IonExchangeMembrane` | `iem*` | Other |  |
+| `NoFlux` | `nflx*` | Other |  |
+| `NonFaradaicReactions` | `nfr*` | Other |  |
+| `Outflow` | `out*` | Other |  |
+| `PorousElectrodeReaction` | `per*` | Other |  |
+| `Separator` | `sep*` | Other |  |
+| `SurfaceChargeDensity` | `sfcd*` | Other |  |
+| `init` | `init*` | Other |  |
+| `init` | `init*` | Other |  |
+| `Concentration` | `conc*` | Other |  |
+| `ConvectionDiffusionMigration` | `cdm*` | Other |  |
+| `Inflow` | `in*` | Other |  |
+| `NoFlux` | `nflx*` | Other |  |
+| `Outflow` | `out*` | Other |  |
+| `PartitionCondition` | `pac*` | Other |  |
+| `Reactions` | `reac*` | Other |  |
+| `SurfaceEquilibriumReaction` | `seqreac*` | Other |  |
 
-```
-7 ---
-C O N T E N T S  | 7
-Outflow  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    203
-Reactions.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    203
-Species Source.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    204
-The Transport of Diluted Species in Moving Packed Beds Interface .   .   .    205
-The Transport of Diluted Species in Moving Packed Beds, Shrinking 
-Core  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    205
-The Transport of Diluted Species in Packed Beds, Shrinking Core  .   .   .    206
-The Transport of Concentrated Species Interface 
- 208
-The Transport of Concentrated Species in Porous Media Interface .   .   .    214
-The Transport of Concentrated Species in Porous Catalysts Interface.   .    215
-The Transport of Concentrated Species in Packed Beds Interface   .   .   .   
-```
+---
 
-### Section 7
+## 5. Pair Conditions
 
-```
-8 ---
-8 | C O N T E N T S
-Mass Fraction  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    252
-Flux .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    252
-Inflow  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    254
-No Flux  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    255
-Out-of-Plane Flux    .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    255
-Outflow  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    257
-Symmetry   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    257
-Flux Discontinuity   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    258
-Open Boundary  .   .   .   .   .   .   .   .   .   .   .   .   .   
-```
 
-### Section 8
+---
 
-```
-9 ---
-C O N T E N T S  | 9
-Domain, Boundary, and Pair Nodes for the Electrophoretic Transport 
-Interface.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    283
-Solvent    .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    284
-Porous Matrix Properties    .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    285
-Fully Dissociated Species .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    285
-Uncharged Species  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    285
-Weak Acid  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    285
-Weak Base  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    286
-Ampholyte  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    286
-Protein    .   .   .   
-```
+## 6. Expression Reference
 
-### Section 9
+Common postprocessing expressions (use with `model.evaluate()`):
 
-```
-10 ---
-10 | C O N T E N T S
-Initial Values    .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    302
-No Flux  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    302
-Number Density .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    303
-Outflow  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    303
-The Vapor–Liquid Equilibrium Multiphysics Interfaces 
- 304
-Laminar Vapor Flow    .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    304
-Laminar Two-Phase Flow.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    305
-Turbulent Flow, κ−ε .   .   .   .   .   .   .   .   .   .   .   .   .   .   . 305
-Turbulent Flow, κ−ω    .   .   .   .   .   .   .   .   .   .   .   .   .   . 305
-Turbulent Flow, SST   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  
-```
+| Expression | Unit | Description |
+|-----------|------|-------------|
+| `tds.c` | mol/m^3 | Concentration |
+| `tds.Nx` | mol/(m^2*s) | Flux, x-component |
+| `c.u` | — | PDE dependent variable |
+| `g.u` | — | PDE dependent variable |
 
-### Section 10
+---
 
-```
-11 ---
-C O N T E N T S  | 11
-with Shrinking Core Model Interface .   .   .   .   .   .   .   .   .   .   .   .   .    323
-The Reacting Flow in Moving Packed Beds, Transport of Diluted 
-Species Interface.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    324
-The Reacting Flow in Moving Packed Beds, Transport of 
-Concentrated Species Interface .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    325
-The Reacting Flow in Moving Packed Beds, Transport of Diluted 
-Species with Shrinking Core Model Interface .   .   .   .   .   .   .   .   .   .    326
-The Reacting Flow, Diluted Species Coupling Feature .   .   .   .   .   .   .   .    326
-The Reacting Flow Coupling Feature   .   .   .   .   .   .   .   .   .   .   .   .   .   .    326
-Physics Interface Features   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    327
-The Nonisothermal Reacting Flow Multiphysics Interfaces 
- 328
-The Nonisothermal Reacting Laminar Flow Interface  
-```
+## 7. Multiphysics Couplings
 
-### Section 11
+| Coupling | mph Type | Links |
+|----------|---------|-------|
+| `AcousticPorousBoundary` | `apb*` | — |
+| `MultiphaseFlowInPorousMedia` | `mfpm*` | — |
+| `PorousStructureBoundary` | `psb*` | — |
 
-```
-12 ---
-12 | C O N T E N T S
-Theory for the Transport of Diluted Species Interface 
- 353
-Mass Balance Equation.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    354
-Equilibrium Reaction Theory   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    355
-Material Balance Formulation  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    357
-Solving a Diffusion Equation Only    .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    357
-Mass Sources for Species Transport    .   .   .   .   .   .   .   .   .   .   .   .   .   .    358
-Adding Transport Through Migration  .   .   .   .   .   .   .   .   .   .   .   .   .   .    360
-Supporting Electrolytes   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    361
-Crosswind Diffusion    .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    362
-Danckwerts Inflow Boundary Condition  .   .   .   .   .   .   .   .   .   .   .   .   .
-```
+---
 
-### Section 12
+## 8. Common Patterns & COMSOL 6.4 Notes
 
-```
-13 ---
-C O N T E N T S  | 13
-Governing Equations for the Bulk Concentrations  .   .   .   .   .   .   .   .   .    416
-ODE Formulations for Surface Concentrations   .   .   .   .   .   .   .   .   .   .    418
-Surface Reaction Equations on Deforming Geometries   .   .   .   .   .   .   .    419
-Reference for the Surface Reactions Interface .   .   .   .   .   .   .   .   .   .   .    420
-Theory for the Nernst–Planck Equations Interface 
- 421
-Governing Equations for the Nernst–Planck Formulation.   .   .   .   .   .   .    421
-Material Balance Formulation  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    423
-Theory for the Size-Based Population Balance Interface 
- 424
-Population Balance Equation   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    424
-Discretization of the Size Coordinate  .   .   .   .   .   .   .   .   .   .   .   .   .   .    425
-Particle Nucleation  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   
-```
+- Note: Some of the additional transport mechanisms listed below are only available in 
+certain products. For details see www.comsol.com/products/specifications/.
+• By default, the Convection checkbox i
 
-### Section 13
+- Note: Mass transport in porous media is only available in a limited set of 
+add-on products. See www.comsol.com/products/specifications/ for 
+more details on availability.
 
-```
-14 ---
-14 | C O N T E N T S
-Coupling to Other Physics Interfaces  .   .   .   .   .   .   .   .   .   .   .   .   .   .    449
-Chapt e r 5: H e a t  T r a n s f e r  I n t e r f a c e s
-Modeling Heat Transfer 
- 452
-Available Physics Interfaces .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    452
-Coupling Heat Transfer with Other Physics Interfaces.   .   .   .   .   .   .   .    452
-Chapt e r 6: T h e r m o d y n a m i c s
-Using Thermodynamic Properties 
- 454
-Workflow for Thermodynamics Property Calculations   .   .   .   .   .   .   .    454
-Thermodynamics .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    456
-Thermodynamic System  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    457
-External Thermodynamic Packages  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    465
-External Thermodynamic System.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    466
-Predefined System   
-```
 
-### Section 14
+--- Page 137 ---
+T H E  T 
 
-```
-17 ---
- 17
- 1
-User’s Guide Introduction
-This guide describes the Chemical Reaction Engineering Module, an optional 
-package that extends the COMSOL Multiphysics® modeling environment with 
-customized physics interfaces and functionality for the analysis of mass transport, 
-chemical reactions, thermodynamic properties, and other features that are 
-important for chemical engineering simulation.
-This chapter introduces you to the capabilities of the module. A summary of the 
-physics interfaces and where you can find documentation and model examples is 
-also included. The last section is a brief overview with links to each chapter in this 
-guide.
-• About the Chemical Reaction Engineering Module
-• Overview of the User’s Guide
-```
+- Note: There are other definitions of the migration transport equations in the 
+literature which use mobilities expressed in m2/(V·s), whereas COMSOL 
+Multiphysics uses s·mol/kg. To convert mobilities 
 
-### Section 15
+- Note: Some features explained in this section require certain add-on modules. For 
+details see www.comsol.com/products/specifications/
 
-```
-18 ---
-18 |  C H A P T E R  1 :  U S E R ’ S  G U I D E  I N T R O D U C T I O N
-About the Chemical Reaction 
-Engineering Module
-In this section:
-• The Scope of the Chemical Reaction Engineering Module
-• The Chemical Reaction Engineering Module Physics Interface Guide
-• Common Physics Interface and Feature Settings and Nodes
-• The Material Database
-• Where Do I Access the Documentation and Application Libraries?
-The Scope of the Chemical Reaction Engineering Module
-The Chemical Reaction Engineering Module is tailor-made for the modeling of 
-chemical systems primarily affected by chemical composition, reaction kinetics, fluid 
-flow, and temperature as functions of space, time, and each other. It has a number of 
-physics interfaces to model chemical reaction kinetics, mass transport in dilute, 
-concentrated, and electric potential-affected solutions, laminar and porous media 
-flows, and energy transport.
-Included in these physics interfaces are the kinetic expressions for the reacting sy
-```
 
-### Section 16
+--- Page 354 ---
+354 |  C H A P T E R  3 :  C H E M I C A L  S 
 
-```
-19 ---
-A B O U T  T H E  C H E M I C A L  R E A C T I O N  E N G I N E E R I N G  M O D U L E  |  19
-• Meshing a modeling domain with appropriate consideration given to the reaction 
-system’s behavior.
-• Solving the equations that describe a system for stationary or dynamic behavior, or 
-as a parametric or optimization study.
-• Analyzing results to present for further use.
-Once a model is defined, you can go back and make changes to all the branches listed 
-above, while maintaining consistency in the other definitions throughout. You can 
-restart the solver, for example, using the existing solution as an initial guess or even 
-alter the geometry, while the equations and boundary conditions are kept consistent 
-through the associative geometry feature. It is also useful to review the Introduction 
-to the Chemical Reaction Engineering Module included with the module’s 
-documentation.
-While a major focus of this module is on chemical reactors and reacting systems, it is 
-also extensively 
-```
+- Note: The features below are only available in a limited set of add-on products. For a 
+detailed overview of which features are available in each product, visit 
+www.comsol.com/products/specifications
 
-### Section 17
+- Note: Migration is only available in a limited set of add-on products. For a detailed 
+overview of which features are available in each product, visit 
+www.comsol.com/products/specifications/
+In addit
 
-```
-20 ---
-20 |  C H A P T E R  1 :  U S E R ’ S  G U I D E  I N T R O D U C T I O N
-with this module. See the COMSOL Multiphysics Reference Manual for details 
-pertaining to the base package.
-When one or several physics interfaces are chosen from the Model Wizard (or if you 
-open the Add Study window), you select an analysis type (stationary, dynamic, or 
-parametric) and then the modeling interfaces are available as a nodes in the Model 
-Builder along with all the other nodes required for modeling (Definitions, Geometry, 
-and so forth).
-By adding another physics interface, you can account for a phenomenon not previously 
-described in a model. To do this, right-click a Component node in the Model Builder to 
-open the Add Physics window. You can do this at any stage during the modeling 
-process. This action still retains the existing geometry, equations, boundary 
-conditions, and current solution, which you can build upon for further development 
-of the model.
-The table below lists all the 
-```
-
-### Section 18
-
-```
-21 ---
-A B O U T  T H E  C H E M I C A L  R E A C T I O N  E N G I N E E R I N G  M O D U L E  |  21
-PHYSICS INTERFACE
-ICON
-TAG
-SPACE 
-DIMENSION
-AVAILABLE STUDY TYPE
- Chemical Species Transport
-Transport of Diluted 
-Species1
-tds
-all dimensions
-stationary; time dependent
-Transport of 
-Concentrated Species
-tcs
-all dimensions
-stationary; time dependent
-Chemistry
-chem
-all dimensions
-stationary; time dependent
-Reaction Engineering
-re
-0D
-time dependent; stationary 
-plug flow
-Nernst–Planck Equations
-npe
-all dimensions
-stationary; time dependent
-Nernst–Planck–Poisson 
-Equations
-tds+es
-all dimensions
-stationary; time dependent; 
-stationary source sweep; 
-small-signal analysis, 
-frequency domain
-Electrophoretic Transport
-el
-all dimensions
-stationary; stationary with 
-initialization; time 
-dependent; time dependent 
-with initialization
-Transport of Diluted 
-Species in Porous Media
-tds
-all dimensions
-stationary; time dependent
-Transport of 
-Concentrated Species in 
-Porous Media
-tcs
-all dimensions
-
-```
-
-### Section 19
-
-```
-22 ---
-22 |  C H A P T E R  1 :  U S E R ’ S  G U I D E  I N T R O D U C T I O N
-Laminar Flow, 
-Concentrated Species
-—
-3D, 2D, 2D 
-axisymmetric
-stationary; time dependent
- Reacting Flow in Porous Media
-Transport of Diluted 
-Species
-—
-3D, 2D, 2D 
-axisymmetric
-stationary; time dependent
-Transport of 
-Concentrated Species
-—
-3D, 2D, 2D 
-axisymmetric
-stationary; time dependent
-Transport of Diluted 
-Species, Porous 
-Catalyst
-—
-3D, 2D, 2D 
-axisymmetric
-stationary; time dependent
-Transport of 
-Concentrated Species, 
-Porous Catalyst
-—
-3D, 2D, 2D 
-axisymmetric
-stationary; time dependent
-Transport of Diluted 
-Species, Packed Bed
-—
-3D, 2D, 2D 
-axisymmetric
-stationary; time dependent
-Transport of 
-Concentrated Species, 
-Packed Bed
-—
-3D, 2D, 2D 
-axisymmetric
-stationary; time dependent
-Transport of Diluted 
-Species, Packed Bed, 
-Shrinking Core Model
-—
-3D, 2D, 2D 
-axisymmetric
-stationary; time dependent
- Nonisothermal Reacting Flow
-Brinkman Equations
-—
-3D, 2D, 2D 
-axisymmetric
-stationary; time depende
-```
-
-### Section 20
-
-```
-23 ---
-A B O U T  T H E  C H E M I C A L  R E A C T I O N  E N G I N E E R I N G  M O D U L E  |  23
-Laminar Vapor Flow
-—
-3D, 2D, 2D 
-axisymmetric
-stationary; time dependent
-Laminar Two-Phase 
-Flow
-—
-3D, 2D, 2D 
-axisymmetric
-stationary; time dependent
- Precipitation and Crystallization
-Size-Based Population 
-Balance
-pbsb
-all dimensions
-stationary; time dependent
-Laminar Two-Phase 
-Flow
-—
-3D, 2D, 2D 
-axisymmetric, 
-0D
-stationary; time dependent
- Fluid Flow
- Single-Phase Flow
-Creeping Flow
-spf
-3D, 2D, 2D 
-axisymmetric
-stationary; time dependent
-Laminar Flow1
-spf
-3D, 2D, 2D 
-axisymmetric
-stationary; time dependent
- Porous Media and Subsurface Flow
-Brinkman Equations
-br
-3D, 2D, 2D 
-axisymmetric
-stationary; time dependent
-Darcy’s Law
-dl
-all dimensions
-stationary; time dependent
-Free and Porous Media 
-Flow, Brinkman
-fp
-3D, 2D, 2D 
-axisymmetric
-stationary; time dependent
-Free and Porous Media 
-Flow, Darcy
-—
-3D, 2D, 2D 
-axisymmetric
-stationary; time dependent
-PHYSICS INTERFACE
-ICON
-TAG
-SPACE 
-
-```
+- Note: In the Nernst–Planck Equations interface, the ionic species contribute to the 
+charge transfer in the solution. It includes an electroneutrality condition and also 
+computes the electric potenti
 
