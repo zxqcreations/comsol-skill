@@ -112,9 +112,16 @@ sel.set('xmax', str(float_value))    # Raw float ❌ (interpreted as meters, not
 
 ## References
 
-- `references/mph_api.md` — Complete mph Python API reference
+- `references/mph_api.md` — Complete mph Python API reference for COMSOL 6.4
 - `references/mcp_tools.md` — COMSOL MCP tools reference
-- `references/piezo_setup.md` — Piezoelectric material setup guide
-- `references/geometry_guide.md` — 2D/3D/Axisymmetric geometry patterns
-- `references/troubleshooting.md` — Extended troubleshooting guide
-- `references/lessons_learned.md` — All lessons from Scheme 1 build
+- `references/lessons_learned.md` — All lessons from Scheme 1 MXene/BaTiO3 RVE builds
+- `references/troubleshooting.md` — Common issues, symptoms, root causes, and fixes
+- `references/tags_physics.md` — **2021 physics feature types** (all interfaces)
+- `references/tags_geometries.md` — **293 geometry features** with tags
+- `references/tags_multiphysics.md` — **69 multiphysics coupling types**
+- `references/tags_meshes.md` — **46 mesh feature types**
+- `references/tags_studies.md` — **57 study/solver types**
+- `references/tags_materials.md` — Material types and property groups
+- `references/tags_selections.md` — Selection types
+- `references/tags_functions.md` — Function types
+- `references/tags_batches.md` — Batch/sweep types
