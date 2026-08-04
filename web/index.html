@@ -1,5 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+<!--
+  COMSOL Pipeline Dashboard — Generic Template
+  =============================================
+  Copy to project directory and customize:
+  - Sidebar: model name, stage names
+  - Parameters tab: actual material values
+  - 3D model: update Three.js geometry to match project
+  - Documents tab: link to actual project .md files
+
+  Pipeline scripts write progress to pipeline_state.json.
+  This page polls that file every 3 seconds and auto-updates.
+  When state.status == "gui_check", a yellow alert with
+  gui_checklist items appears for manual verification steps.
+-->
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -142,6 +156,19 @@ body {
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg-deep); }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+/* MD Modal */
+.md-modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.7); }
+.md-modal.active { display: flex; align-items: center; justify-content: center; }
+.md-modal-content { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
+  padding: 24px; max-width: 800px; max-height: 85vh; overflow-y: auto; width: 90%; }
+.md-modal-close { float: right; cursor: pointer; color: var(--text-dim); font-size: 22px; font-weight: bold; }
+.md-modal-close:hover { color: var(--text); }
+.md-modal-content h1, .md-modal-content h2 { color: var(--gold); }
+.md-modal-content table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+.md-modal-content th, .md-modal-content td { padding: 6px 10px; border: 1px solid var(--border); font-size: 11px; }
+.md-modal-content code { background: var(--bg-active); padding: 1px 4px; border-radius: 3px; font-family: var(--font-display); font-size: 11px; }
 
 /* Responsive */
 @media (max-width: 768px) {
@@ -287,6 +314,14 @@ body {
     </section>
   </main>
 
+  <!-- MD Modal -->
+  <div class="md-modal" id="md-modal">
+    <div class="md-modal-content">
+      <span class="md-modal-close" id="md-modal-close">&times;</span>
+      <div id="md-render"></div>
+    </div>
+  </div>
+
   <!-- Status bar -->
   <div class="status-bar">
     <span><span class="status-dot idle"></span> COMSOL 6.4 &middot; mph API &middot; 4 cores</span>
@@ -294,6 +329,8 @@ body {
   </div>
 </div>
 
+<!-- Marked.js for MD rendering -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <!-- Three.js Import Map -->
 <script type="importmap">
 {
@@ -558,6 +595,116 @@ window.addLog = function(msg, level) {
   log.appendChild(line);
   log.scrollTop = log.scrollHeight;
 };
+
+// ============================================================
+// Pipeline state polling (reads pipeline_state.json)
+// ============================================================
+async function pollState() {
+  try {
+    const resp = await fetch('pipeline_state.json?t=' + Date.now());
+    if (!resp.ok) return;
+    const state = await resp.json();
+
+    // Update stage indicators
+    if (state.stages) {
+      const items = document.querySelectorAll('.stage-item');
+      const stageOrder = Object.keys(state.stages);
+      items.forEach((item, i) => {
+        item.classList.remove('active', 'done', 'failed');
+        const stage = state.stages[stageOrder[i]] || 'pending';
+        if (stage === 'done') item.classList.add('done');
+        else if (stage === 'running') item.classList.add('active');
+        else if (stage === 'failed') item.classList.add('failed');
+      });
+    }
+
+    // Update metrics
+    if (state.metrics && window.updateMetrics) {
+      window.updateMetrics(state.metrics);
+    }
+
+    // Show GUI checklist if needed
+    if (state.status === 'gui_check' && state.gui_checklist) {
+      const log = document.getElementById('log-content');
+      const alert = document.createElement('div');
+      alert.className = 'log-line warn';
+      alert.innerHTML = '<b>MANUAL CHECK REQUIRED:</b><br>' +
+        state.gui_checklist.map(c => '&nbsp;&nbsp;' + c).join('<br>');
+      log.appendChild(alert);
+      log.scrollTop = log.scrollHeight;
+    }
+
+    // Append new log entries
+    if (state.log && window.addLog) {
+      const existing = document.querySelectorAll('.log-line');
+      const existingMsgs = new Set();
+      existing.forEach(el => existingMsgs.add(el.textContent.trim()));
+      state.log.forEach(entry => {
+        const text = `[${entry.time}] ${entry.msg}`;
+        if (!existingMsgs.has(text)) {
+          window.addLog(entry.msg, entry.level || '');
+        }
+      });
+    }
+  } catch(e) {
+    // pipeline_state.json not yet created — that's fine, try again later
+  }
+}
+
+// Poll every 3 seconds
+setInterval(pollState, 3000);
+pollState();
+
+// ============================================================
+// MD Modal
+// ============================================================
+const mdModal = document.getElementById('md-modal');
+const mdRender = document.getElementById('md-render');
+document.getElementById('md-modal-close').onclick = () => mdModal.classList.remove('active');
+mdModal.onclick = (e) => { if (e.target === mdModal) mdModal.classList.remove('active'); };
+
+async function openMD(path) {
+  try {
+    const resp = await fetch(path);
+    if (!resp.ok) throw new Error('Not found');
+    const text = await resp.text();
+    mdRender.innerHTML = marked.parse(text);
+    mdModal.classList.add('active');
+  } catch(e) {
+    mdRender.innerHTML = '<p style=\"color:#e0556a\">Cannot load: ' + path + '</p>';
+    mdModal.classList.add('active');
+  }
+}
+
+// Update Documents tab from pipeline_state.json, or use defaults
+async function loadDocs() {
+  const container = document.getElementById('tab-documents').querySelector('.card');
+  try {
+    const resp = await fetch('pipeline_state.json?t=' + Date.now());
+    if (resp.ok) {
+      const state = await resp.json();
+      if (state.documents && state.documents.length > 0) {
+        container.innerHTML = '<div class=\"card-header\">Project Documents</div>';
+        state.documents.forEach(doc => {
+          const item = document.createElement('div');
+          item.className = 'doc-item';
+          item.style.cursor = 'pointer';
+          item.innerHTML = `<span class=\"doc-icon\">&#128196;</span>
+            <div><div class=\"doc-name\">${doc.name}</div>
+            <div class=\"doc-desc\">${doc.desc || ''}</div></div>`;
+          item.onclick = () => openMD(doc.path);
+          container.appendChild(item);
+        });
+        return;
+      }
+    }
+  } catch(e) {}
+  // Fallback: make default doc items clickable
+  document.querySelectorAll('.doc-item').forEach(item => {
+    item.style.cursor = 'pointer';
+  });
+}
+loadDocs();
 
 // Initial render
 resizeRenderer();

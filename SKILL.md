@@ -126,6 +126,55 @@ When ANY error or unexpected behavior occurs during modeling or simulation:
 07_plot.py          <- Publication-quality figures (PDF+PNG)
 ```
 
+## Web Dashboard Integration
+
+The pipeline includes a dynamic web dashboard (`web/index.html`) for real-time monitoring:
+
+**Workflow**:
+1. At pipeline start, copy `web/index.html` to the project's output directory and open it
+2. Each pipeline step writes progress to `pipeline_state.json` in the project directory
+3. The dashboard polls this file every 2-3 seconds and updates automatically
+4. Errors appear in red on the Log tab immediately; GUI check steps display in a highlighted panel
+
+**What to update in the dashboard per project**:
+- Model name and description in the sidebar
+- Parameter tables (replace example values with actual project parameters)
+- 3D model geometry (adjust Three.js scene to match the project's RVE/geometry)
+- Document links in the Documents tab (point to actual project .md files)
+
+**State file format** (`pipeline_state.json`, written by each pipeline script):
+
+```json
+{
+  "stage": "03_baseline",
+  "status": "running",
+  "stages": {
+    "01_design": "done",
+    "02_build": "done",
+    "03_baseline": "running",
+    "04_sweep": "pending",
+    "05_extract": "pending",
+    "06_process": "pending",
+    "07_plot": "pending"
+  },
+  "metrics": {"V_max": "28.35 V", "mesh_elements": 1502},
+  "log": [
+    {"time": "09:10:33", "msg": "Model build complete", "level": "success"},
+    {"time": "09:15:00", "msg": "Singular matrix - check BCs", "level": "error"}
+  ],
+  "documents": [
+    {"name": "01_research_plan.md", "path": "01_research_plan.md", "desc": "Research objectives and pipeline design"},
+    {"name": "config.py", "path": "config.py", "desc": "Complete parameter definitions"}
+  ],
+  "gui_checklist": [
+    "Verify d-matrix in Piezoelectric Material node",
+    "Check Ground on correct boundary (z=0)"
+  ]
+}
+```
+
+**When GUI manual check is required**: Set `"status": "gui_check"` and populate `gui_checklist`. The dashboard will display a yellow alert panel with the checklist items.
+
 ## Troubleshooting Quick Reference
 
 | Symptom | Likely Cause | Fix |
