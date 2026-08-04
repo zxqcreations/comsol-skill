@@ -173,25 +173,7 @@ The pipeline includes a dynamic web dashboard (`web/index.html`) for real-time m
 }
 ```
 
-**Dynamic 3D model** (instead of hardcoded demo geometry):
-Add a `"geometry"` field to `pipeline_state.json` with the model shape description. The dashboard reads it at load time and builds the Three.js scene dynamically. Supported shapes: `cylinder`, `sphere`, `block`, `cone`. No change needed to `web/index.html` — it handles geometry from the state file automatically.
-
-```json
-"geometry": {
-  "dimensions": {"r": 250, "h": 400},
-  "layers": [
-    {"type": "cylinder", "z_start": 0, "z_end": 100, "color": "#2a2a35", "label": "Substrate"},
-    {"type": "cylinder", "z_start": 100, "z_end": 400, "color": "#5b9bd5", "opacity": 0.25, "label": "Matrix"}
-  ],
-  "particles": [
-    {"type": "sphere", "r": 45, "z": 160, "color": "#e8c547", "label": "Particle-1"},
-    {"type": "sphere", "r": 45, "z": 250, "color": "#e8c547", "label": "Particle-2"},
-    {"type": "sphere", "r": 45, "z": 345, "color": "#e8c547", "label": "Particle-3"}
-  ]
-}
-```
-
-If `"geometry"` is not present in `pipeline_state.json`, the dashboard falls back to the default demo scene. Each pipeline's `02_build_model.py` should write this geometry block after the model is created.
+**3D model preview**: The dashboard includes a Three.js 3D view. When starting a new project, edit the `buildModelGeometry()` function in `web/index.html` to match the project's COMSOL geometry. This is a hardcoded function using standard Three.js primitives (CylinderGeometry, SphereGeometry, BoxGeometry, etc.) — no abstraction layer needed. Each project writes its own geometry directly in JS. See the `// PER-PROJECT: UPDATE THIS FUNCTION` comment in the file.
 
 **When GUI manual check is required**: Set `"status": "gui_check"` and populate `gui_checklist`. The dashboard will display a yellow alert panel with the checklist items.
 

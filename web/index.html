@@ -400,9 +400,14 @@ const fillLight = new THREE.DirectionalLight('#5b9bd5', 1);
 fillLight.position.set(0, 0, 5);
 scene.add(fillLight);
 
-// Scene scale: 1 unit = 100nm
-// RVE: R=250nm → 2.5 units, H=400nm → 4.0 units
-const scale = 0.01; // 1nm = 0.01 units
+// ============================================================
+// buildModelGeometry() — PER-PROJECT: UPDATE THIS FUNCTION
+// ============================================================
+// Replace the body of this function to match your COMSOL model.
+// Available helpers: cylinder, sphere, box via THREE.js primitives.
+// Scene scale convention: 1 unit = 100nm (adjust scale as needed).
+function buildModelGeometry(scene, meshes) {
+  const scale = 0.01; // 1nm = 0.01 units
 const R = 250 * scale;  // 2.5
 const H_mx = 300 * scale; // 3.0 (MXene)
 const H_gce = 100 * scale; // 1.0 (GCE)
@@ -515,6 +520,11 @@ function createLabel(text, position, color = '#e4e8f0') {
 btoPositions.forEach(({ z }, i) => {
   scene.add(createLabel(`Particle-${i+1}`, new THREE.Vector3(a + 0.4, z, 0), '#e8c547'));
 });
+} // END buildModelGeometry()
+
+// Call the geometry builder
+const modelMeshes = { particles: [], labels: [] };
+buildModelGeometry(scene, modelMeshes);
 
 // Animation
 const clock = new THREE.Clock();
