@@ -156,25 +156,29 @@ When ANY error or unexpected behavior occurs during modeling or simulation:
 - `references/api_core.md` — **COMSOL core API**: Geometry, Mesh, Studies, Results (from official docs)
 - `references/api_structural.md` — **Structural Mechanics**: Solid, Piezo, Shell, Beam, Multibody
 - `references/api_acdc.md` — **AC/DC Module**: Electrostatics, Currents, Magnetic Fields
-- `references/api_thermal_cfd.md` — **Heat Transfer + CFD**: Thermal, Laminar, Turbulent Flow
-- `references/api_echem.md` — **Electrochemistry + Chemical**: Current distribution, Transport
+- `references/api_heat_transfer.md` — **Heat Transfer**: Conduction, Convection, Radiation
+- `references/api_fluid_flow.md` — **Fluid Flow (CFD)**: Laminar, Turbulent, Creeping
+- `references/api_echem.md` — **Electrochemistry**: Current Distribution, Butler-Volmer
+- `references/api_acoustics_mems.md` — **Acoustics + MEMS**: Pressure Acoustics, Couplings
+- `references/mcp_tools.md` — **COMSOL MCP tools**: Session, geometry, physics, results, docs
+
 ## Module Coverage (13/13 Complete)
 
-| # | Module | Reference | Lines |
-|---|--------|-----------|-------|
-| 1 | AC/DC | `references/api_acdc.md` | 308 |
-| 2 | Acoustics | `references/api_acoustics_mems.md` | 385 |
-| 3 | Chemical Species Transport | `references/api_chemical_transport.md` | 607 |
-| 4 | Electric Discharge | `references/api_electric_discharge.md` | 540 |
-| 5 | Electrochemistry | `references/api_echem.md` | 312 |
-| 6 | Fluid Flow | `references/api_fluid_flow.md` | 179 |
-| 7 | Heat Transfer | `references/api_heat_transfer.md` | 155 |
-| 8 | Optics (Ray + Wave) | `references/api_optics.md` | 1,159 |
-| 9 | Plasma | `references/api_plasma.md` | 610 |
-| 10 | Radio Frequency | `references/api_rf.md` | 694 |
-| 11 | Semiconductor | `references/api_semiconductor.md` | 573 |
-| 12 | Structural Mechanics | `references/api_structural.md` | 560 |
-| 13 | Mathematics (PDE/ODE) | `references/api_mathematics.md` | 183 |
-| — | COMSOL Core | `references/api_core.md` | 829 |
+| # | Module | Reference | Quality |
+|---|--------|-----------|--------|
+| 1 | AC/DC | `references/api_acdc.md` | Workflow-generated |
+| 2 | Acoustics + MEMS | `references/api_acoustics_mems.md` | Workflow-generated |
+| 3 | Chemical Species Transport | `references/api_chemical_transport.md` | Hand-written |
+| 4 | Electric Discharge | `references/api_electric_discharge.md` | Hand-written |
+| 5 | Electrochemistry | `references/api_echem.md` | Workflow-generated |
+| 6 | Fluid Flow | `references/api_fluid_flow.md` | Workflow-generated |
+| 7 | Heat Transfer | `references/api_heat_transfer.md` | Workflow-generated |
+| 8 | Optics (Ray + Wave) | `references/api_optics.md` | Hand-written |
+| 9 | Plasma | `references/api_plasma.md` | Hand-written |
+| 10 | Radio Frequency | `references/api_rf.md` | Hand-written |
+| 11 | Semiconductor | `references/api_semiconductor.md` | Hand-written |
+| 12 | Structural Mechanics | `references/api_structural.md` | Workflow-generated |
+| 13 | Mathematics (PDE/ODE) | `references/api_mathematics.md` | Hand-written |
+| — | COMSOL Core | `references/api_core.md` | Workflow-generated |
 
-**Total: 7,166 lines across 14 reference files**
+**7 hand-written + 7 workflow-generated = 14 files. All audited with 0 remaining issues.**
