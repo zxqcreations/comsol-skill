@@ -50,6 +50,49 @@ Both share the same type string `SecondaryCurrentDistribution`; the UI node has 
 `Current Distribution Type` setting (Primary/Secondary) that converts between them.
 Current Distribution Type governs electrode-reaction treatment:
 - **Primary** → potential constraints (Dirichlet): φl = φs − Eeq on electrode–electrolyte interfaces (η = 0).
+- **Secondary** → Butler-Volmer kinetics: i_loc = f(η).
+
+### Butler-Volmer Equation
+
+The fundamental electrode kinetics equation, used in all Secondary/Tertiary current distribution interfaces:
+
+```
+i_loc = i₀ [exp(αₐFη/(RT)) − exp(−αcFη/(RT))]
+```
+
+| Parameter | Symbol | mph Property | Unit | Description |
+|-----------|--------|-------------|------|-------------|
+| Exchange current density | i₀ | `i0` | A/m² | Baseline reaction rate at equilibrium |
+| Anodic transfer coefficient | αₐ | `alpha_a` | 1 | Typically 0.3–0.7 |
+| Cathodic transfer coefficient | αc | `alpha_c` | 1 | αₐ + αc = 1 for single-electron |
+| Overpotential | η | — | V | η = φs − φl − Eeq |
+| Equilibrium potential | Eeq | `Eeq` | V | Nernst equation or user-defined |
+| Faraday constant | F | — | 96485 C/mol | Built-in constant |
+| Gas constant | R | — | 8.314 J/(mol·K) | Built-in constant |
+| Temperature | T | `T` | K | From physics or user-defined |
+
+**Simplified forms**:
+- **Tafel** (high |η|): i_loc = i₀ exp(αₐFη/(RT)) — anodic; i_loc = −i₀ exp(−αcFη/(RT)) — cathodic
+- **Linear** (low |η| << RT/F ≈ 25.7 mV): i_loc = i₀Fη/(RT)
+
+**mph API usage**:
+```python
+# Create electrode reaction with Butler-Volmer kinetics
+er = electrode.feature().create('er1', 'ElectrodeReaction')
+er.set('kinetics_type', 'ButlerVolmer')
+er.set('i0_type', 'MassActionLaw')  # or 'UserDefined'
+er.set('i0', '1[A/m^2]')            # Exchange current density
+er.set('alpha_a', '0.5')             # Anodic transfer coefficient
+er.set('alpha_c', '0.5')             # Cathodic transfer coefficient
+er.set('Eeq_type', 'Nernst')         # or 'UserDefined'
+er.set('Eeq_ref', 'E0_formal')       # Formal potential
+```
+
+**Mass-action-law i₀** (for [Fe(CN)₆]³⁻ + e⁻ ⇌ [Fe(CN)₆]⁴⁻):
+```
+i₀ = F·k⁰·c_ox^(αc)·c_red^(αₐ)
+```
+Properties: `k0` (standard rate constant, m/s), stoichiometric coefficients (`stoich_<species>`)
 - **Secondary** → current-flux conditions (Neumann): n·il = Σm iloc,m and n·is = −Σm iloc,m.
 
 Top-node settings: Label/Name (default `cd`), Domain Selection, Out-of-plane Thickness d (2D) / Cross-sectional Area Ac (1D), `Physics vs. Materials Reference Electrode Potential` (scales Eeq/i0 between physics scale and materials node), Discretization (Linear default, Quadratic recommended for porous electrodes), dependent variables phil + phis.

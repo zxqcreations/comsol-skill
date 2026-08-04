@@ -1,0 +1,4722 @@
+=== HeatTransferModuleUsersGuide.pdf (1068 pages) ===
+TOC:Contents (p.3)
+TOC:Introduction (p.25)
+TOC:  About the Heat Transfer Module (p.26)
+TOC:    Why Heat Transfer Is Important to Modeling (p.26)
+TOC:    How the Heat Transfer Module Improves Your Modeling (p.27)
+TOC:    The Heat Transfer Module Physics Interface Guide (p.27)
+TOC:    Common Physics Interface and Feature Settings and Nodes (p.36)
+TOC:    The Heat Transfer Module Study Capabilities (p.36)
+TOC:    Additional Materials Database (p.41)
+TOC:    Where Do I Access the Documentation and Application Libraries? (p.42)
+TOC:      The Documentation and Online Help (p.42)
+TOC:      The Application Libraries Window (p.43)
+TOC:      Contacting COMSOL by Email (p.44)
+TOC:      COMSOL Access and Technical Support (p.44)
+TOC:      COMSOL Online Resources (p.44)
+TOC:  Overview of the User’s Guide (p.45)
+TOC:    Table of Contents, NOTATIONS, and Index (p.45)
+TOC:    Modeling with the Heat Transfer Module (p.45)
+TOC:    Theory for the Heat Transfer Module (p.45)
+TOC:    The Heat Transfer Module Interfaces (p.46)
+TOC:    The Heat Transfer Features (p.47)
+TOC:    The Moisture Transport Features (p.47)
+TOC:    The Heat Transfer Multiphysics Interfaces (p.48)
+TOC:    The Heat Transfer Multiphysics Couplings (p.49)
+TOC:Notations (p.51)
+TOC:  Symbols (p.52)
+TOC:    Latin Symbols (p.52)
+TOC:    Greek Symbols (p.62)
+TOC:Modeling with the Heat Transfer Module (p.67)
+TOC:  Heat Transfer Variables (p.68)
+TOC:    Predefined Variables (p.68)
+TOC:    Global Variables for Heat and Energy Balance (p.72)
+TOC:      Total Accumulated Heat Rate (p.72)
+TOC:      Total Net Heat Rate (p.72)
+TOC:      Total Heat Source (p.72)
+TOC:      Total Stress Power (p.73)
+TOC:      Total Accumulated Energy Rate (p.73)
+TOC:      Total Net Energy Rate (p.73)
+TOC:      Total Work Source (p.73)
+TOC:      Heat Balance (p.74)
+TOC:      Energy Balance (p.75)
+TOC:    Domain Fluxes (p.76)
+TOC:      Total Heat Flux (Heat Transfer Interface) (p.76)
+TOC:      Conductive Heat Flux (Heat Transfer Interface) (p.76)
+TOC:      Turbulent Heat Flux (Heat Transfer Interface) (p.77)
+TOC:      Convective Heat Flux (Heat Transfer Interface) (p.77)
+TOC:      Radiative Heat Flux (Heat Transfer Interface) (p.77)
+TOC:      Total Enthalpy Flux (Heat Transfer Interface) (p.77)
+TOC:      Total Energy Flux (Heat Transfer Interface) (p.78)
+TOC:    Out-of-Plane Domain Fluxes (p.78)
+TOC:      Radiative Out-of-Plane Heat Flux (Heat Transfer Interface) (p.78)
+TOC:      Out-of-Plane Heat Flux (Heat Transfer Interface) (p.78)
+TOC:      Total Out-of-Plane Heat Flux (Heat Transfer Interface) (p.79)
+TOC:    Boundary Fluxes (Heat Transfer Interface) (p.79)
+TOC:      Normal Total Heat Flux (Heat Transfer Interface) (p.79)
+TOC:      Normal Conductive Heat Flux (Heat Transfer Interface) (p.79)
+TOC:      Normal Convective Heat Flux (Heat Transfer Interface) (p.79)
+TOC:      Normal Total Energy Flux (Heat Transfer Interface) (p.80)
+TOC:      Normal Total Enthalpy Flux (Heat Transfer Interface) (p.80)
+TOC:      Inward Heat Flux (Heat Transfer Interface) (p.80)
+TOC:      Radiative Heat Flux (Heat Transfer Interface) (p.80)
+TOC:    Internal Boundary Heat Fluxes (p.80)
+TOC:      Internal Normal Conductive Heat Flux, Upside (Heat Transfer Interface) (p.80)
+TOC:      Internal Normal Conductive Heat Flux, Downside (Heat Transfer Interface) (p.81)
+TOC:      Internal Normal Convective Heat Flux, Upside (Heat Transfer Interface) (p.81)
+TOC:      Internal Normal Convective Heat Flux, Downside (Heat Transfer Interface) (p.81)
+TOC:      Internal Normal Total Heat Flux, Upside (Heat Transfer Interface) (p.81)
+TOC:      Internal Normal Total Heat Flux, Downside (Heat Transfer Interface) (p.81)
+TOC:    Internal Boundary Energy Fluxes (p.82)
+TOC:      Internal Normal Total Energy Flux, Upside (Heat Transfer Interface) (p.82)
+TOC:      Internal Normal Total Energy Flux, Downside (Heat Transfer Interface) (p.82)
+TOC:      Internal Normal Enthalpy Flux, Upside (Heat Transfer Interface) (p.82)
+TOC:      Internal Normal Enthalpy Flux, Downside (Heat Transfer Interface) (p.82)
+TOC:    Domain Heat Sources (p.82)
+TOC:    Boundary Heat Sources (p.83)
+TOC:    Line and Point Heat Sources (p.83)
+TOC:    Moist Air Variables (p.83)
+TOC:      Dew Point Temperature (p.83)
+TOC:      Equivalent Temperature (p.84)
+TOC:      Saturation Pressure (p.85)
+TOC:      Relative Humidity (p.85)
+TOC:      Latent Heat of Evaporation (p.85)
+TOC:  Moisture Transport Variables (p.86)
+TOC:    Predefined Variables (p.86)
+TOC:    Moist Air Properties (p.88)
+TOC:      Partial and Saturation Pressures of Water Vapor (p.88)
+TOC:      Saturation Concentration of Water Vapor (p.88)
+TOC:      Humidity Ratio (p.88)
+TOC:      Vapor Mass Fraction (p.88)
+TOC:      Liquid, Vapor, and Moisture Concentrations (p.89)
+TOC:      Concentrations and Contents (p.89)
+TOC:      Moisture Content (p.89)
+TOC:      Latent Heat of Evaporation (p.89)
+TOC:    Domain Moisture Fluxes (p.90)
+TOC:      Convective Moisture Flux (p.90)
+TOC:      Diffusive Moisture Flux (p.90)
+TOC:      Total Moisture Flux (p.91)
+TOC:      Total Moisture Flux Magnitude (p.91)
+TOC:    Boundary Moisture Fluxes (p.91)
+TOC:      Normal Convective Moisture Flux (p.91)
+TOC:      Internal Normal Convective Moisture Flux, Upside (p.91)
+TOC:      Internal Normal Convective Moisture Flux, Downside (p.91)
+TOC:      Normal Diffusive Moisture Flux (p.91)
+TOC:      Internal Normal Diffusive Moisture Flux, Upside (p.91)
+TOC:      Internal Normal Diffusive Moisture Flux, Downside (p.92)
+TOC:      Normal Total Moisture Flux (p.92)
+TOC:      Internal Normal Total Moisture Flux, Upside (p.92)
+TOC:      Internal Normal Total Moisture Flux, Downside (p.92)
+TOC:      Total Moisture Flux (p.92)
+TOC:    Domain Moisture Source (p.92)
+TOC:    Mass Balance (p.92)
+TOC:  Using the Boundary Conditions for the Heat Transfer Interfaces (p.94)
+TOC:    Temperature and Heat Flux Boundary Conditions (p.94)
+TOC:    Overriding Mechanism for Heat Transfer Boundary Conditions (p.95)
+TOC:  Handling Frames in Heat Transfer (p.98)
+TOC:    Heat Transfer Analysis with Moving Frames (p.98)
+TOC:      Physics Feature Nodes and Definition Frame (p.99)
+TOC:      Definition Frame of Domain Nodes (p.100)
+TOC:      Definition Frame of Boundary Nodes (p.102)
+TOC:      Definition Frame of Edge and Point Nodes (p.103)
+TOC:    Material Density in Features Defined in the Material Frame (p.103)
+TOC:  Heat Transfer Consistent and Inconsistent Stabilization Methods (p.105)
+TOC:    Consistent Stabilization (p.105)
+TOC:      Streamline Diffusion (p.105)
+TOC:      Crosswind Diffusion (p.105)
+TOC:      Stabilization time scales (p.105)
+TOC:    Inconsistent Stabilization (p.106)
+TOC:  Heat Transfer and Fluid Flow Coupling (p.107)
+TOC:    Coupling Based on Model Inputs (p.107)
+TOC:    Adding Nonisothermal Flow Coupling in an Existing Model (p.108)
+TOC:    Nonisothermal Flow and Conjugate Heat Transfer Multiphysics Interfaces (p.108)
+TOC:  Boundary Wall Temperature (p.110)
+TOC:    Intersection Between a Wall Boundary Feature Selection and Interface Exterior Boundaries (p.112)
+TOC:    Interface Between a Fluid Domain Feature and a Solid Domain Feature Where a Wall Boundary Feature Is Active (p.113)
+TOC:    Interface Between two Fluid Domain Features Where an Interior Wall Boundary Feature Is Active (p.115)
+TOC:  Solver Settings (p.116)
+TOC:    Linearity Property of the Temperature Equation (p.116)
+TOC:    Linear Solver (p.117)
+TOC:      Default Linear Settings for Heat Transfer and Moisture Transport interfaces (p.117)
+TOC:      Default linear Settings for The Lumped Thermal System Interface (p.117)
+TOC:      Tuning Linear Solver (p.118)
+TOC:    Nonlinear Solver (p.119)
+TOC:      Default Nonlinear Settings for Heat Transfer Interfaces (p.119)
+TOC:      Default Nonlinear Settings for Moisture Transport Interfaces (p.120)
+TOC:      Default Nonlinear Settings for The Lumped Thermal System Interface (p.120)
+TOC:      Tuning the Nonlinear Solver (p.121)
+TOC:    Time Dependent Study Step (p.122)
+TOC:      Default Time Settings for Heat Transfer Interfaces (p.122)
+TOC:      Default Time Settings for Moisture Transport Interfaces (p.123)
+TOC:      Tuning the Time-Dependent Solver (p.123)
+TOC:    Guidelines for Solving Surface-to-Surface Radiation Problems (p.124)
+TOC:    Guidelines for Solving Radiation in Participating Media and Radiation in Absorbing-Scattering Media Problems (p.124)
+TOC:    Guidelines for Solving Multiphysics Problems (p.125)
+TOC:      Multiphysics Models (p.125)
+TOC:      Multiphysics Couplings (p.125)
+TOC:  Plotting and Evaluating Results in Layered Materials (p.128)
+TOC:    Plotting Along and Through the Layered Material (p.128)
+TOC:    Built-in Operators for Evaluation in the Layered Material (p.129)
+TOC:      Evaluation Along the Layered Material (p.129)
+TOC:      Evaluation Through the Layered Material (p.130)
+TOC:      Integration in the Layered Material (p.131)
+TOC:      Localization of the Evaluation in the Thin Layer (p.131)
+TOC:  Evaluating the Bulk Temperature (p.133)
+TOC:    Bulk Temperature Definition (p.133)
+TOC:    Evaluation of the Bulk Temperature in 3D Models (p.134)
+TOC:    Evaluation of the Bulk Temperature in 2D Models (p.134)
+TOC:  Ambient Properties (p.137)
+TOC:    Settings for the Ambient Properties (p.137)
+TOC:    Processing of ASHRAE Data (p.142)
+TOC:    Ambient Data Interpolation (p.143)
+TOC:    Ambient Variables and Conditions (p.143)
+TOC:      Conditions of Temperature (p.143)
+TOC:      Conditions of Dew-Point Temperature (p.147)
+TOC:      Conditions of Wind Speed (p.148)
+TOC:      Conditions of Precipitation Rate (p.149)
+TOC:      Pressure (p.150)
+TOC:      Relative Humidity (p.150)
+TOC:      Moisture Content (p.151)
+TOC:      Direct and Diffuse Solar Irradiances (p.151)
+TOC:    Use of Ambient Data from the Features (p.152)
+TOC:  Modeling Heat Transfer by Radiation (p.154)
+TOC:    Interfaces and Features for Radiation in Transparent Media (p.156)
+TOC:    Surface-to-Surface Radiation and Topology Consistency (p.157)
+TOC:    Interfaces and Features for Radiation in Participating Media (p.158)
+TOC:  Specifying the Temperature at a Flow Inlet (p.161)
+TOC:    Using the Temperature Condition (p.161)
+TOC:    Using the Inflow Condition (p.161)
+TOC:    Temperature Contribution to the Inflow Boundary Condition (p.163)
+TOC:    Pressure Contribution to the Inflow Boundary Condition (p.164)
+TOC:    Choosing Between the Temperature and the Inflow Conditions (p.164)
+TOC:  Heat Part Library (p.165)
+TOC:    Heat Part Library Contents (p.165)
+TOC:    Heat Sink — Parameterized Fin Types Part (p.168)
+TOC:      3D and Shell Fins (p.168)
+TOC:      Step (p.169)
+TOC:      Fillet (p.170)
+TOC:    Heat Sink — Dissimilar Border Pins Part (p.171)
+TOC:    Heat Sink — Pin Fins Part (p.171)
+TOC:    Heat Sink — Straight Fins Part (p.171)
+TOC:  References (p.172)
+TOC:Theory for the Heat Transfer Module (p.173)
+TOC:  Foundations of the General Heat Transfer Equation (p.175)
+TOC:    Thermodynamic Description of Heat Transfer (p.175)
+TOC:      Extensive Parameters Characterizing a System (p.175)
+TOC:      First-Order Parameters (p.176)
+TOC:      Second-Order Parameters (p.177)
+TOC:      Sensible enthalpy (p.178)
+TOC:    The Physical Mechanisms Underlying Heat Transfer (p.180)
+TOC:    The Heat Balance Equation (p.181)
+TOC:      Integral Form (p.181)
+TOC:      Localized Form (p.182)
+TOC:    Consistency with Mass and Momentum Conservation Laws (p.184)
+TOC:  Theory for Heat Transfer in Solids (p.186)
+TOC:  Theory for Heat Transfer in Fluids (p.187)
+TOC:    Theory for the Inflow Boundary Condition (p.188)
+TOC:      Danckwerts Condition (p.188)
+TOC:      Temperature Contribution to the Inflow Boundary Condition (p.188)
+TOC:      Pressure Contribution to the Inflow Boundary Condition (p.189)
+TOC:  Theory for Heat Transfer in Moist Air (p.190)
+TOC:    Humidity (p.190)
+TOC:      Moisture Content (p.190)
+TOC:      Relative Humidity (p.190)
+TOC:      Specific Humidity (p.191)
+TOC:      Concentration (p.191)
+TOC:    Saturation State (p.192)
+TOC:    Moist Air Properties (p.192)
+TOC:      Preliminary Definitions (p.192)
+TOC:      Mixture Properties (p.193)
+TOC:      Pure Component Properties (p.195)
+TOC:      Results and Analysis Variables (p.195)
+TOC:      Functions (p.195)
+TOC:  Theory for Bioheat Transfer (p.197)
+TOC:    The Bioheat Equation (p.197)
+TOC:    Damaged Tissue (p.197)
+TOC:  Theory for Heat Transfer in Porous Media (p.201)
+TOC:    When Should Local Thermal Equilibrium and Nonequilibrium Be Considered? (p.202)
+TOC:    Local Thermal Equilibrium (p.203)
+TOC:    Local Thermal Nonequilibrium (p.205)
+TOC:      Equations for Local Nonequilibrium Heat Transfer (p.205)
+TOC:      Correlation for the Interstitial Convective Heat Transfer Coefficient (p.206)
+TOC:      Volumetric and Surface Thermal Conditions (p.207)
+TOC:    Packed Bed of Pellets (p.207)
+TOC:      Equations for Heat Transfer in a Packed Bed of Pellets (p.208)
+TOC:    Theory for Heat Transfer in Moist Porous Media (p.210)
+TOC:  Theory for Heat Transfer with Phase Change (p.212)
+TOC:    Heat Transfer with Phase Change (p.212)
+TOC:    Arbitrary Lagrangian–Eulerian Method (p.212)
+TOC:    Apparent Heat Capacity Method (p.214)
+TOC:      Phase Change in Solid Materials (p.216)
+TOC:      Phase Transition Function (p.217)
+TOC:  Theory for Heat Transfer in Building Materials (p.218)
+TOC:  Theory for Harmonic Heat Transfer (p.220)
+TOC:  Theory for Lumped Isothermal Domain (p.222)
+TOC:    Thermal Insulation (p.223)
+TOC:    Continuity (p.223)
+TOC:    Ventilation (p.223)
+TOC:    Convective Heat Flux (p.224)
+TOC:    Thermal Contact (p.224)
+TOC:  Theory for Heat Transfer in Thin Structures (p.225)
+TOC:    Modeling Layered Materials (p.225)
+TOC:      Reduced Mesh Element Number (p.226)
+TOC:      Thin Structure as an Extra Dimension (p.227)
+TOC:      Tangential and Normal Gradients (p.227)
+TOC:      Area Scale Factor (p.229)
+TOC:      Thermal Conductivity Tensor in Local Boundary Systems (p.229)
+TOC:    Theoretical Background of the Different Formulations (p.230)
+TOC:      General Formulation (p.230)
+TOC:      Thermally Thin Approximation (p.231)
+TOC:      Thermally Thick Approximation (p.232)
+TOC:      Upside, Downside, and Exterior Temperatures (p.233)
+TOC:      Formulations Available Within the Features (p.235)
+TOC:    Thin Layer (p.235)
+TOC:      General Formulation (p.235)
+TOC:      Thermally Thin Approximation (p.236)
+TOC:      Thermally Thick approximation (p.238)
+TOC:    Thin Film (p.239)
+TOC:      General Formulation (p.239)
+TOC:      Thermally Thin Approximation (p.240)
+TOC:    Fracture (p.241)
+TOC:    Thin Rod (p.242)
+TOC:  Theory for the Lumped Thermal System Interface (p.243)
+TOC:    Temperature Differences and Heat Rates in the Lumped Thermal System (p.243)
+TOC:    Theory for the Conductive Thermal Resistor Component (p.245)
+TOC:      Thermal Resistance Analogy for Steady Conduction (p.245)
+TOC:      Steady Conduction Through a Composite Wall (p.246)
+TOC:      Convectively Enhanced Conductivity (p.248)
+TOC:      Radiation in Optically Thick Participating Medium (p.248)
+TOC:    Theory for the Radiative Thermal Resistor Component (p.248)
+TOC:      Two-Surface Enclosure (p.249)
+TOC:    Theory for the Thermal Capacitor and Thermal Mass Components (p.251)
+TOC:      Thermal Capacitance (p.251)
+TOC:      Lumped Thermal Capacitance Model (p.251)
+TOC:    Theory for the Heat Pipe Component (p.252)
+TOC:      Device Description (p.252)
+TOC:      Network Representation (p.252)
+TOC:    Theory for the Thermoelectric Module Component (p.254)
+TOC:      Device Description (p.254)
+TOC:      Heat Rate (p.255)
+TOC:      Thermocouple Electric and Thermal Resistances (p.255)
+TOC:      Thermocouple Seebeck Coefficient (p.256)
+TOC:      Total Heat Rate (p.256)
+TOC:      Network Representation (p.256)
+TOC:      Performance Graphs for Thermoelectric Coolers (p.256)
+TOC:  Theory for Cell Periodicity (p.258)
+TOC:    Homogenization method (p.258)
+TOC:    Uniform temperature gradient boundary condition (p.259)
+TOC:    Periodic temperature boundary conditions (p.259)
+TOC:    Prescribed average temperature gradient (p.260)
+TOC:  Theory for Thermal Connection (p.261)
+TOC:    Conductive Thermal Resistor (p.261)
+TOC:      Thermal Resistance Analogy for Steady Conduction (p.261)
+TOC:      Steady Conduction Through a Composite Wall (p.262)
+TOC:      Convectively Enhanced Conductivity (p.264)
+TOC:      Radiation in Optically Thick Participating Medium (p.264)
+TOC:    Thermal Capacitor (p.264)
+TOC:      Thermal Capacitance (p.265)
+TOC:      Lumped Thermal Capacitance Model (p.265)
+TOC:  Theory for Surface-to-Surface Radiation (p.267)
+TOC:    Deriving the Directional Dependence of Surface Properties for Dielectric Windows (p.267)
+TOC:    Deriving the Directional Dependence of Surface Properties for Refractive Interface (p.270)
+TOC:    Deriving the Radiative Heat Flux for Opaque Surfaces (p.272)
+TOC:    Deriving the Radiative Heat Flux for Semitransparent Surfaces (p.274)
+TOC:    Deriving the Radiative Heat Fluxes for Radiation Shields (p.276)
+TOC:      Single-layer insulation (p.276)
+TOC:      Multilayer insulation (p.277)
+TOC:    Wavelength Dependence of Surface Properties (p.278)
+TOC:      Planck Spectral Distribution (p.278)
+TOC:      Gray Surfaces (p.281)
+TOC:      Solar and Ambient Spectral Bands (p.281)
+TOC:      General Spectral Surfaces (p.283)
+TOC:    Directional Dependence of Surface Properties (p.284)
+TOC:    The Radiosity Method for Diffuse-Gray Surfaces (p.284)
+TOC:    The Radiosity Method for Diffuse-Spectral Surfaces (p.287)
+TOC:    View Factor Evaluation (p.290)
+TOC:      View Factor for External Radiation Sources (p.292)
+TOC:      Solar Position (p.293)
+TOC:      Radiation in Axisymmetric Geometries (p.293)
+TOC:      Fluence rate (p.294)
+TOC:  Theory for Orbital Thermal Loads (p.295)
+TOC:    Coordinate Systems (p.295)
+TOC:    Defining the Position of the Spacecraft Over Time (p.296)
+TOC:    Orienting the Spacecraft (p.298)
+TOC:    Modeling the Planet (p.300)
+TOC:    Modeling of Fast Tumbling (p.301)
+TOC:  Theory for Radiation in Participating Media (p.302)
+TOC:    Radiation and Participating Media Interactions (p.303)
+TOC:    Radiative Transfer Equation (p.304)
+TOC:      Scattering Phase Function (p.305)
+TOC:      Incident Radiation (p.306)
+TOC:    Boundary Condition for the Radiative Transfer Equation (p.306)
+TOC:    Heat Transfer Equation in Participating Media (p.308)
+TOC:    Discrete Ordinates Method (DOM) (p.308)
+TOC:      Radiation in Participating Media (p.309)
+TOC:      Opaque Surface (p.309)
+TOC:      Semitransparent Surface (p.310)
+TOC:      Incident Intensity (p.310)
+TOC:      Radiative Source (p.310)
+TOC:    Discrete Ordinates Method Implementation in 2D (p.311)
+TOC:    Discrete Ordinates Method Implementation in 2D Axisymmetry (p.312)
+TOC:    P1 Approximation Theory (p.313)
+TOC:      Radiation in Participating Media (p.314)
+TOC:      Opaque Surface (p.315)
+TOC:      Incident Intensity (p.315)
+TOC:      Radiative Source (p.316)
+TOC:    Radiation in Absorbing–Scattering Media Theory (p.316)
+TOC:    Polychromatic Radiation (p.317)
+TOC:    Weighted Sum of Gray Gases Model (WSGG) (p.318)
+TOC:    Radiative Beam in Absorbing Media Theory (p.319)
+TOC:    Rosseland Approximation Theory (p.320)
+TOC:  Theory for Moisture Transport (p.322)
+TOC:    Theory for Moisture Transport in Air (p.322)
+TOC:      Diluted Species Formulation (p.322)
+TOC:      Concentrated Species Formulation (p.323)
+TOC:    Theory for Moisture Transport in Building Materials (p.324)
+TOC:  Theory for Moisture Transport in Porous Media (p.327)
+TOC:    Equilibrium Moisture Transport (p.329)
+TOC:    Nonequilibrium Moisture Transport (p.332)
+TOC:    Capillary Pressure Models (p.334)
+TOC:      Van Genuchten Model (p.334)
+TOC:      Brooks and Corey model (p.334)
+TOC:  Theory for the Heat Transfer Multiphysics Couplings (p.336)
+TOC:    Theory for the Nonisothermal Flow and Conjugate Heat Transfer Interfaces (p.336)
+TOC:      The Nonisothermal Flow and Conjugate Heat Transfer Equations (p.337)
+TOC:      Turbulent Nonisothermal Flow Theory (p.338)
+TOC:      Theory for the Nonisothermal Screen Boundary Condition (p.346)
+TOC:      Theory for the Interior Fan Boundary Condition (p.346)
+TOC:    Theory for the Moisture Flow Interface (p.346)
+TOC:      The Moisture Flow Equations (p.347)
+TOC:      Stefan Flow at Walls (p.349)
+TOC:      Turbulent Moisture Flow Theory (p.350)
+TOC:      Theory for the Screen Boundary Condition in Moisture Flow (p.352)
+TOC:      Theory for the Interior Fan Boundary Condition in Moisture Flow (p.352)
+TOC:    Theory for the Thermoelectric Effect Interface (p.353)
+TOC:      How the Seebeck, Peltier, and Thomson Effects are Included in the General Formulation (p.354)
+TOC:    Theory for the Building Materials Version of the Heat and Moisture Transport Interface (p.355)
+TOC:    Theory for the Moist Air Version of the Heat and Moisture Transport Interface (p.356)
+TOC:    Theory for the Moist Porous Media Version of the Heat and Moisture Transport Interface (p.357)
+TOC:    Theory for the Heat and Moisture Flow Interfaces (p.358)
+TOC:    Theory for the Electromagnetic Heating Interfaces (p.358)
+TOC:    Theory for the Thermal Stress Interface (p.358)
+TOC:  Theory for Thermal Contact (p.360)
+TOC:    Theory for the Thermal Contact Feature (p.360)
+TOC:      Surface Asperities (p.360)
+TOC:      Constriction Conductance (p.361)
+TOC:      Gap Conductance (p.362)
+TOC:      Radiative Conductance (p.363)
+TOC:      Thermal Friction (p.363)
+TOC:      References (p.364)
+TOC:  Out-of-Plane Heat Transfer (p.365)
+TOC:    Equation Formulation (p.365)
+TOC:      2D Geometries (p.365)
+TOC:      1D Axisymmetric Geometries (p.366)
+TOC:      1D Geometries (p.366)
+TOC:  Convective Heat Transfer Correlations (p.368)
+TOC:    Defining the Heat Transfer Coefficients (p.369)
+TOC:    Nature of the Flow — The Grashof Number (p.370)
+TOC:    Heat Transfer Coefficients — External Natural Convection (p.372)
+TOC:      Vertical Wall (p.372)
+TOC:      Inclined Wall (p.373)
+TOC:      Horizontal Plate, Upside (p.374)
+TOC:      Horizontal Plate, Downside (p.375)
+TOC:      Long Horizontal Cylinder (p.376)
+TOC:      Sphere (p.377)
+TOC:      Vertical Thin Cylinder (p.378)
+TOC:    Heat Transfer Coefficients — Internal Natural Convection (p.379)
+TOC:      Narrow Chimney, Parallel Plates (p.379)
+TOC:      Narrow Chimney, Circular Tube (p.379)
+TOC:    Heat Transfer Coefficients — External Forced Convection (p.380)
+TOC:      Plate, Averaged Transfer Coefficient (p.380)
+TOC:      Plate, Local Transfer Coefficient (p.381)
+TOC:      Cylinder in Cross-Flow (p.382)
+TOC:      Sphere (p.382)
+TOC:    Heat Transfer Coefficients — Internal Forced Convection (p.383)
+TOC:      Isothermal Tube (p.383)
+TOC:    Using the Heat and Mass Transfer Analogy for the Evaluation of Moisture Transfer Coefficients (p.384)
+TOC:  Nucleate Pool Boiling Correlation (p.385)
+TOC:    Rohsenow Correlation for Pool Nucleate Boiling (p.385)
+TOC:    Critical Heat Flux for Nucleate Boiling (p.386)
+TOC:  Equivalent Thermal Conductivity Correlations (p.387)
+TOC:    Horizontal Cavity With Bottom Heating (p.388)
+TOC:    Vertical Cavity With Sidewall Heating (p.388)
+TOC:  Temperature Dependence of Surface Tension (p.390)
+TOC:  Heat Flux and Heat Balance (p.391)
+TOC:    Total Heat Flux and Energy Flux (p.391)
+TOC:      Total Heat Flux (p.391)
+TOC:      Total Energy Flux (p.392)
+TOC:    Heat and Energy Balance (p.392)
+TOC:      Heat Balance (p.392)
+TOC:      Energy Balance (p.393)
+TOC:  Frames for the Heat Transfer Equations (p.395)
+TOC:    Material and Spatial Frames (p.395)
+TOC:      Use of Frames (p.395)
+TOC:      Position Vectors and Deformation Gradient (p.396)
+TOC:    Conversion Between Material and Spatial Frames (p.397)
+TOC:      Density, Heat Source, Heat Flux (p.397)
+TOC:      Velocity (p.398)
+TOC:      Thermal Conductivity (p.398)
+TOC:      Thermal Conductivity of a Layer (p.399)
+TOC:      Time Derivative (p.399)
+TOC:  References (p.401)
+TOC:The Heat Transfer Module Interfaces (p.405)
+TOC:  The Heat Transfer Interfaces (p.409)
+TOC:    The Heat Transfer in Solids Interface (p.409)
+TOC:    The Heat Transfer in Fluids Interface (p.410)
+TOC:    The Heat Transfer in Solids and Fluids Interface (p.410)
+TOC:    The Lumped Thermal System Interface (p.410)
+TOC:    The Bioheat Transfer Interface (p.411)
+TOC:    The Heat Transfer in Pipes Interface (p.411)
+TOC:    The Thermoelectric Effect Interface (p.411)
+TOC:  The Conjugate Heat Transfer Interfaces (p.412)
+TOC:    The Laminar Flow Interface (p.412)
+TOC:    The Turbulent Flow Interfaces (p.412)
+TOC:  The Radiation Interfaces (p.414)
+TOC:    The Heat Transfer with Surface-to-Surface Interface (p.414)
+TOC:    The Heat Transfer with Orbital Thermal Loads Interface (p.415)
+TOC:    The Heat Transfer with Radiation in Participating Media Interface (p.415)
+TOC:    The Heat Transfer with Radiation in Absorbing–Scattering Media Interface (p.415)
+TOC:    The Heat Transfer with Radiative Beam in Absorbing Media Interface (p.416)
+TOC:    The Surface-to-Surface Radiation Interface (p.416)
+TOC:    The Orbital Thermal Loads Interface (p.416)
+TOC:    The Radiation in Participating Media Interface (p.417)
+TOC:    The Radiation in Absorbing–Scattering Media Interface (p.417)
+TOC:    The Radiative Beam in Absorbing Media Interface (p.417)
+TOC:  The Electromagnetic Heating Interfaces (p.418)
+TOC:    The Joule Heating Interface (p.418)
+TOC:    The Induction Heating Interface (p.418)
+TOC:    The Microwave Heating Interface (p.419)
+TOC:    The Laser Heating Interface (p.419)
+TOC:  The Thin Structures Interfaces (p.420)
+TOC:    The Heat Transfer in Shells Interface (p.420)
+TOC:    The Heat Transfer in Films Interface (p.420)
+TOC:    The Heat Transfer in Fractures Interface (p.421)
+TOC:  The Heat and Moisture Transport Interfaces (p.422)
+TOC:    The Moist Air Interface (p.422)
+TOC:    The Moist Porous Media interface (p.422)
+TOC:    The Building Materials Interface (p.422)
+TOC:  The Heat and Moisture Flow Interfaces (p.424)
+TOC:    The Laminar Flow interface (p.424)
+TOC:    The Turbulent Flow Interfaces (p.424)
+TOC:    The Porous Media Flow Interface (p.425)
+TOC:  The Moisture Transport Interfaces (p.426)
+TOC:    The Moisture in Air Interface (p.426)
+TOC:    The Equilibrium Moisture Transport in Porous Media Interface (p.426)
+TOC:    The Nonequilibrium Moisture Transport in Porous Media Interface (p.426)
+TOC:    The Moisture Transport in Building Materials Interface (p.427)
+TOC:    The Moisture Transport in Free and Porous Media Interface (p.427)
+TOC:    The Moisture Transport in Solids Interface (p.427)
+TOC:  The Moisture Flow Interfaces (p.429)
+TOC:    The Laminar Flow Interface (p.429)
+TOC:    The Turbulent Flow Interfaces (p.429)
+TOC:    The Porous Media Flow Interface (p.430)
+TOC:  The Porous Media Interfaces (p.431)
+TOC:    The Heat Transfer in Porous Media Interface (p.431)
+TOC:    The Local Thermal Nonequilibrium Interface (p.431)
+TOC:    The Heat Transfer in Packed Beds Interface (p.432)
+TOC:  The Metal Processing Interfaces (p.433)
+TOC:    The Metal Phase Transformation Interface (p.433)
+TOC:    The Austenite Decomposition Interface (p.433)
+TOC:    The Heat Transfer with Phase Transformations Interface (p.433)
+TOC:    The Steel Quenching Interface (p.434)
+TOC:    The Carburization Interface (p.434)
+TOC:  The Curing Interfaces (p.435)
+TOC:    The Curing Interface (p.435)
+TOC:  About the Heat Transfer Interfaces (p.436)
+TOC:    Space Dimensions (p.436)
+TOC:    Study Types (p.437)
+TOC:    Versions of the Heat Transfer Interface (p.437)
+TOC:    Benefits of the Different Heat Transfer Interfaces (p.438)
+TOC:    Versions of the Heat Transfer in Shells Interface (p.438)
+TOC:    Benefits of the Different Heat Transfer in Shells Interfaces (p.439)
+TOC:    Layer and Interface Selection Tools (p.439)
+TOC:      Layer Selections (p.439)
+TOC:      Interface Selections (p.441)
+TOC:    Using the Extra Dimension Coordinates (p.443)
+TOC:    Versions of the Moisture Transport Interface (p.443)
+TOC:    Benefits of the Different Moisture Transport Interfaces (p.444)
+TOC:    Additional Physics Options (p.445)
+TOC:    Settings for the Heat Transfer Interface (p.445)
+TOC:      Physical Model (p.446)
+TOC:      Consistent Stabilization (p.447)
+TOC:      Inconsistent Stabilization (p.447)
+TOC:      Damage Integral Analysis Discretization (p.447)
+TOC:      Discretization (p.448)
+TOC:      Dependent Variables (p.448)
+TOC:    Feature Nodes for the Heat Transfer Interface (p.449)
+TOC:      Domain Nodes for the Heat Transfer Interface (p.450)
+TOC:      Boundary Nodes for the Heat Transfer Interface (p.451)
+TOC:      Edge Nodes for the Heat Transfer Interface (p.452)
+TOC:      Point Nodes for the Heat Transfer Interface (p.452)
+TOC:    Settings for the Heat Transfer in Shells Interface (p.452)
+TOC:      Boundary Selection (p.452)
+TOC:      Shell Properties (p.453)
+TOC:      Out-of-Plane Thickness (p.455)
+TOC:      Physical Model (p.455)
+TOC:      Consistent Stabilization (p.456)
+TOC:      Inconsistent Stabilization (p.456)
+TOC:      Discretization (p.456)
+TOC:      Dependent Variables (p.457)
+TOC:    Settings for the Moisture Transport Interface (p.457)
+TOC:      Physical Model (p.457)
+TOC:      Consistent Stabilization (p.458)
+TOC:      Inconsistent Stabilization (p.458)
+TOC:      Advanced Settings (p.459)
+TOC:      Discretization (p.459)
+TOC:    Feature Nodes for the Moisture Transport Interface (p.459)
+TOC:      Domain Nodes for the Moisture Transport Interface (p.460)
+TOC:      Boundary Nodes for the Moisture Transport Interface (p.460)
+TOC:      Global Nodes for the Moisture Transport Interface (p.460)
+TOC:  The Heat Transfer in Solids Interface (p.461)
+TOC:  The Heat Transfer in Fluids Interface (p.462)
+TOC:  The Heat Transfer in Solids and Fluids Interface (p.463)
+TOC:  The Heat Transfer in Porous Media Interface (p.464)
+TOC:  The Local Thermal Nonequilibrium Interface (p.465)
+TOC:  The Heat Transfer in Packed Beds Interface (p.467)
+TOC:  The Heat Transfer in Moist Porous Media Interface (p.469)
+TOC:  The Heat Transfer in Building Materials Interface (p.470)
+TOC:  The Heat Transfer in Moist Air Interface (p.471)
+TOC:  The Bioheat Transfer Interface (p.472)
+TOC:  The Heat Transfer in Shells Interface (p.473)
+TOC:    Boundary Selection (p.474)
+TOC:    Shell Properties (p.474)
+TOC:    Physical Model (p.474)
+TOC:    Consistent Stabilization (p.474)
+TOC:    Inconsistent Stabilization (p.474)
+TOC:    Discretization (p.474)
+TOC:    Dependent Variables (p.475)
+TOC:    Feature Nodes for the Heat Transfer in Shells Interface (p.475)
+TOC:      Boundary Nodes for the Heat Transfer in Shells Interface (p.476)
+TOC:      Boundary Interface Nodes for the Heat Transfer in Shells Interface (p.476)
+TOC:      Edge Nodes for the Heat Transfer in Shells Interface (p.477)
+TOC:  The Heat Transfer in Films Interface (p.478)
+TOC:    Boundary Selection (p.479)
+TOC:    Shell Properties (p.479)
+TOC:    Physical Model (p.479)
+TOC:    Consistent Stabilization (p.479)
+TOC:    Inconsistent Stabilization (p.479)
+TOC:    Discretization (p.479)
+TOC:    Dependent Variables (p.480)
+TOC:    Feature Nodes for the Heat Transfer in Films Interface (p.480)
+TOC:      Boundary Nodes for the Heat Transfer in Films Interface (p.481)
+TOC:      Boundary Interface Nodes for the Heat Transfer in Films Interface (p.481)
+TOC:      Edge Nodes for the Heat Transfer in Films Interface (p.482)
+TOC:  The Heat Transfer in Fractures Interface (p.483)
+TOC:    Boundary Selection (p.484)
+TOC:    Shell Properties (p.484)
+TOC:    Physical Model (p.484)
+TOC:    Consistent Stabilization (p.484)
+TOC:    Inconsistent Stabilization (p.484)
+TOC:    Discretization (p.485)
+TOC:    Dependent Variables (p.485)
+TOC:    Feature Nodes for the Heat Transfer in Fractures Interface (p.485)
+TOC:      Boundary Nodes for the Heat Transfer in Fractures Interface (p.486)
+TOC:      Boundary Interface Nodes for the Heat Transfer in Fractures Interface (p.486)
+TOC:      Edge Nodes for the Heat Transfer in Fractures Interface (p.487)
+TOC:  The Lumped Thermal System Interface (p.488)
+TOC:    Settings (p.488)
+TOC:    System Settings (p.488)
+TOC:    Dependent Variables (p.489)
+TOC:    Discretization (p.489)
+TOC:    Feature Nodes for the Lumped Thermal System Interface (p.489)
+TOC:  The Surface-to-Surface Radiation Interface (p.491)
+TOC:    Settings for the Surface-to-Surface Radiation Interface (p.491)
+TOC:      Radiation Settings (p.492)
+TOC:      View Factor (p.497)
+TOC:      Jacobian contribution (p.499)
+TOC:      Discretization (p.499)
+TOC:    Feature Nodes for the Surface-to-Surface Radiation Interface (p.500)
+TOC:      Domain Nodes for the Surface-to-Surface Radiation Interface (p.500)
+TOC:      Boundary Nodes for the Surface-to-Surface Radiation Interface (p.501)
+TOC:      Global Nodes for the Surface to Surface Radiation Interface (p.501)
+TOC:    Predefined Functions for the Surface-to-Surface Radiation Interface (p.501)
+TOC:  The Orbital Thermal Loads Interface (p.504)
+TOC:    Settings for the Orbital Thermal Loads Interface (p.505)
+TOC:    Feature Nodes for the Orbital Thermal Loads Interface (p.505)
+TOC:      Global Nodes for the Orbital Thermal Loads Interface (p.505)
+TOC:    Predefined Functions for the Orbital Thermal Loads Interface (p.506)
+TOC:  The Radiation in Participating Media Interface (p.507)
+TOC:    Settings for the Radiation in Participating Media Interface (p.507)
+TOC:      Participating Media Settings (p.508)
+TOC:      Jacobian Contribution (p.511)
+TOC:      Inconsistent Stabilization (p.511)
+TOC:      Discretization (p.512)
+TOC:    Feature Nodes for the Radiation in Participating Media Interface (p.512)
+TOC:      Domain Nodes for the Radiation in Participating Media Interface (p.512)
+TOC:      Boundary Nodes for the Radiation in Participating Media Interface (p.513)
+TOC:    Predefined Functions for the Radiation in Participating Media Interface (p.513)
+TOC:  The Radiation in Absorbing– Scattering Media Interface (p.516)
+TOC:    Settings for the Radiation in Absorbing–Scattering Media Interface (p.516)
+TOC:      Participating Media Settings (p.517)
+TOC:      Jacobian Contribution (p.519)
+TOC:      Inconsistent Stabilization (p.520)
+TOC:      Discretization (p.520)
+TOC:    Feature Nodes for the Radiation in Absorbing–Scattering Media Interface (p.520)
+TOC:      Domain Nodes for the Radiation in Absorbing–Scattering Media Interface (p.521)
+TOC:      Boundary Nodes for the Radiation in Absorbing–Scattering Media Interface (p.522)
+TOC:    Predefined Functions for the Radiation in Absorbing–Scattering Media Interface (p.522)
+TOC:  The Radiative Beam in Absorbing Media Interface (p.523)
+TOC:    Settings for the Radiative Beam in Absorbing Media Interface (p.523)
+TOC:      Consistent Stabilization (p.524)
+TOC:      Inconsistent Stabilization (p.524)
+TOC:      Discretization (p.524)
+TOC:    Feature Nodes for the Radiative Beam in Absorbing Media Interface (p.524)
+TOC:      Domain Nodes for the Radiative Beam in Absorbing Media Interface (p.524)
+TOC:      Boundary Nodes for the Radiative Beam in Absorbing Media Interface (p.525)
+TOC:  The Moisture Transport in Air Interface (p.526)
+TOC:  The Equilibrium Moisture Transport in Porous Media Interface (p.527)
+TOC:  The Nonequilibrium Moisture Transport in Porous Media Interface (p.528)
+TOC:  The Moisture Transport in Building Materials Interface (p.530)
+TOC:  The Moisture Transport in Free and Porous Media Interface (p.531)
+TOC:  The Moisture Transport in Solids Interface (p.533)
+TOC:The Heat Transfer Features (p.535)
+TOC:  Domain Features (p.536)
+TOC:    Absorbing Medium (Radiative Beam in Absorbing Medium Interface) (p.537)
+TOC:      Model Input (p.538)
+TOC:      Absorbing Medium (p.538)
+TOC:      Location in User Interface (p.538)
+TOC:    Absorbing–Scattering Medium (Radiation in Absorbing–Scattering Media Interface) (p.539)
+TOC:      Model Input (p.541)
+TOC:      Absorption (p.541)
+TOC:      Scattering (p.542)
+TOC:      Location in User Interface (p.543)
+TOC:    Battery Layers (p.544)
+TOC:      Coordinate System Selection (p.546)
+TOC:      Location in User Interface (p.547)
+TOC:    Bioheat (p.547)
+TOC:      Bioheat (p.547)
+TOC:      Location in User Interface (p.548)
+TOC:    Biological Tissue (p.548)
+TOC:      Model Input (p.549)
+TOC:      Heat Conduction, Solid (p.549)
+TOC:      Thermodynamics, Solid (p.550)
+TOC:      Location in User Interface (p.551)
+TOC:    Building Material (p.551)
+TOC:      Model Input (p.552)
+TOC:      Heat Conduction (p.553)
+TOC:      Thermodynamics, Dry Solid (p.554)
+TOC:      Building Material Properties (p.554)
+TOC:      Location in User Interface (p.556)
+TOC:    Cell Periodicity (p.556)
+TOC:      Cell Properties (p.557)
+TOC:      Constraint Settings (p.558)
+TOC:      Location in User Interface (p.559)
+TOC:    Convectively Enhanced Conductivity (p.559)
+TOC:      Convectively Enhanced Conductivity (p.559)
+TOC:      Dynamic Viscosity (p.560)
+TOC:      Location in User Interface (p.560)
+TOC:    Cross Section (p.561)
+TOC:      Cross Section (p.561)
+TOC:      Location in User Interface (p.561)
+TOC:    Fluence Rate Calculation (Surface-to-Surface Radiation Interface) (p.562)
+TOC:      Location in User Interface (p.562)
+TOC:    Fluid (p.563)
+TOC:      Model Input (p.563)
+TOC:      Heat Convection (p.564)
+TOC:      Heat Conduction, Fluid (p.564)
+TOC:      Thermodynamics, Fluid (p.564)
+TOC:      Location in User Interface (p.567)
+TOC:    Fluid (Porous Medium) (p.568)
+TOC:      Model Input (p.568)
+TOC:      Heat Convection (p.570)
+TOC:      Heat Conduction, Fluid (p.570)
+TOC:      Thermodynamics, Fluid (p.570)
+TOC:      Dynamic Viscosity (p.572)
+TOC:      Location in User Interface (p.572)
+TOC:    Geothermal Heating (p.573)
+TOC:      Geothermal Heat Production (p.573)
+TOC:      Geothermal Density (p.573)
+TOC:      Location in User Interface (p.574)
+TOC:    Heat Source (p.574)
+TOC:      Material Type (p.574)
+TOC:      Heat Source (p.575)
+TOC:      Location in User Interface (p.577)
+TOC:    Heat Source (Pellets) (p.577)
+TOC:      Pellet (p.577)
+TOC:      Location in User Interface (p.577)
+TOC:    Immobile Fluids (Porous Medium) (p.578)
+TOC:      Model Input (p.578)
+TOC:      Immobile Fluids (p.578)
+TOC:      Heat Conduction, Immobile Fluids (p.579)
+TOC:      Thermodynamics, Immobile Fluids (p.579)
+TOC:      Location in User Interface (p.580)
+TOC:    Initial Values (p.580)
+TOC:      Initial Values (p.581)
+TOC:      Location in User Interface (p.581)
+TOC:    Initial Values (Pellets) (p.581)
+TOC:      Pellet (p.581)
+TOC:      Initial Values (p.581)
+TOC:      Location in User Interface (p.582)
+TOC:    Initial Values (Radiative Beam in Absorbing Medium Interface) (p.582)
+TOC:      Initial Values (p.582)
+TOC:      Location in User Interface (p.582)
+TOC:    Initial Values (Radiation in Participating Media and Radiation in Absorbing–Scattering Media Interfaces) (p.582)
+TOC:      Initial Values (p.583)
+TOC:      Location in User Interface (p.585)
+TOC:    Irreversible Transformation (p.585)
+TOC:      Irreversible Transformation (p.585)
+TOC:      Parameters (p.587)
+TOC:      Heat Conduction (p.587)
+TOC:      Thermodynamics (p.588)
+TOC:      Initial Values (p.588)
+TOC:      Discretization (p.588)
+TOC:      Location in User Interface (p.589)
+TOC:    Isothermal Domain (p.589)
+TOC:      Model Input (p.589)
+TOC:      Isothermal Domain (p.590)
+TOC:      Thermodynamics (p.590)
+TOC:      Location in User Interface (p.590)
+TOC:    Liquid Water (Moist Porous Medium) (p.591)
+TOC:      Liquid Water Properties (p.591)
+TOC:      Location in User Interface (p.592)
+TOC:    Moist Air (Heat Transfer Interface) (p.592)
+TOC:      Model Input (p.592)
+TOC:      Heat Convection (p.593)
+TOC:      Thermodynamics, Moist Air (p.593)
+TOC:      Location in User Interface (p.594)
+TOC:    Moist Air (Moist Porous Medium) (p.595)
+TOC:      Location in User Interface (p.595)
+TOC:    Moist Porous Medium (p.595)
+TOC:      Coordinate System Selection (p.596)
+TOC:      Porous Medium Model Settings (p.596)
+TOC:      Location in User Interface (p.599)
+TOC:    Opacity (Surface-to-Surface Radiation and Orbital Thermal Loads Interfaces) (p.599)
+TOC:      Opacity (p.599)
+TOC:      Location in User Interface (p.601)
+TOC:    Optically Thick Participating Medium (p.601)
+TOC:      Model Input (p.602)
+TOC:      Optically Thick Participating Medium (p.602)
+TOC:      Absorption (p.603)
+TOC:      Scattering (p.603)
+TOC:      Location in User Interface (p.603)
+TOC:    Out-of-Plane Heat Flux (p.603)
+TOC:      Upside Inward Heat Flux (p.604)
+TOC:      Downside Inward Heat Flux (p.604)
+TOC:      Location in User Interface (p.605)
+TOC:    Out-of-Plane Radiation (p.605)
+TOC:      Upside Parameters (p.606)
+TOC:      Downside Parameters (p.606)
+TOC:      Location in User Interface (p.607)
+TOC:    Participating Medium (Radiation in Participating Media Interface) (p.607)
+TOC:      Model Input (p.610)
+TOC:      Fractional Emissive Power (p.610)
+TOC:      Absorption (p.610)
+TOC:      Scattering (p.611)
+TOC:      Location in User Interface (p.613)
+TOC:    Pellets (Porous Medium) (p.613)
+TOC:      Model Input (p.613)
+TOC:      Porosities (p.614)
+TOC:      Heat Conduction, Pellets (p.615)
+TOC:      Thermodynamics, Pellets (p.615)
+TOC:      Location in User Interface (p.615)
+TOC:    Pellet–Fluid Interface (Porous Medium) (p.615)
+TOC:      Pellet (p.616)
+TOC:      Pellet–Fluid Interface (p.616)
+TOC:      Constraint Settings (p.616)
+TOC:      Location in User Interface (p.617)
+TOC:    Phase Change Material (p.617)
+TOC:      Number of Phase Transitions (p.617)
+TOC:      Density (p.618)
+TOC:      Phase Change (p.618)
+TOC:      Phase (p.620)
+TOC:      Location in User Interface (p.622)
+TOC:    Porous Matrix (Porous Medium, Moist Porous Medium) (p.622)
+TOC:      Model Input (p.623)
+TOC:      Matrix Properties (p.623)
+TOC:      Heat Conduction, Porous Matrix (p.624)
+TOC:      Thermodynamics, Porous Matrix (p.624)
+TOC:      Location in User Interface (p.626)
+TOC:    Porous Medium (p.626)
+TOC:      Coordinate System Selection (p.627)
+TOC:      Porous Medium (p.627)
+TOC:      Location in User Interface (p.632)
+TOC:    Pressure Work (p.632)
+TOC:      Location in User Interface (p.633)
+TOC:    Radiative Source (p.633)
+TOC:      Material Type (p.634)
+TOC:      Radiative Source (p.634)
+TOC:      Location in User Interface (p.635)
+TOC:    Rectangular Block Selection (p.635)
+TOC:    Semicylinder Selection (p.636)
+TOC:    Shape Memory Alloy (p.636)
+TOC:      Model Input (p.637)
+TOC:      Shape Memory Alloy (p.637)
+TOC:      Austenite (p.638)
+TOC:      Martensite (p.639)
+TOC:      Location in User Interface (p.639)
+TOC:    Solid (p.640)
+TOC:      Model Input (p.640)
+TOC:      Heat Conduction, Solid (p.641)
+TOC:      Thermodynamics, Solid (p.642)
+TOC:      Location in User Interface (p.643)
+TOC:    Solid with Translational Motion (p.643)
+TOC:    Thermal Damage (p.644)
+TOC:      Damaged Tissue (p.644)
+TOC:      Heat Conduction (p.646)
+TOC:      Thermodynamics (p.647)
+TOC:      Initial Values (p.647)
+TOC:      Discretization (p.647)
+TOC:      Location in User Interface (p.648)
+TOC:    Thermal Dispersion (p.648)
+TOC:      Dispersivities (p.649)
+TOC:      Location in User Interface (p.650)
+TOC:    Thermoelastic Damping (p.650)
+TOC:      Thermoelastic Damping (p.651)
+TOC:      Location in User Interface (p.651)
+TOC:    Thickness (p.651)
+TOC:      Thickness (p.652)
+TOC:      Location in User Interface (p.652)
+TOC:    Translational Motion (p.652)
+TOC:      Domain Selection (p.653)
+TOC:      Translational Motion (p.653)
+TOC:      Location in User Interface (p.653)
+TOC:    Viscous Dissipation (p.654)
+TOC:      Viscous Dissipation (p.654)
+TOC:      Location in User Interface (p.655)
+TOC:  Boundary Features (p.656)
+TOC:    Boundary Heat Source (p.659)
+TOC:      Pair Selection (p.659)
+TOC:      Material Type (p.659)
+TOC:      Boundary Heat Source (p.660)
+TOC:      Source Position (p.660)
+TOC:      Continuity (p.660)
+TOC:      Location in User Interface (p.662)
+TOC:    Boundary Pair (p.662)
+TOC:      Constraint Settings (p.663)
+TOC:      Location in User Interface (p.663)
+TOC:    Continuity (p.663)
+TOC:      Pair Selection (p.664)
+TOC:      Constraint Settings (p.664)
+TOC:      Location in User Interface (p.664)
+TOC:    Continuity (Radiation in Participating Media and Radiation in Absorbing–Scattering Media Interfaces) (p.665)
+TOC:      Pair Selection (p.665)
+TOC:      Constraint Settings (p.665)
+TOC:      Location in User Interface (p.665)
+TOC:    Continuity on Interior Boundary (Radiation in Participating Media and Radiation in Absorbing–Scattering Media Interfaces) (p.666)
+TOC:      Location in User Interface (p.666)
+TOC:    Deposited Beam Power (p.666)
+TOC:      Beam Orientation (p.666)
+TOC:      Beam Profile (p.666)
+TOC:      Source Position (p.667)
+TOC:      Location in User Interface (p.668)
+TOC:    Dielectric Window (Surface-to-Surface Radiation Interface) (p.668)
+TOC:      Model Input (p.669)
+TOC:      Ambient (p.669)
+TOC:      Fractional Emissive Power (p.669)
+TOC:      Layer Properties (p.669)
+TOC:      Location in User Interface (p.671)
+TOC:    Diffuse Mirror (Surface-to-Surface Radiation Interface) (p.671)
+TOC:      Model Input (p.672)
+TOC:      Radiation Direction (p.672)
+TOC:      Ambient (p.672)
+TOC:      Location in User Interface (p.672)
+TOC:    Diffuse Surface (Surface-to-Surface Radiation Interface) (p.672)
+TOC:      Model Input (p.673)
+TOC:      Radiation Direction (p.673)
+TOC:      Ambient (p.676)
+TOC:      Fractional Emissive Power (p.678)
+TOC:      Surface Emissivity (p.678)
+TOC:      Location in User Interface (p.680)
+TOC:    External Temperature (Thin Layer, Thin Film, Fracture) (p.681)
+TOC:      Temperature (p.681)
+TOC:      Constraint Settings (p.681)
+TOC:      Location in User Interface (p.682)
+TOC:    Fracture (Heat Transfer Interface) and Porous Medium (Heat Transfer in Shells Interface) (p.682)
+TOC:      Boundary Selection (p.682)
+TOC:      Shell Properties (p.683)
+TOC:      Model Input (p.684)
+TOC:      Layer Model (p.685)
+TOC:      Fluid Material (p.685)
+TOC:      Heat Conduction, Fluid (p.686)
+TOC:      Heat Conduction, Fluid (p.686)
+TOC:      Thermodynamics, Fluid (p.686)
+TOC:      Porous Material (p.686)
+TOC:      Heat Conduction, porous matrix (p.686)
+TOC:      Thermodynamics, porous matrix (p.686)
+TOC:      Location in User Interface (p.686)
+TOC:    Harmonic Perturbation (p.687)
+TOC:      Location in User Interface (p.687)
+TOC:    Heat Flux (p.687)
+TOC:      Material Type (p.688)
+TOC:      Heat Flux (p.688)
+TOC:      Location in User Interface (p.692)
+TOC:    Heat Source (Heat Transfer in Shells Interface) (p.692)
+TOC:      Boundary Selection (p.692)
+TOC:      Shell Properties (p.693)
+TOC:      Material Type (p.693)
+TOC:      Heat Source (p.694)
+TOC:      Location in User Interface (p.694)
+TOC:    Heat Source (Thin Layer, Thin Film, Fracture) (p.694)
+TOC:      Boundary Selection (p.694)
+TOC:      Shell Properties (p.695)
+TOC:      Material Type (p.695)
+TOC:      Heat Source (p.696)
+TOC:      Location in User Interface (p.697)
+TOC:    Incident Intensity (Radiation in Participating Media and Radiation in Absorbing–Scattering Media Interfaces) (p.697)
+TOC:      Pair Selection (p.697)
+TOC:      Incident Intensity (p.698)
+TOC:      Location in User Interface (p.699)
+TOC:    Incident Intensity (Radiative Beam in Absorbing Medium Interface) (p.700)
+TOC:      Boundary Selection (p.700)
+TOC:      Model Input (p.700)
+TOC:      Beam Orientation (p.700)
+TOC:      Beam Profile (p.700)
+TOC:      Location in User Interface (p.701)
+TOC:    Inflow (p.702)
+TOC:      Upstream Properties (p.702)
+TOC:      Location in User Interface (p.702)
+TOC:    Initial Values (Thin Layer, Thin Film, Fracture, and Heat Transfer in Shells Interface) (p.703)
+TOC:      Boundary Selection (p.703)
+TOC:      Shell Properties (p.703)
+TOC:      Initial Values (p.704)
+TOC:      Location in User Interface (p.705)
+TOC:    Initial Values (Surface-to-Surface Radiation Interface) (p.705)
+TOC:      Initial Values (p.705)
+TOC:      Location in User Interface (p.706)
+TOC:    Isothermal Domain Interface (p.707)
+TOC:      Model Input (p.707)
+TOC:      Pair Selection (p.707)
+TOC:      Isothermal Domain Interface (p.707)
+TOC:      External Temperature (p.710)
+TOC:      Interface opacity (p.710)
+TOC:      Constraint Settings (p.710)
+TOC:      Location in User Interface (p.711)
+TOC:    Layer Opacity (Surface-to-Surface Radiation Interface) (p.711)
+TOC:      Opacity (p.712)
+TOC:      Location in User Interface (p.712)
+TOC:    Line Heat Source on Axis (p.713)
+TOC:      Location in User Interface (p.713)
+TOC:    Local Thermal Nonequilibrium Boundary (p.713)
+TOC:    Lumped System Connector (p.714)
+TOC:      Terminal Inputs (p.714)
+TOC:      Location in User Interface (p.715)
+TOC:    Opaque Surface (Surface-to-Surface Radiation Interface) (p.715)
+TOC:      Model Input (p.716)
+TOC:      Coordinate System Selection (p.716)
+TOC:      Radiation Direction (p.716)
+TOC:      Ambient (p.716)
+TOC:      Fractional Emissive Power (p.717)
+TOC:      Surface Radiative Properties (p.717)
+TOC:      Location in User Interface (p.719)
+TOC:    Opaque Surface (Radiation in Participating Media and Radiation in Absorbing–Scattering Media Interfaces) (p.719)
+TOC:      Pair Selection (p.720)
+TOC:      Models Input (p.720)
+TOC:      Fractional Emissive Power (p.720)
+TOC:      Surface Radiative Properties (p.720)
+TOC:      Location in User Interface (p.722)
+TOC:    Opaque Surface (Radiative Beam in Absorbing Medium Interface) (p.723)
+TOC:      Location in User Interface (p.723)
+TOC:    Open Boundary (p.723)
+TOC:      Upstream Properties (p.724)
+TOC:      Inflow condition (p.724)
+TOC:      Location in User Interface (p.725)
+TOC:    Outflow (p.725)
+TOC:      Boundary Selection (p.725)
+TOC:      Location in User Interface (p.725)
+TOC:    Periodic Condition (Heat Transfer Interface) (p.726)
+TOC:      Periodic Condition (p.726)
+TOC:      Constraint Settings (p.726)
+TOC:      Location in User Interface (p.727)
+TOC:    Periodic Condition (Radiation in Participating Media and Radiation in Absorbing–Scattering Media Interfaces) (p.727)
+TOC:      Constraint Settings (p.727)
+TOC:      Location in User Interface (p.728)
+TOC:    Phase Change Interface (p.728)
+TOC:      Phase Change Interface (p.730)
+TOC:      Moving Boundary Smoothing (p.730)
+TOC:      Location in User Interface (p.731)
+TOC:    Phase Change Interface, Exterior (p.732)
+TOC:      Material Type (p.732)
+TOC:      Phase Change Interface (p.733)
+TOC:      Moving Boundary Smoothing (p.734)
+TOC:      Heat Flux (p.734)
+TOC:      Location in User Interface (p.734)
+TOC:    Prescribed Radiosity (Surface-to-Surface Radiation Interface) (p.734)
+TOC:      Coordinate System Selection (p.734)
+TOC:      Radiation Direction (p.735)
+TOC:      Radiosity (p.735)
+TOC:      Location in User Interface (p.738)
+TOC:    Radiation Group (Surface-to-Surface Radiation Interface) (p.739)
+TOC:      Boundary Selection (p.740)
+TOC:      Radiation Group (p.740)
+TOC:      Location in User Interface (p.741)
+TOC:    Radiation Shield (Surface-to-Surface Radiation Interface) (p.741)
+TOC:      Radiation shield (p.742)
+TOC:      Location in User Interface (p.742)
+TOC:    Radiation Shield, Upside (Surface-to-Surface Radiation Interface) (p.742)
+TOC:      Fractional Emissive Power (p.743)
+TOC:      Initial values (p.743)
+TOC:      Shield Settings (p.743)
+TOC:      Layer Radiative Properties (p.744)
+TOC:      Inconsistent Stabilization (p.745)
+TOC:    Radiation Shield, Downside (Surface-to-Surface Radiation Interface) (p.745)
+TOC:      Fractional Emissive Power (p.746)
+TOC:      Initial values (p.746)
+TOC:      Shield Settings (p.746)
+TOC:      Layer Radiative Properties (p.746)
+TOC:      Inconsistent Stabilization (p.747)
+TOC:    Refractive Interface (Surface-to-Surface Radiation Interface) (p.747)
+TOC:      Ambient (p.747)
+TOC:      Location in User Interface (p.748)
+TOC:    Semitransparent Surface (Radiation in Participating Media and Radiation in Absorbing–Scattering Media Interfaces) (p.748)
+TOC:      Pair Selection (p.748)
+TOC:      Model Input (p.749)
+TOC:      Fractional Emissive Power (p.749)
+TOC:      Surface Radiative Properties (p.749)
+TOC:      External Radiation Intensity (p.751)
+TOC:      Location in User Interface (p.752)
+TOC:    Semitransparent Surface (Surface-to-Surface Radiation Interface) (p.752)
+TOC:      Model Input (p.753)
+TOC:      Coordinate System Selection (p.754)
+TOC:      Ambient (p.754)
+TOC:      Fractional Emissive Power (p.754)
+TOC:      Surface Radiative Properties (p.754)
+TOC:      Location in User Interface (p.757)
+TOC:    Surface-to-Ambient Radiation (Heat Transfer Interface) (p.757)
+TOC:      Model Input (p.757)
+TOC:      Radiation Settings (p.758)
+TOC:      Surface-to-Ambient Radiation (p.758)
+TOC:      Location in User Interface (p.758)
+TOC:    Specular Mirror (Surface-to-Surface Radiation Interface) (p.759)
+TOC:      Radiation Direction (p.759)
+TOC:      Ambient (p.759)
+TOC:      Location in User Interface (p.759)
+TOC:    Symmetry (Heat Transfer Interface) (p.760)
+TOC:      Location in User Interface (p.760)
+TOC:    Symmetry (Radiation in Participating Media and Radiation in Absorbing–Scattering Media Interfaces) (p.761)
+TOC:      Location in User Interface (p.761)
+TOC:    Temperature (p.761)
+TOC:      Pair Selection (p.762)
+TOC:      Temperature (p.762)
+TOC:      Constraint Settings (p.762)
+TOC:      Location in User Interface (p.763)
+TOC:    Thermal Contact (p.763)
+TOC:      Pair Selection (p.764)
+TOC:      Model Input (p.764)
+TOC:      Material Type (p.764)
+TOC:      Thermal Contact (p.765)
+TOC:      Contact Surface Properties (p.766)
+TOC:      Gap Properties (p.767)
+TOC:      Radiative Conductance (p.767)
+TOC:      Thermal Friction (p.767)
+TOC:      Location in User Interface (p.768)
+TOC:    Thermal Insulation (p.769)
+TOC:      Location in User Interface (p.769)
+TOC:    Thin Film (Heat Transfer Interface) and Fluid (Heat Transfer in Shells Interface) (p.769)
+TOC:      Boundary Selection (p.769)
+TOC:      Shell Properties (p.770)
+TOC:      Model Input (p.771)
+TOC:      Layer Model (p.772)
+TOC:      Heat Convection (p.772)
+TOC:      Heat Conduction, Fluid (p.772)
+TOC:      Thermodynamics, Fluid (p.773)
+TOC:      Location in User Interface (p.773)
+TOC:    Thin Layer (Heat Transfer Interface) and Solid (Heat Transfer in Shells Interface) (p.774)
+TOC:      Boundary Selection (p.774)
+TOC:      Shell Properties (p.775)
+TOC:      Model Input (p.776)
+TOC:      Layer Model (p.777)
+TOC:      Heat Conduction (p.778)
+TOC:      Thermodynamics (p.778)
+TOC:      Location in User Interface (p.779)
+TOC:    Transparent Surface (Radiative Beam in Absorbing Medium Interface) (p.779)
+TOC:      Location in User Interface (p.780)
+TOC:  Boundary Interface Features (p.781)
+TOC:    Deposited Beam Power, Interface (Heat Transfer in Shells Interface) (p.781)
+TOC:      Boundary Selection (p.781)
+TOC:      Interface Selection (p.782)
+TOC:      Beam Orientation (p.783)
+TOC:      Beam Profile (p.783)
+TOC:      Location in User Interface (p.783)
+TOC:    Heat Flux, Interface (Heat Transfer in Shells Interface) (p.784)
+TOC:      Boundary Selection (p.784)
+TOC:      Interface Selection (p.784)
+TOC:      Material Type (p.785)
+TOC:      Heat Flux (p.786)
+TOC:      Location in User Interface (p.786)
+TOC:    Heat Source, Interface (Heat Transfer in Shells Interface) (p.787)
+TOC:      Boundary Selection (p.787)
+TOC:      Interface Selection (p.787)
+TOC:      Material Type (p.788)
+TOC:      Boundary Heat Source (p.789)
+TOC:      Location in User Interface (p.790)
+TOC:    Lumped System Connector, Interface (Heat Transfer in Shells Interface) (p.790)
+TOC:      Boundary Selection (p.790)
+TOC:      Interface Selection (p.790)
+TOC:      Terminal Inputs (p.792)
+TOC:      Location in User Interface (p.792)
+TOC:    Surface-to-Ambient Radiation, Interface (Heat Transfer in Shells Interface) (p.792)
+TOC:      Boundary Selection (p.792)
+TOC:      Interface Selection (p.793)
+TOC:      Model Input (p.794)
+TOC:      Surface-to-Ambient Radiation (p.794)
+TOC:      Location in User Interface (p.795)
+TOC:    Temperature, Interface (Heat Transfer in Shells Interface) (p.795)
+TOC:      Boundary Selection (p.795)
+TOC:      Interface Selection (p.796)
+TOC:      Temperature (p.797)
+TOC:      Constraint Settings (p.797)
+TOC:      Location in User Interface (p.797)
+TOC:    Thermal Contact, Interface (Heat Transfer in Shells Interface) (p.797)
+TOC:      Boundary Selection (p.798)
+TOC:      Interface Selection (p.798)
+TOC:      Model Input (p.799)
+TOC:      Thermal Contact (p.799)
+TOC:      Radiative Conductance (p.799)
+TOC:      Location in User Interface (p.800)
+TOC:    Thermal Insulation, Interface (Heat Transfer in Shells Interface) (p.800)
+TOC:      Boundary Selection (p.800)
+TOC:      Interface Selection (p.800)
+TOC:      Location in User Interface (p.801)
+TOC:  Edge Features (p.803)
+TOC:    Heat Flux (Heat Transfer in Shells Interface) (p.803)
+TOC:      Edge Selection (p.803)
+TOC:      Shell Properties (p.804)
+TOC:      Material Type (p.805)
+TOC:      Heat Flux (p.805)
+TOC:      Location in User Interface (p.806)
+TOC:    Heat Flux (Thin Layer, Thin Film, Fracture) (p.806)
+TOC:      Edge Selection (p.806)
+TOC:      Shell Properties (p.806)
+TOC:      Material Type (p.807)
+TOC:      Heat Flux (p.808)
+TOC:      Location in User Interface (p.809)
+TOC:    Heat Source (Heat Transfer in Shells Interface) (p.809)
+TOC:      Edge Selection (p.809)
+TOC:      Shell Properties (p.810)
+TOC:      Material Type (p.811)
+TOC:      Boundary Heat Source (p.811)
+TOC:      Location in User Interface (p.812)
+TOC:    Line Heat Source (p.812)
+TOC:      Material Type (p.812)
+TOC:      Line Heat Source (p.813)
+TOC:      Heat Source Radius (p.813)
+TOC:      Location in User Interface (p.814)
+TOC:    Lumped System Connector (Heat Transfer in Shells Interface) (p.814)
+TOC:      Edge Selection (p.815)
+TOC:      Shell Properties (p.815)
+TOC:      Terminal Inputs (p.816)
+TOC:      Location in User Interface (p.816)
+TOC:    Shell Continuity (Heat Transfer Interface) and Continuity (Heat Transfer in Shells Interface) (p.816)
+TOC:      Layer Selection (p.816)
+TOC:      Constraint Settings (p.817)
+TOC:      Location in User Interface (p.817)
+TOC:    Surface-to-Ambient Radiation (Thin Layer, Thin Film, Fracture, and Heat Transfer in Shells Interface) (p.818)
+TOC:      Edge Selection (p.818)
+TOC:      Shell Properties (p.818)
+TOC:      Model Input (p.819)
+TOC:      Surface-to-Ambient Radiation (p.819)
+TOC:      Location in User Interface (p.820)
+TOC:    Symmetry (Thin Layer, Thin Film, Fracture, and Heat Transfer in Shells Interface) (p.820)
+TOC:      Edge Selection (p.821)
+TOC:      Shell Properties (p.821)
+TOC:      Location in User Interface (p.821)
+TOC:    Temperature (Thin Layer, Thin Film, Fracture, and Heat Transfer in Shells Interface) (p.822)
+TOC:      Edge Selection (p.822)
+TOC:      Shell Properties (p.822)
+TOC:      Temperature (p.822)
+TOC:      Constraint Settings (p.823)
+TOC:      Location in User Interface (p.823)
+TOC:    Thermal Insulation (Thin Layer, Thin Film, Fracture, and Heat Transfer in Shells Interface) (p.824)
+TOC:      Edge Selection (p.824)
+TOC:      Shell Properties (p.825)
+TOC:      Location in User Interface (p.826)
+TOC:    Thermal Insulation, Edge (p.826)
+TOC:      Location in User Interface (p.826)
+TOC:    Thin Rod (p.827)
+TOC:      Model Input (p.827)
+TOC:      Thin Rod (p.828)
+TOC:      Heat Conduction (p.828)
+TOC:      Thermodynamics (p.828)
+TOC:      Location in User Interface (p.828)
+TOC:  Point Features (p.829)
+TOC:    Point Heat Flux (Thin Rod) (p.829)
+TOC:      Heat Flux (p.829)
+TOC:      Location in User Interface (p.829)
+TOC:    Point Heat Source (p.830)
+TOC:      Point Heat Source (p.830)
+TOC:      Heat Source Radius (p.830)
+TOC:      Location in User Interface (p.831)
+TOC:    Point Heat Source on Axis (p.831)
+TOC:      Location in User Interface (p.832)
+TOC:    Surface-to-Ambient Radiation (Thin Rod) (p.832)
+TOC:      Model Input (p.832)
+TOC:      Surface-to-Ambient Radiation (p.833)
+TOC:      Location in User Interface (p.833)
+TOC:    Temperature (Thin Rod) (p.834)
+TOC:      Temperature (p.834)
+TOC:      Constraint Settings (p.834)
+TOC:      Location in User Interface (p.834)
+TOC:  Global Features (p.836)
+TOC:    Thermal Connection (p.837)
+TOC:      Boundary Selection, Connector 1 (p.837)
+TOC:      Boundary Selection, Connector 2 (p.837)
+TOC:      Thermal connection (p.837)
+TOC:      Location in User Interface (p.841)
+TOC:    Events Timeline (p.841)
+TOC:      Initial Orientation (p.842)
+TOC:      Implicit Events (p.842)
+TOC:      Explicit Events (p.843)
+TOC:      Location in User Interface (p.843)
+TOC:    External Radiation Source (p.843)
+TOC:      External Radiation Source (p.844)
+TOC:      Radiative Intensity (p.846)
+TOC:      Location in User Interface (p.848)
+TOC:    Generate Events Interface (p.849)
+TOC:      Generate Events Interface (p.849)
+TOC:      Initial Orientation (p.849)
+TOC:      Implicit Events (p.850)
+TOC:      Explicit Events (p.850)
+TOC:      Location in User Interface (p.851)
+TOC:    Ground Pointing (p.851)
+TOC:      Geographic Position (p.851)
+TOC:      Pointing trigger (p.851)
+TOC:      Axes and Orientation on Target (p.852)
+TOC:      Axes and Orientation Out of Target (p.852)
+TOC:      Location in User Interface (p.852)
+TOC:    Implicit Event (p.852)
+TOC:      Location in User Interface (p.853)
+TOC:    Orbital Parameters (p.853)
+TOC:      Location in User Interface (p.855)
+TOC:    Planet Properties (p.855)
+TOC:      Planet properties (p.855)
+TOC:      Radiative Properties (p.856)
+TOC:      Location in User Interface (p.857)
+TOC:    Spacecraft Axes (p.857)
+TOC:      Location in User Interface (p.858)
+TOC:    Spacecraft Orientation (p.858)
+TOC:      Location in User Interface (p.859)
+TOC:    Sun Properties (p.859)
+TOC:      Location in User Interface (p.860)
+TOC:    Symmetry for Surface-to-Surface Radiation (p.861)
+TOC:      Symmetry for Surface-to-Surface Radiation (p.862)
+TOC:      Location in User Interface (p.865)
+TOC:    Thermal Connection, Interface–Interface (p.865)
+TOC:      Boundary Selection, Connector 1 (p.865)
+TOC:      Boundary Selection, Connector 2 (p.866)
+TOC:      Shell Properties (p.866)
+TOC:      Interface Selection (p.866)
+TOC:      Thermal connection (p.867)
+TOC:      Location in User Interface (p.871)
+TOC:    Conductive Thermal Resistor (p.871)
+TOC:      Model Input (p.871)
+TOC:      Identifier (p.872)
+TOC:      Node Connections (p.872)
+TOC:      Component Parameters (p.872)
+TOC:      Convectively Enhanced Conductivity (p.873)
+TOC:      Optically Thick Participating Medium (p.874)
+TOC:      Initial Values (p.874)
+TOC:      Results (p.874)
+TOC:      Location in User Interface (p.874)
+TOC:    Convective Thermal Resistor (p.875)
+TOC:      Model Input (p.875)
+TOC:      Identifier (p.875)
+TOC:      Node Connections (p.875)
+TOC:      Component Parameters (p.876)
+TOC:      Initial Values (p.876)
+TOC:      Results (p.877)
+TOC:      Location in User Interface (p.877)
+TOC:    External Terminal (p.877)
+TOC:      Node Connections (p.877)
+TOC:      External Connection (p.877)
+TOC:      Results (p.878)
+TOC:      Location in User Interface (p.878)
+TOC:    Heat Pipe (p.878)
+TOC:      Model Input (p.879)
+TOC:      Identifier (p.879)
+TOC:      Node Connections (p.879)
+TOC:      Component Parameters (p.879)
+TOC:      Heat Conduction, Wall (p.880)
+TOC:      Heat Conduction, Wick (p.880)
+TOC:      Initial Values (p.881)
+TOC:      Results (p.881)
+TOC:      Location in User Interface (p.881)
+TOC:    Heat Rate (p.882)
+TOC:      Node Connections (p.882)
+TOC:      Node Parameters (p.882)
+TOC:      Initial Values (p.884)
+TOC:      Results (p.884)
+TOC:      Location in User Interface (p.884)
+TOC:    Heat Rate Source (p.884)
+TOC:      Identifier (p.884)
+TOC:      Node Connections (p.884)
+TOC:      Component Parameters (p.884)
+TOC:      Initial Values (p.885)
+TOC:      Results (p.885)
+TOC:      Location in User Interface (p.885)
+TOC:    Nucleate Boiling Heat Rate (p.885)
+TOC:      Identifier (p.885)
+TOC:      Node Connections (p.885)
+TOC:      Component Parameters (p.885)
+TOC:      Initial Values (p.886)
+TOC:      Results (p.886)
+TOC:      Location in User Interface (p.886)
+TOC:    Radiative Heat Rate (p.886)
+TOC:      Node Connections (p.886)
+TOC:      Node Parameters (p.887)
+TOC:      Initial Values (p.887)
+TOC:      Results (p.887)
+TOC:      Location in User Interface (p.888)
+TOC:    Radiative Thermal Resistor (p.888)
+TOC:      Identifier (p.888)
+TOC:      Node Connections (p.888)
+TOC:      Component Parameters (p.888)
+TOC:      Initial Values (p.889)
+TOC:      Results (p.889)
+TOC:      Location in User Interface (p.889)
+TOC:    Subsystem Definition (p.890)
+TOC:      Node Connections (p.890)
+TOC:      Location in User Interface (p.890)
+TOC:    Subsystem Instance (p.890)
+TOC:      Identifier (p.890)
+TOC:      Node Connections (p.890)
+TOC:      Location in User Interface (p.890)
+TOC:    Temperature (p.891)
+TOC:      Node Connections (p.891)
+TOC:      Node Parameters (p.891)
+TOC:      Results (p.891)
+TOC:      Location in User Interface (p.891)
+TOC:    Thermal Capacitor (p.891)
+TOC:      Identifier (p.892)
+TOC:      Node Connections (p.892)
+TOC:      Component Parameters (p.892)
+TOC:      Initial Values (p.892)
+TOC:      Results (p.893)
+TOC:      Location in User Interface (p.893)
+TOC:    Thermal Mass (p.893)
+TOC:      Node Connections (p.893)
+TOC:      Node Parameters (p.894)
+TOC:      Initial Values (p.894)
+TOC:      Results (p.894)
+TOC:      Location in User Interface (p.894)
+TOC:    Thermoelectric Module (p.894)
+TOC:      Model Input (p.896)
+TOC:      Identifier (p.896)
+TOC:      Node Connections (p.896)
+TOC:      Component Parameters (p.897)
+TOC:      Performance Parameters (p.897)
+TOC:      P-Type Semiconductor Parameters (p.897)
+TOC:      N-Type Semiconductor Parameters (p.898)
+TOC:      Ceramic Plate Parameters (p.898)
+TOC:      Initial Values (p.899)
+TOC:      Results (p.899)
+TOC:      Location in User Interface (p.899)
+TOC:The Moisture Transport Features (p.901)
+TOC:  Domain Features (p.902)
+TOC:    Building Material (p.902)
+TOC:      Model Input (p.903)
+TOC:      Building Material (p.903)
+TOC:      Location in User Interface (p.904)
+TOC:    Hygroscopic Porous Medium (p.905)
+TOC:      Model Input (p.906)
+TOC:      Coordinate System Selection (p.906)
+TOC:      Moisture Transport Properties (p.907)
+TOC:      Location in User Interface (p.909)
+TOC:    Initial Values (p.909)
+TOC:      Initial Values (p.909)
+TOC:      Location in User Interface (p.909)
+TOC:    Liquid Water (Hygroscopic Porous Medium) (p.910)
+TOC:      Liquid Water Properties (p.910)
+TOC:      Location in User Interface (p.912)
+TOC:    Liquid Water Source (p.913)
+TOC:      Liquid Water Source (p.913)
+TOC:      Location in User Interface (p.913)
+TOC:    Moist Air (Hygroscopic Porous Medium) (p.914)
+TOC:      Moist Air Properties (p.914)
+TOC:      Location in User Interface (p.915)
+TOC:    Moist Air (Moisture Transport Interface) (p.916)
+TOC:      Model Input (p.917)
+TOC:      Diffusion (p.918)
+TOC:      Location in User Interface (p.918)
+TOC:    Moisture Source (p.919)
+TOC:      Moisture Source (p.919)
+TOC:      Location in User Interface (p.919)
+TOC:    Porous Matrix (Hygroscopic Porous Medium) (p.920)
+TOC:      Porous Matrix Properties (p.920)
+TOC:      Location in User Interface (p.921)
+TOC:    Turbulent Mixing (p.922)
+TOC:      Turbulent Mixing Parameters (p.922)
+TOC:      Location in User Interface (p.922)
+TOC:    Vapor Source (p.923)
+TOC:      Vapor Source (p.923)
+TOC:      Location in User Interface (p.923)
+TOC:  Boundary Features (p.925)
+TOC:    Continuity (p.925)
+TOC:      Pair Selection (p.926)
+TOC:      Constraint Settings (p.926)
+TOC:      Advanced (p.926)
+TOC:      Location in User Interface (p.926)
+TOC:    Free–Porous Interface (p.927)
+TOC:      Free–Porous Interface (p.927)
+TOC:    Inflow (p.928)
+TOC:      Upstream Properties (p.929)
+TOC:      Location in User Interface (p.930)
+TOC:    Insulation (p.930)
+TOC:      Location in User Interface (p.931)
+TOC:    Liquid Water Content (p.932)
+TOC:      Liquid Water Content (p.932)
+TOC:      Location in User Interface (p.932)
+TOC:    Liquid Water Flux (p.932)
+TOC:      Liquid Water Flux (p.932)
+TOC:      Location in User Interface (p.932)
+TOC:    Moist Surface (p.933)
+TOC:      Moist Surface Settings (p.934)
+TOC:      Location in User Interface (p.935)
+TOC:    Moisture Content (p.935)
+TOC:      Pair Selection (p.935)
+TOC:      Moisture Content (p.935)
+TOC:      Constraint Settings (p.937)
+TOC:      Location in User Interface (p.937)
+TOC:    Moisture Flux (p.938)
+TOC:      Moisture Flux (p.938)
+TOC:      Evaporation (p.939)
+TOC:      Location in User Interface (p.939)
+TOC:    Nonequilibrium Boundary (p.940)
+TOC:    Open Boundary (p.940)
+TOC:      Upstream Properties (p.942)
+TOC:      Inflow Condition (p.942)
+TOC:      Location in User Interface (p.943)
+TOC:    Outflow (p.943)
+TOC:      Location in User Interface (p.944)
+TOC:    Periodic Condition (p.944)
+TOC:      Boundary Selection (p.945)
+TOC:      Constraint Settings (p.945)
+TOC:      Orientation of Source (p.945)
+TOC:      Mapping between Source and Destination (p.945)
+TOC:      Location in User Interface (p.945)
+TOC:    Porous Interface (p.946)
+TOC:      Location in User Interface (p.946)
+TOC:    Porous–Porous Interface (p.947)
+TOC:    Symmetry (p.948)
+TOC:      Location in User Interface (p.948)
+TOC:    Thin Moisture Barrier (p.949)
+TOC:      Model Input (p.949)
+TOC:      Thin Moisture Barrier (p.949)
+TOC:      Location in User Interface (p.950)
+TOC:    Vapor Content (p.950)
+TOC:      Vapor Content (p.950)
+TOC:      Location in User Interface (p.952)
+TOC:    Vapor Flux (p.952)
+TOC:      Vapor Flux (p.952)
+TOC:      Location in User Interface (p.953)
+TOC:    Wet Surface (p.954)
+TOC:      Wet Surface Settings (p.955)
+TOC:      Location in User Interface (p.955)
+TOC:  Global Features (p.956)
+TOC:    Gravity (p.956)
+TOC:      Acceleration of Gravity (p.956)
+TOC:Multiphysics Interfaces (p.957)
+TOC:  The Nonisothermal Flow and Conjugate Heat Transfer Interfaces (p.960)
+TOC:    Advantages of Using the Multiphysics Interfaces (p.960)
+TOC:    The Nonisothermal Flow, Laminar Flow and Turbulent Flow Interfaces (p.961)
+TOC:    The Conjugate Heat Transfer, Laminar Flow and Turbulent Flow Interfaces (p.962)
+TOC:    Settings for Physics Interfaces and Coupling Features (p.963)
+TOC:    Coupling Feature (p.964)
+TOC:    Physics Interface Features (p.965)
+TOC:      Heat Transfer in Fluids (Nonisothermal Flow) (p.965)
+TOC:      Heat Transfer in Solids and Fluids (Conjugate Heat Transfer) (p.965)
+TOC:      Laminar Flow (p.965)
+TOC:      Turbulent Flow, Algebraic yPlus (p.965)
+TOC:      Turbulent Flow, L-VEL (p.965)
+TOC:      Turbulent Flow, k-e (p.966)
+TOC:      Turbulent Flow, Realizable k-e (p.966)
+TOC:      Turbulent Flow, k-w (p.966)
+TOC:      Turbulent Flow, SST (p.966)
+TOC:      Turbulent Flow, Low Re k-e (p.966)
+TOC:      Turbulent Flow, Spalart–Allmaras (p.966)
+TOC:      Turbulent Flow, v2-f (p.966)
+TOC:    Preset Studies (p.967)
+TOC:  The Heat Transfer with Surface-to-Surface Radiation Interface (p.968)
+TOC:    The Heat Transfer with Surface-to-Surface Radiation Multiphysics Interface (p.968)
+TOC:      On the Constituent Physics Interfaces (p.968)
+TOC:      As an Add-on Multiphysics Coupling (p.969)
+TOC:      Settings for the Physics Interfaces and Coupling Features (p.969)
+TOC:    Physics Interface Features (p.970)
+TOC:      Heat Transfer in Solids (p.970)
+TOC:      Surface-to-Surface Radiation (p.970)
+TOC:    Coupling Feature (p.970)
+TOC:  The Heat Transfer with Orbital Thermal Load Interface (p.971)
+TOC:    The Heat Transfer with Orbital Thermal Loads Multiphysics Interface (p.971)
+TOC:      On the Constituent Physics Interfaces (p.971)
+TOC:      As an Add-on Multiphysics Coupling (p.972)
+TOC:      Settings for the Physics Interfaces and Coupling Features (p.972)
+TOC:    Physics Interface Features (p.972)
+TOC:      Heat Transfer in Solids (p.972)
+TOC:      Orbital Thermal Loads (p.972)
+TOC:    Coupling Feature (p.973)
+TOC:  The Heat Transfer with Radiation in Participating Media Interface (p.974)
+TOC:    The Heat Transfer with Radiation in Participating Media Multiphysics Interface (p.974)
+TOC:      On the Constituent Physics Interfaces (p.974)
+TOC:      As an Add-on Multiphysics Coupling (p.975)
+TOC:      Settings for the Physics Interfaces and Coupling Features (p.975)
+TOC:    Physics Interface Features (p.975)
+TOC:      Heat Transfer in Solids (p.975)
+TOC:      Radiation in Participating Media (p.975)
+TOC:    Coupling Feature (p.976)
+TOC:  The Heat Transfer with Radiation in Absorbing–Scattering Media Interface (p.977)
+TOC:    The Heat Transfer with Radiation in Absorbing–Scattering Media Multiphysics Interface (p.977)
+TOC:      On the Constituent Physics Interfaces (p.977)
+TOC:      As an Add-on Multiphysics Coupling (p.978)
+TOC:      Settings for the Physics Interfaces and Coupling Features (p.978)
+TOC:    Physics Interface Features (p.979)
+TOC:      Heat Transfer in Solids (p.979)
+TOC:      Radiation in Absorbing–Scattering Media (p.979)
+TOC:    Coupling Feature (p.979)
+TOC:  The Heat Transfer with Radiative Beam in Absorbing Media Interface (p.980)
+TOC:    The Heat Transfer with Radiative Beam in Absorbing Media Multiphysics Interface (p.980)
+TOC:      On the Constituent Physics Interfaces (p.980)
+TOC:      As an Add-on Multiphysics Coupling (p.981)
+TOC:      Settings for the Physics Interfaces and Coupling Features (p.981)
+TOC:    Physics Interface Features (p.981)
+TOC:      Heat Transfer in Solids (p.981)
+TOC:      Radiative Beam in Absorbing Media (p.981)
+TOC:    Coupling Feature (p.981)
+TOC:  The Thermoelectric Effect Interface (p.982)
+TOC:    About The Thermoelectric Effect Interface (p.982)
+TOC:      On the Constituent Physics Interfaces (p.982)
+TOC:      As an Add-on Multiphysics Coupling (p.983)
+TOC:    Settings for Physics Interfaces and Coupling Features (p.983)
+TOC:    Coupling Features (p.984)
+TOC:    Physics Interface Features (p.985)
+TOC:      Heat Transfer in Solids (p.985)
+TOC:      Electric Currents (p.985)
+TOC:  The Heat and Moisture Transport Interfaces (p.986)
+TOC:    The Heat and Moisture Transport Multiphysics Interfaces (p.986)
+TOC:      Latent Heat Sources (p.986)
+TOC:      Diffusive Flux of Thermal Enthalpy (p.986)
+TOC:    The Moist Air Version of the Heat and Moisture Transport Multiphysics Interface (p.987)
+TOC:      On the Constituent Physics Interfaces (p.987)
+TOC:      As an Add-on Multiphysics Coupling (p.987)
+TOC:      Settings for the Physics Interfaces and Coupling Features (p.988)
+TOC:    The Moist Porous Media Version of the Heat and Moisture Transport Multiphysics Interface (p.988)
+TOC:      On the Constituent Physics Interfaces (p.989)
+TOC:      As an add-on Multiphysics Coupling (p.989)
+TOC:      Settings for the Physics Interfaces and Coupling Features (p.990)
+TOC:    The Building Materials Version of the Heat and Moisture Transport Multiphysics Interface (p.990)
+TOC:      On the Constituent Physics Interfaces (p.991)
+TOC:      As an Add-on Multiphysics Coupling (p.991)
+TOC:      Settings for the Physics Interfaces and Coupling Features (p.992)
+TOC:    Physics Interface Features (p.992)
+TOC:      Heat Transfer (p.992)
+TOC:      Moisture Transport (p.992)
+TOC:    Coupling Feature (p.992)
+TOC:  The Moisture Flow Interfaces (p.993)
+TOC:    The Moisture Flow, Laminar Flow and Turbulent Flow Multiphysics Interfaces (p.993)
+TOC:      Settings for the Physics Interfaces and Coupling Features (p.994)
+TOC:      On the Constituent Physics Interfaces (p.995)
+TOC:      As an Add-on Multiphysics Coupling (p.996)
+TOC:    Physics Interface Features for the Laminar and Turbulent Flow Versions (p.996)
+TOC:      Moisture Transport in Air (p.996)
+TOC:      Laminar Flow (p.996)
+TOC:      Turbulent Flow, Algebraic yPlus (p.996)
+TOC:      Turbulent Flow, L-VEL (p.997)
+TOC:      Turbulent Flow, k-e (p.997)
+TOC:      Turbulent Flow, Realizable k-e (p.997)
+TOC:      Turbulent Flow, k-w (p.997)
+TOC:      Turbulent Flow, SST (p.997)
+TOC:      Turbulent Flow, Low Re k-e (p.997)
+TOC:      Turbulent Flow, Spalart–Allmaras (p.997)
+TOC:      Turbulent Flow, v2-f (p.997)
+TOC:    The Moisture Flow, Brinkman Equations Multiphysics Interface (p.998)
+TOC:      Settings for the Physics Interfaces and Coupling Features (p.999)
+TOC:      On the Constituent Physics Interfaces (p.999)
+TOC:    Physics Interface Features for the Brinkman Equations Version (p.1000)
+TOC:      Moisture Transport in Porous Media (p.1000)
+TOC:      Brinkman Equations (p.1000)
+TOC:    Preset Studies (p.1000)
+TOC:    Coupling Feature (p.1000)
+TOC:  The Heat and Moisture Flow Interfaces (p.1001)
+TOC:    The Heat and Moisture Flow, Laminar Flow and Turbulent Flow Multiphysics Interfaces (p.1001)
+TOC:      Settings for the Physics Interfaces and Coupling Features (p.1003)
+TOC:      On the Constituent Physics Interfaces (p.1004)
+TOC:    Physics Interface Features for the Laminar and Turbulent Flow Versions (p.1005)
+TOC:      Heat Transfer in Moist Air (p.1005)
+TOC:      Moisture Transport in Air (p.1005)
+TOC:      Laminar Flow (p.1005)
+TOC:      Turbulent Flow, Algebraic yPlus (p.1006)
+TOC:      Turbulent Flow, L-VEL (p.1006)
+TOC:      Turbulent Flow, k-e (p.1006)
+TOC:      Turbulent Flow, Realizable k-e (p.1006)
+TOC:      Turbulent Flow, k-w (p.1006)
+TOC:      Turbulent Flow, SST (p.1006)
+TOC:      Turbulent Flow, Low Re k-e (p.1006)
+TOC:      Turbulent Flow, Spalart–Allmaras (p.1006)
+TOC:      Turbulent Flow, v2-f (p.1007)
+TOC:    The Heat and Moisture Flow, Brinkman Equations Interface (p.1007)
+TOC:      Settings for the Physics Interfaces and Coupling Features (p.1008)
+TOC:      On the Constituent Physics Interfaces (p.1009)
+TOC:    Physics Interface Features for the Brinkman Equations Version (p.1010)
+TOC:      Heat Transfer in Moist Porous Media (p.1010)
+TOC:      Moisture Transport in Porous Media (p.1010)
+TOC:      Brinkman Equations (p.1010)
+TOC:    Coupling Features (p.1010)
+TOC:  The Joule Heating Interface (p.1011)
+TOC:    The Joule Heating Interface (p.1011)
+TOC:    Coupling Feature (p.1011)
+TOC:  The Laser Heating Interface (p.1012)
+TOC:    The Laser Heating Interface (p.1012)
+TOC:    Coupling Feature (p.1012)
+TOC:  The Induction Heating Interface (p.1013)
+TOC:    The Induction Heating Interface (p.1013)
+TOC:    Coupling Feature (p.1013)
+TOC:  The Microwave Heating Interface (p.1014)
+TOC:    The Microwave Heating Interface (p.1014)
+TOC:    Coupling Feature (p.1014)
+TOC:Multiphysics Couplings (p.1015)
+TOC:  Global Multiphysics Couplings (p.1017)
+TOC:    Thermal Connection, Layered Shell, Surfaces (p.1017)
+TOC:      Coupled Interfaces (p.1017)
+TOC:      Connection Settings (p.1017)
+TOC:      Constraint Settings (p.1018)
+TOC:      Location in User Interface (p.1018)
+TOC:    Thermal Connection, Nonlayered Shell (p.1019)
+TOC:      Coupled Interfaces (p.1019)
+TOC:      Connection Settings (p.1019)
+TOC:      Constraint Settings (p.1021)
+TOC:      Location in User Interface (p.1021)
+TOC:  Domain Multiphysics Couplings (p.1022)
+TOC:    Electromagnetic Heating (p.1022)
+TOC:      Location in User Interface (p.1023)
+TOC:    Heat and Moisture (p.1023)
+TOC:      Settings (p.1024)
+TOC:      Domain Selection (p.1025)
+TOC:      Coupled Interfaces (p.1025)
+TOC:      Latent Heat (p.1025)
+TOC:      Location in User Interface (p.1026)
+TOC:    Heat Transfer with Radiation in Participating Media (p.1026)
+TOC:      Settings (p.1027)
+TOC:      Coupled Interfaces (p.1027)
+TOC:      Location in User Interface (p.1027)
+TOC:    Heat Transfer with Radiation in Absorbing–Scattering Media (p.1028)
+TOC:      Settings (p.1028)
+TOC:      Coupled Interfaces (p.1028)
+TOC:      Location in User Interface (p.1029)
+TOC:    Heat Transfer with Radiative Beam in Absorbing Media (p.1029)
+TOC:      Settings (p.1030)
+TOC:      Coupled Interfaces (p.1030)
+TOC:      Location in User Interface (p.1030)
+TOC:    Moisture Flow (p.1030)
+TOC:      Settings (p.1031)
+TOC:      Domain Selection (p.1032)
+TOC:      Coupled Interfaces (p.1032)
+TOC:      Moisture Transport at Walls (p.1032)
+TOC:      Moisture Transport Turbulence Model (p.1033)
+TOC:      Location in User Interface (p.1034)
+TOC:    Nonisothermal Flow (p.1034)
+TOC:      Settings (p.1036)
+TOC:      Domain Selection (p.1036)
+TOC:      Coupled Interfaces (p.1036)
+TOC:      Heat Transfer Turbulence Model (p.1037)
+TOC:      Material Properties (p.1039)
+TOC:      energy balance (p.1041)
+TOC:      Location in User Interface (p.1042)
+TOC:    Thermal Expansion (p.1042)
+TOC:    Thermoelectric Effect (p.1043)
+TOC:      Settings (p.1043)
+TOC:      Domain Selection (p.1044)
+TOC:      Boundary Selection (p.1044)
+TOC:      Coupled Interfaces (p.1044)
+TOC:      Model Input (p.1044)
+TOC:      Coordinate System Selection (p.1045)
+TOC:      Thermoelectric Properties (p.1045)
+TOC:      Location in User Interface (p.1045)
+TOC:  Boundary Multiphysics Couplings (p.1046)
+TOC:    Electromagnetic Heating, Layered Shell (p.1046)
+TOC:      Boundary Selection (p.1046)
+TOC:      Coupled Interfaces (p.1046)
+TOC:      Shell Properties (p.1047)
+TOC:      Location in User Interface (p.1047)
+TOC:    Heat Transfer with Surface-to-Surface Radiation (p.1048)
+TOC:      Settings (p.1048)
+TOC:      Coupled Interfaces (p.1048)
+TOC:      Heat Transfer with Surface-to-Surface Radiation (p.1049)
+TOC:      Location in User Interface (p.1050)
+TOC:    Thermal Expansion, Layered (p.1050)
+TOC:    Marangoni Effect (p.1050)
+TOC:      Settings (p.1051)
+TOC:      Coupled Interfaces (p.1051)
+TOC:      Surface Tension (p.1052)
+TOC:      Contact Angle (p.1052)
+TOC:      Location in User Interface (p.1052)
+TOC:    Thermal Connection, Layered Shell, Edges (p.1053)
+TOC:      Edge Selection (p.1053)
+TOC:      Boundary Selection, HEAT (p.1053)
+TOC:      Coupled Interfaces (p.1053)
+TOC:      SHELL Properties (p.1053)
+TOC:      Connection Settings (p.1053)
+TOC:      Constraint Settings (p.1054)
+TOC:      Location in User Interface (p.1054)
+TOC:    Thermoelectric Effect, Layered Shell (p.1054)
+TOC:      Boundary Selection (p.1055)
+TOC:      Coupled Interfaces (p.1055)
+TOC:      Shell Properties (p.1055)
+TOC:      Thermoelectric Properties (p.1056)
+TOC:      Location in User Interface (p.1056)
+TOC:Index (p.1057)
+
+--- Page 1 ---
+Heat Transfer Module
+User’s Guide
+
+
+--- Page 2 ---
+Co nt act Info rmation
+Visit the Contact COMSOL page at www.comsol.com/contact to submit general inquiries 
+or search for an address and phone number. You can also visit the Worldwide Sales Offices 
+page at www.comsol.com/contact/offices for address and contact information.
+If you need to contact Support, an online request form is located on the COMSOL Access 
+page at www.comsol.com/support/case. Useful links:
+• Support Center: www.comsol.com/support
+• Product Download: www.comsol.com/product-download
+• Product Updates: www.comsol.com/product-update
+• COMSOL Blog: www.comsol.com/blogs
+• Discussion Forum: www.comsol.com/forum
+• Events: www.comsol.com/events
+• COMSOL Video Gallery: www.comsol.com/videos
+• Support Knowledge Base: www.comsol.com/support/knowledgebase
+• Learning Center: www.comsol.com/support/learning-center
+Part number: CM020801
+H e a t  T r a n s fe r  M od u l e  U s e r ’ s  G u i d e
+© 1998–2025 COMSOL
+Protected by patents listed on www.comsol.com/patents, or see Help > About COMSOL Multiphysics on 
+the File menu in the COMSOL Desktop for less detailed lists of U.S. Patents that may apply. Patents 
+pending.
+This Documentation and the Programs described herein are furnished under the COMSOL Software License 
+Agreement (www.comsol.com/sla) and may be used or copied only under the terms of the license 
+agreement.
+COMSOL, the COMSOL logo, COMSOL Multiphysics, COMSOL Desktop, COMSOL Compiler, 
+COMSOL Server, and LiveLink are either registered trademarks or trademarks of COMSOL AB. All other 
+trademarks are the property of their respective owners, and COMSOL AB and its subsidiaries and products 
+are not affiliated with, endorsed by, sponsored by, or supported by those trademark owners. For a list of such 
+trademark owners, see www.comsol.com/trademarks.
+Version: COMSOL 6.4
+
+
+--- Page 3 ---
+C O N T E N T S  | 3
+C o n t e n t s
+C h a p t e r  1 :  I n t r o d u c t i o n
+About the Heat Transfer Module 
+ 26
+Why Heat Transfer Is Important to Modeling .   .   .   .   .   .   .   .   .   .   .   .  26
+How the Heat Transfer Module Improves Your Modeling   .   .   .   .   .   .   .  27
+The Heat Transfer Module Physics Interface Guide .   .   .   .   .   .   .   .   .   .  27
+Common Physics Interface and Feature Settings and Nodes    .   .   .   .   .   .  36
+The Heat Transfer Module Study Capabilities  .   .   .   .   .   .   .   .   .   .   .   .  36
+Additional Materials Database .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  41
+Where Do I Access the Documentation and Application Libraries? .   .   .   .  42
+Overview of the User’s Guide 
+ 45
+Ch a p t e r  2 :  N o t at i o n s
+Symbols 
+ 52
+C h a p t e r  3 :  M o d e l i n g  w i t h  t h e  H e a t  T r a n s fe r  M o d u l e
+Heat Transfer Variables 
+ 68
+Predefined Variables    .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  68
+Global Variables for Heat and Energy Balance .   .   .   .   .   .   .   .   .   .   .   .  72
+Domain Fluxes.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  76
+Out-of-Plane Domain Fluxes   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  78
+Boundary Fluxes (Heat Transfer Interface)  .   .   .   .   .   .   .   .   .   .   .   .   .  79
+Internal Boundary Heat Fluxes.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  80
+Internal Boundary Energy Fluxes .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  82
+Domain Heat Sources .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  82
+Boundary Heat Sources  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  83
+Line and Point Heat Sources   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  83
+Moist Air Variables  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  83
+
+
+--- Page 4 ---
+4 | C O N T E N T S
+Moisture Transport Variables 
+ 86
+Predefined Variables    .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  86
+Moist Air Properties   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  88
+Domain Moisture Fluxes .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  90
+Boundary Moisture Fluxes   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  91
+Domain Moisture Source.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  92
+Mass Balance   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  92
+Using the Boundary Conditions for the Heat Transfer 
+Interfaces 
+ 94
+Temperature and Heat Flux Boundary Conditions  .   .   .   .   .   .   .   .   .   .  94
+Overriding Mechanism for Heat Transfer Boundary Conditions  .   .   .   .   .  95
+Handling Frames in Heat Transfer 
+ 98
+Heat Transfer Analysis with Moving Frames.   .   .   .   .   .   .   .   .   .   .   .   .  98
+Material Density in Features Defined in the Material Frame .   .   .   .   .   .    103
+Heat Transfer Consistent and Inconsistent Stabilization 
+Methods 
+ 105
+Consistent Stabilization   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    105
+Inconsistent Stabilization .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    106
+Heat Transfer and Fluid Flow Coupling 
+ 107
+Coupling Based on Model Inputs .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    107
+Adding Nonisothermal Flow Coupling in an Existing Model .   .   .   .   .   .    108
+Nonisothermal Flow and Conjugate Heat Transfer Multiphysics 
+Interfaces   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    108
+Boundary Wall Temperature 
+ 110
+Solver Settings 
+ 116
+Linearity Property of the Temperature Equation .   .   .   .   .   .   .   .   .   .    116
+Linear Solver   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    117
+Nonlinear Solver .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    119
+Time Dependent Study Step   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    122
+Guidelines for Solving Surface-to-Surface Radiation Problems .   .   .   .   .    124
+Guidelines for Solving Radiation in Participating Media and Radiation 
+in Absorbing-Scattering Media Problems.   .   .   .   .   .   .   .   .   .   .   .    124
+
+
+--- Page 5 ---
+C O N T E N T S  | 5
+Guidelines for Solving Multiphysics Problems  .   .   .   .   .   .   .   .   .   .   .    125
+Plotting and Evaluating Results in Layered Materials 
+ 128
+Plotting Along and Through the Layered Material    .   .   .   .   .   .   .   .   .    128
+Built-in Operators for Evaluation in the Layered Material    .   .   .   .   .   .    129
+Evaluating the Bulk Temperature 
+ 133
+Bulk Temperature Definition   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    133
+Evaluation of the Bulk Temperature in 3D Models  .   .   .   .   .   .   .   .   .    134
+Evaluation of the Bulk Temperature in 2D Models  .   .   .   .   .   .   .   .   .    134
+Ambient Properties 
+ 137
+Settings for the Ambient Properties.   .   .   .   .   .   .   .   .   .   .   .   .   .   .    137
+Processing of ASHRAE Data   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    142
+Ambient Data Interpolation .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    143
+Ambient Variables and Conditions  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    143
+Use of Ambient Data from the Features  .   .   .   .   .   .   .   .   .   .   .   .   .    152
+Modeling Heat Transfer by Radiation 
+ 154
+Interfaces and Features for Radiation in Transparent Media .   .   .   .   .   .    156
+Surface-to-Surface Radiation and Topology Consistency .   .   .   .   .   .   .    157
+Interfaces and Features for Radiation in Participating Media .   .   .   .   .   .    158
+Specifying the Temperature at a Flow Inlet 
+ 161
+Using the Temperature Condition  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    161
+Using the Inflow Condition .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    161
+Temperature Contribution to the Inflow Boundary Condition.   .   .   .   .    163
+Pressure Contribution to the Inflow Boundary Condition   .   .   .   .   .   .    164
+Choosing Between the Temperature and the Inflow Conditions .   .   .   .    164
+Heat Part Library 
+ 165
+Heat Part Library Contents .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    165
+Heat Sink — Parameterized Fin Types Part .   .   .   .   .   .   .   .   .   .   .   .    168
+Heat Sink — Dissimilar Border Pins Part .   .   .   .   .   .   .   .   .   .   .   .   .    171
+Heat Sink — Pin Fins Part   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    171
+Heat Sink — Straight Fins Part.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    171
+
+
+--- Page 6 ---
+6 | C O N T E N T S
+References 
+ 172
+C h a p t e r  4 :  T h e o r y  f o r  t h e  H e a t  T r a n s f e r  M o d u l e
+Foundations of the General Heat Transfer Equation 
+ 175
+Thermodynamic Description of Heat Transfer.   .   .   .   .   .   .   .   .   .   .    175
+The Physical Mechanisms Underlying Heat Transfer.   .   .   .   .   .   .   .   .    180
+The Heat Balance Equation .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    181
+Consistency with Mass and Momentum Conservation Laws.   .   .   .   .   .    184
+Theory for Heat Transfer in Solids 
+ 186
+Theory for Heat Transfer in Fluids 
+ 187
+Theory for the Inflow Boundary Condition .   .   .   .   .   .   .   .   .   .   .   .    188
+Theory for Heat Transfer in Moist Air 
+ 190
+Humidity .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    190
+Saturation State   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    192
+Moist Air Properties   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    192
+Theory for Bioheat Transfer 
+ 197
+The Bioheat Equation  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    197
+Damaged Tissue  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    197
+Theory for Heat Transfer in Porous Media 
+ 201
+When Should Local Thermal Equilibrium and Nonequilibrium Be 
+Considered?  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    202
+Local Thermal Equilibrium   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    203
+Local Thermal Nonequilibrium    .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    205
+Packed Bed of Pellets  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    207
+Theory for Heat Transfer in Moist Porous Media    .   .   .   .   .   .   .   .   .    210
+Theory for Heat Transfer with Phase Change 
+ 212
+Heat Transfer with Phase Change   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    212
+Arbitrary Lagrangian–Eulerian Method.   .   .   .   .   .   .   .   .   .   .   .   .   .    212
+Apparent Heat Capacity Method .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    214
+
+
+--- Page 7 ---
+C O N T E N T S  | 7
+Theory for Heat Transfer in Building Materials 
+ 218
+Theory for Harmonic Heat Transfer 
+ 220
+Theory for Lumped Isothermal Domain 
+ 222
+Theory for Heat Transfer in Thin Structures 
+ 225
+Modeling Layered Materials .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    225
+Theoretical Background of the Different Formulations    .   .   .   .   .   .   .    230
+Thin Layer   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    235
+Thin Film .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    239
+Fracture  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    241
+Thin Rod .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    242
+Theory for the Lumped Thermal System Interface 
+ 243
+Temperature Differences and Heat Rates in the Lumped Thermal 
+System   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    243
+Theory for the Conductive Thermal Resistor Component  .   .   .   .   .   .    245
+Theory for the Radiative Thermal Resistor Component  .   .   .   .   .   .   .    248
+Theory for the Thermal Capacitor and Thermal Mass Components    .   .    251
+Theory for the Heat Pipe Component.   .   .   .   .   .   .   .   .   .   .   .   .   .    252
+Theory for the Thermoelectric Module Component   .   .   .   .   .   .   .   .    254
+Theory for Cell Periodicity 
+ 258
+Theory for Thermal Connection 
+ 261
+Conductive Thermal Resistor  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    261
+Thermal Capacitor  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    264
+Theory for Surface-to-Surface Radiation 
+ 267
+Deriving the Directional Dependence of Surface Properties for 
+Dielectric Windows   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    267
+Deriving the Directional Dependence of Surface Properties for 
+Refractive Interface    .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    270
+Deriving the Radiative Heat Flux for Opaque Surfaces.   .   .   .   .   .   .   .    272
+Deriving the Radiative Heat Flux for Semitransparent Surfaces   .   .   .   .    274
+Deriving the Radiative Heat Fluxes for Radiation Shields .   .   .   .   .   .   .    276
+Wavelength Dependence of Surface Properties   .   .   .   .   .   .   .   .   .   .    278
+
+
+--- Page 8 ---
+8 | C O N T E N T S
+Directional Dependence of Surface Properties    .   .   .   .   .   .   .   .   .   .    284
+The Radiosity Method for Diffuse-Gray Surfaces .   .   .   .   .   .   .   .   .   .    284
+The Radiosity Method for Diffuse-Spectral Surfaces.   .   .   .   .   .   .   .   .    287
+View Factor Evaluation    .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    290
+Theory for Orbital Thermal Loads 
+ 295
+Coordinate Systems.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    295
+Defining the Position of the Spacecraft Over Time  .   .   .   .   .   .   .   .   .    296
+Orienting the Spacecraft .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    298
+Modeling the Planet .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    300
+Modeling of Fast Tumbling  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    301
+Theory for Radiation in Participating Media 
+ 302
+Radiation and Participating Media Interactions .   .   .   .   .   .   .   .   .   .   .    303
+Radiative Transfer Equation .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    304
+Boundary Condition for the Radiative Transfer Equation .   .   .   .   .   .   .    306
+Heat Transfer Equation in Participating Media .   .   .   .   .   .   .   .   .   .   .    308
+Discrete Ordinates Method (DOM)    .   .   .   .   .   .   .   .   .   .   .   .   .   .    308
+Discrete Ordinates Method Implementation in 2D  .   .   .   .   .   .   .   .   .    311
+Discrete Ordinates Method Implementation in 2D Axisymmetry.   .   .   .    312
+P1 Approximation Theory  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    313
+Radiation in Absorbing–Scattering Media Theory.   .   .   .   .   .   .   .   .   .    316
+Polychromatic Radiation  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    317
+Weighted Sum of Gray Gases Model (WSGG)    .   .   .   .   .   .   .   .   .   .    318
+Radiative Beam in Absorbing Media Theory .   .   .   .   .   .   .   .   .   .   .   .    319
+Rosseland Approximation Theory   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    320
+Theory for Moisture Transport 
+ 322
+Theory for Moisture Transport in Air .   .   .   .   .   .   .   .   .   .   .   .   .   .    322
+Theory for Moisture Transport in Building Materials   .   .   .   .   .   .   .   .    324
+Theory for Moisture Transport in Porous Media 
+ 327
+Equilibrium Moisture Transport  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    329
+Nonequilibrium Moisture Transport   .   .   .   .   .   .   .   .   .   .   .   .   .   .    332
+Capillary Pressure Models   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    334
+Theory for the Heat Transfer Multiphysics Couplings 
+ 336
+Theory for the Nonisothermal Flow and Conjugate Heat Transfer 
+
+
+--- Page 9 ---
+C O N T E N T S  | 9
+Interfaces   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    336
+Theory for the Moisture Flow Interface  .   .   .   .   .   .   .   .   .   .   .   .   .    346
+Theory for the Thermoelectric Effect Interface   .   .   .   .   .   .   .   .   .   .    353
+Theory for the Building Materials Version of the Heat and Moisture 
+Transport Interface    .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    355
+Theory for the Moist Air Version of the Heat and Moisture 
+Transport Interface    .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    356
+Theory for the Moist Porous Media Version of the Heat and 
+Moisture Transport Interface .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    357
+Theory for the Heat and Moisture Flow Interfaces  .   .   .   .   .   .   .   .   .    358
+Theory for the Electromagnetic Heating Interfaces .   .   .   .   .   .   .   .   .    358
+Theory for the Thermal Stress Interface .   .   .   .   .   .   .   .   .   .   .   .   .    358
+Theory for Thermal Contact 
+ 360
+Theory for the Thermal Contact Feature    .   .   .   .   .   .   .   .   .   .   .   .    360
+Out-of-Plane Heat Transfer 
+ 365
+Equation Formulation  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    365
+Convective Heat Transfer Correlations 
+ 368
+Defining the Heat Transfer Coefficients  .   .   .   .   .   .   .   .   .   .   .   .   .    369
+Nature of the Flow — The Grashof Number  .   .   .   .   .   .   .   .   .   .   .    370
+Heat Transfer Coefficients — External Natural Convection    .   .   .   .   .    372
+Heat Transfer Coefficients — Internal Natural Convection .   .   .   .   .   .    379
+Heat Transfer Coefficients — External Forced Convection .   .   .   .   .   .    380
+Heat Transfer Coefficients — Internal Forced Convection  .   .   .   .   .   .    383
+Using the Heat and Mass Transfer Analogy for the Evaluation of 
+Moisture Transfer Coefficients  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    384
+Nucleate Pool Boiling Correlation 
+ 385
+Rohsenow Correlation for Pool Nucleate Boiling    .   .   .   .   .   .   .   .   .    385
+Critical Heat Flux for Nucleate Boiling.   .   .   .   .   .   .   .   .   .   .   .   .   .    386
+Equivalent Thermal Conductivity Correlations 
+ 387
+Horizontal Cavity With Bottom Heating .   .   .   .   .   .   .   .   .   .   .   .   .    388
+Vertical Cavity With Sidewall Heating .   .   .   .   .   .   .   .   .   .   .   .   .   .    388
+
+
+--- Page 10 ---
+10 | C O N T E N T S
+Temperature Dependence of Surface Tension 
+ 390
+Heat Flux and Heat Balance 
+ 391
+Total Heat Flux and Energy Flux  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    391
+Heat and Energy Balance .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    392
+Frames for the Heat Transfer Equations 
+ 395
+Material and Spatial Frames .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    395
+Conversion Between Material and Spatial Frames   .   .   .   .   .   .   .   .   .    397
+
+
+--- Page 11 ---
+C O N T E N T S  | 11
+References 
+ 401
+C h a p t e r  5 :  T h e  H e a t  T r a n s f e r  M o d u l e  I n t e r f a c e s
+The Heat Transfer Interfaces 
+ 409
+The Conjugate Heat Transfer Interfaces 
+ 412
+The Radiation Interfaces 
+ 414
+The Electromagnetic Heating Interfaces 
+ 418
+The Thin Structures Interfaces 
+ 420
+The Heat and Moisture Transport Interfaces 
+ 422
+The Heat and Moisture Flow Interfaces 
+ 424
+The Moisture Transport Interfaces 
+ 426
+The Moisture Flow Interfaces 
+ 429
+The Porous Media Interfaces 
+ 431
+The Metal Processing Interfaces 
+ 433
+The Curing Interfaces 
+ 435
+About the Heat Transfer Interfaces 
+ 436
+Space Dimensions   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    436
+Study Types.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    437
+Versions of the Heat Transfer Interface  .   .   .   .   .   .   .   .   .   .   .   .   .    437
+Benefits of the Different Heat Transfer Interfaces   .   .   .   .   .   .   .   .   .    438
+Versions of the Heat Transfer in Shells Interface .   .   .   .   .   .   .   .   .   .    438
+Benefits of the Different Heat Transfer in Shells Interfaces  .   .   .   .   .   .    439
+Layer and Interface Selection Tools .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    439
+
+
+--- Page 12 ---
+12 | C O N T E N T S
+Using the Extra Dimension Coordinates .   .   .   .   .   .   .   .   .   .   .   .   .    443
+Versions of the Moisture Transport Interface  .   .   .   .   .   .   .   .   .   .   .    443
+Benefits of the Different Moisture Transport Interfaces  .   .   .   .   .   .   .    444
+Additional Physics Options  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    445
+Settings for the Heat Transfer Interface  .   .   .   .   .   .   .   .   .   .   .   .   .    445
+Feature Nodes for the Heat Transfer Interface   .   .   .   .   .   .   .   .   .   .    449
+Settings for the Heat Transfer in Shells Interface .   .   .   .   .   .   .   .   .   .    452
+Settings for the Moisture Transport Interface .   .   .   .   .   .   .   .   .   .   .    457
+Feature Nodes for the Moisture Transport Interface  .   .   .   .   .   .   .   .    459
+The Heat Transfer in Solids Interface 
+ 461
+The Heat Transfer in Fluids Interface 
+ 462
+The Heat Transfer in Solids and Fluids Interface 
+ 463
+The Heat Transfer in Porous Media Interface 
+ 464
+The Local Thermal Nonequilibrium Interface 
+ 465
+The Heat Transfer in Packed Beds Interface 
+ 467
+The Heat Transfer in Moist Porous Media Interface 
+ 469
+The Heat Transfer in Building Materials Interface 
+ 470
+The Heat Transfer in Moist Air Interface 
+ 471
+The Bioheat Transfer Interface 
+ 472
+The Heat Transfer in Shells Interface 
+ 473
+Feature Nodes for the Heat Transfer in Shells Interface  .   .   .   .   .   .   .    475
+The Heat Transfer in Films Interface 
+ 478
+Feature Nodes for the Heat Transfer in Films Interface  .   .   .   .   .   .   .    480
+The Heat Transfer in Fractures Interface 
+ 483
+Feature Nodes for the Heat Transfer in Fractures Interface    .   .   .   .   .    485
+
+
+--- Page 13 ---
+C O N T E N T S  | 13
+The Lumped Thermal System Interface 
+ 488
+Feature Nodes for the Lumped Thermal System Interface  .   .   .   .   .   .    489
+The Surface-to-Surface Radiation Interface 
+ 491
+Settings for the Surface-to-Surface Radiation Interface.   .   .   .   .   .   .   .    491
+Feature Nodes for the Surface-to-Surface Radiation Interface .   .   .   .   .    500
+Predefined Functions for the Surface-to-Surface Radiation Interface    .   .    501
+The Orbital Thermal Loads Interface 
+ 504
+Settings for the Orbital Thermal Loads Interface .   .   .   .   .   .   .   .   .   .    505
+Feature Nodes for the Orbital Thermal Loads Interface  .   .   .   .   .   .   .    505
+Predefined Functions for the Orbital Thermal Loads Interface.   .   .   .   .    506
+The Radiation in Participating Media Interface 
+ 507
+Settings for the Radiation in Participating Media Interface    .   .   .   .   .   .    507
+Feature Nodes for the Radiation in Participating Media Interface .   .   .   .    512
+Predefined Functions for the Radiation in Participating Media 
+Interface.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    513
+The Radiation in Absorbing–Scattering Media Interface 
+ 516
+Settings for the Radiation in Absorbing–Scattering Media Interface  .   .   .    516
+Feature Nodes for the Radiation in Absorbing–Scattering Media 
+Interface.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    520
+Predefined Functions for the Radiation in Absorbing–Scattering Media 
+Interface.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    522
+The Radiative Beam in Absorbing Media Interface 
+ 523
+Settings for the Radiative Beam in Absorbing Media Interface  .   .   .   .   .    523
+Feature Nodes for the Radiative Beam in Absorbing Media Interface  .   .    524
+The Moisture Transport in Air Interface 
+ 526
+The Equilibrium Moisture Transport in Porous Media Interface 
+ 527
+The Nonequilibrium Moisture Transport in Porous Media 
+
+
+--- Page 14 ---
+14 | C O N T E N T S
+Interface 
+ 528
+The Moisture Transport in Building Materials Interface 
+ 530
+The Moisture Transport in Free and Porous Media Interface 
+ 531
+The Moisture Transport in Solids Interface 
+ 533
+C h a p t e r  6 :  T h e  H e a t  T r a n s f e r  F e a t u r e s
+Domain Features 
+ 536
+Absorbing Medium (Radiative Beam in Absorbing Medium Interface)  .   .    537
+Absorbing–Scattering Medium (Radiation in Absorbing–Scattering Media 
+Interface)   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    539
+Battery Layers .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    544
+Bioheat   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    547
+Biological Tissue  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    548
+Building Material  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    551
+Cell Periodicity   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    556
+Convectively Enhanced Conductivity   .   .   .   .   .   .   .   .   .   .   .   .   .   .    559
+Cross Section .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    561
+Fluence Rate Calculation (Surface-to-Surface Radiation Interface)   .   .   .    562
+Fluid    .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    563
+Fluid (Porous Medium)    .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    568
+Geothermal Heating   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    573
+Heat Source    .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    574
+Heat Source (Pellets)  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    577
+Immobile Fluids (Porous Medium)   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    578
+Initial Values    .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    580
+Initial Values (Pellets)  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    581
+Initial Values (Radiative Beam in Absorbing Medium Interface).   .   .   .   .    582
+Initial Values (Radiation in Participating Media and Radiation in 
+Absorbing–Scattering Media Interfaces) .   .   .   .   .   .   .   .   .   .   .   .    582
+Irreversible Transformation.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    585
+Isothermal Domain .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    589
+Liquid Water (Moist Porous Medium) .   .   .   .   .   .   .   .   .   .   .   .   .   .    591
+
+
+--- Page 15 ---
+C O N T E N T S  | 15
+Moist Air (Heat Transfer Interface) .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    592
+Moist Air (Moist Porous Medium)   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    595
+Moist Porous Medium .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    595
+Opacity (Surface-to-Surface Radiation and Orbital Thermal Loads 
+Interfaces)  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    599
+Optically Thick Participating Medium  .   .   .   .   .   .   .   .   .   .   .   .   .   .    601
+Out-of-Plane Heat Flux   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    603
+Out-of-Plane Radiation    .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    605
+Participating Medium (Radiation in Participating Media Interface) .   .   .   .    607
+Pellets (Porous Medium) .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    613
+Pellet–Fluid Interface (Porous Medium)   .   .   .   .   .   .   .   .   .   .   .   .   .    615
+Phase Change Material.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    617
+Porous Matrix (Porous Medium, Moist Porous Medium) .   .   .   .   .   .   .    622
+Porous Medium   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    626
+Pressure Work   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    632
+Radiative Source .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    633
+Rectangular Block Selection.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    635
+Semicylinder Selection .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    636
+Shape Memory Alloy   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    636
+Solid    .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    640
+Solid with Translational Motion   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    643
+Thermal Damage .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    644
+Thermal Dispersion .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    648
+Thermoelastic Damping  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    650
+Thickness.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    651
+Translational Motion   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    652
+Viscous Dissipation .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    654
+Boundary Features 
+ 656
+Boundary Heat Source.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    659
+Boundary Pair .   .   .   .   .   .   .   .   .   .   .   .
+
+--- Page 16 ---
+16 | C O N T E N T S
+Diffuse Mirror (Surface-to-Surface Radiation Interface)   .   .   .   .   .   .   .    671
+Diffuse Surface (Surface-to-Surface Radiation Interface)  .   .   .   .   .   .   .    672
+External Temperature (Thin Layer, Thin Film, Fracture)  .   .   .   .   .   .   .    681
+Fracture (Heat Transfer Interface) and Porous Medium (Heat Transfer 
+in Shells Interface)  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    682
+Harmonic Perturbation   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    687
+Heat Flux.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    687
+Heat Source (Heat Transfer in Shells Interface)   .   .   .   .   .   .   .   .   .   .    692
+Heat Source (Thin Layer, Thin Film, Fracture) .   .   .   .   .   .   .   .   .   .   .    694
+Incident Intensity (Radiation in Participating Media and Radiation in 
+Absorbing–Scattering Media Interfaces) .   .   .   .   .   .   .   .   .   .   .   .    697
+Incident Intensity (Radiative Beam in Absorbing Medium Interface) .   .   .    700
+Inflow  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    702
+Initial Values (Thin Layer, Thin Film, Fracture, and Heat Transfer in 
+Shells Interface) .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    703
+Initial Values (Surface-to-Surface Radiation Interface)  .   .   .   .   .   .   .   .    705
+Isothermal Domain Interface   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    707
+Layer Opacity (Surface-to-Surface Radiation Interface)    .   .   .   .   .   .   .    711
+Line Heat Source on Axis   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    713
+Local Thermal Nonequilibrium Boundary.   .   .   .   .   .   .   .   .   .   .   .   .    713
+Lumped System Connector .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    714
+Opaque Surface (Surface-to-Surface Radiation Interface) .   .   .   .   .   .   .    715
+Opaque Surface (Radiation in Participating Media and Radiation in 
+Absorbing–Scattering Media Interfaces) .   .   .   .   .   .   .   .   .   .   .   .    719
+Opaque Surface (Radiative Beam in Absorbing Medium Interface)   .   .   .    723
+Open Boundary  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    723
+Outflow  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    725
+Periodic Condition (Heat Transfer Interface)  .   .   .   .   .   .   .   .   .   .   .    726
+Periodic Condition (Radiation in Participating Media and Radiation in 
+Absorbing–Scattering Media Interfaces) .   .   .   .   .   .   .   .   .   .   .   .    727
+Phase Change Interface   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    728
+Phase Change Interface, Exterior .   .   .   .   .   .   .   .   .   .   .   .  
+
+--- Page 17 ---
+C O N T E N T S  | 17
+Semitransparent Surface (Radiation in Participating Media and 
+Radiation in Absorbing–Scattering Media Interfaces)  .   .   .   .   .   .   .    748
+Semitransparent Surface (Surface-to-Surface Radiation Interface).   .   .   .    752
+Surface-to-Ambient Radiation (Heat Transfer Interface)  .   .   .   .   .   .   .    757
+Specular Mirror (Surface-to-Surface Radiation Interface) .   .   .   .   .   .   .    759
+Symmetry (Heat Transfer Interface).   .   .   .   .   .   .   .   .   .   .   .   .   .   .    760
+Symmetry (Radiation in Participating Media and Radiation in 
+Absorbing–Scattering Media Interfaces) .   .   .   .   .   .   .   .   .   .   .   .    761
+Temperature   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    761
+Thermal Contact .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    763
+Thermal Insulation  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    769
+Thin Film (Heat Transfer Interface) and Fluid (Heat Transfer in 
+Shells Interface) .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    769
+Thin Layer (Heat Transfer Interface) and Solid (Heat Transfer in 
+Shells Interface) .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    774
+Transparent Surface (Radiative Beam in Absorbing Medium Interface) .   .    779
+Boundary Interface Features 
+ 781
+Deposited Beam Power, Interface (Heat Transfer in Shells Interface)  .   .    781
+Heat Flux, Interface (Heat Transfer in Shells Interface)    .   .   .   .   .   .   .    784
+Heat Source, Interface (Heat Transfer in Shells Interface)   .   .   .   .   .   .    787
+Lumped System Connector, Interface (Heat Transfer in Shells 
+Interface)   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    790
+Surface-to-Ambient Radiation, Interface (Heat Transfer in Shells 
+Interface)   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    792
+Temperature, Interface (Heat Transfer in Shells Interface)  .   .   .   .   .   .    795
+Thermal Contact, Interface (Heat Transfer in Shells Interface).   .   .   .   .    797
+Thermal Insulation, Interface (Heat Transfer in Shells Interface)  .   .   .   .    800
+Edge Features 
+ 803
+Heat Flux (Heat Transfer in Shells Interface)   .   .   .   .   .   .   .   .   .   .   .    803
+Heat Flux (Thin Layer, Thin Film, Fracture) .   .   .   .   .   .   .   .   .   .   .   .    806
+Heat Source (Heat Transfer in Shells Interface)   .   .   .   .   .   .   .   .   .   .    809
+Line Heat Source.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    812
+Lumped System Connector (Heat Transfer in Shells Interface)    .   .   .   .    814
+Shell Continuity (Heat Transfer Interface) and Continuity (Heat 
+Transfer in Shells Interface)   .   .   .   .   .   .   .   .   .   .   .   .   . 
+
+--- Page 18 ---
+18 | C O N T E N T S
+Heat Transfer in Shells Interface)   .   .   .   .   .   .   .   .   .   .   .   .   .   .    818
+Symmetry (Thin Layer, Thin Film, Fracture, and Heat Transfer in 
+Shells Interface) .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    820
+Temperature (Thin Layer, Thin Film, Fracture, and Heat Transfer in 
+Shells Interface) .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    822
+Thermal Insulation (Thin Layer, Thin Film, Fracture, and Heat 
+Transfer in Shells Interface)   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    824
+Thermal Insulation, Edge .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    826
+Thin Rod .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    827
+Point Features 
+ 829
+Point Heat Flux (Thin Rod) .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    829
+Point Heat Source   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    830
+Point Heat Source on Axis  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    831
+Surface-to-Ambient Radiation (Thin Rod)    .   .   .   .   .   .   .   .   .   .   .   .    832
+Temperature (Thin Rod) .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    834
+Global Features 
+ 836
+Thermal Connection   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    837
+Events Timeline   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    841
+External Radiation Source   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    843
+Generate Events Interface   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    849
+Ground Pointing  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    851
+Implicit Event  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    852
+Orbital Parameters .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    853
+Planet Properties .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    855
+Spacecraft Axes   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    857
+Spacecraft Orientation.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    858
+Sun Properties.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    859
+Symmetry for Surface-to-Surface Radiation .   .   .   .   .   .   .   .   .   .   .   .    861
+Thermal Connection, Interface–Interface.   .   .   .   .   .   .   .   .   .   .   .   .    865
+Conductive Thermal Resistor  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    871
+Convective Thermal Resistor  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    8
+
+--- Page 19 ---
+C O N T E N T S  | 19
+Radiative Heat Rate .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    886
+Radiative Thermal Resistor .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    888
+Subsystem Definition   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    890
+Subsystem Instance .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    890
+Temperature   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    891
+Thermal Capacitor  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    891
+Thermal Mass  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    893
+Thermoelectric Module  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    894
+C h a p t e r  7 :  T h e  M o i s t u r e  T r a n s p o r t  F e a t u r e s
+Domain Features 
+ 902
+Building Material  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    902
+Hygroscopic Porous Medium  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    905
+Initial Values    .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    909
+Liquid Water (Hygroscopic Porous Medium)  .   .   .   .   .   .   .   .   .   .   .    910
+Liquid Water Source   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    913
+Moist Air (Hygroscopic Porous Medium).   .   .   .   .   .   .   .   .   .   .   .   .    914
+Moist Air (Moisture Transport Interface).   .   .   .   .   .   .   .   .   .   .   .   .    916
+Moisture Source .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    919
+Porous Matrix (Hygroscopic Porous Medium) .   .   .   .   .   .   .   .   .   .   .    920
+Turbulent Mixing .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    922
+Vapor Source  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    923
+Boundary Features 
+ 925
+Continuity   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    925
+Free–Porous Interface .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    927
+Inflow  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    928
+Insulation.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    930
+Liquid Water Content .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    932
+Liquid Water Flux   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    932
+Moist Surface  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    933
+Moisture Content   .   .   .   .   .   .   .   .   .   .   .   .   .   . 
+
+--- Page 20 ---
+20 | C O N T E N T S
+Outflow  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    943
+Periodic Condition  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    944
+Porous Interface  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    946
+Porous–Porous Interface .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    947
+Symmetry   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    948
+Thin Moisture Barrier .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    949
+Vapor Content    .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    950
+Vapor Flux  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    952
+Wet Surface    .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    954
+Global Features 
+ 956
+Gravity    .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    956
+C h a p t e r  8 :  M u l t i p h y s i c s  I n t e r f a c e s
+The Nonisothermal Flow and Conjugate Heat Transfer 
+Interfaces 
+ 960
+Advantages of Using the Multiphysics Interfaces  .   .   .   .   .   .   .   .   .   .    960
+The Nonisothermal Flow, Laminar Flow and Turbulent Flow 
+Interfaces   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    961
+The Conjugate Heat Transfer, Laminar Flow and Turbulent Flow 
+Interfaces   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    962
+Settings for Physics Interfaces and Coupling Features  .   .   .   .   .   .   .   .    963
+Coupling Feature .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    964
+Physics Interface Features   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    965
+Preset Studies .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    967
+The Heat Transfer with Surface-to-Surface Radiation Interface 
+ 968
+The Heat Transfer with Surface-to-Surface Radiation Multiphysics 
+Interface.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    968
+Physics Interface Features   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    970
+Coupling Feature .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    970
+The Heat Transfer with Orbital Thermal Load Interface 
+ 971
+The Heat Transfer with Orbital Thermal Loads Multiphysics Interface.   .    971
+
+
+--- Page 21 ---
+C O N T E N T S  | 21
+Physics Interface Features   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    972
+Coupling Feature .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    973
+The Heat Transfer with Radiation in Participating Media 
+Interface 
+ 974
+The Heat Transfer with Radiation in Participating Media Multiphysics 
+Interface.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    974
+Physics Interface Features   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    975
+Coupling Feature .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    976
+The Heat Transfer with Radiation in Absorbing–Scattering 
+Media Interface 
+ 977
+The Heat Transfer with Radiation in Absorbing–Scattering Media 
+Multiphysics Interface .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    977
+Physics Interface Features   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    979
+Coupling Feature .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    979
+The Heat Transfer with Radiative Beam in Absorbing Media 
+Interface 
+ 980
+The Heat Transfer with Radiative Beam in Absorbing Media 
+Multiphysics Interface .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    980
+Physics Interface Features   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    981
+Coupling Feature .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    981
+The Thermoelectric Effect Interface 
+ 982
+About The Thermoelectric Effect Interface .   .   .   .   .   .   .   .   .   .   .   .    982
+Settings for Physics Interfaces and Coupling Features  .   .   .   .   .   .   .   .    983
+Coupling Features   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    984
+Physics Interface Features   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    985
+The Heat and Moisture Transport Interfaces 
+ 986
+The Heat and Moisture Transport Multiphysics Interfaces   .   .   .   .   .   .    986
+The Moist Air Version of the Heat and Moisture Transport 
+Multiphysics Interface .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    987
+The Moist Porous Media Version of the Heat and Moisture 
+Transport Multiphysics Interface.   .   .   .   .   .   .   .   .   .   .   .   .   .   .    988
+The Building Materials Version of the Heat and Moisture Transport 
+Multiphysics Interface .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    990
+
+
+--- Page 22 ---
+22 | C O N T E N T S
+Physics Interface Features   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    992
+Coupling Feature .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    992
+The Moisture Flow Interfaces 
+ 993
+The Moisture Flow, Laminar Flow and Turbulent Flow Multiphysics 
+Interfaces   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    993
+Physics Interface Features for the Laminar and Turbulent Flow 
+Versions.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .    996
+The Moisture Flow, Brinkman Equations Multiphysics Interface   .   .   .   .    998
+Physics Interface Features for the Brinkman Equations Version   .   .   .   .  1000
+Preset Studies .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  1000
+Coupling Feature .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  1000
+The Heat and Moisture Flow Interfaces 
+ 1001
+The Heat and Moisture Flow, Laminar Flow and Turbulent Flow 
+Multiphysics Interfaces   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  1001
+Physics Interface Features for the Laminar and Turbulent Flow 
+Versions.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  1005
+The Heat and Moisture Flow, Brinkman Equations Interface   .   .   .   .   .  1007
+Physics Interface Features for the Brinkman Equations Version   .   .   .   .  1010
+Coupling Features   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  1010
+The Joule Heating Interface 
+ 1011
+The Joule Heating Interface .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  1011
+Coupling Feature .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  1011
+The Laser Heating Interface 
+ 1012
+The Laser Heating Interface.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  1012
+Coupling Feature .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  1012
+The Induction Heating Interface 
+ 1013
+The Induction Heating Interface  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  1013
+Coupling Feature .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  1013
+The Microwave Heating Interface 
+ 1014
+The Microwave Heating Interface    .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  1014
+Coupling Feature .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  1014
+
+
+--- Page 23 ---
+C O N T E N T S  | 23
+C h a p t e r  9 :  M u l t i p h y s i c s  C o u p l i n g s
+Global Multiphysics Couplings 
+ 1017
+Thermal Connection, Layered Shell, Surfaces  .   .   .   .   .   .   .   .   .   .   .  1017
+Thermal Connection, Nonlayered Shell   .   .   .   .   .   .   .   .   .   .   .   .   .  1019
+Domain Multiphysics Couplings 
+ 1022
+Electromagnetic Heating .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  1022
+Heat and Moisture  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  1023
+Heat Transfer with Radiation in Participating Media.   .   .   .   .   .   .   .   .  1026
+Heat Transfer with Radiation in Absorbing–Scattering Media  .   .   .   .   .  1028
+Heat Transfer with Radiative Beam in Absorbing Media  .   .   .   .   .   .   .  1029
+Moisture Flow .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  1030
+Nonisothermal Flow   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  1034
+Thermal Expansion  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  1042
+Thermoelectric Effect  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  1043
+Boundary Multiphysics Couplings 
+ 1046
+Electromagnetic Heating, Layered Shell   .   .   .   .   .   .   .   .   .   .   .   .   .  1046
+Heat Transfer with Surface-to-Surface Radiation .   .   .   .   .   .   .   .   .   .  1048
+Thermal Expansion, Layered   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  1050
+Marangoni Effect .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  1050
+Thermal Connection, Layered Shell, Edges  .   .   .   .   .   .   .   .   .   .   .   .  1053
+Thermoelectric Effect, Layered Shell   .   .   .   .   .   .   .   .   .   .   .   .   .   .  1054
+Index 
+ 1057
+
+
+--- Page 24 ---
+24 | C O N T E N T S
+
+
+--- Page 25 ---
+ 25
+ 1
+In t r od u c t i on
+This guide describes the Heat Transfer Module, an optional package that extends 
+the COMSOL Multiphysics® modeling environment with customized physics 
+interfaces for the analysis of heat transfer.
+This chapter introduces you to the capabilities of this module. A summary of the 
+physics interfaces and where you can find documentation and model examples is 
+also included. The last section is a brief overview with links to each chapter in this 
+guide.
+• About the Heat Transfer Module
+• Overview of the User’s Guide
+
+
+--- Page 26 ---
+26 |  C H A P T E R  1 :  I N T R O D U C T I O N
+About the Heat Transfer Module
+In this section:
+• Why Heat Transfer Is Important to Modeling
+• How the Heat Transfer Module Improves Your Modeling
+• The Heat Transfer Module Physics Interface Guide
+• Common Physics Interface and Feature Settings and Nodes
+• The Heat Transfer Module Study Capabilities
+• Additional Materials Database
+• Where Do I Access the Documentation and Application Libraries?
+Why Heat Transfer Is Important to Modeling
+The Heat Transfer Module is an optional package that extends the COMSOL 
+Multiphysics modeling environment with customized physics interfaces and 
+functionality optimized for the analysis of heat transfer. It is developed for a wide 
+audience including researchers, developers, teachers, and students. To assist users at all 
+levels of expertise, this module comes with a library of ready-to-run examples that 
+appear in the companion Heat Transfer Module Application Library.
+Heat transfer is involved in almost every kind of physical process, and can in fact be the 
+limiting factor for many processes. Therefore, its study is of vital importance, and the 
+need for powerful heat transfer analysis tools is virtually universal. Furthermore, heat 
+transfer often appears together with, or as a result of, other physical phenomena.
+The modeling of heat transfer effects has become increasingly important in product 
+design including areas such as electronics, automotive, and medical industries. 
+Computer simulation has allowed engineers and researchers to optimize process 
+efficiency and explore new designs, while at the same time reducing the need for costly 
+experimental trials.
+The Physics Interfaces and Building a COMSOL Multiphysics Model in 
+the COMSOL Multiphysics Reference Manual.
+
+
+--- Page 27 ---
+A B O U T  T H E  H E A T  T R A N S F E R  M O D U L E  |  27
+How the Heat Transfer Module Improves Your Modeling
+The Heat Transfer Module has been developed to greatly expand upon the base 
+capabilities available in COMSOL Multiphysics. The module supports all fundamental 
+mechanisms including conductive, convective, and radiative heat transfer. Using the 
+physics interfaces in this module along with the inherent multiphysics capabilities of 
+COMSOL Multiphysics, you can model a temperature field in parallel with other 
+physics — a versatile combination increasing the accuracy and predicting power of your 
+models.
+This book introduces the basic modeling process. The different physics interfaces are 
+described and the modeling strategy for various cases is discussed. These sections cover 
+different combinations of conductive, convective, and radiative heat transfer. This 
+guide also reviews special modeling techniques for thin layers, thin shells, participating 
+media, and out-of-plane heat transfer. Throughout the guide the topics and examples 
+increase in complexity by combining several heat transfer mechanisms and also by 
+coupling these to physics interfaces describing fluid flow — conjugate heat transfer.
+Another source of information is the Heat Transfer Module Application Library, a set 
+of fully documented examples that is divided into broadly defined application areas 
+where heat transfer plays an important role — electronics and power systems, 
+processing and manufacturing, and medical technology — and includes tutorial and 
+verification models.
+Most of the examples involve multiple heat transfer mechanisms and are often coupled 
+to other physical phenomena, for example, fluid dynamics, moisture transport, or 
+electromagnetics. The authors developed several state-of-the art examples by 
+reproducing examples that have appeared in international scientific journals. See 
+Where Do I Access the Documentation and Application Libraries?.
+The Heat Transfer Module Physics Interface Guide
+The table below lists all the physics interfaces specifically available with this module. 
+Having this module also enhances these COMSOL Multiphysics basic interfaces: Heat 
+Transfer in Fluids; Heat Transfer in Solids; Joule Heating; and the Single-Phase Flow, 
+Laminar interface.
+
+
+--- Page 28 ---
+28 |  C H A P T E R  1 :  I N T R O D U C T I O N
+If you have a Subsurface Flow Module combined with the Heat Transfer Module, this 
+module also enhances the Heat Transfer in Porous Media interface.
+The Nonisothermal Flow, Laminar Flow (nitf) and Nonisothermal Flow, 
+Turbulent Flow (nitf) interfaces found under the Fluid 
+Flow>Nonisothermal Flow branch are identical to the Conjugate Heat 
+Transfer interfaces (Laminar Flow and Turbulent Flow) found under the 
+Heat Transfer>Conjugate Heat Transfer branch. The difference is that Fluid 
+is the default domain node for the Nonisothermal Flow interfaces.
+In the COMSOL Multiphysics Reference Manual:
+• Studies and Solvers
+• The Physics Interfaces
+• For a list of all the core physics interfaces included with a COMSOL 
+Multiphysics license, see Physics Interface Guide.
+PHYSICS INTERFACE
+ICON
+TAG
+SPACE 
+DIMENSION
+AVAILABLE PRESET STUDY 
+TYPE
+ Chemical Species Transport
+ Moisture Transport
+Moisture Transport in 
+Air
+mt
+all dimensions
+stationary; time dependent
+Equilibrium Moisture 
+Transport in Porous 
+Media
+mt
+all dimensions
+stationary; time dependent
+Nonequilibrium 
+Moisture Transport in 
+Porous Media
+mt
+all dimensions
+stationary; time dependent
+Moisture Transport in 
+Building Materials
+mt
+all dimensions
+stationary; time dependent
+Moisture Transport in 
+Free and Porous Media
+mt
+all dimensions
+stationary; time dependent
+Moisture Transport in 
+Solids
+mts
+all dimensions
+stationary; time dependent
+
+
+--- Page 29 ---
+A B O U T  T H E  H E A T  T R A N S F E R  M O D U L E  |  29
+ Moisture Flow
+Laminar Flow(2)
+—
+all dimensions
+stationary; time dependent
+ Turbulent Flow
+Turbulent Flow, 
+Algebraic yPlus(2)
+—
+3D, 2D, 2D 
+axisymmetric
+stationary with 
+initialization; transient with 
+initialization
+Turbulent Flow, 
+L-VEL(2)
+—
+3D, 2D, 2D 
+axisymmetric
+stationary with 
+initialization; transient with 
+initialization
+Turbulent Flow, k-ε(2)
+—
+3D, 2D, 2D 
+axisymmetric
+stationary; time dependent
+Turbulent Flow, SST(2)
+—
+3D, 2D, 2D 
+axisymmetric
+stationary with 
+initialization; transient with 
+initialization
+Turbulent Flow, Low 
+Re k-ε(2)
+—
+3D, 2D, 2D 
+axisymmetric
+stationary with 
+initialization; transient with 
+initialization
+Porous Media Flow(2)
+—
+all dimensions
+stationary; time dependent
+ Fluid Flow
+ Single-Phase Flow
+Laminar Flow(1)
+spf
+3D, 2D, 2D 
+axisymmetric
+stationary; time dependent
+ Turbulent Flow
+Turbulent Flow, 
+Algebraic yPlus
+spf
+3D, 2D, 2D 
+axisymmetric
+stationary with 
+initialization; transient with 
+initialization
+Turbulent Flow, L-VEL
+spf
+3D, 2D, 2D 
+axisymmetric
+stationary with 
+initialization; transient with 
+initialization
+PHYSICS INTERFACE
+ICON
+TAG
+SPACE 
+DIMENSION
+AVAILABLE PRESET STUDY 
+TYPE
+
+
+--- Page 30 ---
+30 |  C H A P T E R  1 :  I N T R O D U C T I O N
+Turbulent Flow, k-ε
+spf
+3D, 2D, 2D 
+axisymmetric
+stationary; time dependent
+Turbulent Flow, SST
+spf
+3D, 2D, 2D 
+axisymmetric
+stationary with 
+initialization; transient with 
+initialization
+Turbulent Flow, Low 
+Re k-ε
+spf
+3D, 2D, 2D 
+axisymmetric
+stationary with 
+initialization; transient with 
+initialization
+ Nonisothermal Flow
+Laminar Flow(1,2)
+—
+3D, 2D, 2D 
+axisymmetric
+stationary; time dependent
+ Turbulent Flow
+Turbulent Flow, 
+Algebraic yPlus(2)
+—
+3D, 2D, 2D 
+axisymmetric
+stationary with 
+initialization; transient with 
+initialization
+Turbulent Flow, 
+L-VEL(2)
+—
+3D, 2D, 2D 
+axisymmetric
+stationary with 
+initialization; transient with 
+initialization
+Turbulent Flow, SST(2)
+—
+3D, 2D, 2D 
+axisymmetric
+stationary with 
+initialization; transient with 
+initialization
+Turbulent Flow, Low 
+Re k-ε(2)
+—
+3D, 2D, 2D 
+axisymmetric
+stationary with 
+initialization; transient with 
+initialization
+ Heat Transfer
+Heat Transfer in Solids(1)
+ht
+all dimensions
+stationary; time dependent; 
+thermal perturbation, 
+frequency domain; thermal 
+perturbation, 
+eigenfrequency
+PHYSICS INTERFACE
+ICON
+TAG
+SPACE 
+DIMENSION
+AVAILABLE PRESET STUDY 
+TYPE
+
+
+--- Page 31 ---
+A B O U T  T H E  H E A T  T R A N S F E R  M O D U L E  |  31
+Heat Transfer in Fluids(1)
+ht
+all dimensions
+stationary; time dependent; 
+thermal perturbation, 
+frequency domain; thermal 
+perturbation, 
+eigenfrequency
+Heat Transfer in Solids and 
+Fluids(1)
+ht
+all dimensions
+stationary; time dependent; 
+thermal perturbation, 
+frequency domain; thermal 
+perturbation, 
+eigenfrequency
+Conjugate Heat Transfer
+Laminar Flow(1,2)
+—
+3D, 2D, 2D 
+axisymmetric
+stationary; time dependent; 
+stationary, one-way NITF; 
+time dependent, one-way 
+NITF; thermal 
+perturbation, frequency 
+domain
+Turbulent Flow
+Turbulent Flow, 
+Algebraic yPlus(2)
+—
+3D, 2D, 2D 
+axisymmetric
+stationary with 
+initialization; transient with 
+initialization; stationary, 
+one-way NITF; time 
+dependent, one-way NITF
+Turbulent Flow, 
+L-VEL(2)
+—
+3D, 2D, 2D 
+axisymmetric
+stationary with 
+initialization; transient with 
+initialization; stationary, 
+one-way NITF; time 
+dependent, one-way NITF
+Turbulent Flow, k-ε(2)
+—
+3D, 2D, 2D 
+axisymmetric
+stationary; time dependent; 
+stationary, one-way NITF; 
+time dependent, one-way 
+NITF; thermal 
+perturbation, frequency 
+domain
+PHYSICS INTERFACE
+ICON
+TAG
+SPACE 
+DIMENSION
+AVAILABLE PRESET STUDY 
+TYPE
+
+
+--- Page 32 ---
+32 |  C H A P T E R  1 :  I N T R O D U C T I O N
+Turbulent Flow, SST(2)
+—
+3D, 2D, 2D 
+axisymmetric
+stationary; time dependent; 
+stationary, one-way NITF; 
+time dependent, one-way 
+NITF; thermal 
+perturbation, frequency 
+domain
+Turbulent Flow, Low 
+Re k-ε(2)
+—
+3D, 2D, 2D 
+axisymmetric
+stationary; time dependent; 
+stationary, one-way NITF; 
+time dependent, one-way 
+NITF; thermal 
+perturbation, frequency 
+domain
+ Radiation
+Heat Transfer with 
+Surface-to-Surface 
+Radiation(2)
+—
+all dimensions
+stationary; time dependent; 
+thermal perturbation, 
+frequency domain
+Heat Transfer with 
+Orbital Thermal 
+Loads(2)
+—
+3D
+time dependent
+Heat Transfer with 
+Radiation in 
+Participating Media(2)
+—
+3D, 2D, 2D 
+axisymmetric
+stationary; time dependent; 
+thermal perturbation, 
+frequency domain
+Heat Transfer with 
+Radiation in 
+Absorbing–Scattering 
+Media(2)
+—
+3D, 2D, 2D 
+axisymmetric
+stationary; time dependent; 
+thermal perturbation, 
+frequency domain
+Heat Transfer with 
+Radiative Beam in 
+Absorbing Media(2)
+—
+3D, 2D, 2D 
+axisymmetric
+stationary; time dependent; 
+thermal perturbation, 
+frequency domain
+Surface-to-Surface 
+Radiation
+rad
+all dimensions
+stationary; time dependent
+Orbital Thermal Loads
+otl
+3D
+time dependent
+Radiation in 
+Participating Media
+rpm
+3D, 2D, 2D 
+axisymmetric
+stationary; time dependent
+PHYSICS INTERFACE
+ICON
+TAG
+SPACE 
+DIMENSION
+AVAILABLE PRESET STUDY 
+TYPE
+
+
+--- Page 33 ---
+A B O U T  T H E  H E A T  T R A N S F E R  M O D U L E  |  33
+Radiation in 
+Absorbing–Scattering 
+Media
+rasm
+3D, 2D, 2D 
+axisymmetric
+stationary; time dependent
+Radiative Beam in 
+Absorbing Media
+rbam
+3D, 2D, 2D 
+axisymmetric
+stationary; time dependent
+ Electromagnetic Heating
+Joule Heating(1,2)
+—
+all dimensions
+stationary; time dependent; 
+thermal perturbation, 
+frequency domain
+Lumped Thermal System
+lts
+all dimensions
+stationary; time dependent
+Thin Structures
+Heat Transfer in Shells
+htlsh
+3D, 2D, 2D 
+axisymmetric
+stationary; time dependent; 
+thermal perturbation, 
+frequency domain; thermal 
+perturbation, 
+eigenfrequency
+Heat Transfer in Films
+htlsh
+3D, 2D, 2D 
+axisymmetric
+stationary; time dependent; 
+thermal perturbation, 
+frequency domain; thermal 
+perturbation, 
+eigenfrequency
+Heat Transfer in 
+Fractures
+htlsh
+3D, 2D, 2D 
+axisymmetric
+stationary; time dependent; 
+thermal perturbation, 
+frequency domain; thermal 
+perturbation, 
+eigenfrequency
+Heat and Moisture Transport
+Moist Air(2)
+—
+all dimensions
+stationary; time dependent; 
+thermal perturbation, 
+frequency domain
+Moist Porous Media(2)
+—
+all dimensions
+stationary; time dependent; 
+thermal perturbation, 
+frequency domain
+PHYSICS INTERFACE
+ICON
+TAG
+SPACE 
+DIMENSION
+AVAILABLE PRESET STUDY 
+TYPE
+
+
+--- Page 34 ---
+34 |  C H A P T E R  1 :  I N T R O D U C T I O N
+Building Materials(2)
+—
+all dimensions
+stationary; time dependent; 
+thermal perturbation, 
+frequency domain
+Heat and Moisture Flow
+Laminar Flow(2)
+—
+3D, 2D, 2D 
+axisymmetric
+stationary; time dependent; 
+stationary, one-way NITF; 
+time dependent, one-way 
+NITF; one-way MF; time 
+dependent, one-way MF; 
+thermal perturbation, 
+frequency domain
+Turbulent Flow
+Turbulent Flow, 
+Algebraic yPlus(2)
+—
+3D, 2D, 2D 
+axisymmetric
+stationary with 
+initialization; transient with 
+initialization; stationary, 
+one-way NITF; time 
+dependent, one-way NITF; 
+one-way MF; time 
+dependent, one-way MF
+Turbulent Flow, 
+L-VEL(2)
+—
+3D, 2D, 2D 
+axisymmetric
+stationary with 
+initialization; transient with 
+initialization; stationary, 
+one-way NITF; time 
+dependent, one-way NITF; 
+one-way MF; time 
+dependent, one-way MF
+Turbulent Flow, k-ε(2)
+—
+3D, 2D, 2D 
+axisymmetric
+stationary; time dependent; 
+stationary, one-way NITF; 
+time dependent, one-way 
+NITF; one-way MF; time 
+dependent, one-way MF; 
+thermal perturbation, 
+frequency domain
+PHYSICS INTERFACE
+ICON
+TAG
+SPACE 
+DIMENSION
+AVAILABLE PRESET STUDY 
+TYPE
+
+
+--- Page 35 ---
+A B O U T  T H E  H E A T  T R A N S F E R  M O D U L E  |  35
+Turbulent Flow, SST(2)
+—
+3D, 2D, 2D 
+axisymmetric
+stationary; time dependent; 
+stationary, one-way NITF; 
+time dependent, one-way 
+NITF; one-way MF; time 
+dependent, one-way MF; 
+thermal perturbation, 
+frequency domain
+Turbulent Flow, Low 
+Re k-ε(2)
+—
+3D, 2D, 2D 
+axisymmetric
+stationary; time dependent; 
+stationary, one-way NITF; 
+time dependent, one-way 
+NITF; one-way MF; time 
+dependent, one-way MF; 
+thermal perturbation, 
+frequency domain
+Porous Media Flow(2)
+—
+3D, 2D, 2D 
+axisymmetric
+stationary; time dependent; 
+stationary, one-way NITF; 
+time dependent, one-way 
+NITF; one-way MF; time 
+dependent, one-way MF; 
+thermal perturbation, 
+frequency domain
+Porous Media
+Heat Transfer in 
+Porous Media
+ht
+all dimensions
+stationary; time dependent; 
+thermal perturbation, 
+frequency domain; thermal 
+perturbation, 
+eigenfrequency
+Local Thermal 
+Nonequilibrium
+ht
+all dimensions
+stationary; time dependent; 
+thermal perturbation, 
+frequency domain; thermal 
+perturbation, 
+eigenfrequency
+Heat Transfer in 
+Packed Beds
+ht
+all dimensions
+stationary; time dependent; 
+thermal perturbation, 
+frequency domain; thermal 
+perturbation, 
+eigenfrequency
+PHYSICS INTERFACE
+ICON
+TAG
+SPACE 
+DIMENSION
+AVAILABLE PRESET STUDY 
+TYPE
+
+
+--- Page 36 ---
+36 |  C H A P T E R  1 :  I N T R O D U C T I O N
+Common Physics Interface and Feature Settings and Nodes
+There are several common settings and sections available for the physics interfaces and 
+feature nodes. Some of these sections also have similar settings or are implemented in 
+the same way no matter the physics interface or feature being used. There are also some 
+physics feature nodes that display in COMSOL Multiphysics.
+In each module’s documentation, only unique or extra information is included; 
+standard information and procedures are centralized in the COMSOL Multiphysics 
+Reference Manual.
+The Heat Transfer Module Study Capabilities
+Table 1-1 lists the Preset Studies available for the physics interfaces most relevant to 
+this module.
+Bioheat Transfer
+ht
+all dimensions
+stationary; time dependent; 
+thermal perturbation, 
+frequency domain; thermal 
+perturbation, 
+eigenfrequency
+Thermoelectric Effect(2)
+—
+all dimensions
+stationary; time dependent; 
+thermal perturbation, 
+frequency domain
+(1) This physics interface is included with the core COMSOL package but has added 
+functionality for this module.
+(2) This physics interface is a predefined multiphysics coupling that automatically adds all the 
+physics interfaces and coupling features required.
+PHYSICS INTERFACE
+ICON
+TAG
+SPACE 
+DIMENSION
+AVAILABLE PRESET STUDY 
+TYPE
+In the COMSOL Multiphysics Reference Manual see Table 2-4 for 
+links to common sections and Table 2-5 to common feature nodes. 
+You can also search for information: press F1 to open the Help 
+window or Ctrl+F1 to open the Documentation window.
+Studies and Solvers in the COMSOL Multiphysics Reference Manual
+
+
+--- Page 37 ---
+A B O U T  T H E  H E A T  T R A N S F E R  M O D U L E  |  37
+TABLE 1-1:  HEAT TRANSFER MODULE DEPENDENT VARIABLES AND PRESET STUDY AVAILABILITY.
+PHYSICS INTERFACE
+NAME
+DEPENDENT 
+VARIABLES
+PRESET STUDIES1
+STATIONARY
+TIME DEPENDENT
+THERMAL PERTURBATION, 
+EIGENFREQUENCY
+THERMAL PERTURBATION, FREQUENCY 
+DOMAIN
+STATIONARY WITH INITIALIZATION
+TRANSIENT WITH INITIALIZATION
+CHEMICAL SPECIES TRANSPORT > MOISTURE TRANSPORT
+Moisture Transport in Air
+mt
+φ
+√
+√
+Equilibrium Moisture 
+Transport in Porous Media
+mt
+φ
+√
+√
+Nonequilibrium Moisture 
+Transport in Porous Media
+mt
+φ, sl
+√
+√
+Moisture Transport in Building 
+Materials
+mt
+φ
+√
+√
+Moisture Transport in Free 
+and Porous Media
+mt
+φ, sl
+√
+√
+Moisture Transport in Solids
+mts
+φ, pm
+√
+√
+CHEMICAL SPECIES TRANSPORT > MOISTURE FLOW
+Laminar Flow(2)
+—
+u, p, φ
+√
+√
+Turbulent flow, Algebraic 
+yPlus(2)
+—
+u, p, G, 
+yPlus, φ
+√
+√
+Turbulent flow, L-VEL(2)
+—
+u, p, G, 
+uPlus, φ
+√
+√
+Turbulent Flow, k-ε(2)
+—
+u, p, k, ep, φ
+√
+√
+Turbulent Flow, SST(2)
+—
+u, p, k, om, 
+G, φ
+√
+√
+Turbulent Flow, Low Re k-ε(2)
+—
+u, p, k, ep, G, 
+φ
+√
+√
+Porous Media Flow(2)
+—
+u, p, φ
+√
+√
+
+
+--- Page 38 ---
+38 |  C H A P T E R  1 :  I N T R O D U C T I O N
+FLUID FLOW > SINGLE-PHASE FLOW
+Laminar Flow
+spf
+u, p
+√
+√
+Turbulent flow, Algebraic yPlus
+spf
+u, p, G, 
+yPlus
+√
+√
+Turbulent flow, L-VEL
+spf
+u, p, G, 
+uPlus
+√
+√
+Turbulent Flow, k-ε
+spf
+u, p, k, ep
+√
+√
+Turbulent Flow, SST
+spf
+u, p, k, om, G
+√
+√
+Turbulent Flow, Low Re k-ε
+spf
+u, p, k, ep, G
+√
+√
+FLUID FLOW > NONISOTHERMAL FLOW
+Laminar Flow(2)
+—
+u, p, T
+√
+√
+Turbulent flow, Algebraic 
+yPlus(2)
+—
+u, p, G, 
+yPlus, T
+√
+√
+Turbulent flow, L-VEL(2)
+—
+u, p, G, 
+uPlus, T
+√
+√
+Turbulent Flow, k-ε(2)
+—
+u, p, k, ep, T
+√
+√
+Turbulent Flow, SST(2)
+—
+u, p, k, om, 
+G, T
+√
+√
+Turbulent Flow, Low Re k-ε(2)
+—
+u, p, k, ep, G, 
+T
+√
+√
+HEAT TRANSFER
+Heat Transfer in Solids
+ht
+T
+√
+√
+√
+√
+Heat Transfer in Fluids
+ht
+T
+√
+√
+√
+√
+TABLE 1-1:  HEAT TRANSFER MODULE DEPENDENT VARIABLES AND PRESET STUDY AVAILABILITY.
+PHYSICS INTERFACE
+NAME
+DEPENDENT 
+VARIABLES
+PRESET STUDIES1
+STATIONARY
+TIME DEPENDENT
+THERMAL PERTURBATION, 
+EIGENFREQUENCY
+THERMAL PERTURBATION, FREQUENCY 
+DOMAIN
+STATIONARY WITH INITIALIZATION
+TRANSIENT WITH INITIALIZATION
+
+
+--- Page 39 ---
+A B O U T  T H E  H E A T  T R A N S F E R  M O D U L E  |  39
+Heat Transfer in Solids and 
+Fluids
+ht
+T
+√
+√
+√
+√
+HEAT TRANSFER > CONJUGATE HEAT TRANSFER
+Laminar Flow(2)
+—
+u, p, T
+√
+√
+Turbulent flow, Algebraic 
+yPlus(2)
+—
+u, p, G, 
+yPlus, T
+√
+√
+Turbulent flow, L-VEL(2)
+—
+u, p, G, 
+uPlus, T
+√
+√
+Turbulent Flow, k-ε(2)
+—
+u, p, k, ep, T
+√
+√
+Turbulent Flow, SST(2)
+—
+u, p, k, om, 
+G, T
+√
+√
+Turbulent Flow, Low Re k-ε(2)
+—
+u, p, k, ep, G, 
+T
+√
+√
+HEAT TRANSFER > RADIATION
+Heat Transfer with 
+Surface-to-Surface Radiation(2)
+—
+T, J
+√
+√
+√
+√
+Heat Transfer with Radiation in 
+Participating Media(2)
+—
+T, I (radiative 
+intensity)
+√
+√
+√
+√
+Heat Transfer with Radiation in 
+Absorbing–Scattering Media(2)
+—
+T, I (radiative 
+intensity)
+√
+√
+√
+√
+Heat Transfer with Radiative 
+Beam in Absorbing Media(2)
+—
+T, I (radiative 
+intensity)
+√
+√
+√
+√
+Surface-to-Surface Radiation
+rad
+J
+√
+√
+TABLE 1-1:  HEAT TRANSFER MODULE DEPENDENT VARIABLES AND PRESET STUDY AVAILABILITY.
+PHYSICS INTERFACE
+NAME
+DEPENDENT 
+VARIABLES
+PRESET STUDIES1
+STATIONARY
+TIME DEPENDENT
+THERMAL PERTURBATION, 
+EIGENFREQUENCY
+THERMAL PERTURBATION, FREQUENCY 
+DOMAIN
+STATIONARY WITH INITIALIZATION
+TRANSIENT WITH INITIALIZATION
+
+
+--- Page 40 ---
+40 |  C H A P T E R  1 :  I N T R O D U C T I O N
+Radiation in Participating 
+Media
+rpm
+I (radiative 
+intensity)
+√
+√
+Radiation in Absorbing–
+Scattering Media
+rasm
+I (radiative 
+intensity)
+√
+√
+Radiative Beam in Absorbing 
+Media
+rbam
+I (radiative 
+intensity)
+√
+√
+HEAT TRANSFER > ELECTROMAGNETIC HEATING
+Joule Heating(2)
+—
+T, V
+√
+√
+√
+Lumped Thermal System
+lts
+not applicable
+√
+√
+HEAT TRANSFER > THIN STRUCTURES
+Heat Transfer in Shells
+htlsh
+T
+√
+√
+√
+√
+Heat Transfer in Films
+htlsh
+T
+√
+√
+√
+√
+Heat Transfer in Fractures
+htlsh
+T
+√
+√
+√
+√
+HEAT TRANSFER > HEAT AND MOISTURE TRANSPORT
+Moist Air(2)
+—
+T, φ
+√
+√
+Moist Porous Media(2)
+—
+T, φ
+√
+√
+Building Materials(2)
+—
+T, φ
+√
+√
+HEAT TRANSFER > HEAT AND MOISTURE TRANSPORT > HEAT AND MOISTURE FLOW
+Laminar Flow(2)
+—
+u, p, T, φ
+√
+√
+Turbulent flow, Algebraic 
+yPlus(2)
+—
+u, p, G, 
+yPlus, T, φ
+√
+√
+Turbulent flow, L-VEL(2)
+—
+u, p, G, 
+uPlus, T, φ
+√
+√
+TABLE 1-1:  HEAT TRANSFER MODULE DEPENDENT VARIABLES AND PRESET STUDY AVAILABILITY.
+PHYSICS INTERFACE
+NAME
+DEPENDENT 
+VARIABLES
+PRESET STUDIES1
+STATIONARY
+TIME DEPENDENT
+THERMAL PERTURBATION, 
+EIGENFREQUENCY
+THERMAL PERTURBATION, FREQUENCY 
+DOMAIN
+STATIONARY WITH INITIALIZATION
+TRANSIENT WITH INITIALIZATION
+
+
+--- Page 41 ---
+A B O U T  T H E  H E A T  T R A N S F E R  M O D U L E  |  41
+Additional Materials Database
+The Heat Transfer Module includes additional material databases:
+• The Liquids and Gases material database provides temperature-dependent fluid 
+dynamic and thermal properties (dynamic viscosity, heat capacity at constant 
+pressure, density, and thermal conductivity).
+• The Bioheat material database contains materials used with the Bioheat Transfer 
+interface. In addition to thermal properties (heat capacity at constant pressure, 
+Turbulent Flow, k-ε(2)
+—
+u, p, k, ep, T, 
+φ
+√
+√
+Turbulent Flow, SST(2)
+—
+u, p, k, om, 
+G, T, φ
+√
+√
+Turbulent Flow, Low Re k-ε(2)
+—
+u, p, k, ep, G, 
+T, φ
+√
+√
+Porous Media Flow(2)
+—
+u, p, T, φ
+√
+√
+Heat Transfer in Porous Media
+ht
+T
+√
+√
+√
+√
+Local Thermal Nonequilibrium
+ht
+T
+√
+√
+√
+√
+Heat Transfer in Packed Beds
+ht
+T
+√
+√
+√
+√
+Bioheat Transfer
+ht
+T
+√
+√
+√
+√
+Thermoelectric Effect(2)
+—
+T
+√
+√
+√
+√
+1 Custom studies are also available based on the physics interface.
+2 Multiphysics interfaces.
+TABLE 1-1:  HEAT TRANSFER MODULE DEPENDENT VARIABLES AND PRESET STUDY AVAILABILITY.
+PHYSICS INTERFACE
+NAME
+DEPENDENT 
+VARIABLES
+PRESET STUDIES1
+STATIONARY
+TIME DEPENDENT
+THERMAL PERTURBATION, 
+EIGENFREQUENCY
+THERMAL PERTURBATION, FREQUENCY 
+DOMAIN
+STATIONARY WITH INITIALIZATION
+TRANSIENT WITH INITIALIZATION
+
+
+--- Page 42 ---
+42 |  C H A P T E R  1 :  I N T R O D U C T I O N
+density, and thermal conductivity), properties for thermal damage analysis of 
+biological tissues are provided.
+• The Building material database contains hygroscopic and thermal properties for 
+materials used with the Moisture Transport interface.
+Where Do I Access the Documentation and Application Libraries?
+A number of online resources have more information about COMSOL, including 
+licensing and technical information. The electronic documentation, topic-based (or 
+context-based) help, and the Application Libraries are all accessed through the 
+COMSOL Desktop.
+T H E  D O C U M E N T A T I O N  A N D  O N L I N E  H E L P
+The COMSOL Multiphysics Reference Manual describes the core physics interfaces 
+and functionality included with the COMSOL Multiphysics license. This book also has 
+instructions on how to use COMSOL Multiphysics and how to access the electronic 
+Documentation and Help content.
+Opening Topic-Based Help
+The Help window is useful as it is connected to the features in the COMSOL Desktop. 
+To learn more about a node in the Model Builder, or a window on the Desktop, click 
+to highlight a node or window, then press F1 to open the Help window, which then 
+For detailed information, see Liquids and Gases Material Library, Bioheat 
+Materials Library, Building Material Library, and Materials in the 
+COMSOL Multiphysics Reference Manual.
+If you are reading the documentation as a PDF file on your computer, 
+the blue links do not work to open an application or content 
+referenced in a different guide. However, if you are using the Help 
+system in COMSOL Multiphysics, these links work to open other 
+modules, application examples, and documentation sets.
+
+
+--- Page 45 ---
+O V E R V I E W  O F  T H E  U S E R ’ S  G U I D E  |  45
+Overview of the User’s Guide
+This Heat Transfer Module User’s Guide gets you started with modeling heat transfer 
+using COMSOL Multiphysics. The information in this guide is specific to this module. 
+Instructions on how to use COMSOL in general are included with the COMSOL 
+Multiphysics Reference Manual.
+T A B L E  O F  C O N T E N T S ,  N O T A T I O N S ,  A N D  I N D E X
+To help you navigate through this guide, see the Contents, Notations, and Index.
+M O D E L I N G  W I T H  T H E  H E A T  T R A N S F E R  M O D U L E
+The Modeling with the Heat Transfer Module chapter includes the following topics:
+• Heat Transfer Variables
+• Moisture Transport Variables
+• Using the Boundary Conditions for the Heat Transfer Interfaces
+• Handling Frames in Heat Transfer
+• Heat Transfer Consistent and Inconsistent Stabilization Methods
+• Heat Transfer and Fluid Flow Coupling
+• Boundary Wall Temperature
+• Solver Settings
+• Plotting and Evaluating Results in Layered Materials
+• Ambient Properties
+• Modeling Heat Transfer by Radiation
+• Heat Part Library
+T H E O R Y  F O R  T H E  H E A T  T R A N S F E R  M O D U L E
+The Theory for the Heat Transfer Module chapter includes the theory related to the 
+heat transfer and moisture transport interfaces and multiphysics interfaces, and also to 
+some nodes.
+As detailed in the section Where Do I Access the Documentation and 
+Application Libraries? this information can also be searched from the 
+COMSOL Multiphysics Help menu in the COMSOL Desktop.
+
+
+--- Page 46 ---
+46 |  C H A P T E R  1 :  I N T R O D U C T I O N
+After the establishment of the heat balance equation from the energy conservation laws 
+in Foundations of the General Heat Transfer Equation, the various versions of the heat 
+equation solved in COMSOL Multiphysics are presented in the following sections:
+• Theory for Heat Transfer in Solids
+• Theory for Heat Transfer in Fluids
+• Theory for Bioheat Transfer
+• Theory for Heat Transfer in Porous Media
+• Theory for Heat Transfer with Phase Change
+• Theory for Heat Transfer in Building Materials
+• Theory for Harmonic Heat Transfer
+• Theory for Lumped Isothermal Domain
+• Theory for Heat Transfer in Thin Structures
+• Theory for the Lumped Thermal System Interface
+• Theory for Surface-to-Surface Radiation
+• Theory for Radiation in Participating Media
+• Theory for Moisture Transport
+Then the theory related to multiphysics interfaces is described in the section Theory 
+for the Heat Transfer Multiphysics Couplings.
+Finally, topics related to specific features or variables are treated in the sections Theory 
+for Thermal Contact, Theory for Heat Transfer in Moist Air, Out-of-Plane Heat 
+Transfer, Convective Heat Transfer Correlations, Equivalent Thermal Conductivity 
+Correlations, Temperature Dependence of Surface Tension, Heat Flux and Heat 
+Balance, and Frames for the Heat Transfer Equations.
+T H E  H E A T  T R A N S F E R  M O D U L E  I N T E R F A C E S
+The chapter The Heat Transfer Module Interfaces describes the main Heat Transfer 
+interface (ht) that forms the backbone for all the fundamental interfaces in this 
+module, and the other interfaces (Heat Transfer in Shells (htlsh), Radiation in 
+Participating Media (rpm), Radiation in Absorbing–Scattering Media (rasm), 
+Radiative Beam in Absorbing Media (rbam), Surface-to-Surface Radiation (rad), and 
+Moisture Transport (mt)).
+The sections The Heat Transfer in Solids Interface, The Heat Transfer in Fluids 
+Interface, and The Heat Transfer in Solids and Fluids Interface discuss modeling heat 
+transfer in solids and fluids.
+
+
+--- Page 47 ---
+O V E R V I E W  O F  T H E  U S E R ’ S  G U I D E  |  47
+The sections The Heat Transfer in Porous Media Interface, The Local Thermal 
+Nonequilibrium Interface, and The Heat Transfer in Moist Porous Media Interface 
+discuss modeling heat transfer in porous media.
+The particular case of heat transfer in moist air and building materials is considered in 
+the sections The Heat Transfer in Moist Air Interface and The Heat Transfer in 
+Building Materials Interface.
+The section The Bioheat Transfer Interface discusses modeling heat transfer within 
+biological tissue using the Bioheat Transfer interface.
+The sections The Heat Transfer in Shells Interface, The Heat Transfer in Films 
+Interface, and The Heat Transfer in Fractures Interface describe the physics interfaces 
+which are suitable for solving thermal conduction, convection, and radiation problems 
+in layered materials defined on boundaries.
+The section The Lumped Thermal System Interface describes the modeling of heat 
+transfer in a system using a thermal network representation.
+The sections The Surface-to-Surface Radiation Interface, The Radiation in 
+Participating Media Interface, The Radiation in Absorbing–Scattering Media 
+Interface, and The Radiative Beam in Absorbing Media Interface discuss the modeling 
+of radiative heat transfer in transparent and participating media.
+Finally, the sections The Moisture Transport in Air Interface, The Equilibrium 
+Moisture Transport in Porous Media Interface, The Nonequilibrium Moisture 
+Transport in Porous Media Interface, The Moisture Transport in Building Materials 
+Interface, The Moisture Transport in Free and Porous Media Interface, and The 
+Moisture Transport in Solids Interface describe the modeling of moisture transfer in a 
+porous medium through moisture storage or liquid water saturation, vapor diffusion 
+and capillary moisture flows; or in air, through convection and diffusion.
+T H E  H E A T  T R A N S F E R  F E A T U R E S
+The chapter The Heat Transfer Features describes the Domain Features, Boundary 
+Features, Edge Features, Point Features, and Global Features available with the Heat 
+Transfer interfaces.
+T H E  M O I S T U R E  T R A N S P O R T  F E A T U R E S
+The Moisture Transport Features chapter describes the Domain Features, Boundary 
+Features, and Global Features available with the Moisture Transport interface.
+
+
+--- Page 48 ---
+48 |  C H A P T E R  1 :  I N T R O D U C T I O N
+T H E  H E A T  T R A N S F E R  M U L T I P H Y S I C S  I N T E R F A C E S
+The Multiphysics Interfaces chapter describes the predefined multiphysics interfaces.
+The chapter The Nonisothermal Flow and Conjugate Heat Transfer Interfaces 
+describes the multiphysics versions of both the Nonisothermal Flow Laminar Flow and 
+Turbulent Flow interfaces found under the Fluid Flow branch, which are identical to 
+the Conjugate Heat Transfer interfaces. Each section describes the applicable physics 
+interfaces in detail and concludes with the underlying theory.
+The section The Heat Transfer with Surface-to-Surface Radiation Interface describes 
+the predefined multiphysics interface used to model heat transfer by conduction, 
+convection, and radiation in a transparent media.
+The section The Heat Transfer with Radiation in Participating Media Interface 
+describes the predefined multiphysics interface used to model heat transfer by 
+conduction, convection, and radiation in semitransparent media. The radiative 
+intensity equations are approximated by the Discrete Ordinates Method or the P1 
+Approximation. When no emission should be considered, see the section The Heat 
+Transfer with Radiation in Absorbing–Scattering Media Interface.
+The section The Heat Transfer with Radiative Beam in Absorbing Media Interface 
+describes the predefined multiphysics interface used to model heat transfer by 
+conduction, convection, and radiation in semitransparent media. The Beer–Lambert 
+law is used for the approximation of the radiative intensity.
+The section The Thermoelectric Effect Interface describes the predefined multiphysics 
+interface used to model the Peltier–Seebeck–Thomson effect.
+The section The Heat and Moisture Transport Interfaces describes the predefined 
+multiphysics interfaces used to model coupled heat and moisture transport either in 
+building materials, by taking into account heat and moisture storage, latent heat 
+effects, and liquid and convective transport of moisture; or in moist air by convection 
+and diffusion of moisture and heat.
+The section The Moisture Flow Interfaces describes the predefined multiphysics 
+interfaces used to model moisture transport in air by laminar flow (in free and porous 
+media) and turbulent flows (in free media).
+The section The Heat and Moisture Flow Interfaces describes the predefined 
+multiphysics interfaces used to model heat transfer and moisture transport in air by 
+laminar and turbulent flows, and in porous media by laminar flows.
+
+
+--- Page 49 ---
+O V E R V I E W  O F  T H E  U S E R ’ S  G U I D E  |  49
+T H E  H E A T  T R A N S F E R  M U L T I P H Y S I C S  C O U P L I N G S
+The Multiphysics Couplings chapter describes the Domain Multiphysics Couplings 
+and the Boundary Multiphysics Couplings available with the predefined multiphysics 
+interfaces.
+
+
+--- Page 54 ---
+54 |  C H A P T E R  2 :  N O T A T I O N S
+EΩ
+J
+Internal energy of a body
+eb, λ(λ, T)
+W/m2
+Blackbody spectral emissive power
+eb(T)
+W/m2
+Blackbody total emissive power
+Econtact
+Pa
+Effective contact interface Young’s modulus
+Ed
+Pa
+Young’s modulus, down contact surface
+Ek
+J/kg
+Kinetic energy
+ep
+m2/s3
+Turbulent dissipation rate
+Ep
+J/kg
+Potential energy
+Eu
+Pa
+Young’s modulus, up contact surface
+etot
+W/m2
+Total energy flux
+F
+N/m3
+Body force vector
+F
+dimensionless
+Deformation gradient tensor
+Famb
+dimensionless
+Ambient view factor
+Famb, d
+dimensionless
+Ambient view factor, downside
+Famb, u
+dimensionless
+Ambient view factor, upside
+g
+m/s2
+Acceleration of gravity
+Gevap
+kg/(m3·s)
+Evaporation source
+gevap
+kg/(m2·s)
+Evaporation flux
+G
+kg/(m3·s)
+Moisture source
+G
+1/m
+Reciprocal wall distance
+G
+W/m2
+Surface irradiation
+Gamb
+W/m2
+Ambient irradiation
+Gamb, d
+W/m2
+Ambient irradiation, downside
+Gamb, u
+W/m2
+Ambient irradiation, upside
+Gd
+W/m2
+Surface irradiation, downside
+Gext
+W/m2
+External irradiation
+Gext, d
+W/m2
+External irradiation, downside
+Gext, u
+W/m2
+External irradiation, upside
+Gl
+kg/(m3·s)
+Liquid water source
+glc
+kg/(m2·s)
+Liquid water capillary flux
+Gm
+W/m2
+Mutual surface irradiation
+Gm, d
+W/m2
+Mutual surface irradiation, downside
+NOTATION
+SI UNIT
+DESCRIPTION
+
+
+--- Page 55 ---
+S Y M B O L S  |  55
+Gm, u
+W/m2
+Mutual surface irradiation, upside
+GrL
+dimensionless
+Grashof number associated with characteristic length L
+Gu
+W/m2
+Surface irradiation, upside
+Gv
+kg/(m3·s)
+Water vapor source
+gw
+kg/(m2·s)
+Vapor diffusive flux
+H
+m
+Chimney height (heat transfer coefficient)
+H
+J/kg
+Enthalpy
+h
+W/(m2·K)
+Gap conductance (thermal contact)
+h
+W/(m2·K)
+Heat transfer coefficient
+H0
+J/kg
+Total enthalpy
+HB
+Pa
+Brinell hardness
+hc
+W/(m2·K)
+Constriction conductance
+Hc
+Pa
+Microhardness
+hd
+W/(m2·K)
+Out-of-plane heat transfer coefficient, downside
+Hd
+J/kg
+Enthalpy, downside
+Hext
+J/kg
+External enthalpy
+hg
+W/(m2·K)
+Parallel-plate gap gas conductance
+hm
+m/s
+Moisture transfer coefficient
+hr
+W/(m2·K)
+Radiative conductance
+Href
+J/kg
+Reference enthalpy
+hsf
+W/(m2·K)
+Interstitial heat transfer coefficient
+hth
+W/K
+Thermal conductance (isothermal domain interface)
+hu
+W/(m2·K)
+Out-of-plane heat transfer coefficient, upside
+Hu
+J/kg
+Enthalpy, upside
+hz
+W/(m2·K)
+Out-of-plane heat transfer coefficient, 1D
+I(Ω)
+W/(m2·sr)
+Radiative intensity traveling in direction Ω
+Ib(T)
+W/(m2·sr)
+Blackbody radiative intensity
+Idiff
+W/m2
+Diffuse irradiance
+Iext
+W/(m2·sr)
+Incident radiative intensity
+Ii
+W/(m2·sr)
+Radiative intensity traveling in ith discrete direction
+is
+dimensionless
+Incident radiation direction (external radiation source)
+Is
+W/m2
+Solar irradiance
+NOTATION
+SI UNIT
+DESCRIPTION
+
+
+--- Page 67 ---
+ 67
+ 3
+Modeling with the Heat Transfer Module
+A variety of modeling techniques are discussed in the following sections:
+• Heat Transfer Variables
+• Moisture Transport Variables
+• Using the Boundary Conditions for the Heat Transfer Interfaces
+• Handling Frames in Heat Transfer
+• Heat Transfer Consistent and Inconsistent Stabilization Methods
+• Heat Transfer and Fluid Flow Coupling
+• Boundary Wall Temperature
+• Solver Settings
+• Plotting and Evaluating Results in Layered Materials
+• Evaluating the Bulk Temperature
+• Ambient Properties
+• Modeling Heat Transfer by Radiation
+• Specifying the Temperature at a Flow Inlet
+• Heat Part Library
+
+
+--- Page 68 ---
+68 |  C H A P T E R  3 :  M O D E L I N G  W I T H  T H E  H E A T  T R A N S F E R  M O D U L E
+Heat Transfer Variables
+In this section:
+• Predefined Variables
+• Global Variables for Heat and Energy Balance
+• Domain Fluxes
+• Out-of-Plane Domain Fluxes
+• Boundary Fluxes (Heat Transfer Interface)
+• Internal Boundary Heat Fluxes
+• Domain Heat Sources
+• Boundary Heat Sources
+• Line and Point Heat Sources
+• Moist Air Variables
+Predefined Variables
+This section lists some predefined variables that are available to evaluate heat fluxes, 
+sources, and integral quantities used in heat and energy balance. All the variable names 
+begin with the physics interface name (the prefix). By default the Heat Transfer 
+interface prefix is ht, and the Heat Transfer in Shells interface prefix is htlsh. As an 
+example, you can access the variable named tflux using ht.tflux (as long as the 
+physics interface is named ht).
+TABLE 3-1:  PREDEFINED HEAT BALANCE VARIABLES.
+VARIABLE
+NAME
+GEOMETRIC ENTITY LEVEL
+Global variables
+dEiInt
+Total Accumulated Heat Rate
+Global
+ntfluxInt
+Total Net Heat Rate
+Global
+WstrInt
+Total Stress Power
+Global
+heatBalance
+Heat Balance
+Global
+Domain variables
+tflux
+Total Heat Flux (Heat Transfer 
+Interface)
+Domains
+
+
+--- Page 69 ---
+H E A T  T R A N S F E R  V A R I A B L E S  |  69
+dflux
+Conductive Heat Flux (Heat 
+Transfer Interface)
+Domains
+cflux
+Convective Heat Flux (Heat 
+Transfer Interface)
+Domains
+turbflux
+Turbulent Heat Flux (Heat Transfer 
+Interface)
+Domains
+tflux_u
+tflux_d
+tflux_z
+Total Out-of-Plane Heat Flux (Heat 
+Transfer Interface)
+Out-of-plane domains (1D 
+and 2D), boundaries
+rflux_u
+rflux_d
+rflux_z
+Radiative Out-of-Plane Heat Flux 
+(Heat Transfer Interface)
+Out-of-plane domains (1D 
+and 2D), boundaries
+q0_u
+q0_d
+q0_z
+Out-of-Plane Heat Flux (Heat 
+Transfer Interface)
+Out-of-plane domains (1D 
+and 2D)
+Boundary variables
+ntflux
+Normal Total Heat Flux (Heat 
+Transfer Interface)
+Boundaries
+ndflux
+Normal Conductive Heat Flux 
+(Heat Transfer Interface)
+Boundaries
+ncflux
+Normal Convective Heat Flux (Heat 
+Transfer Interface)
+Boundaries
+rflux
+Radiative Heat Flux (Heat Transfer 
+Interface)
+Boundaries
+q0
+Inward Heat Flux (Heat Transfer 
+Interface)
+Boundaries
+ntflux_u
+ntflux_d
+Internal normal total heat flux, upside 
+and downside (Internal Boundary 
+Heat Fluxes)
+Interior boundaries
+ndflux_u
+ndflux_d
+Internal normal conductive heat flux, 
+upside and downside (Internal 
+Boundary Heat Fluxes)
+Interior boundaries
+ncflux_u
+ncflux_d
+Internal normal convective heat flux, 
+upside and downside (Internal 
+Boundary Heat Fluxes)
+Interior boundaries
+TABLE 3-1:  PREDEFINED HEAT BALANCE VARIABLES.
+VARIABLE
+NAME
+GEOMETRIC ENTITY LEVEL
+
+
+--- Page 70 ---
+70 |  C H A P T E R  3 :  M O D E L I N G  W I T H  T H E  H E A T  T R A N S F E R  M O D U L E
+TABLE 3-2:  PREDEFINED ENERGY BALANCE VARIABLES.
+VARIABLE
+NAME
+GEOMETRIC ENTITY LEVEL
+Global variables
+dEi0Int
+Total Accumulated Energy Rate
+Global
+ntefluxInt
+Total Net Energy Rate
+Global
+WInt
+Total Work Source
+Global
+energyBalan
+ce
+Energy Balance
+Global
+Domain variables
+teflux
+Total Energy Flux (Heat Transfer 
+Interface)
+Domains
+dflux
+Conductive Heat Flux (Heat 
+Transfer Interface)
+Domains
+thflux
+Total Enthalpy Flux (Heat Transfer 
+Interface)
+Domains
+Boundary variables
+nteflux
+Normal Total Energy Flux (Heat 
+Transfer Interface)
+Boundaries
+ndflux
+Normal Conductive Heat Flux 
+(Heat Transfer Interface)
+Boundaries
+nthflux
+Normal Total Enthalpy Flux (Heat 
+Transfer Interface)
+Boundaries
+q0
+Inward Heat Flux (Heat Transfer 
+Interface)
+Boundaries
+nteflux_u
+nteflux_d
+Internal normal total energy flux, 
+upside and downside (Internal 
+Boundary Energy Fluxes)
+Interior boundaries
+ndflux_u
+ndflux_d
+Internal normal conductive heat flux, 
+upside and downside (Internal 
+Boundary Heat Fluxes)
+Interior boundaries
+nthflux_u
+nthflux_d
+Internal normal enthalpy flux, upside 
+and downside (Internal Boundary 
+Energy Fluxes)
+Interior boundaries
+TABLE 3-3:  PREDEFINED HEAT SOURCE VARIABLES.
+VARIABLE
+NAME
+GEOMETRIC ENTITY LEVEL
+Global variables
+QInt
+Total Heat Source
+Global
+
+
+--- Page 71 ---
+H E A T  T R A N S F E R  V A R I A B L E S  |  71
+Domain variables
+Qtot
+Total heat source (Domain Heat 
+Sources)
+Domains
+Boundary variables
+Qbtot
+Total boundary heat source 
+(Boundary Heat Sources)
+Boundaries
+Qltot
+Total line heat source (Line and Point 
+Heat Sources)
+Edges, Points (2D, 2D axial 
+symmetry)
+Qptot
+Point heat source (Line and Point 
+Heat Sources)
+Points
+TABLE 3-4:  OTHER PREDEFINED HEAT TRANSFER VARIABLES.
+VARIABLE
+NAME
+GEOMETRIC ENTITY LEVEL
+Global variables
+Tref
+Reference temperature
+Global
+Domain variables
+alpha
+Damage indicator (see Theory for 
+Bioheat Transfer)
+Domains
+alphanecr
+Instant tissue necrosis indicator (see 
+Theory for Bioheat Transfer)
+Domains
+theta_d
+Fraction of damage (see Theory for 
+Bioheat Transfer)
+Domains
+theta_d_sm
+Fraction of total damage (see Theory 
+for Bioheat Transfer)
+Domains
+T_dp
+Dew Point Temperature
+Domains
+T_eq
+Equivalent Temperature
+Domains
+psat
+Saturation Pressure
+Domains
+phi
+Relative Humidity
+Domains
+Lv
+Latent Heat of Evaporation
+Domains
+Boundary variables
+h
+Heat transfer coefficient (see 
+Convective Heat Transfer 
+Correlations)
+Exterior boundaries
+TABLE 3-3:  PREDEFINED HEAT SOURCE VARIABLES.
+VARIABLE
+NAME
+GEOMETRIC ENTITY LEVEL
+
+
+--- Page 72 ---
+72 |  C H A P T E R  3 :  M O D E L I N G  W I T H  T H E  H E A T  T R A N S F E R  M O D U L E
+Global Variables for Heat and Energy Balance
+This section describes variables defined by integrals. A concise notation denotes the 
+different domains of integration: Ω is the geometry domain, ∂Ωext stands for the 
+exterior boundaries, and ∂Ωint for the interior boundaries.
+T O T A L  A C C U M U L A T E D  H E A T  R A T E
+The total accumulated heat rate variable, dEiInt, is the variation of internal energy per 
+unit time in the domain:
+T O T A L  N E T  H E A T  R A T E
+The total net heat rate, ntfluxInt, is the integral of Total Heat Flux (Heat Transfer 
+Interface) over all exterior boundaries. In the case of a fluid domain, it reads:
+This indicates the sum of incoming and outgoing total heat flux through the system.
+T O T A L  H E A T  S O U R C E
+The total heat source, QInt, accounts for all domain sources; interior boundary, edge, 
+and point sources; and radiative sources at interior boundaries:
+Some of these variables are only available with the Heat Transfer Module 
+(rflux_u, rflux_d, rflux_z, q0_u, q0_d, and q0_z), or when either the 
+CFD Module or the Heat Transfer Module is added (rflux and 
+turbflux).
+All the variables in Table 3-1, Table 3-2, and Table 3-3, with the 
+exception of turbflux and Qptot, also exist with the suffix _material, 
+which correspond to the same variables, but evaluated in the material 
+frame. For example, ndflux is the normal conductive heat flux evaluated 
+in the spatial frame, and ndflux_material is the normal conductive heat 
+flux evaluated in the material frame.
+dEiInt
+t
+d
+d
+ρEi ω
+d
+Ω
+=
+ntfluxInt
+ρuEi
+k∇T
+–
+qr
++
+(
+) n σ
+d
+⋅
+Ωext
+∂
+=
+
+
+--- Page 73 ---
+H E A T  T R A N S F E R  V A R I A B L E S  |  73
+T O T A L  S T R E S S  P O W E R
+The total stress power, WstrInt, corresponds to the work lost by a fluid by 
+degradation of energy. These works are transmitted to the system through pressure 
+work and viscous dissipation:
+T O T A L  A C C U M U L A T E D  E N E R G Y  R A T E
+The total accumulated energy rate, dEi0Int, is the variation of total internal energy 
+per unit time in the domain:
+where the total internal energy, Ei0, is defined as
+T O T A L  N E T  E N E R G Y  R A T E
+The total net energy rate, ntefluxInt, is the integral of Total Energy Flux (Heat 
+Transfer Interface) over all exterior boundaries. In the case of a fluid domain, it reads:
+This indicates the sum of incoming and outgoing total energy flux through the system.
+T O T A L  W O R K  S O U R C E
+The total work source, WInt, accounts for volume forces and boundary stresses as 
+follows:
+where K is the viscous stress vector defined as
+QInt
+Q ω
+d
+Ω
+Qb ω
+d
+Ω
+∂
+int
+
+Qr ω
+d
+Ω
+∂
+int
+
++
++
+=
+WstrInt
+pA∇u
+⋅
+ω
+d
+Ω
+τ
+– : u
+∇
+(
+) ω
+d
+Ω
++
+=
+dEi0Int
+t
+d
+d
+ρEi0 ω
+d
+Ω
+=
+Ei0
+Ei
+u u
+⋅
+2
+------------
++
+=
+ntefluxInt
+ρuH0
+k∇T
+–
+qr
++
+(
+) n σ
+d
+⋅
+Ωext
+∂
+=
+WInt
+ρg
+F
++
+(
+) u ω
+d
+⋅
+Ω
+K u σ
+K u
+⋅
+Ωint
+∂
+σ
+d
+Ωint
+∂
++
+d
+⋅
+Ωext
+∂
++
+=
+
+
+--- Page 76 ---
+76 |  C H A P T E R  3 :  M O D E L I N G  W I T H  T H E  H E A T  T R A N S F E R  M O D U L E
+Domain Fluxes
+On domains the fluxes are vector quantities. The definition can vary depending on the 
+active physics nodes and selected properties.
+T O T A L  H E A T  F L U X  ( H E A T  T R A N S F E R  I N T E R F A C E )
+In domains, the total heat flux, tflux, is the sum of the conductive and convective 
+heat fluxes. For accuracy reasons the radiative heat flux is not included.
+For solid domains — for example, the solid and biological tissue domains — the total 
+heat flux is defined as:
+For fluid domains (for example, Fluid), the total heat flux is defined as:
+C O N D U C T I V E  H E A T  F L U X  ( H E A T  T R A N S F E R  I N T E R F A C E )
+The conductive heat flux variable, dflux, is evaluated using the temperature gradient 
+and the effective thermal conductivity:
+In the general case keff is the thermal conductivity, k.
+For heat transfer in fluids with turbulent flow, keff = k + kT, where kT is the turbulent 
+thermal conductivity.
+For heat transfer in porous media, keff is the effective conductivity computed from the 
+solid and fluid conductivities.
+The energy balance can be evaluated assuming constant material 
+properties using the following variables: energyBalance_cst, 
+dEi0Int_cst, ntefluxInt_cst, WInt_cst, and QInt_cst. The 
+evaluation of these variables is faster and accurate for constant material 
+properties or small temperature gradients.
+See Radiative Heat Flux (Heat Transfer Interface) to evaluate the radiative 
+heat flux.
+tflux
+dflux
+=
+tflux
+cflux
+dflux
++
+=
+dflux
+keff T
+∇
+–
+=
+
+
+--- Page 79 ---
+H E A T  T R A N S F E R  V A R I A B L E S  |  79
+T O T A L  O U T - O F - P L A N E  H E A T  F L U X  ( H E A T  T R A N S F E R  I N T E R F A C E )
+The total out-of-plane heat flux, tflux, is the sum of the radiative and convective heat 
+fluxes:
+• In 2D:
+upside:
+downside:
+• In 1D:
+Boundary Fluxes (Heat Transfer Interface)
+All the domain fluxes (vector quantity) computed by the Heat Transfer interface are 
+also available as boundary fluxes. The boundary fluxes are then equal to the mean value 
+of the fluxes on adjacent domains. In addition, normal boundary heat fluxes (scalar 
+quantity) are available on boundaries.
+N O R M A L  T O T A L  H E A T  F L U X  ( H E A T  T R A N S F E R  I N T E R F A C E )
+The variable ntflux is defined as:
+N O R M A L  C O N D U C T I V E  H E A T  F L U X  ( H E A T  T R A N S F E R  I N T E R F A C E )
+The variable ndflux is defined on exterior boundaries as:
+•
+ndflux = −dflux_spatial(T) if the adjacent domain is on the downside,
+•
+ndflux = −uflux_spatial(T) if the adjacent domain is on the upside,
+and, on interior boundaries, as:
+ndflux = (uflux_spatial(T) −dflux_spatial(T))/2
+N O R M A L  C O N V E C T I V E  H E A T  F L U X  ( H E A T  T R A N S F E R  I N T E R F A C E )
+The variable ncflux is defined as:
+tflux_u
+q0_u
+rflux_u
++
+=
+tflux_d
+q0_d
+rflux_d
++
+=
+tflux_z
+q0_z
+rflux_z
++
+=
+ntflux
+ndflux
+ncflux
++
+=
+Frames for the Heat Transfer Equations for a description of spatial and 
+material frames.
