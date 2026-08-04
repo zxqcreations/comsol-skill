@@ -1,0 +1,2891 @@
+
+=== PAGE 125 ===
+125 ---
+ 125
+ 3
+Chemical Species Transport Interfaces
+The Chemical Species Transport branch (
+) includes a number of subbranches to 
+describe mass transport and chemical reactions. The physics interfaces are 
+summarized in the first section, and then described in detail throughout this 
+chapter. All physics interfaces include features for defining arbitrary reaction 
+kinetics, to be used as mass sources and sinks, as well as arbitrary mass transport 
+parameters.
+• Overview of Chemical Species Transport Interfaces
+• The Transport of Diluted Species Interface
+• The Transport of Diluted Species in Porous Media Interface
+• The Transport of Diluted Species in Fractures Interface
+• The Transport of Concentrated Species Interface
+• The Transport of Concentrated Species in Porous Media Interface
+• The Nernst–Planck Equations Interface
+• The Nernst–Planck–Poisson Equations Interface
+• The Electrophoretic Transport Interface
+• The Size-Based Population Balance Interface
+• The Vapor–Liquid Equilibrium Multiphysics Interfaces
+
+
+
+
+=== PAGE 126 ===
+126 ---
+126 |  C H A P T E R  3 :  C H E M I C A L  S P E C I E S  T R A N S P O R T  I N T E R F A C E S
+• The Reacting Flow, Concentrated Species Multiphysics Interface
+• The Reacting Flow, Diluted Species Multiphysics Interface
+• The Reacting Flow in Porous Media Multiphysics Interfaces
+• The Nonisothermal Reacting Flow Multiphysics Interfaces
+• The Dispersed Two-Phase Flow with Species Transport Multiphysics Interfaces
+• The Precipitation and Crystallization Multiphysics Interfaces
+• The Surface Reactions Interface
+• The Transport of Diluted Species in Fractures Interface
+• Theory for the Transport of Diluted Species Interface
+• Theory for the Transport of Concentrated Species Interface
+• Theory for the Electrophoretic Transport Interface
+• Theory for the Surface Reactions Interface
+• Theory for the Nernst–Planck Equations Interface
+• Theory for the Size-Based Population Balance Interface
+• Theory for the Vapor–Liquid Equilibrium Interfaces
+• Theory for the Reacting Laminar Flow Interface
+For a detailed description and background of The Chemistry Interface and The 
+Reaction Engineering Interface see The Chemistry and Reaction  Engineering 
+Interfaces chapter.
+
+
+
+
+=== PAGE 127 ===
+127 ---
+O V E R V I E W  O F  C H E M I C A L  S P E C I E S  T R A N S P O R T  I N T E R F A C E S  |  127
+Overview of Chemical Species 
+Transport Interfaces
+In this section:
+• Available Physics Interfaces
+• Coupling to Other Physics Interfaces
+• Adding a Chemical Species Transport Interface and Specifying the Number of 
+Species
+• Available Result Templates
+Available Physics Interfaces
+T H E  T R A N S P O R T  O F  D I L U T E D  S P E C I E S ,  A N D  T H E  T R A N S P O R T  O F  
+D I L U T E D  S P E C I E S  I N  P O R O U S  M E D I A  I N T E R F A C E S
+The mass transfer equations account for chemical species transport by diffusion, 
+convection, and migration due to an electric field (electrokinetic flow)—either alone 
+or in combination. The Transport of Diluted Species Interface (
+) is an enhanced 
+version of the physics interface included with the basic COMSOL Multiphysics license 
+and is applicable for solutions (either fluid or solid) where the transported species have 
+concentrations at least one order of magnitude less than the solvent. The settings for 
+this physics interface can be chosen so as to simulate chemical species transport 
+through diffusion (Fick’s law), convection (when coupled to fluid flow), and migration 
+(when coupled to an electric field — electrokinetic flow). Also see the The Transport 
+of Diluted Species Interface.
+The Transport of Diluted Species in Porous Media Interface (
+) is tailored for the 
+modeling of solute transport in porous media. The physics interface supports cases 
+where either the solid phase substrate is exclusively immobile, or when a gas-filling 
+medium is also assumed to be immobile. Also see the Mass Balance Equation for 
+Transport of Diluted Species in Porous Media.
+T H E  T R A N S P O R T  O F  C O N C E N T R A T E D  S P E C I E S ,  A N D  T H E  T R A N S P O R T  O F  
+C O N C E N T R A T E D  I N  P O R O U S  M E D I A  S P E C I E S  I N T E R F A C E S
+The Transport of Concentrated Species Inte
+
+=== PAGE 128 ===
+128 ---
+128 |  C H A P T E R  3 :  C H E M I C A L  S P E C I E S  T R A N S P O R T  I N T E R F A C E S
+concentrations of the participating species are of the same order of magnitude, and the 
+molecular effects of respective species on each other needs to be considered. This 
+physics interface supports transport through Fickian diffusion, a mixture-average 
+diffusion model, and as described by the Maxwell-Stefan equations. These take into 
+account the diffusion properties of all species with respect to each other. Convective 
+transport and transport by migration in electric fields are also accounted for by this 
+physics interface. Also see the Theory for the Transport of Concentrated Species 
+Interface.
+The Transport of Concentrated Species in Porous Media Interface (
+) is tailored for 
+the modeling of gas or liquids mixtures in porous media.
+T H E  N E R N S T – P L A N C K  E Q U A T I O N S  I N T E R F A C E
+The Nernst–Planck Equations Interface (
+) is used to compute concentrations in 
+electrolytes subjected to electric fields. It defines the material balances and transport of 
+ions and neutral species in combination with the electroneutrality condition. The 
+physics interface can be used to model generic electrochemical cells with significant 
+concentration gradients of the current-carrying species (ions). Also see the Theory for 
+the Nernst–Planck Equations Interface.
+T H E  N E R N S T – P L A N C K – P O I S S O N  E Q U A T I O N S  I N T E R F A C E
+The Nernst–Planck–Poisson Equations Interface (
+) describes transport of 
+electrolyte species without assuming local electroneutrality. This allows for simulating 
+charge separation that typically arises close to an electrode surface, where ions in the 
+electrolyte are attracted and repelled by unscreened excess charge on the electrode.
+T H E  E L E C T R O P H O R E T I C  T R A N S P O R T  I N T E R F A C E
+The Electrophoretic Transport Interface (
+) is used to compute the potential and 
+concentration fie
+
+=== PAGE 129 ===
+129 ---
+O V E R V I E W  O F  C H E M I C A L  S P E C I E S  T R A N S P O R T  I N T E R F A C E S  |  129
+for concentrated solutions are available. The physics interfaces support laminar flow 
+and, depending on the licensed products, turbulent flow.
+T H E  R E A C T I N G  F L O W  I N  P O R O U S  M E D I A  I N T E R F A C E S
+The Chemical Species Transport > Reacting Flow in Porous Media branch contains 
+multiphysics interfaces that combine equations for fluid flow and chemical 
+composition of a gas or liquid moving through the interstices of a porous medium. The 
+branch also included dedicated interfaces for modeling porous catalysts and packed 
+bed reactors. Apart from porous media, the system may also include regions with free 
+flow.
+T H E  R E A C T I N G  N O N I S O T H E R M A L  F L O W  I N T E R F A C E S
+The Chemical Species Transport > Nonisothermal Reacting Flow branch contains 
+multiphysics interface that combines the equations for fluid flow, heat transfer, and 
+mass transport and reactions in fluid mixtures. These physics interfaces support laminar 
+flow and, depending on the licensed products, turbulent flow, as well as flow through 
+porous media.
+T H E  D I S P E R S E D  T W O - P H A S E  L A M I N A R  F L O W  W I T H  S P E C I E S  T R A N S P O R T  
+I N T E R F A C E
+The Dispersed Two-Phase Laminar Flow with Species Transport Interface (
+) can 
+be used to simulate species transport in a two-phase flow involving a liquid and a 
+dispersed phase consisting of bubbles or droplets. Transport and reactions in both 
+phases as well as transfer between them can be studied.
+T H E  V A P O R – L I Q U I D  E Q U I L I B R I U M  I N T E R F A C E S
+The Vapor–Liquid Equilibrium multiphysics interfaces can be used to model vapor 
+transport in multicomponent mixtures in contact with liquids. The Laminar Vapor 
+Flow (
+) version includes features for evaporation and condensation at vapor–liquid 
+interfaces. The Laminar Two-Phase Flow (
+) version can
+
+=== PAGE 130 ===
+130 ---
+130 |  C H A P T E R  3 :  C H E M I C A L  S P E C I E S  T R A N S P O R T  I N T E R F A C E S
+T H E  S U R F A C E  R E A C T I O N S  I N T E R F A C E
+The Surface Reactions Interface (
+) models reactions involving surface adsorbed 
+species and species in the bulk of a reacting surface. The physics interface is typically 
+active on a model boundary and is coupled to a mass transport physics interface active 
+on a model domain. The Surface Reactions interface can be used together with other 
+Chemical Species Transport interfaces. Predefined expressions for the growth velocity 
+of the reacting surface makes it easy to set up models with moving boundaries. Also 
+see the Theory for the Surface Reactions Interface.
+T H E  T R A N S P O R T  O F  D I L U T E D  S P E C I E S  I N  F R A C T U R E S  I N T E R F A C E
+The Transport of Diluted Species in Fractures Interface (
+) is used to model 
+transport of a solute species along thin porous fractures, by accounting for convection, 
+diffusion, dispersion, and chemical reactions. The fractures are defined by boundaries 
+in 2D and 3D. The mass transport equation solved along the fractures is the tangential 
+differential form of the convection–diffusion–reaction equation.
+The next sections, Coupling to Other Physics Interfaces and Adding a Chemical 
+Species Transport Interface and Specifying the Number of Species provide more 
+information to help you start modeling.
+Coupling to Other Physics Interfaces
+When using this module you are often simulating applications that can be described by 
+the mass transport interfaces in the Chemical Species Transport branch. Yet, as a lot of 
+mass transport is dependent on convection, couplings to Fluid Flow interfaces are 
+required. COMSOL Multiphysics and the Chemical Reaction Engineering Module 
+include physics interfaces for laminar flow as well as porous media flow. More advanced 
+descriptions of fluid flow, such as turbulent flow and multiphase flow, require the CFD 
+Module
+
+=== PAGE 131 ===
+131 ---
+O V E R V I E W  O F  C H E M I C A L  S P E C I E S  T R A N S P O R T  I N T E R F A C E S  |  131
+nature, or if the system is affected by electromagnetic waves, then the AC/DC Module 
+and RF Module have appropriate physics interfaces for these phenomena. Some 
+applications of electrochemical reactions, particularly in electrochemical power source 
+applications, are better handled by the Battery Design Module.
+Adding a Chemical Species Transport Interface and Specifying the 
+Number of Species
+A chemical species transport interface can be added when first creating a new model, 
+or at any time during the modeling process.
+1 To add a physics interface:
+- Select New to open the Model Wizard, after selecting a space dimension, go to the 
+Select Physics page.
+- From the Home toolbar click Add Physics (
+). Or right-click the Component 
+node in the Model Builder and select Add Physics. Go to the Add Physics window.
+2 Under Chemical Species Transport, navigate to the physics interface to add and 
+double-click it.
+There are other ways to add a physics interface depending on whether you are in the 
+Model Builder or Add Physics window:
+- In the Model Wizard, click Add or right-click and select Add Physics (
+). The 
+physics interface displays under Added physics interfaces.
+- In the Add Physics window, click Add to Component (
+) or right-click and select 
+Add to Component.
+3 Specify the number of species (concentrations or mass fractions) and the names:
+- In the Model Wizard, on the Review Physics Interface page under Dependent 
+Variables.
+- In the Add Physics window, click to expand the Dependent Variables section.
+- After adding the physics interface, you can also edit this information—click the 
+node in the Model Builder, then, in the Settings window under Dependent Variables, 
+specify the information.
+Creating a New Model in the COMSOL Multiphysics Reference Manual
+
+
+
+
+=== PAGE 132 ===
+132 ---
+132 |  C H A P T E R  3 :  C H E M I C A L  S P E C I E S  T R A N S P O R T  I N T E R F A C E S
+4 Continue by adding more physics interfaces and specifying the number of species 
+(concentrations or mass fractions) that are to be simulated in a mass transport 
+interface when adding that interface.
+5 In the Dependent Variables section, enter the Number of species. To add a single 
+species, click the Add Concentration button (
+) underneath the table or enter a 
+value into the Number of species field. Click the Remove Concentration button (
+) 
+underneath the table if required.
+6 The Transport of Concentrated Species interface and the Nernst–Planck Equations 
+interface both need to contain at least two species (the default). Also edit the strings 
+or names directly in the table. The names must be unique for all species (and all 
+other dependent variables) in the model.
+7 For the Nernst–Planck Equations interface, an electric potential variable is also 
+required.
+Available Result Templates
+A number of results templates with predefined plots or evaluation groups are available 
+when using the Chemical Species Transport interfaces. The results templates are 
+available in the Result Templates window after computing the solution.
+S P E C I E S  P L O T  A R R A Y S
+When solving a model with multiple species, one or more plot arrays are added to the 
+Result Templates window. The plots show the concentrations of up to four species in 
+each array plot, with surface plots for 2D or 3D.
+M A S S  A N D  M O L E  B A L A N C E  E V A L U A T I O N  G R O U P S
+When the Mass transfer in porous media checkbox is not selected, evaluation groups 
+showing the mass conservation are added to the Result Templates window. The 
+evaluation groups are not available when solving for multiple inner solutions, for 
+example, when adding inner solutions with the Auxiliary sweep study extension. When 
+the results are time-dependent, the accuracy of the mass or mole balance depends on 
+The Re
+
+=== PAGE 133 ===
+133 ---
+O V E R V I E W  O F  C H E M I C A L  S P E C I E S  T R A N S P O R T  I N T E R F A C E S  |  133
+the output times. The simplest way to get results representative of a time-dependent 
+simulation is to select Steps taken by solver from the Times to store list in the settings 
+of the solver.
+
+
+
+
+=== PAGE 134 ===
+134 ---
+134 |  C H A P T E R  3 :  C H E M I C A L  S P E C I E S  T R A N S P O R T  I N T E R F A C E S
+The Transport of Diluted Species 
+Interface
+The Transport of Diluted Species (tds) interface (
+), found under the Chemical Species 
+Transport branch (
+), is used to calculate the concentration field of a dilute solute in 
+a solvent. Transport and reactions of the species dissolved in a gas, liquid, or solid can 
+be handled with this interface. The driving forces for transport can be diffusion by 
+Fick’s law, convection when coupled to a flow field, and migration, when coupled to 
+an electric field.
+The interface supports simulation of transport by convection and diffusion in 1D, 2D, 
+and 3D as well as for axisymmetric components in 1D and 2D. The dependent variable 
+is the molar concentration, c. Modeling multiple species transport is possible, whereby 
+the physics interface solves for the molar concentration, ci, of each species i.
+S E T T I N G S
+The Label is the default physics interface name.
+The Name is used primarily as a scope prefix for variables defined by the physics 
+interface. Refer to such physics interface variables in expressions using the pattern 
+<name>.<variable_name>. In order to distinguish between variables belonging to 
+different physics interfaces, the name string must be unique. Only letters, numbers, and 
+underscores (_) are permitted in the Name field. The first character must be a letter.
+The default Name (for the first physics interface in the model) is tds.
+D O M A I N  S E L E C T I O N
+If any part of the model geometry should not partake in the mass transfer model, 
+remove that part from the selection list.
+O U T - O F - P L A N E  T H I C K N E S S
+For 2D components, the Thickness field (default value: 1 m) defines a parameter for the 
+thickness of the geometry perpendicular to the two-dimensional cross-section. Both 
+constant and varying thicknesses are supported. The value of this parameter is used, 
+among other things, to autom
+
+=== PAGE 135 ===
+135 ---
+T H E  T R A N S P O R T  O F  D I L U T E D  S P E C I E S  I N T E R F A C E  |  135
+C R O S S - S E C T I O N A L  A R E A
+For 1D components, enter a Cross-sectional area Ac (SI unit: m2) to define a parameter 
+for the area of the geometry perpendicular to the 1D component. Both constant and 
+varying areas are supported. The value of this parameter is used, among other things, 
+to automatically calculate molar flow rates from the total molar flux. The default is 1 
+m2.
+T R A N S P O R T  M E C H A N I S M S
+Mass transport due to diffusion is always included. Use the checkboxes available under 
+Additional transport mechanisms to control other transport mechanisms.
+Note: Some of the additional transport mechanisms listed below are only available in 
+certain products. For details see www.comsol.com/products/specifications/.
+• By default, the Convection checkbox is selected. Clear the checkbox to disable 
+convective transport.
+• Select the Migration in electric field checkbox to activate transport of ionic species in 
+an electric field. See further the theory section Adding Transport Through 
+Migration.
+Mass Transport in Porous Media
+The Mass transport in porous media checkbox activates functionality specific to species 
+transport in porous media:
+• Porous Medium
+• Unsaturated Porous Medium
+• Porous Electrode Coupling
+• Packed Bed (Moving Packed Bed)
+• Porous Catalyst
+Transport of ionic species in an electric field is available in a limited set of 
+add-on products. See www.comsol.com/products/specifications/ for 
+more details on availability.
+
+
+
+
+=== PAGE 136 ===
+136 ---
+136 |  C H A P T E R  3 :  C H E M I C A L  S P E C I E S  T R A N S P O R T  I N T E R F A C E S
+• Volatilization
+• Species Source
+C O N S I S T E N T  S T A B I L I Z A T I O N
+To display this section, click the Show button (
+) and select Stabilization.
+• When the Crosswind diffusion checkbox is selected, a weak term that reduces spurious 
+oscillations is added to the transport equation. The resulting equation system is 
+always nonlinear. There are two options for the Crosswind diffusion type:
+-
+Do Carmo and Galeão — the default option. This type of crosswind diffusion 
+reduces undershoots and overshoots to a minimum but can in rare cases give 
+equation systems that are difficult to fully converge.
+-
+Codina — this option is less diffusive compared to the Do Carmo and Galeão 
+option but can result in more undershoots and overshoots. It is also less effective 
+for anisotropic meshes. The Codina option activates a text field for the Lower 
+gradient limit glim. Its defaults to 0.1[mol/m^3]/tds.helem, where tds.helem 
+is the local element size.
+• For both consistent stabilization methods, select an Equation residual. Approximate 
+residual is the default and means that derivatives of the diffusion tensor components 
+are neglected. This setting is usually accurate enough and is computationally faster. 
+If required, select Full residual instead.
+I N C O N S I S T E N T  S T A B I L I Z A T I O N
+To display this section, click the Show button (
+) and select Stabilization. By default, 
+the Isotropic diffusion checkbox is not selected, because this type of stabilization adds 
+artificial diffusion and affects the accuracy of the original problem. However, this 
+option can be used to get a good initial guess for under resolved problems.
+A D V A N C E D  S E T T I N G S
+To display this section, click the Show button (
+) and select Advanced Physics Options. 
+Normally these settings do not need to be changed. Select a Material Balance Form — 
+Nonconservative (the default)
+
+=== PAGE 137 ===
+137 ---
+T H E  T R A N S P O R T  O F  D I L U T E D  S P E C I E S  I N T E R F A C E  |  137
+D I S C R E T I Z A T I O N
+To display all settings available in this section, click the Show button (
+) and select 
+Advanced Physics Options.
+The Compute boundary fluxes checkbox is activated by default so that COMSOL 
+Multiphysics computes predefined accurate boundary flux variables. When this option 
+is selected, the solver computes variables storing accurate boundary fluxes from each 
+boundary into the adjacent domain.
+If the checkbox is cleared, the COMSOL Multiphysics software instead computes the 
+flux variables from the dependent variables using extrapolation, which is less accurate 
+in postprocessing results but does not create extra dependent variables on the 
+boundaries for the fluxes.
+The flux variables affected in the interface are:
+•
+ndflux_c (where c is the dependent variable for the concentration). This is the 
+normal diffusive flux and corresponds to the boundary flux when diffusion is the 
+only contribution to the flux term.
+•
+ntflux_c (where c is the dependent variable for the concentration). This is the 
+normal total flux and corresponds to the boundary flux plus additional transport 
+terms, for example, the convective flux when you use the nonconservative form.
+Also the Apply smoothing to boundary fluxes checkbox is available if the previous 
+checkbox is selected. The smoothing can provide a more well-behaved flux value close 
+to singularities.
+For details about the boundary fluxes settings, see Computing Accurate Fluxes in the 
+COMSOL Multiphysics Reference Manual.
+The Value type when using splitting of complex variables setting should in most pure 
+mass transfer problems be set to Real, which is the default. It makes sure that the 
+dependent variable does not get affected by small imaginary contributions, which can 
+occur, for example, when combining a Time Dependent or Stationary study with a 
+frequency-domain study. For more information, see Splitt
+
+=== PAGE 138 ===
+138 ---
+138 |  C H A P T E R  3 :  C H E M I C A L  S P E C I E S  T R A N S P O R T  I N T E R F A C E S
+Add or remove species variables in the model and also change the names of the 
+dependent variables that represent the species concentrations.
+Enter the Number of species. Use the Add concentration (
+) and Remove 
+concentration (
+) buttons as needed.
+F U R T H E R  R E A D I N G
+The Transport of Diluted Species in Porous Media Interface
+This interface (
+), found under the Chemical Species Transport branch (
+), is used 
+to calculate the species concentration and transport in free and porous media. The 
+interface is the same as the Transport of Diluted Species interface but it uses other 
+defaults: The Mass Transport in Porous Media property is selected, and a Porous 
+Medium node is added by default. The interface includes reaction rate expressions and 
+solute sources for modeling of species transport and reaction in porous media.
+This interface is dedicated to modeling transport in porous media, including immobile 
+and mobile phases, where the chemical species may be subjected to diffusion, 
+convection, migration, dispersion, adsorption, and volatilization in porous media. It 
+supports cases where either the solid phase substrate is exclusively immobile, or when 
+a gas-filling medium is also assumed to be immobile.
+It applies to one or more diluted species or solutes that move primarily within a fluid 
+that fills (saturated) or partially fills (unsaturated) the voids in a solid porous medium. 
+• The Transport of Diluted Species Interface
+• Numerical Stabilization in the COMSOL Multiphysics Reference 
+Manual.
+• In the COMSOL Multiphysics Reference Manual, see Table 2-4 for 
+links to common sections and Table 2-5 for common feature nodes. 
+You can also search for information: press F1 to open the Help window 
+or Ctrl+F1 to open the Documentation window.
+• Effective Diffusivity in Porous Materials: Application Library path 
+COMSOL_Multiphysics/Diffusion/effective_dif
+
+=== PAGE 139 ===
+139 ---
+T H E  T R A N S P O R T  O F  D I L U T E D  S P E C I E S  I N T E R F A C E  |  139
+The pore space not filled with fluid contains an immobile gas phase. Models including 
+a combination of porous media types can be studied.
+The main feature nodes are the Porous Medium and Unsaturated Porous Medium nodes, 
+which add the equations for the species concentrations and provide an interface for 
+defining the properties of the porous media, as well as additional properties governing 
+adsorption, volatilization, dispersion and diffusion, migration, and the velocity field to 
+model convection.
+The physics interface can be used for stationary and time-dependent analysis.
+When this physics interface is added, these default nodes are also added to the Model 
+Builder — Porous Medium, No Flux (the default boundary condition), and Initial Values. 
+Then, from the Physics toolbar, add other nodes that implement, for example, 
+boundary conditions, reaction rate expressions, and species sources. You can also 
+right-click Transport of Diluted Species in Porous Media to select physics features from 
+the context menu.
+S E T T I N G S
+The rest of the settings are the same as The Transport of Diluted Species Interface.
+F U R T H E R  R E A D I N G
+The Transport of Diluted Species in Porous Catalysts Interface
+This interface (
+), found under the Reacting Flow in Porous Media multiphysics node 
+(
+), on the Chemical Species Transport branch (
+), is used to study the impact of 
+adsorption, and heterogeneous reactions, as a gas or liquid containing solute species is 
+• Mass Balance Equation for Transport of Diluted Species in Porous 
+Media
+• Domain, Boundary, and Pair Nodes for the Transport of Diluted 
+Species Interface
+• Variably Saturated Flow and Transport — Sorbing Solute: 
+Application Library path Subsurface_Flow_Module/Solute_Transport/
+sorbing_solute
+Web link: www.comsol.com/model/
+variably-saturated-flow-and-transport-sorbing-solute-490
+
+
+
+
+=== PAGE 140 ===
+140 ---
+140 |  C H A P T E R  3 :  C H E M I C A L  S P E C I E S  T R A N S P O R T  I N T E R F A C E S
+moving through the interstices of a porous medium. Adsorption and desorption of 
+bulk species onto, or from, the fluid–solid interface can be studied, as well as 
+heterogeneous reactions involving both bulk species and surface species bound to the 
+fluid–solid interface. Volumetric reactions occurring in the pores can also be included. 
+The interface is the same as the Transport of Diluted Species interface, but it has a 
+Porous Catalyst node added by default. All other features for transport and reactions 
+in porous media are also always available.
+The main feature of the interface is the Porous Catalyst node which adds the governing 
+equations for the concentrations of all solute species in the bulk, and the equations for 
+surface species. It has two default subnodes, Fluid and Porous Matrix, that in turn are 
+used to define the physical properties of each phase, and to prescribe the transport 
+properties. The latter are typically the flow field, and when applicable, the electric field. 
+The Adsorption and Surface Reaction (Porous Catalyst) subnodes can be added to 
+implement adsorption/desorption and heterogeneous reactions occurring on the 
+fluid–solid interface.
+When this physics interface is added, the following default nodes are also added to the 
+Model Builder — Porous Catalyst, No Flux (the default boundary condition), and Initial 
+Values. Then, from the Physics toolbar, add other nodes that implement, for example, 
+boundary conditions, reaction rate expressions, and species sources. You can also 
+right-click Transport of Diluted Species in Porous Catalysts to select physics features from 
+the context menu.
+S E T T I N G S
+The rest of the settings are the same as in The Transport of Diluted Species Interface.
+The Transport of Diluted Species in Packed Beds Interface
+This interface (
+), found under the Reacting Flow in Porous Media multiphysics node 
+(
+)
+
+=== PAGE 141 ===
+141 ---
+T H E  T R A N S P O R T  O F  D I L U T E D  S P E C I E S  I N T E R F A C E  |  141
+Diluted Species interface, but it has a Packed Bed (Moving Packed Bed) node added 
+by default. All other features for transport and reactions in porous media are also 
+always available.
+The main feature of the interface is the Packed Bed node which adds the governing 
+equations for the concentrations of all bulk species, and the equations for surface 
+species. It has two subnodes, Fluid and Pellets, that in turn are used to define the 
+physical properties corresponding to each phase. The latter node is also used to define 
+volumetric and heterogeneous intraparticle reactions. The Packed Bed node requires 
+the use of a Porous Material (described in the COMSOL Multiphysics Reference 
+Manual) for defining phase-specific properties, and for sharing them among different 
+physics interfaces. A packed bed containing several pellet types can be modeled by 
+adding multiple Pellets nodes to the Porous Material.
+When this physics interface is added, the following default nodes are also added to the 
+Model Builder — Packed Bed, No Flux (the default boundary condition), and Initial 
+Values. From the Physics toolbar, add other nodes that implement, for example, 
+boundary conditions, reaction rate expressions, and species sources. Optionally, 
+right-click Transport of Diluted Species in Packed Beds to select physics features from the 
+context menu.
+S E T T I N G S
+The rest of the settings are the same as The Transport of Diluted Species Interface.
+Domain, Boundary, and Pair Nodes for the Transport of Diluted 
+Species Interface
+The Transport of Diluted Species Interface has the following domain, boundary, point, 
+and pair nodes, listed in alphabetical order, available from the Physics ribbon toolbar 
+(Windows users), Physics context menu (Mac or Linux users), or by right-clicking to 
+access the context menu (all users).
+• To add a node, go to the Physics toolbar, no matter what operating 
+
+=== PAGE 142 ===
+142 ---
+142 |  C H A P T E R  3 :  C H E M I C A L  S P E C I E S  T R A N S P O R T  I N T E R F A C E S
+• Adsorption
+• Adsorption (Porous Catalyst)
+• Bed Inlet
+• Bed Outlet
+• Bed Wall
+• Concentration
+• Continuity on Interior Boundaries
+• Diffusion (Transport of Diluted 
+Species)
+• Dispersion
+• Electrode Surface Coupling
+• Equilibrium Reaction
+• Fast Irreversible Surface Reaction
+• Fluid
+• Fluid (Porous Medium)
+• Fluid (Porous Catalyst)
+• Flux
+• Flux Discontinuity
+• Fracture
+• Gas
+• Heterogeneous Reactions
+• Inflow
+• Initial Values
+• Initial Values (Pellets)
+• Line Mass Source
+• Liquid
+• Mass-Based Concentrations
+• No Flux
+• Open Boundary
+• Out-of-Plane Flux
+• Outflow
+• Packed Bed (Moving Packed Bed)
+• Partition Condition
+• Pellet–Fluid Interface
+• Pellets
+• Periodic Condition
+• Point Mass Source
+• Porous Catalyst
+• Porous Layer Reactions
+• Porous Matrix
+• Porous Matrix (Porous Catalyst)
+• Porous Medium
+• Porous Electrode Coupling
+• Reaction Coefficients
+• Reactions
+• Reactions (Pellets)
+• Shrinking Core Reactions
+• Solid
+• Species Properties
+• Species Source
+• Surface Reactions
+• Surface Reaction (Porous Catalyst)
+• Surface Equilibrium Reaction
+• Symmetry
+• Thin Diffusion Barrier
+• Thin Impermeable Barrier
+• Unsaturated Porous Medium
+• Volatilization
+Some features require certain add-on modules. For details see www.comsol.com/
+products/specifications/
+
+
+
+
+=== PAGE 143 ===
+143 ---
+T H E  T R A N S P O R T  O F  D I L U T E D  S P E C I E S  I N T E R F A C E  |  143
+Prescribing Conditions on Fluid–Solid Interfaces
+Defining conditions on interfaces between different phases, typically a wall in contact 
+with a fluid, it is worthwhile to be careful with how variables in the conditions are 
+evaluated. COMSOL Multiphysics supports that variables are defined differently on 
+adjacent domains (or any other geometry dimension). Evaluating a variable with 
+differing definitions, the mean value is returned on a boundary separating the different 
+domains. The density, pressure, or temperature are examples of variables that may 
+differ in a fluid and a solid. In order to specify on which side a variable is evaluated, the 
+up and down operators (described in the COMSOL Multiphysics Reference Manual) 
+can be used.
+Species Properties
+Use this node to define parameters specific to each of the species. It is available when 
+the Migration in electric field checkbox is selected in the Transport Mechanisms section 
+of the interface.
+The node will change its label depending on what inputs are available in the node. If 
+only Charge is available, it will be labeled “Species charges”.
+C H A R G E
+Enter the charge number zc (dimensionless, but requires a plus or minus sign) for each 
+species.
+A C T I V I T Y
+This section is available when the Species Activity combo box is set to Debye–Hückel or 
+User defined.
+For axisymmetric components, COMSOL Multiphysics takes the axial 
+symmetry boundaries (at r = 0) into account and automatically adds an 
+Axial Symmetry node that is valid on boundaries representing the 
+symmetry axis.
+In the COMSOL Multiphysics Reference Manual, see Table 2-4 for links 
+to common sections and Table 2-5 for common feature nodes. You can 
+also search for information: press F1 to open the Help window or Ctrl+F1 
+to open the Documentation window.
+
+
+
+
+=== PAGE 144 ===
+144 ---
+144 |  C H A P T E R  3 :  C H E M I C A L  S P E C I E S  T R A N S P O R T  I N T E R F A C E S
+If Debye–Hückel is selected, enter the ion size number, a0, for each species. If User 
+defined is selected, enter the activity coefficient, f, for each species.
+Fluid 
+The settings in this node are dependent on the checkboxes selected under Transport 
+Mechanisms in the Settings window for the Transport of Diluted Species interface. It 
+includes only the sections required by the activated transport mechanisms. It has all the 
+equations defining transport of diluted species as well as inputs for the material 
+properties.
+M O D E L  I N P U T S
+The temperature model input is always available. Select the source of the Temperature. 
+For User defined, enter a value or expression for the temperature in the input field. This 
+input option is always available.
+You can also select the temperature solved for by a Heat Transfer interface added to 
+the model component. These physics interfaces are available for selection in the 
+Temperature list.
+C O N V E C T I O N
+If transport by convection is active, the velocity field of the solvent needs to be 
+specified. Select the source of the Velocity field. For User defined, enter values or 
+expressions for the velocity components in the input fields. This input option is always 
+available.
+You can also select the velocity field solved for by a Fluid Flow interface added to the 
+model component. These physics interfaces are available for selection in the Velocity 
+field list.
+D I F F U S I O N
+Use this section to specify diffusion coefficients describing the diffusion of each species 
+in the solvent fluid.
+Use the Source list to select diffusion coefficients defined in a material or a Chemistry 
+interface.
+Select Material to use a diffusion coefficient in a material available in the model. 
+User-defined property groups including a diffusion coefficient output property are 
+available for selection in the Fluid diffusion coefficient 
+
+=== PAGE 145 ===
+145 ---
+T H E  T R A N S P O R T  O F  D I L U T E D  S P E C I E S  I N T E R F A C E  |  145
+Select Chemistry to use a diffusion coefficient from a Chemistry interface added to 
+model component. Diffusion coefficients are automatically defined when Calculate 
+transport properties is selected on the interface level of a Chemistry interface. All 
+defined diffusion coefficients are available for selection in the Fluid diffusion coefficient 
+list.
+For User defined, enter a value or expression for the Fluid diffusion coefficient Dc of each 
+species in the corresponding input field. This can be a scalar value for isotropic 
+diffusion or a tensor describing anisotropic diffusion. Select the appropriate tensor 
+type — Isotropic, Diagonal, Symmetric, or Full that describes the diffusion transport, and 
+then enter the values in the corresponding element (one value for each species).
+Note that multiple species, as well as Migration in Electric fields (described below) is 
+only available for certain COMSOL Multiphysics add-on products. See details: 
+www.comsol.com/products/specifications/.
+M I G R A T I O N  I N  E L E C T R I C  F I E L D
+This section is available when the Migration in electric field checkbox is selected. From 
+the Electric potential list, select the source of the electric field.
+• Enter a value or expression for the Electric potential V, which is User defined; this 
+input option is always available.
+• Select the electric potential solved by an AC/DC-based interface that has also been 
+added to the model.
+• Select the electric potential defined or solved by Electrochemistry interface that has 
+been added to the component.
+By default the Mobility is set to be calculated based on the species diffusivity and the 
+temperature using the Nernst–Einstein relation. For User defined, and under Mobility, 
+select the appropriate scalar or tensor type — Isotropic, Diagonal, Symmetric, or Full — 
+and type in the value of expression of the mobility um,c.
+Enter the Charge 
+
+=== PAGE 146 ===
+146 ---
+146 |  C H A P T E R  3 :  C H E M I C A L  S P E C I E S  T R A N S P O R T  I N T E R F A C E S
+E X A M P L E  M O D E L S
+Solid
+Use this node to describe diffusion in a solid phase domain. In this feature, the 
+activities of the species are assumed to be ideal.
+D I F F U S I O N
+Specify the diffusion coefficients describing the diffusion of each species in the solid.
+Enter a value or expression for the Diffusion coefficient Dc of each species in the 
+corresponding input field. This can be a scalar value for isotropic diffusion or a tensor 
+describing anisotropic diffusion. Select the appropriate tensor type — Isotropic, 
+Diagonal, or Symmetric that describes the diffusion transport, and then enter the values 
+in the corresponding element (one value for each species).
+A D V A N C E D
+This section is only available with the Advanced Physics Options selected and when the 
+model contains a split between the material frame and the spatial frame. A split of these 
+frames occurs when using a Moving Mesh node or a Structural Mechanics interface like 
+Solid Mechanics. In such a model, the reference geometry (the material frame) differs 
+from the deformed geometry (the spatial frame). The diffusive transport of species is 
+solved for on the material frame, but the equation is adjusted for geometry 
+deformations so that species conservation is achieved on the spatial frame. Use the 
+Diffusion model to define the frame of reference for the diffusion tensor.
+Select Reference geometry based (Lagrangian) to specify the diffusion tensor in the 
+undeformed geometry, implying that the diffusion is defined in the material frame 
+(indicated by coordinates X, Y, Z). This is the preferred setting for an anisotropic 
+• Separation Through Dialysis: Application Library path 
+Chemical_Reaction_Engineering_Module/Mixing_and_Separation/dialysis
+Web link: www.comsol.com/model/separation-through-dialysis-258
+• Transport in an Electrokinetic Valve: Application Library path 
+Microfluidi
+
+=== PAGE 147 ===
+147 ---
+T H E  T R A N S P O R T  O F  D I L U T E D  S P E C I E S  I N T E R F A C E  |  147
+diffusion in combination with solid body translation or rotation. Also in general when 
+the diffusion tensor components have been measured in an undeformed geometry. 
+Select Deformed geometry based (Eulerian) to specify the diffusion tensor in the 
+deformed geometry. This means that the diffusion is defined in the spatial frame 
+(indicated by coordinates x, y, z). Use this setting when the diffusion tensor 
+components have been measured in a deformed geometry.
+The Advanced Physics Options is found in the Show More Options dialog, accessed by 
+clicking the Show More Options button (
+).
+Note that multiple species are only available for certain COMSOL Multiphysics 
+add-on products. See details: www.comsol.com/products/specifications/.
+Initial Values
+The Initial Values node specifies the initial values for the concentration of each species. 
+These serve as an initial guess for a stationary solver or as initial conditions for a 
+transient simulation.
+D O M A I N  S E L E C T I O N
+If there are several types of domains with different initial values defined, it might be 
+necessary to remove some domains from the selection. These are then defined in an 
+additional Initial Values node.
+I N I T I A L  V A L U E S
+Enter a value or expression for the initial value of the Concentration or concentrations, 
+ci. This also serves as a starting guess for stationary problems.
+Mass-Based Concentrations
+Use the Mass-Based Concentrations node to add postprocessing variables for mass-based 
+concentrations (SI unit: kg/m3) and mass fractions (dimensionless) for all species.
+M I X T U R E  P R O P E R T I E S
+The default Solvent density ρsolvent is taken From material. For User defined, enter a 
+value or expression manually. Define the Molar mass of each species, which is needed 
+to calculate the mass-based concentration.
+
+
+
+
+=== PAGE 148 ===
+148 ---
+148 |  C H A P T E R  3 :  C H E M I C A L  S P E C I E S  T R A N S P O R T  I N T E R F A C E S
+Reactions
+Use the Reactions node to account for the consumption or production of species 
+through chemical reactions. Define the rate expressions as required.
+D O M A I N  S E L E C T I O N
+From the Selection list, choose the domains on which to define rate expression or 
+expressions that govern the source term in the transport equations.
+Several reaction nodes can be used to account for different reactions in different parts 
+for the modeling geometry.
+R E A C T I O N  R A T E S
+The Chemistry list shows all the Chemistry interfaces that are coupled to the current 
+mass transport interface. The coupling conditions for the Chemistry interfaces are:
+•
+Active
+•
+Define variables for porous pellets (under the Pellet Chemistry section) is cleared
+•
+Species solved for (under the Species Matching section) set to the current mass 
+transport interface
+The reaction rates can be taken from a coupled Chemistry interface automatically or 
+by specifying a rate expression Ri (SI unit: mol/(m3·s)) for species i:
+•
+With a Chemistry interface selected, the species mass sources will be set to the 
+corresponding reaction rates in the Chemistry according to the Species Matching 
+table. In the case of partial coupling, the mass sources for the uncoupled species will 
+be set to 0.
+•
+User defined. Enter a value or expression in the field. Note that if you have the 
+Chemistry interface available, provided with the Chemical Reaction Engineering 
+Module, the reaction rate expressions can be generated automatically and picked up 
+from the lists. For an example, see the application Fine Chemical Production in a 
+Plate Reactor as linked below.
+R E A C T I N G  V O L U M E
+This section is only available when the Mass Transport in Porous Media property is 
+available and selected. See www.comsol.com/products/specifications/ for more 
+details on availability.
+When specifying reaction rates for a 
+
+=== PAGE 149 ===
+149 ---
+T H E  T R A N S P O R T  O F  D I L U T E D  S P E C I E S  I N T E R F A C E  |  149
+volume of a particular phase (applicable when modeling an unsaturated porous 
+medium).
+• For Total volume, the reaction expressions, in mol/(m3·s), are specified per unit 
+volume of the model domain (multiplied by unity).
+• For Pore volume, the reaction expressions, in mol/(m3·s), are specified per unit 
+volume of total pore space. The reaction expressions will be multiplied by the 
+domain porosity, εp. (εp equals unity for nonporous domains).
+• For Liquid phase, the reaction expressions, in mol/(m3·s), are specified per unit 
+volume of liquid in the pore space. The expressions will be multiplied by the liquid 
+volume fraction θl. (θl equals the porosity (εp) on Porous Medium domains).
+• For Gas phase, the reaction expressions, in mol/(m3·s), are multiplied by the gas 
+volume fraction θg =  εp −θl. θg equals 0 for Porous Medium domains.
+H E A T  S O U R C E
+The heat source will be defined as reaction heat from whole Chemistry if the Chemistry 
+list is set to a coupled chemistry interface, otherwise it is defined as the specified value 
+(SI unit: W/m3).
+F U R T H E R  R E A D I N G
+See the theory chapter on chemical species transport, starting with the section Mass 
+Balance Equation.
+No Flux
+This node is the default boundary condition on exterior boundaries. It should be used 
+on boundaries across which there is no mass flux, typically solid walls where no surface 
+reactions occur. The condition applied for each species corresponds to
+• Fine Chemical Production in a Plate Reactor: Application Library 
+path Chemical_Reaction_Engineering_Module/
+Reactors_with_Mass_and_Heat_Transfer/plate_reactor
+Web link: www.comsol.com/model/
+fine-chemical-production-in-a-plate-reactor-8589
+n
+–
+D∇c
+–
+(
+)
+⋅
+0
+=
+
+
+
+
+=== PAGE 150 ===
+150 ---
+150 |  C H A P T E R  3 :  C H E M I C A L  S P E C I E S  T R A N S P O R T  I N T E R F A C E S
+where n denotes the outward pointing normal of the boundary. When the mass 
+transport includes migration of ionic species, the no flux condition is:
+C O N V E C T I O N
+By default, the feature prescribes a vanishing flux due to diffusion and migration in an 
+electric field. This is the appropriate no flux condition when the relative convective 
+velocity at the boundary is zero. When the fluid velocity at the boundary is not equal 
+to that of the boundary, it is often convenient to prescribe the total flux including the 
+convection. To do this select Include in the Convection section.
+When including the convection, the no flux condition prescribed is
+or
+when migration of ionic species is included.
+Inflow
+Use this node to specify all species concentrations at an inlet boundary.
+If you want to specify the concentration of a subset of the partaking species, this can 
+be done by using the Concentration node instead.
+For the Electroanalysis interface, this node is available when you select the Convection 
+checkbox on the physics interface Settings window.
+C O N C E N T R A T I O N
+For the concentration of each species c0,c (SI unit: mol/m3), enter a value or 
+expression.
+n
+–
+D∇c
+–
+zumFc∇φ
+–
+(
+)
+⋅
+0
+=
+n
+–
+D∇c
+–
+uc
++
+(
+)
+⋅
+0
+=
+n
+–
+D∇c
+–
+zumFc∇φ
+–
+uc
++
+(
+)
+⋅
+0
+=
+
+
+
+
+=== PAGE 151 ===
+151 ---
+T H E  T R A N S P O R T  O F  D I L U T E D  S P E C I E S  I N T E R F A C E  |  151
+B O U N D A R Y  C O N D I T I O N  T Y P E
+The option Concentration constraint constrains the concentration values on the 
+boundary by the use of pointwise constraints.
+The other option, Flux (Danckwerts) can be used when the concentration at the 
+boundary is not known, or when it varies in a nontrivial manner. This may, for example, 
+be useful when reactions with high reaction rates occur in the vicinity of the inlet. In 
+this case the concentration far upstream of the boundary is instead prescribed. The Flux 
+(Danckwerts) condition prescribes the total flux defined by the upstream concentration 
+and the fluid velocity at the boundary.
+C O N S T R A I N T  S E T T I N G S
+To display this section, click the Show More Options button (
+) and select Advanced 
+Physics Options. You can find details about the different constraint settings in the 
+section Constraint Reaction Terms in the COMSOL Multiphysics Reference Manual.
+F U R T H E R  R E A D I N G
+See the theory chapter in the section Danckwerts Inflow Boundary Condition.
+Outflow
+Apply this condition at outlets boundaries where species should be transported out of 
+the model domain by fluid motion or by an electric field (in the case of ions). It is 
+assumed that convection and migration (in an electric field) are the dominating 
+transport mechanisms across the boundary, and therefore that the diffusive transport 
+can be ignored, that is:
+Note that the Convection or the Migration in electric field transport mechanisms needs 
+to be included for this node to be available.
+Concentration
+This condition node adds a boundary condition for the species concentration. For 
+example, a c = c0 condition specifies the concentration of species c.
+C O N C E N T R A T I O N
+Individually specify the concentration for each species. Select the checkbox for the 
+Species to specify the concentration, and then enter a value or expression in the
+
+=== PAGE 152 ===
+152 ---
+152 |  C H A P T E R  3 :  C H E M I C A L  S P E C I E S  T R A N S P O R T  I N T E R F A C E S
+corresponding field. To use another boundary condition for a specific species, click to 
+clear the checkbox for the concentration of that species.
+When defining conditions on boundaries between different phases, see the section 
+Prescribing Conditions on Fluid–Solid Interfaces.
+C O N S T R A I N T  S E T T I N G S
+To display this section, click the Show button (
+) and select Advanced Physics Options. 
+You can find details about the different constraint settings in the section Constraint 
+Reaction Terms in the COMSOL Multiphysics Reference Manual.
+Flux
+This node can be used to specify the species molar flux across a boundary. The flux can 
+for example occur due to chemical reactions or a phase change at the boundary. The 
+flux can also represent the transport to or from a surrounding environment currently 
+not included model.
+The prescribed flux of a species c is by default defined as
+where n denotes the outward pointing normal of the boundary. When the mass 
+transport includes migration of ionic species, the flux is defined as
+The flux prescribed, J0, can include any arbitrary user-specified expression. It can be 
+constant or a function of a dependent variable or independent variable. Common 
+examples are a flux dependent of the concentration, temperature, pressure, or the 
+electric potential φ.
+When defining conditions on boundaries between different phases, see the section 
+Prescribing Conditions on Fluid–Solid Interfaces.
+C O N V E C T I O N
+By default, the flux due to diffusion and migration in an electric field is prescribed. This 
+is the appropriate flux condition when the relative velocity at the boundary is zero. 
+When the fluid velocity is not equal to that of the boundary, it is often convenient to 
+prescribe the total flux, including the convection. To do this select Include in the 
+Convection section.
+n
+–
+D∇c
+–
+(
+)
+⋅
+J0
+=
+n
+–
+D∇c
+–
+zumFc∇φ
+–
+(
+)
+⋅
+J0
+
+=== PAGE 153 ===
+153 ---
+T H E  T R A N S P O R T  O F  D I L U T E D  S P E C I E S  I N T E R F A C E  |  153
+When including the convection, the prescribed flux is defined as
+or
+when migration of ionic species is included.
+I N W A R D  F L U X
+Select the Species checkbox for the species for which to specify the flux, and enter a 
+value or expression for the inward flux in the corresponding field. Use a minus sign 
+when specifying a flux directed out of the system. To use another boundary condition 
+for a specific species, click to clear the checkbox for that species.
+External convection
+Set Flux type to External convection to prescribe a flux to or from an exterior domain 
+(not modeled) assumed to include convection. The exterior can for example include a 
+forced convection to control the temperature or to increase the mass transport. In this 
+case the prescribed mass flux corresponds to
+where kc is a mass transfer coefficient and cb is the bulk concentration, the typical 
+concentration far into the surrounding exterior domain.
+Symmetry
+The Symmetry node can be used to represent boundaries where the species 
+concentration is symmetric, that is, where there is no mass flux across the boundary.
+This boundary condition is identical to that of the No Flux node.
+Flux Discontinuity
+This node represents a discontinuity in the mass flux across an interior boundary:
+n
+–
+D∇c
+–
+uc
++
+(
+)
+⋅
+J0
+=
+n
+–
+D∇c
+–
+zumFc∇φ
+–
+uc
++
+(
+)
+⋅
+J0
+=
+J0
+kc cb
+c
+–
+(
+)
+=
+n
+–
+J
+uc
++
+(
+)u
+J
+uc
++
+(
+)d
+–
+[
+]
+⋅
+N0
+=
+J
+D∇c
+–
+zumFc∇φ
+–
+=
+
+
+
+
+=== PAGE 154 ===
+154 ---
+154 |  C H A P T E R  3 :  C H E M I C A L  S P E C I E S  T R A N S P O R T  I N T E R F A C E S
+where the value N0 (SI unit: mol/(m2·s)) specifies the jump in total flux at the 
+boundary. This can be used to model a boundary source, for example a surface 
+reaction, adsorption, or desorption.
+F L U X  D I S C O N T I N U I T Y
+In this section the jump in species flux (or surface source) is specified.
+Select the Species checkbox for the species to specify and enter a value or expression 
+for the material flux jump in the corresponding field. To use a different boundary 
+condition for a specific species, click to clear the checkbox for the flux discontinuity of 
+that species.
+Partition Condition
+The Partition Condition node can be used to prescribe the relation between the 
+concentration of a solute species in two adjoining immiscible phases. It can for example 
+be used on interior boundaries separating two liquid phases, a gas-liquid interface, or 
+on a boundary separating a liquid phase and a solid or porous media.
+Select Partition coefficient from the Relation list to prescribe a linear relationship 
+between the concentration on either side of a boundary. For a species concentration 
+ci, the ratio between the concentration on the upside and on the downside of the 
+boundary (ci,u and ci,d respectively) is then defined in terms of a partition coefficient 
+Ki in the manner of
+Use the associated input field to prescribe the partition coefficient for each species.
+Select User defined from the Relation list to set up a nonlinear relation between the up 
+and downside concentrations. For such relations f(ci)u = f(ci)d, where f(ci)u is the 
+expression enforced on the upside. Use the associated input fields to enter the upside 
+and downside expressions for each species.
+The up and downside of the selected boundary is indicated with a red arrow in the 
+Graphics window. The arrow points from the downside into the upside. Select the 
+Reverse direction checkbox to rever
+
+=== PAGE 155 ===
+155 ---
+T H E  T R A N S P O R T  O F  D I L U T E D  S P E C I E S  I N T E R F A C E  |  155
+boundary, and update the definition of the up and downside concentrations 
+accordingly.
+F U R T H E R  R E A D I N G
+For an example of using a partition condition, see this application example:
+Periodic Condition
+The Periodic Condition node can be used to define periodicity for the mass transport 
+between two sets of boundaries. The node prescribes continuity in the concentration 
+and the mass flux between the “source” and the “destination” side, respectively. Note 
+that these names are arbitrary and does not influence the direction in which mass is 
+transported. It is dictated by mass transfer equations in the adjacent domains.
+B O U N D A R Y  S E L E C T I O N
+The node can be activated on more than two boundaries, in which case the feature tries 
+to identify two separate surfaces that each consist of one or several connected 
+boundaries.
+D E S T I N A T I O N  S E L E C T I O N
+For more complex geometries, it might be necessary to specify the destination 
+selection manually. To do so, right-click the Periodic Condition node and choose Manual 
+Destination Selection. You can then specify the boundaries that constitute the 
+destination surfaces in the Destination Selection section.
+C O N S T R A I N T  S E T T I N G S
+To display this section, click the Show More Options button (
+) and select Advanced 
+Physics Options in the Show More Options dialog. This section contains settings for 
+specifying the type of constraint and whether to use a pointwise or weak constraint. See 
+This feature is only available in a limited set of add-on products. See 
+www.comsol.com/products/specifications/ for more details on 
+availability.
+Separation Through Dialysis: Application Library path 
+Chemical_Reaction_Engineering_Module/Mixing_and_Separation/dialysis
+
+
+
+
+=== PAGE 156 ===
+156 ---
+156 |  C H A P T E R  3 :  C H E M I C A L  S P E C I E S  T R A N S P O R T  I N T E R F A C E S
+Constraint Settings in the COMSOL Multiphysics Reference Manual for more 
+information.
+O R I E N T A T I O N  O F  S O U R C E
+To display this section, click the Show More Options button (
+) and select Advanced 
+Physics Options in the Show More Options dialog. For information about the Orientation 
+of Source section, see Orientation of Source and Destination in the COMSOL 
+Multiphysics Reference Manual.
+O R I E N T A T I O N  O F  D E S T I N A T I O N
+This section appears if the setting for Transform to intermediate map in the Orientation 
+of Source section is changed from the default value, Automatic, and Advanced Physics 
+Options is selected in the Show More Options dialog. For information about the 
+Orientation of Destination section, see Orientation of Source and Destination in the 
+COMSOL Multiphysics Reference Manual.
+M A P P I N G  B E T W E E N  S O U R C E  A N D  D E S T I N A T I O N
+To display this section, click the Show More Options button (
+) and select Advanced 
+Physics Options in the Show More Options dialog. For information about the Mapping 
+Between Source and Destination section, see Mapping Between Source and Destination 
+in the COMSOL Multiphysics Reference Manual.
+F U R T H E R  R E A D I N G
+For an example of using a periodic condition, see this application example:
+Line Mass Source
+The Line Mass Source feature models mass flow originating from a tube or line region 
+with an infinitely small radius.
+The KdV Equation and Solitons: Application Library path 
+COMSOL_Multiphysics/Equation_Based/kdv_equation
+This feature is only available in a limited set of add-on products. See 
+www.comsol.com/products/specifications/ for more details on 
+availability.
+
+
+
+
+=== PAGE 157 ===
+157 ---
+T H E  T R A N S P O R T  O F  D I L U T E D  S P E C I E S  I N T E R F A C E  |  157
+S E L E C T I O N
+The Line Mass Source feature is available for all dimensions, but the applicable selection 
+differs between the dimensions.
+S P E C I E S  S O U R C E
+Enter the source strength, 
+, for each species (SI unit: mol/(m·s)). A positive value 
+results in species injection from the line into the computational domain, and a negative 
+value means that the species is removed from the computational domain.
+Line sources located on a boundary affect the adjacent computational domains. This 
+effect makes the physical strength of a line source located in a symmetry plane twice 
+the given strength.
+F U R T H E R  R E A D I N G
+See the section Mass Sources for Species Transport.
+Point Mass Source
+The Point Mass Source feature models mass flow originating from an infinitely small 
+domain around a point.
+S P E C I E S  S O U R C E
+Enter the source strength, 
+, for each species (SI unit: mol/s). A positive value 
+results in species injection from the point into the computational domain, and a 
+negative value means that the species is removed from the computational domain.
+Point sources located on a boundary or on an edge affect the adjacent computational 
+domains. This has the effect, for example, that the physical strength of a point source 
+located in a symmetry plane is twice the given strength.
+MODEL DIMENSION
+APPLICABLE GEOMETRICAL ENTITY
+2D
+Points
+2D Axisymmetry
+Points not on the symmetry axis and the symmetry axis
+3D
+Edges
+q·l,c
+This feature is only available in a limited set of add-on products. See 
+www.comsol.com/products/specifications/ for more details on 
+availability.
+q·p,c
+
+
+
+
+=== PAGE 158 ===
+158 ---
+158 |  C H A P T E R  3 :  C H E M I C A L  S P E C I E S  T R A N S P O R T  I N T E R F A C E S
+F U R T H E R  R E A D I N G
+See the section Mass Sources for Species Transport.
+Open Boundary
+Use this node to set up mass transport across boundaries where both convective inflow 
+and outflow can occur. On the parts of the boundary where fluid flows into the 
+domain, an exterior species concentration is prescribed. On the remaining parts, where 
+fluid flows out of the domain, a condition equivalent to the Outflow node is instead 
+prescribed.
+The direction of the flow across the boundary is typically calculated by a fluid flow 
+interface and is provided as a model input to the Transport of Diluted Species 
+interface.
+E X T E R I O R  C O N C E N T R A T I O N
+Enter a value or expression for the Exterior concentration.
+Thin Diffusion Barrier
+Use this boundary condition to model a thin layer through which mass is transported 
+by diffusion only. The node is applicable on interior boundaries and can be used to 
+avoid meshing thin structures.
+T H I N  D I F F U S I O N  B A R R I E R
+Specify the Layer thickness, ds, and input a Diffusion coefficient, Ds,c, for each of the 
+species included.
+Thin Impermeable Barrier
+This feature models a thin mass transfer barrier. It is available on interior boundaries 
+and introduces a discontinuity in the concentration across the boundary. On each side, 
+a no-flux condition is prescribed for the mass transport implying that it acts as a barrier. 
+The feature can be used to avoid meshing thin structures.
+This feature is only available in a limited set of add-on products. See 
+www.comsol.com/products/specifications/ for more details on 
+availability.
+
+
+
+
+=== PAGE 159 ===
+159 ---
+T H E  T R A N S P O R T  O F  D I L U T E D  S P E C I E S  I N T E R F A C E  |  159
+Solving a model involving coupled fluid flow and mass transfer, the Thin Impermeable 
+Barrier feature can be combined with an Interior Wall feature in order to model a thin 
+solid wall.
+Equilibrium Reaction
+Use this node to model a reaction where the kinetics is so fast that the equilibrium 
+condition is fulfilled at all times. The node solves for an additional degree of freedom 
+(the reaction rate Req) to fulfill the equilibrium condition at all times in all space 
+coordinates.
+If the Apply equilibrium condition on inflow boundaries checkbox is selected, the 
+specified inflow concentration values in all active Inflow boundary nodes for the physics 
+interface are modified to comply with the equilibrium condition.
+E Q U I L I B R I U M  C O N D I T I O N
+The Chemistry list shows two ways to define an equilibrium reaction.
+•
+A coupled chemistry — The Equilibrium reaction formula is available when the 
+Chemistry list is set to a coupled chemistry interface. All the equilibrium reaction 
+formulas in the coupled chemistry will appear in the formula list. Select one of them, 
+then all coefficients (stoichiometric coefficients, equilibrium constant) will be taken 
+from the coupled reaction automatically. There would be no any source term 
+contributions if the Equilibrium reaction formula list is set to None.
+•
+None — If None is selected from the Chemistry list, an equilibrium reaction will be 
+defined by settings from fields of Equilibrium definition, Equilibrium constant, and 
+Unit activity concentration.
+The default value for Equilibrium definition list is Equilibrium constant or select User 
+defined. For either option, the Apply equilibrium condition on inflow boundaries 
+checkbox is selected by default.
+• A necessary requirement for this is feature to be available is that two or 
+more species are solved for by the interface.
+• This feature is only available in a limited set o
+
+=== PAGE 160 ===
+160 ---
+160 |  C H A P T E R  3 :  C H E M I C A L  S P E C I E S  T R A N S P O R T  I N T E R F A C E S
+For Equilibrium constant, enter an Equilibrium constant Keq (dimensionless). Also enter 
+a value or expression for the Unit activity concentration Ca0 (SI unit: mol/m3). 
+Selecting Equilibrium constant defines an equilibrium condition based on the 
+stoichiometric coefficients, the species activities, and the law of mass action.
+For User defined, enter an Equilibrium expression Eeq (dimensionless).
+S T O I C H I O M E T R I C  C O E F F I C I E N T S
+This section is available when the Chemistry list is set to None.
+Enter a value for the stoichiometric coefficientνc (dimensionless). The default is 0. Use 
+negative values for reactants and positive values for products in the modeled reaction.
+Species with a stoichiometric coefficient value of 0 are not affected by the Equilibrium 
+Reaction node.
+H E A T  S O U R C E
+The heat source will be defined from reaction heat from this equilibrium reaction.
+• An equilibrium reaction defined from a Chemistry (from the Equilibrium reaction 
+formula list). The heat source is defined as the same as that of equilibrium reaction 
+in Chemistry.
+• None selected in the Chemistry list. Enter a value or expression for the heat source 
+(SI unit: W/m3).
+F U R T H E R  R E A D I N G
+See
+• Equilibrium Reaction Theory
+Surface Reactions
+The Surface Reactions node can be used to account for the species boundary flux due 
+to chemical reactions occurring on a surface (heterogeneous reactions). For a domain 
+species participating in a surface reaction, the boundary flux corresponds to the 
+reaction rate at the surface.
+S U R F A C E  R E A C T I O N  R A T E
+Specify the surface reaction rate J0 of each species resulting from the reactions. Note 
+that if you have the Chemistry interface available, provided with the Chemical 
+
+
+
+
+=== PAGE 161 ===
+161 ---
+T H E  T R A N S P O R T  O F  D I L U T E D  S P E C I E S  I N T E R F A C E  |  161
+Reaction Engineering Module, the reaction rate expressions can be automatically 
+generated and picked up from the lists.
+When defining conditions on boundaries between different phases, see the section 
+Prescribing Conditions on Fluid–Solid Interfaces.
+F U R T H E R  R E A D I N G
+For an example of using the Surface Reactions node, see this application example:
+Surface Equilibrium Reaction
+Use this node to model an equilibrium reaction on a boundary (surface). The settings 
+for this node are similar to Equilibrium Reaction. Note that a necessary requirement 
+for this is feature to be available is that two or more species are solved for by the 
+interface.
+When defining conditions on boundaries between different phases, see the section 
+Prescribing Conditions on Fluid–Solid Interfaces.
+Fast Irreversible Surface Reaction
+This boundary node defines an irreversible reaction where the kinetics is so fast that 
+the only factor limiting the reaction rate is the transport of a species to the reacting 
+surface.
+The node will set the Rate limiting species concentration to zero at the boundary, and 
+balance the fluxes of the species participating in the reaction and the current densities 
+according to the Stoichiometric Coefficients settings.
+Chemical Vapor Deposition of GaAs: Application Library path 
+Chemical_Reaction_Engineering_Module/
+Reactors_with_Mass_and_Heat_Transfer/gaas_cvd
+This feature is only available in a limited set of add-on products. See 
+www.comsol.com/products/specifications/ for more details on 
+availability.
+
+
+
+
+=== PAGE 162 ===
+162 ---
+162 |  C H A P T E R  3 :  C H E M I C A L  S P E C I E S  T R A N S P O R T  I N T E R F A C E S
+When defining conditions on boundaries between different phases, see the section 
+Prescribing Conditions on Fluid–Solid Interfaces.
+Porous Electrode Coupling
+Use this node to add a molar source in a domain that is coupled to one or multiple 
+Porous Electrode Reaction nodes of an Electrochemistry Interface.
+The molar source is calculated from the number of electrons, stoichiometric 
+coefficients, and volumetric current densities of the coupled porous electrode reactions 
+specified in the Reaction Coefficients subnodes.
+In the Transport of Concentrated Species interface, the molar sources (or sinks) are 
+multiplied by the species molar masses to obtain the corresponding mass sources.
+Additional Reaction Coefficients subnodes are available from the context menu 
+(right-click the parent node) as well as from the Physics toolbar, Attributes menu.
+Note that if you are also modeling the momentum transport and expect a 
+nonnegligible total mass source or sink, which is often the case in gas diffusion 
+electrodes, you need to also add a corresponding mass source/sink in the Fluid Flow 
+interface. (A Reacting Flow multiphysics node adds the associated source/sink term in 
+a Fluid Flow interface automatically.) 
+Reaction Coefficients
+Add this node to the Electrode Surface Coupling and Porous Electrode Coupling 
+features to define molar fluxes and sources based on electrode current densities in an 
+Electrochemistry interface.
+The molar flux or source is proportional to the stoichiometric coefficients and the 
+current density according to Faraday’s law.
+This feature is only available in a limited set of add-on products. See 
+www.comsol.com/products/specifications/ for more details on 
+availability.
+This feature is only available in a limited set of add-on products. See 
+www.comsol.com/products/specifications/ for more details on 
+availability.
+
+
+
+
+=== PAGE 163 ===
+163 ---
+T H E  T R A N S P O R T  O F  D I L U T E D  S P E C I E S  I N T E R F A C E  |  163
+Current densities from Electrode Reaction (iloc, SI unit: A/m2) or Porous Electrode 
+Reaction nodes (iv, SI unit: A/m3) of any Electrochemistry interface in the model are 
+available for selection as the Coupled reaction, and user-defined expressions are also 
+supported.
+Enter the Number of participating electrons nm (dimensionless) and the Stoichiometric 
+coefficient vc (dimensionless) as explained in the theory section linked below.
+Use multiple subnodes to couple to multiple reactions.
+Electrode Surface Coupling
+Use this node to define a flux boundary condition based on current densities of one or 
+multiple Electrode Reaction nodes in an Electrochemistry interface.
+The flux is proportional to the current densities and the stoichiometric coefficients 
+according to Faraday’s law as defined by summation over the Reaction Coefficients 
+subnodes.
+Note that if you are also modeling the momentum transport and expect a 
+nonnegligible total mass flux over the boundary, which is often the case for gas 
+diffusion electrodes, you need to also add a corresponding Electrode Surface Coupling 
+node in the Fluid Flow interface.
+Porous Medium
+Use this node to model the concentration of diluted species transported by a solvent 
+(mobile fluid phase) through interstices in a solid porous medium. In addition to 
+transport due to convection and diffusion, the node contains functionality to include 
+species evolution through adsorption and dispersion.
+This feature is only available in a limited set of add-on products. See 
+www.comsol.com/products/specifications/ for more details on 
+availability.
+This feature is only available in a limited set of add-on products. See 
+www.comsol.com/products/specifications/ for more details on 
+availability.
+
+
+
+
+=== PAGE 164 ===
+164 ---
+164 |  C H A P T E R  3 :  C H E M I C A L  S P E C I E S  T R A N S P O R T  I N T E R F A C E S
+Species transport through a porous medium is affected both by properties of the fluid 
+phase, and as well as properties of the solid matrix. These properties are defined in the 
+Fluid (Porous Medium) and Porous Matrix subnodes respectively. The Porous 
+Medium node supports material properties using a Porous Material node (described in 
+the COMSOL Multiphysics Reference Manual), where properties are defined per 
+phase in a similar manner.
+Add an Adsorption or a Dispersion subfeature to the Porous Medium to account for the 
+corresponding transport mechanism.
+Fluid (Porous Medium)
+Use this node to specify the mass transfer in the mobile fluid solvent filling the pores 
+of a porous medium. It is used as a subnode to Porous Medium, Porous Catalyst, and 
+Packed Bed (Moving Packed Bed).
+M O D E L  I N P U T S
+The temperature model input is always available. By default, the Temperature model 
+input is set to Common model input, and the temperature is controlled from Default 
+Model Inputs under Global Definitions or by a locally defined Model Input. If a Heat 
+Transfer interface is included in the component, it controls the temperature Common 
+model input. Alternatively, the temperature field can be selected from another physics 
+interface. All physics interfaces have their own tags (Name). For example, if a Heat 
+Transfer in Fluids interface is included in the component, the Temperature (ht) option 
+is available for T.
+You can also select User defined from the Temperature model input in order to manually 
+prescribe T.
+C O N V E C T I O N
+If transport by convection is active, the velocity field of the solvent needs to be 
+specified. For User defined, enter values or expressions for the velocity components in 
+the input fields. This input option is always available. You can also select the velocity 
+field solved for by a Fluid Flow interface added to the model component. 
+
+=== PAGE 165 ===
+165 ---
+T H E  T R A N S P O R T  O F  D I L U T E D  S P E C I E S  I N T E R F A C E  |  165
+Use the Source list to select to pick up diffusion coefficients defined in a material or a 
+Chemistry interface.
+Select Material, and a Fluid material to use a diffusion coefficient in a material available 
+in the model. User-defined property groups including a diffusion coefficient output 
+property are available for selection in the Fluid diffusion coefficient list.
+Select Chemistry to use a diffusion coefficient from a Chemistry interface added to 
+model component. Diffusion coefficients are automatically defined when Calculate 
+transport properties is selected on the interface level of a Chemistry interface. All 
+defined diffusion coefficients are available for selection in the Fluid diffusion coefficient 
+list.
+For User defined, enter a value or expression for the Fluid diffusion coefficient DF,i of 
+each species in the corresponding input field.
+In a porous medium the diffusivity is reduced due to the fact that the solid grains 
+impede Brownian motion. Select an Effective diffusivity model to account for the 
+reduced diffusivity. The available models are Millington and Quirk model (the default), 
+Bruggeman model, Tortuosity model, or No correction. For Tortuosity model, enter a 
+value for the tortuosity τF,i (dimensionless).
+Note that multiple species, as well as Migration in Electric fields (described below) is 
+only available for certain COMSOL Multiphysics add-on products.For details, see 
+www.comsol.com/products/specifications/.
+M I G R A T I O N  I N  E L E C T R I C  F I E L D
+This section is available when the Migration in electric field checkbox is selected. From 
+the Electric potential list, select the source of the electric field.
+• For User defined, enter a value or expression for the Electric potential V. This input 
+option is always available.
+• Select the electric potential solved by an AC/DC-based interface that has added to 
+the component.
+• Select the
+
+=== PAGE 166 ===
+166 ---
+166 |  C H A P T E R  3 :  C H E M I C A L  S P E C I E S  T R A N S P O R T  I N T E R F A C E S
+Enter the Charge number zc for each species.
+Porous Matrix
+This node sets the porosity when modeling transport of diluted species in a Porous 
+Medium, an Unsaturated Porous Medium, or a Porous Catalyst. The porosity 
+corresponds to the volume fraction occupied by the species containing fluid.
+• By default the porosity of the solid matrix, εp, is taken From material. The Porous 
+Matrix node supports the use of a Porous Material added to the Materials branch. In 
+this case the porosity is defined in the manner of
+where θs,i and θimf,i are the volume fractions given in Solid and Immobile Fluids 
+subnodes under the Porous Material node.
+• Select From pellet bed densities to compute the porosity using the (dry bulk) Bed 
+density ρb and the (single phase) Pellet density ρpe. The porosity is then defined from
+• For User defined, enter a value or expression for the porosity.
+Dispersion
+Local variations in the velocity as the fluid flows around solid particles lead to 
+mechanical mixing, referred to as dispersion. Use this feature to account for dispersion 
+in a Porous Medium or a Unsaturated Porous Medium
+This subfeature is available when both the Mass transfer in porous media mass transfer 
+checkbox and the Convection checkbox are selected in the Settings window for the 
+physics interface.
+Select the Specify dispersion for each species individually checkbox to specify the 
+dispersion tensor DD (SI unit: m2/s) for each species separately. When not selected the 
+same dispersion tensor DD is used for all species.
+Select an option from the Dispersion tensor list — Dispersivity or User defined.
+Select Dispersivity to specify the dispersion in terms of dispersivities (SI unit: m). Select 
+an option from the Dispersivity model list: Isotropic (the default) or Transverse isotropic 
+εp
+1
+θs i
+,
+θimf i
+,
+i
+–
+i
+–
+=
+εp
+1
+ρb
+ρpe
+-------
+–
+=
+
+
+
+
+=== PAGE 167 ===
+167 ---
+T H E  T R A N S P O R T  O F  D I L U T E D  S P E C I E S  I N T E R F A C E  |  167
+based on the properties of the porous media. For isotropic porous media, specify the 
+longitudinal and transverse dispersivities. For transverse isotropic porous media, 
+specify the longitudinal, horizontal transverse, and vertical transverse dispersivities.
+For User defined, specify the dispersion components in terms of constants or 
+expressions. Select Isotropic, Diagonal, Symmetric, or Full to enable the appropriate 
+tensor components.
+Unsaturated Porous Medium
+Use this node to model the concentration of diluted species transported by a solvent 
+(mobile fluid phase) through interstices in a solid porous medium. In addition to 
+transport due to convection and diffusion, the node contains functionality to include 
+species evolution through adsorption and dispersion.
+Use this node to model the concentration of diluted species transported by a liquid 
+(mobile fluid phase) in a partially filled solid porous medium. The interstices of the 
+porous medium contains the liquid carrier phase and gas pockets. Apart from 
+convection and diffusion, the node contains functionality to include species evolution 
+through adsorption, dispersion, and volatilization.
+The properties of each phase present are defined using the Liquid, the Gas, and the 
+Porous Matrix subnodes respectively. The Unsaturated Porous Medium node supports 
+material properties using a Porous Material node (described in the COMSOL 
+Multiphysics Reference Manual), where properties are defined per phase in a similar 
+manner.
+Add an Adsorption or a Dispersion subfeature to the Unsaturated Porous Medium to 
+account for the corresponding transport mechanism.
+Liquid
+Use this node to specify the mass transfer in the mobile liquid solvent present in the 
+pores of the Unsaturated Porous Medium.
+This feature is only available in a limited set of add-on products. See 
+www.comsol.com/products/specifications/ for more details on 
+
+
+=== PAGE 168 ===
+168 ---
+168 |  C H A P T E R  3 :  C H E M I C A L  S P E C I E S  T R A N S P O R T  I N T E R F A C E S
+M O D E L  I N P U T S
+The temperature model input is always available. By default, the Temperature model 
+input is set to Common model input, and the temperature is controlled from Default 
+Model Inputs under Global Definitions or by a locally defined Model Input. If a Heat 
+Transfer interface is included in the component, it controls the temperature Common 
+model input. Alternatively, the temperature field can be selected from another physics 
+interface. All physics interfaces have their own tags (Name). For example, if a Heat 
+Transfer in Fluids interface is included in the component, the Temperature (ht) option 
+is available for T.
+You can also select User defined from the Temperature model input in order to manually 
+prescribe T.
+S A T U R A T I O N
+Select Saturation or Liquid volume fraction from the list.
+For Saturation, enter a value for s (dimensionless) between 0 and 1. The liquid volume 
+fraction is then computed from the saturation and porosity as θl = εps.
+For Liquid volume fraction, enter a value for θl (dimensionless) between 0 and the value 
+of the porosity.
+Select a Liquid fraction time change: Liquid fraction constant in time (the default), Time 
+change in liquid fraction, or Time change in pressure head.
+• For Time change in fluid fraction, enter dθ/dt (SI unit: 1/s).
+• For Time change in pressure head, enter dHp/dt (SI unit: m/s) and a Specific 
+moisture capacity Cm (SI unit: 1/m). If a Darcy’s Law interface is included in the 
+component, the time change in pressure head solved for can be selected.
+C O N V E C T I O N
+If transport by convection is active, the velocity field of the solvent needs to be 
+specified. For User defined, enter values or expressions for the velocity components in 
+the input fields. This input option is always available. You can also select the velocity 
+field solved for by a Fluid Flow interface added to the model com
+
+=== PAGE 169 ===
+169 ---
+T H E  T R A N S P O R T  O F  D I L U T E D  S P E C I E S  I N T E R F A C E  |  169
+Use the Source list to select to pick up diffusion coefficients defined in a material or a 
+Chemistry interface.
+Select Material, and a Liquid material to use a diffusion coefficient in a material available 
+in the model. User-defined property groups including a diffusion coefficient output 
+property are available for selection in the Liquid diffusion coefficient list.
+Select Chemistry to use a diffusion coefficient from a Chemistry interface added to 
+model component. Diffusion coefficients are automatically defined when Calculate 
+transport properties is selected on the interface level of a Chemistry interface. All 
+defined diffusion coefficients are available for selection in the Liquid diffusion coefficient 
+list.
+For User defined, enter a value or expression for the Liquid diffusion coefficient DL,i of 
+each species in the corresponding input field.
+In a porous medium the diffusivity is reduced due to the fact that the solid grains 
+impede Brownian motion. Select an Effective diffusivity model, liquid to account for the 
+reduced diffusivity in the liquid. The available models are Millington and Quirk model 
+(the default), Bruggeman model, Tortuosity model, or No correction. For Tortuosity 
+model, enter a value for the tortuosity τL,i (dimensionless).
+Note that multiple species, as well as Migration in Electric fields (described below) is 
+only available for certain COMSOL Multiphysics add-on products. For details see: 
+www.comsol.com/products/specifications/.
+M I G R A T I O N  I N  E L E C T R I C  F I E L D
+This section is available when the Migration in electric field checkbox is selected. From 
+the Electric potential list, select the source of the electric field.
+• For User defined, enter a value or expression for the Electric potential V. This input 
+option is always available.
+• Select the electric potential solved by an AC/DC-based interface that has added to 
+
+
+=== PAGE 170 ===
+170 ---
+170 |  C H A P T E R  3 :  C H E M I C A L  S P E C I E S  T R A N S P O R T  I N T E R F A C E S
+Enter the Charge number zc for each species.
+Gas
+Use this node to specify the mass transfer in the gas phase present in the pores of the 
+Unsaturated Porous Medium.
+D I F F U S I O N
+The settings for the diffusion of each species in the gas phase are identical to those in 
+the Liquid subnode.
+V O L A T I L I Z A T I O N
+Enter a value for the volatilization isotherm kG,c (dimensionless) for each species.
+Adsorption
+Use this node to model adsorption of the (fluid phase) solute species onto the surface 
+of the porous matrix. It is available as a subnode to the Porous Medium and the 
+Unsaturated Porous Medium nodes.
+M A T R I X  P R O P E R T I E S
+The density of the porous media is needed when modeling adsorption to the surface 
+of the porous matrix. Choose to input either the Dry bulk density ρ, or the Solid phase 
+density ρs. The former is the density of the porous matrix including empty pores, while 
+the latter corresponds to the density of the pure solid phase. The density can be defined 
+from the domain material by selecting From material, or from a user defined expression. 
+When a Porous Material is used on the selection, the density will be requested from a 
+Solid subfeature. Several Solid features can be used to model a homogeneous mixture 
+of several solid components.
+This feature is only available in a limited set of add-on products. See 
+www.comsol.com/products/specifications/ for more details on 
+availability.
+
+
+
+
+=== PAGE 171 ===
+171 ---
+T H E  T R A N S P O R T  O F  D I L U T E D  S P E C I E S  I N T E R F A C E  |  171
+A D S O R P T I O N
+Select an Adsorption isotherm — Langmuir, Freundlich, Toth, BET, or User defined to 
+specify how to compute cP, the amount of species sorbed to the solid phase (moles per 
+unit dry weight of the solid):
+• For Langmuir:
+Enter a Langmuir constant kL,c (SI unit: m3/mol) and an Adsorption maximum 
+cp,max,c (SI unit: mol/kg).
+• For Freundlich:
+Enter a Freundlich constant kF,c (SI unit: mol/kg), a Freundlich exponent NF,c 
+(dimensionless), and a Reference concentration cref,c (SI unit: mol/m3).
+• For Toth:
+and
+Enter a Toth constant bT,c (SI unit: m3/mol), a Toth exponent NT,c (dimensionless), 
+and an Adsorption maximum cp,max,c (SI unit: mol/kg).
+• For BET (Brunauer–Emmett–Teller):
+and
+cP
+cPmax
+KLc
+1
+KLc
++
+-------------------
+=
+,
+KP
+cP
+∂
+c
+∂-------
+KLcPmax
+1
+KLc
++
+(
+)2
+---------------------------
+=
+=
+cP
+KF
+c
+cref
+-------
+
+
+
+N
+=
+,
+KP
+cP
+∂
+c
+∂-------
+N
+cP
+c----
+=
+=
+ 
+cP
+cPmax
+bTc
+1
+bTc
+(
+)NT
++
+(
+)
+1 NT
+⁄
+----------------------------------------------
+=
+KP
+cP
+∂
+c
+∂-------
+cPmaxbT 1
+bTc
+(
+)NT
++
+(
+)
+1
+1
+NT
+------
++
+
+
+
+
+–
+=
+=
+cP
+KBc0c
+cS
+c
+–
+(
+) 1
+KB
+1
+–
+(
+) c
+cS
+----
++
+
+
+
+
+-------------------------------------------------------------
+=
+
+
+
+
+=== PAGE 172 ===
+172 ---
+172 |  C H A P T E R  3 :  C H E M I C A L  S P E C I E S  T R A N S P O R T  I N T E R F A C E S
+Enter a BET constant KB,c (dimensionless), a Monolayer adsorption capacity c0,c 
+(SI unit: mol/kg), and an Saturation concentration cS,c (SI unit: mol/m3).
+• For User defined enter an Adsorption isotherm cP,c (SI unit: mol/kg):
+For more information, see Adsorption in the theory section.
+F U R T H E R  R E A D I N G
+See the theory chapter in the section Mass Balance Equation for Transport of Diluted 
+Species in Porous Media.
+Volatilization
+This feature is available when the Mass transfer in porous media checkbox is selected in 
+the Settings window for the physics interface.
+Use this feature to model mass transfer at the boundary due to volatilization. The 
+species dissolved in the liquid are assumed to be vaporized at the boundary, and 
+transported into the surrounding bulk region due to convection and diffusion. The 
+mass transfer at the boundary is defined as
+where hc is the mass transfer coefficient, kG,c the volatilization coefficient, and cGatm,c 
+the concentration in the surrounding atmosphere.
+V O L A T I L I Z A T I O N
+Enter a Mass transfer coefficient hc defining the transfer into the surrounding media. 
+This can be given by boundary layer theory. When assuming that no convective flow 
+KP
+cP
+∂
+c
+∂-------
+KBc0cS
+KB
+1
+–
+(
+)c2
+cS
+2
++
+(
+)
+c
+c
+–
+S
+(
+)2 cS
+KB
+1
+–
+(
+)c
++
+(
+)2
+-----------------------------------------------------------------
+=
+=
+cP
+f c
+( )
+=
+n
+–
+Jc
+⋅
+hc
+–
+kG,cc
+cGatm,c
+–
+(
+)
+=
+This feature is only available in a limited set of add-on products. See 
+www.comsol.com/products/specifications/ for more details on 
+availability.
+
+
+
+
+=== PAGE 173 ===
+173 ---
+T H E  T R A N S P O R T  O F  D I L U T E D  S P E C I E S  I N T E R F A C E  |  173
+is present in the surrounding, the mass transfer coefficient can be defined from the gas 
+diffusion coefficient DGc and the thickness of the diffusion layer ds in the manner of
+Also give the atmospheric concentration for each species, cGatm,c. The Volatilization 
+coefficient kG,c for each species are taken from the adjacent Unsaturated Porous 
+Medium domain.
+Packed Bed (Moving Packed Bed)
+Use this feature to model a packed bed reactor filled with solid catalytic or reactant 
+pellets. The bed pellets are porous, forming a bimodal porosity in the reactor. In 
+addition to mass transfer and reactions in the fluid between the pellets (interparticle 
+processes), the same processes can also be studied inside the pellets (intraparticle). The 
+pellets are available in each point of the bed domain, and are defined using an extra 
+dimension describing the pellet radius.
+The Packed Bed includes two subnodes, Fluid and Pellets, which in turn are used to 
+define the physical properties of the corresponding phase. The latter node is also used 
+to define volumetric reactions, as well as heterogeneous reactions, occurring within the 
+porous pellets.
+The Packed Bed node requires a Porous Material (described in the COMSOL 
+Multiphysics Reference Manual) on the domains occupied by the bed. Using the 
+porous material it is possible to model a bed comprised of any number of pellet types 
+by adding multiple pellet nodes.
+For information on the equations solved in the pore space and inside the pellets see the 
+section The Packed Bed Feature, in the The Transport of Diluted Species Interface 
+chapter. When using the corresponding feature for concentrated mixtures, see The 
+Packed Bed Feature in the Theory for the Transport of Concentrated Species Interface 
+chapter.
+hc
+DGc
+ds
+----------
+=
+
+
+
+
+=== PAGE 174 ===
+174 ---
+174 |  C H A P T E R  3 :  C H E M I C A L  S P E C I E S  T R A N S P O R T  I N T E R F A C E S
+For an application using the Packed Bed feature, see
+D O M A I N  S E L E C T I O N
+From the Selection list, choose the domains with porous material. Note that all 
+domains chosen needs to be occupied by a Porous Material.
+B E D  P R O P E R T I E S
+Use the Porosity list to specify the bed porosity, that is the volume fraction not 
+occupied by the pellets. Select From material to use the bed porosity defined by the 
+Porous Material. Select User defined to enter a constant or an expression.
+B E D  T Y P E
+Use the Bed type list to specify the bed type: Packed bed or Moving packed bed. If you 
+choose Moving packed bed, enter the bed velocity in the Bed velocity field.
+There are two subnodes for the Packed Bed reactor: Fluid and Pellets. For the Moving 
+packed bed reactor, in addition to the two subnodes, there are other three subnodes: 
+Bed Inlet, Bed Outlet, and Bed Wall.
+M O V I N G  P A C K E D  B E D
+The solid bed, comprised of solid catalytic or reactant pellets, moves relative to the 
+reactor. For the mass transport inside the solid pellets, there is an extra convective 
+contribution. For species i, this term can be expressed as
+where umb denotes the bed moving velocity, εpe is the pellet porosity, and (1 −εp) is 
+the pellet volume fraction of the bed.
+The solid pellet bed is rigid, the moving bed velocity is the same in the reactor.
+Pellets
+Use the Pellets node to define intraparticle transport and reactions in a packed bed.
+• A Multiscale 3D Packed Bed Reactor: Application Library path 
+Chemical_Reaction_Engineering_Module/Reactors_with_Porous_Catalysts/
+packed_bed_reactor_3d
+Web link: www.comsol.com/model/
+a-multiscale-3d-packed-bed-reactor-17019
+umb
+εpe
+(
+1
+εp
+–
+(
+)εpe i
+, )
+∇
+•
+
+
+
+
+=== PAGE 175 ===
+175 ---
+T H E  T R A N S P O R T  O F  D I L U T E D  S P E C I E S  I N T E R F A C E  |  175
+For the Transport of Diluted Species, there are two types of pellets, acting as porous 
+catalyst and reactant (Shrinking Core model) respectively. For the porous catalyst 
+pellets, the node focuses on the diffusion and reactions inside pellet; while for the 
+Shrinking Core pellets, the pellet is shrinking with the proceeding of the solid species 
+consuming reactions. The node focuses on the core consuming reactions on the core 
+surface besides the diffusion and reactions inside the porous reacted layer.
+D O M A I N  S E L E C T I O N
+The pellets in use are listed in the domain selection. This corresponds to all Pellet nodes 
+added to the Porous Material on the domains defining the packed bed.
+P E L L E T  T E M P E R A T U R E  ( T R A N S P O R T  O F  C O N C E N T R A T E D  S P E C I E S )
+This section is only available in a Transport of Concentrated Species interface, where the 
+intraparticle flow velocity and pressure is solved for.
+Use this section to specify the temperature in the pellets. Select From fluid to use the 
+temperature in the fluid surrounding the pellets. When the pellet temperature is solved 
+for, for example using a Heat Transfer in Pellets interface, the corresponding 
+temperature is also available.
+S U R F A C E  S P E C I E S
+This section is only available in a Transport of Diluted Species interface with Pellet Type 
+selected as Porous Catalyst and a Transport of Concentrated Species interface.
+Add species to this table to account for surface reactions occurring inside the pellets. 
+The surface species added are dependent variables and their concentrations (amount 
+per area) will be solved for together with that of the other (bulk) species inside the 
+pellets. The surface reaction rate for each surface species is defined in the Reactions 
+subnode.
+When surface reactions are defined in a Chemistry interface, these surface species 
+should be coupled
+
+=== PAGE 176 ===
+176 ---
+176 |  C H A P T E R  3 :  C H E M I C A L  S P E C I E S  T R A N S P O R T  I N T E R F A C E S
+bulk fluid surrounding the pellets in the Packed Bed, add an additional Chemistry 
+interface and keep said checkbox cleared.
+When using the Transport of Concentrated Species interface, the molar mass of each 
+surface species is required to convert between molar and mass basis. For a surface 
+species already defined in a Chemistry interface, say O2(ads), select Molar mass for 
+O2(ads) for the corresponding surface species (using the column Molar mass from). 
+Select User defined to instead enter a constant value or an expression in the column 
+Molar mass (kg/mol).
+S O L I D  C O R E
+This section is only available in a Transport of Diluted Species interface with Pellet Type 
+selected as Shrinking Core model.
+The Pellet density specifies the density of unreacted core. The default selection is User 
+defined. It can also be From material.
+There can be some solid substances (supporting material, for example) inside the pellet 
+core that do not participate in the core consuming reactions. These substances are 
+classified as matrix. Enter the mass fraction for Mass fraction of inert matrix. Its default 
+value is 0.
+Select or enter the molar mass and mass fraction for solid species in Solid core species 
+table. The molar mass can be picked up from Chemistry (with Define variables for 
+porous pellets being selected under Pellet Chemistry section) from column Molar mass 
+from. If User defined is selected from Molar mass from column, then the corresponding 
+cell under column Molar mass (kg/mol) is enabled, where you can enter the expression 
+for the molar mass. Finally, enter the mass fraction for each solid species under the 
+column Solid mass fraction (1). The mass fractions in the table will be normalized to 1, 
+then multiplied by (1 −wmatrix).
+R E A C T E D  L A Y E R
+This section is only available in a Transport of Diluted Species interface with Pellet Type 
+selected as
+
+=== PAGE 177 ===
+177 ---
+T H E  T R A N S P O R T  O F  D I L U T E D  S P E C I E S  I N T E R F A C E  |  177
+Diffusion (Transport of Diluted Species)
+Use this node to define species diffusion properties inside porous pellets of a packed 
+bed.
+D O M A I N  S E L E C T I O N
+The node inherits all valid domains from its parent feature. For the invalid domains, 
+not applicable is shown.
+D I F F U S I O N
+Select Diffusion model — Millington and Quirk model (the default), Bruggeman model, 
+Tortuosity model, or User defined to describe the effective correction of the diffusion 
+coefficient in the pellet. In the case of the Tortuosity model, a tortuosity factor for the 
+tortuosity τpe within the pellet is required. Use this section to specify diffusion models 
+and diffusion coefficients inside the reactive pellets.
+From the Diffusion coefficient list, select diffusion coefficient for different species. If a 
+User defined diffusion model is selected, an Effective diffusion coefficient Dpeff,c (SI unit: 
+m2/s) is entered. The default value is 1·10-9 m2/s.
+Diffusion coefficients calculated in Chemistry are available in the list when Chemistry 
+(with the Define variables for porous pellets selected under Pellet Chemistry section) is 
+coupled to the Packed Bed feature.
+Shrinking Core Reactions
+Use this node to define reactions occurring on the surface of the solid pellet core.
+The pellet core can consist or one of more solid phase species. Core consumption 
+occurs when the solid species are consumed by surface reactions on the core outer 
+surface (facing the porous layer). Core consuming reactions can also involve bulk 
+species. In this case the bulk species are removed or produced at the core surface.
+D O M A I N  S E L E C T I O N
+The node inherits all valid domains from its parent feature. For invalid domains, not 
+applicable is shown.
+P E L L E T
+Select All to apply the core consumption reactions for all available pellets types. Or, 
+select one of the pellet types in the list.
+
+
+
+
+=== PAGE 178 ===
+178 ---
+178 |  C H A P T E R  3 :  C H E M I C A L  S P E C I E S  T R A N S P O R T  I N T E R F A C E S
+C O R E  C O N S U M I N G  R E A C T I O N S
+If there is one solid species only, the core shrinking rate depends on the consumed rate 
+of this species. If there are more than one solid species, the core shrinking rate depends 
+on the weighted mass consumed rate of all species, assuming that the same consumed 
+rate is held for all species along the core axial direction.
+In the Core species reaction rate table, select the reaction rate (SI unit: mol/(m2·s)) for 
+solid species under the column Surface reaction rate. Select the Define variables for 
+porous pellets checkbox in the Pellet Chemistry section to couple the reaction rate to 
+the chemistry. With User defined selected from the column Surface reaction rate, enter 
+a reaction-rate expression in the column Surface rate expression (mol/(m^2*s)).
+For bulk species that take part in the core consuming reactions, or other surface 
+reactions on the core surface, the reaction rate is some kind of molar flux between core 
+surface and reacted layer.
+Select Bulk species reaction rate (or molar flux, SI unit: mol/(m2·s)) for bulk species i 
+from the Jpe,i list. The reaction rate can be picked up from the chemistry by selecting 
+the Define variables for porous pellets checkbox. Enter a reaction-rate expression when 
+User defined is selected from the list.
+H E A T  S O U R C E
+Specify the Heat source (QsRc) evolved from core surface reactions. When multiple 
+pellets types are present, all respective heat source are included.
+The heat sources are most conveniently picked up from a surface reaction in a 
+Chemistry interface (with the Define variables for porous pellets selected in the Pellet 
+Chemistry section). In that case, the heat source expression can be selected from the 
+list. Otherwise, you can enter an expression in the text field.
+The heat source can be applied in a Heat Transfer in Packed Beds interface by using 
+
+=== PAGE 179 ===
+179 ---
+T H E  T R A N S P O R T  O F  D I L U T E D  S P E C I E S  I N T E R F A C E  |  179
+geometry. This node describes the reactions for these species during the diffusion 
+process.
+Several Porous Layer Reactions nodes can be used to account for different reaction 
+mechanisms in porous layer and different pellets in the porous material.
+D O M A I N  S E L E C T I O N
+The domain selection inherits all valid domains from its parent feature. For the invalid 
+domains, it shows not applicable.
+P E L L E T
+Select All or one of existing pellets for the node.
+R E A C T I N G  V O L U M E
+A reaction takes usually place in the porous part (fluid) of the pellet, but can also in the 
+whole volume of the pellet. When specifying reaction rate for a bulk species, the 
+specified reaction rate has the basis of the pore volume, or the total volume. With the 
+Pore volume selected, the reaction expression in mol/(m3·s) will be multiplied by 
+porous layer’s porosity εpr.
+R E A C T I O N  R A T E S
+Select a reaction rate (SI unit: mol/(m3·s)) for bulk species i from Rpe,i list. Enter a 
+reaction rate expression when User defined is selected from the list. Alternatively, if 
+reaction rate expressions have been defined in a Chemistry interface (with the Define 
+variables for porous pellets selected under Pellet Chemistry section), they can be chosen 
+from the list.
+H E A T  S O U R C E
+Specify the Heat source originating from the heat (Qpe) of the bulk reactions inside the 
+porous layer. With several pellets being added, their heat sources will be summed up.
+The heat sources are most conveniently picked up from a Chemistry interface (with the 
+Define variables for porous pellets selected under Pellet Chemistry section) that defines 
+the reaction rate and the heat of reactions. In that case, the heat source expression can 
+be selected from the list. Otherwise you can enter an expression in the text field.
+The heat source (on extra dimension) in a Porous Layer Reactions node can be pic
+
+=== PAGE 180 ===
+180 ---
+180 |  C H A P T E R  3 :  C H E M I C A L  S P E C I E S  T R A N S P O R T  I N T E R F A C E S
+Reactions (Pellets)
+D O M A I N  S E L E C T I O N
+The domain selection inherits all valid domains from its parent feature. For the invalid 
+domains, it shows not applicable.
+Several Reactions nodes can be used to account for different reaction mechanisms in 
+different domains and pellets in the porous material.
+P E L L E T
+This section is invisible for default Reactions node. It is visible for later added 
+Reactions nodes.
+Select All or one of existing pellets for the nondefault Reactions nodes.
+R E A C T I N G  V O L U M E
+A reaction takes usually place in the porous part (fluid) of the pellet, but can also in the 
+whole volume of the pellet. When specifying reaction rate for a bulk species, the 
+specified reaction rate has the basis of the pore volume, or the total volume. With the 
+Pore volume selected, the reaction expression in mol/(m3·s) will be multiplied by 
+pellet’s porosity εpe.
+R E A C T I O N  R A T E S
+Select a reaction rate (SI unit: mol/(m3·s)) for bulk species i from Rpe,i list. Enter a 
+reaction rate expression when User defined is selected from the list. Alternatively, if 
+reaction rate expressions have been defined in a Chemistry interface (with the Define 
+variables for porous pellets selected under Pellet Chemistry section), they can be chosen 
+from the list.
+S U R F A C E  R E A C T I O N  R A T E S
+The section is available when one or more surface species have been added in the 
+Surface Species section of its parent feature (Pellets).
+Specify the Reactive specific surface area (total surface reaction area per cubic meter) 
+Sb,reac for all surface reactions.
+Under Surface reaction rate for bulk species, specify the rate expression Rs
+pe,i (SI unit: 
+mol/(m2·s)) for the surface reaction rate of each bulk species i participating in the 
+surface reaction. Furthermore, specify the surface reaction rates for the surface species 
+in the Reaction
+
+=== PAGE 181 ===
+181 ---
+T H E  T R A N S P O R T  O F  D I L U T E D  S P E C I E S  I N T E R F A C E  |  181
+If several pellet types have been defined, one set of surface reaction rates per pellet type 
+can be set by selecting specific pellet under Pellet section. If surface reaction rate 
+expressions have been defined in a Chemistry interface (with the Define variables for 
+porous pellets selected under Pellet Chemistry section), they can be chosen from the 
+list.
+H E A T  S O U R C E
+Specify the Heat source originating from the heat of chemical reactions inside the pellet. 
+Both heat source Qpe from bulk reactions in the fluid, and heat source Qspe (available 
+when there is one or more surface species) resulting from surface reactions can be 
+defined. With several pellets being added, their heat sources will be summed up.
+The heat sources are most conveniently picked up from a Chemistry interface (with the 
+Define variables for porous pellets selected under Pellet Chemistry section) that defines 
+the reaction rate and the heat of reactions. In that case, the heat source expression can 
+be selected from the list. Otherwise you can enter an expression in the text field.
+The heat source (inside pellet, on extra dimension) in a Reactions node can be picked 
+by Heat Source feature under the Pellets feature of heat transfer interface. The total 
+heat source (from all pellets, in the base domain) of all Reactions nodes can be used by 
+a Heat Source feature in any of the heat transfer interfaces.
+Initial Values (Pellets)
+D O M A I N  S E L E C T I O N
+The domain selection inherits all valid domains from its parent feature. For the invalid 
+domains, it shows not applicable.
+Several Initial Values nodes can be used to set different initial values for different 
+domains and pellets.
+P E L L E T
+This section is invisible for default Initial Values node. It is visible for later added Initial 
+Values nodes.
+Select All or one of existing pellets for the nondefault Initial Values nodes.
+I N I 
+
+=== PAGE 182 ===
+182 ---
+182 |  C H A P T E R  3 :  C H E M I C A L  S P E C I E S  T R A N S P O R T  I N T E R F A C E S
+S U R F A C E  C O N C E N T R A T I O N  I N I T I A L  V A L U E S
+Specify the initial values for surface species under the column Surface concentration 
+(mol/m2) in the table.
+Pellet–Fluid Interface
+D O M A I N  S E L E C T I O N
+The domain selection inherits all valid domains from its parent feature. For the invalid 
+domains, it shows not applicable.
+Several Pellet–Fluid Interface nodes can be used to specify different boundary 
+conditions between fluid and pellet out-surface for different domains and pellets.
+P E L L E T
+This section is invisible for the default Pellet–Fluid Interface node. It is visible for 
+Pellet–Fluid Interface nodes if several Pellet–Fluid Interface nodes are present.
+Select All or one of existing pellets for the nondefault Pellet–Fluid Interface nodes.
+P E L L E T – F L U I D  I N T E R F A C E
+The Coupling type list is selectable for the default Pellet–Fluid Interface node, but it is 
+disabled for nondefault Pellet–Fluid Interface nodes because it is supposed that there 
+should be only one type of boundary condition in a packed bed.
+There are two Coupling type options for the coupling of concentration between the 
+pellet internals and the surrounding fluid:
+• Continuous concentration, assuming that all resistance to mass transfer to/from the 
+pellet is within the pellet and no resistance to pellet–fluid mass transfer is on the bulk 
+fluid side. The concentration in the fluid will thus be equal to that in the pellet pore 
+just at the pellet surface: cpe,i = ci. This constraint also automatically ensures flux 
+continuity between the internal pellet domain and the free fluid domain through 
+so-called reaction forces in the finite element formulation.
+• Film resistance (mass flux): The flux of mass across the pellet–fluid interface into the 
+pellet is assumed to be rate determined on the bulk fluid side, by film resistance. The 
+resistan
+
+=== PAGE 183 ===
+183 ---
+T H E  T R A N S P O R T  O F  D I L U T E D  S P E C I E S  I N T E R F A C E  |  183
+For the Active specific surface area (SI unit: m-1) select either the Automatic setting that 
+calculates the specific surface area from the pellet shape, or User defined.
+Specify the Mass transfer parameters — Automatic (the default), or User defined to 
+define the film mass transfer coefficient.
+• Mass transfer parameters with Automatic selected. Specify one of the models from the 
+Sherwood number expression list to compute the Sherwood number. There are three 
+models available: Frössling, Rosner, and Garner and Keey. The Frössling equation is 
+the default and probably the most commonly used for packed spheres. All of these 
+are based on the dimensionless Reynolds (Re) and Schmidt (Sc) numbers, which are 
+computed from Density and Dynamic viscosity. Both of these two properties are 
+specified in the Fluid node under the Packed Bed feature.
+• Mass transfer parameters with User defined selected. Specify the type of Parameter — 
+Mass transfer coefficient (the default), or Sherwood number, and enter the selected 
+quantity in the corresponding text field.
+Fluid (Porous Catalyst)
+Use this feature to specify mass transfer properties in the fluid filling the pores of a 
+porous catalyst medium.
+The settings of this node are similar to those of the Fluid (Porous Medium) node of a 
+porous medium.
+Heterogeneous Reactions
+Inside a multiphase system, mass can be transported from one phase to another one, 
+and chemical reaction can take place among different phases. This kind of mass source 
+term can be described by the Heterogeneous Reaction node.
+D O M A I N  S E L E C T I O N
+From the Selection list, choose the domains on which to define rate expression or 
+expressions that govern the source term in the transport equations.
+R E A C T I O N  R A T E S
+The Chemistry list shows all the Chemistry interfaces that are coupled to the current 
+mass transport interface. The coupling condition
+
+=== PAGE 184 ===
+184 ---
+184 |  C H A P T E R  3 :  C H E M I C A L  S P E C I E S  T R A N S P O R T  I N T E R F A C E S
+With User defined selected in the Chemistry list, add a mas source term Ri (SI unit: mol/
+(m3·s)) for each species, or pick up a reaction rate variable from a Chemistry interface.
+R E A C T I N G  V O L U M E
+See the Reactions node.
+H E A T  S O U R C E
+See the Reactions node.
+Bed Inlet
+This node specifies an input for the pore concentrations in the pellets in a moving 
+packed bed. Together with it, a Bed Outlet node should be also added. The solid pellet 
+bed is rigid, the Bed Inlet and Bed Outlet are usually set to opposite boundaries.
+B O U N D A R Y  S E L E C T I O N
+Select boundary where the solid pellet bed moves into the reactor. These boundaries 
+belong to the pellet domains which are defined in Porous Material.
+I N L E T  P E L L E T  C O N C E N T R A T I O N S
+This section is available for the catalytic pellet bed. There are three ways to specify the 
+pellet inlet conditions.
+• From bed fluid conditions. The species concentrations inside the pellet are the same 
+as that in the fluid (between pellets).
+• From pellet initial values. The species concentrations inside the pellets are the same 
+as the initial values under the Pellets node.
+• User defined. Enter the inlet concentrations cpe0,i (SI unit: mol/m3) in the 
+Concentration text fields.
+The surface species concentration table is available if there is any surface reaction in the 
+pellet and the inlet conditions is set to From bed fluid conditions or User defined. Enter 
+the inlet surface concentration (SI unit: mol/m2) in the surface species table.
+The surface species concentration table is not available when the inlet conditions is set 
+to From pellet initial values. In this case, the inlet surface concentrations are taken from 
+the Initial Values node.
+
+
+
+
+=== PAGE 185 ===
+185 ---
+T H E  T R A N S P O R T  O F  D I L U T E D  S P E C I E S  I N T E R F A C E  |  185
+I N I T I A L  V A L U E S
+The section is available for the Shrinking Core Model. Enter the factor rc0f in the 
+Initial value factor for core radius field.
+Bed Outlet
+B O U N D A R Y  S E L E C T I O N
+Select boundary where the solid pellet bed leaves the reactor. These boundaries belong 
+to the pellet domains which are defined in Porous Material.
+The bed moving velocity is always equal to the velocity at the Bed Inlet.
+Bed Wall
+It is assumed that there are no penetration and no viscous effects at the walls.
+Porous Catalyst
+Use this feature to model adsorption, desorption, and heterogeneous reactions, as a 
+gas or liquid is moving through the interstices of a catalytic porous medium. The mass 
+transfer in the fluid inside the porous matrix is treated using the Linear Driving Force 
+model and a lumped mass transfer coefficient.
+A catalyst is a substance that increases the rate of a reaction without itself being 
+consumed. The catalytic process usually consists of the following steps:
+• The adsorbate transfers across the fluid–adsorbent boundary layer to the adsorbent 
+surface
+• The adsorbate is adsorbed on the adsorbent surface
+• Chemical reactions on the surface involving the adsorbate
+• Desorption of reaction products (adsorbate) from the adsorbent surface into the 
+fluid–adsorbent boundary layer
+• Adsorbate transfers across the boundary layer to the bulk fluid.
+Species transport through a porous medium is affected both by properties of the fluid 
+phase, as well as by properties of the solid matrix. These properties are defined in the 
+Fluid and Porous Matrix subnodes respectively.
+
+
+
+
+=== PAGE 186 ===
+186 ---
+186 |  C H A P T E R  3 :  C H E M I C A L  S P E C I E S  T R A N S P O R T  I N T E R F A C E S
+Add an Adsorption or a Surface Reaction subfeature to the Porous Catalyst to model 
+adsorption or heterogeneous reactions. To model volumetric reactions in the fluid 
+phase (bulk), add a Reactions subnode under Fluid.
+M O D E L  I N P U T
+Specify the temperature to be used in the catalyst. The temperature will be used for the 
+adsorption isotherms and the rate of surface reactions.
+• By default, the Common model input option corresponds to the minput.T variable, 
+set to 293.15 K by default. To edit the minput.T variable, click the Go to Source 
+button (
+), and in the Default Model Inputs node under Global Definitions, set a 
+value for the Temperature in the Expression for remaining selection section.
+• Select User defined to enter a value or an expression for the temperature (SI unit: K). 
+This input is always available.
+• If available, select a temperature defined by a Heat Transfer interface present in the 
+model. For example, select Temperature (ht) to use the temperature defined by the 
+Heat Transfer in Porous Media interface using the Name ht.
+R E A C T I V E  S P E C I F I C  S U R F A C E  A R E A
+Enter a specific surface area for the adsorption and surface reaction processes. The 
+default value is 1·107 1/m.
+C O N C E N T R A T I O N  I N P U T
+Select a Concentration input — Molar concentration (mol/(m2)) (the default) or Amount 
+per solid mass (mol/kg). This parameter determines the unit for initial values of 
+adsorbed species and user-defined surface species.
+A D S O R B E D  S P E C I E S
+Specify which of the bulk species that can be adsorbed to the catalyst (adsorbent). The 
+surface concentrations (SI unit: mol/m2) of the adsorbed species, named cads_j 
+corresponding to bulk species j, are solved for. The rate of adsorption is defined in the 
+Adsorption subnode. With an adsorbed species being selected, its initial value field is 
+activated. Enter the
+
+=== PAGE 187 ===
+187 ---
+T H E  T R A N S P O R T  O F  D I L U T E D  S P E C I E S  I N T E R F A C E  |  187
+Add a user-defined surface species in the Surface species table by clicking the Add 
+button under the table. The concentration (SI unit: mol/m2) of all surface species 
+added are solved for. To define the surface reaction kinetics add a Surface Reaction 
+subnode.
+When using the Transport of Concentrated Species interface, the molar mass of each 
+surface species is required to convert between molar and mass basis. For a surface 
+species already defined in a Chemistry interface, say O2(ads), select Molar mass for 
+O2(ads) for the corresponding surface species (using the column Molar mass from). 
+Select User defined to instead enter a constant or expression in the column 
+Molar mass (kg/mol).
+Porous Matrix (Porous Catalyst)
+D O M A I N  S E L E C T I O N
+The domain selection inherits all valid domains from its parent feature.
+M A T R I X  P R O P E R T I E S
+Specify the porous material porosity from Porosity — From material (the default), User 
+defined. The default value for User defined is 0.3.
+The density of the porous material can be defined either from the Dry bulk density — 
+From material (the default), User-defined, or from Solid phase density — From material 
+(the default), User-defined. The default values of User-defined for both Dry bulk density 
+and Solid phase density are 1400 kg/m3.
+Adsorption (Porous Catalyst)
+The adsorption process can be regarded as being under equilibrium if the adsorption 
+rate is very fast and mass transfer resistance is negligible. In such case, the adsorption 
+depends only on the amount of adsorbent, concentration (or pressure) of adsorbate 
+and temperature. This kind of isotherm adsorption process is implemented in the 
+Adsorption subfeature of the Porous Medium and Unsaturated Porous Medium 
+features.
+In general, the adsorption process deviates to some extent from its equilibrium state. 
+With the assumption that the species adsorption pr
+
+=== PAGE 188 ===
+188 ---
+188 |  C H A P T E R  3 :  C H E M I C A L  S P E C I E S  T R A N S P O R T  I N T E R F A C E S
+,
+ (3-1)
+Here the adsorption isotherm, cP,e, i (mol/kg), represents the equilibrium value of 
+bulk species i adsorbed per dry mass of adsorbent. cads, i is the local value of the 
+adsorbed species concentration (mol/m2). The available specific surface, and the 
+adsorbent bulk density are denoted by Sreac (1/m) and ρb (kg/m3) respectively. 
+hLFD,i is a lumped mass transfer coefficient, which can be estimated from empirical 
+equations based on the mass transfer mechanism. The mass transfer rate is added as a 
+source or sink term in the equation for the bulk species concentration. The adsorbed 
+species concentration is solved for in the manner of:
+ (3-2)
+D O M A I N  S E L E C T I O N
+The domain selection inherits all the domain selections from its parent feature. Several 
+adsorption features can be added to the same domain.
+A D S O R P T I O N
+Adsorption parameters can be set only for the species that are selected under Adsorbed 
+Species section in the Porous Catalyst feature.
+Select the Adsorption isotherm for individual species checkbox to set different 
+adsorption isotherm models for each adsorbed species. The equations for the different 
+models are shown in the Equation section. Select the adsorption isotherm from the 
+Adsorption isotherm list. Choose among Langmuir, Freundlich, Toth, BET, or User defined.
+With Adsorption isotherm for individual species cleared, all species use the same 
+adsorption isotherm model. In this case, Adsorption isotherm is available directly below 
+the Adsorption isotherm for individual species checkbox.
+Use the Species checkbox to choose the species that are adsorbed. For each selected 
+adsorbate, there are three parameters to fill in; Adsorption isotherm (available when the 
+checkbox Adsorption isotherm for individual species is selected), adsorption model 
+specific parameters and Mass transfer coefficient.
+Select an adsorption is
+
+=== PAGE 189 ===
+189 ---
+T H E  T R A N S P O R T  O F  D I L U T E D  S P E C I E S  I N T E R F A C E  |  189
+1 Langmuir constant kL,i (SI unit: m3/mol)
+2 Adsorption maximum cp,max,i (SI unit: mol/kg).
+• Freundlich:
+1 Freundlich constant kF,i (SI unit: mol/kg)
+2 Freundlich exponent NF,i (dimensionless)
+3 Reference concentration cref,i (SI unit: mol/m3).
+• Toth:
+1 Adsorption maximum cp,max,i (SI unit: mol/kg)
+2 Toth constant bT,i (SI unit: m3/mol)
+3 Toth exponent NT,i (dimensionless).
+• BET (Brunauer–Emmett–Teller):
+1 Monolayer adsorption capacity c0,i (SI unit: mol/kg)
+2 Saturation concentration cS,i (SI unit: mol/m3)
+3 BET constant KB,i (dimensionless).
+• User defined:
+1 Adsorption isotherm cP,i (SI unit: mol/kg):
+The last parameter to enter for each adsorbate is the Mass transfer coefficient hi (SI unit: 
+m/s).
+Surface Reaction (Porous Catalyst)
+The Surface Reaction subnode under Porous Catalyst is used to define surface reaction 
+source terms to the mass transport within the catalyst.
+D O M A I N  S E L E C T I O N
+From the Selection list, choose the domains (from its parent feature) on which the 
+surface reaction rate is defined.
+Several Surface Reaction nodes can be used to account for different surface reactions 
+in different parts for the modeling geometry.
+S U R F A C E  R E A C T I O N  R A T E  F O R  B U L K  S P E C I E S
+The bulk species (defined as dependent variables in physics interface) can also take part 
+in a surface reaction.
+
+
+
+
+=== PAGE 190 ===
+190 ---
+190 |  C H A P T E R  3 :  C H E M I C A L  S P E C I E S  T R A N S P O R T  I N T E R F A C E S
+Select a surface reaction rate (SI unit: mol/(m2·s)) for species i from Rs
+i list. Enter a 
+reaction rate expression when User defined is selected from the list. Alternatively, if 
+surface reaction rate expressions have been defined in a Chemistry interface, they can 
+be chosen from the list.
+S U R F A C E  R E A C T I O N  R A T E  F O R  A D S O R B E D  S P E C I E S
+This section is available when at least one species is selected under the Adsorbed 
+Species section in the Porous Catalyst feature.
+Select a surface reaction rate (SI unit: mol/(m2·s)) for adsorbed species cads_i from 
+Rs
+cads_i list. If User defined is selected from the list, enter a surface reaction rate 
+expression. Alternatively, if surface reaction rate expressions have been defined in a 
+Chemistry interface, they can be chosen from the list.
+R E A C T I O N  R A T E  F O R  S U R F A C E  S P E C I E S
+This section is available when there is at least one species added to the surface species 
+table under the Surface Species section in the Porous Catalyst feature.
+In the surface reaction rate table, there are three columns, Surface species, Surface 
+reaction rate, and Surface rate expression (mol/(m2·s)).
+Select a surface reaction rate (SI unit: mol/(m2·s)) from the column Surface reaction 
+rate for a surface species which is defined in the parent feature. With User defined being 
+selected, the table cell at the same row under column Surface rate expression (mol/
+(m2·s)) is editable (otherwise it is read-only), and enter a surface reaction rate 
+expression. Alternatively, if surface reaction rate expressions have been defined in a 
+Chemistry interface, they can be chosen from the list under column Surface reaction 
+rate.
+Species Source
+In order to account for consumption or production of species in porous domains, the 
+Species Source node adds source terms expressions Si to the right-hand sid
+
+=== PAGE 191 ===
+191 ---
+T H E  T R A N S P O R T  O F  D I L U T E D  S P E C I E S  I N T E R F A C E  |  191
+If there are several types of domains, with subsequent and different reactions occurring 
+within them, it might be necessary to remove some domains from the selection. These 
+are then defined in an additional Species Source node.
+S P E C I E S  S O U R C E
+Add a source term Si (SI unit: mol/(m3·s)) for each of the species solved for. Enter a 
+value or expression in the field of the corresponding species.
+Hygroscopic Swelling
+The Hygroscopic Swelling multiphysics coupling node (
+) is used for moisture 
+concentration coupling between the Solid Mechanics interface and either the 
+Transport of Diluted Species or Transport of Diluted Species in Porous Media 
+interfaces.
+Hygroscopic swelling is an effect of internal strain caused by changes in moisture 
+content. This volumetric strain can be written as
+where βh is the coefficient of hygroscopic swelling, Mm is the molar mass, cmo is the 
+moisture concentration, and cmo,ref is the strain-free reference concentration.
+This feature requires a license of either the MEMS Module or the Structural Mechanics 
+Module. The multiphysics feature will appear automatically if both the Transport of 
+Diluted Species and the Solid Mechanics interfaces are added to the same component. 
+For the most current information about licensing, please see www.comsol.com/
+products/specifications/.
+F U R T H E R  R E A D I N G
+More information about how to use hygroscopic swelling can be found in the 
+Hygroscopic Swelling section in the Structural Mechanics Module User’s Guide.
+More information about multiphysics coupling nodes can be found in the section The 
+Multiphysics Branch in the COMSOL Multiphysics Reference Manual.
+Out-of-Plane Flux
+The out-of-plane flux node is used to prescribe a flux in an out-of-plane domain, and 
+it can be used to reduce a model geometry to 2D, or even 1D, when the concentration 
+variation is small in one or more directions. Th
+
+=== PAGE 192 ===
+192 ---
+192 |  C H A P T E R  3 :  C H E M I C A L  S P E C I E S  T R A N S P O R T  I N T E R F A C E S
+the object to model is thin or slender. Figure 3-1 shows examples of possible situations 
+in which this type of geometry reduction can be applied.
+Figure 3-1: Geometry reduction from 3D to 1D (top) and from 3D to 2D (bottom).
+For a 1D component this node adds a single out-of-plane molar flux J0,z,i for species 
+i. For a 2D component two fluxes can be prescribed for each species; J0,u,i for the 
+upside of the domain, and J0,d,i for the downside of the domain.
+The fluxes are added as a source contribution to the right-hand side of the transport 
+equation. For example, in 2D components with diffusion, convection, and 
+out-of-plane flux present, the mass transfer of species i is defined by the mass 
+conservation equation
+,
+ (3-3)
+where Sopf,i is the out-of-plane source for species i
+.
+For external convection on the upside and the downside of the domain, the 
+out-of-plane flux is
+where kc is a mass transfer coefficient and cb is the bulk concentration, the typical 
+concentration far into the surrounding exterior domain. The prescribed flux, J0, can 
+Jup
+Jdown
+Jz
+ci
+∂
+t
+∂------
+∇Ji
+⋅
+u
++
+∇ci
+⋅
++
+Ri
+Sopf i
+,
++
+=
+Sopf i
+,
+J0 i
+,
+dz
+---------
+J0 u i
+,
+,
+J0 d
+,
+,
++
+dz
+--------------------------------------
+=
+=
+J0 i
+,
+kc u i
+,
+,
+cb u i
+,
+,
+ci
+–
+(
+)
+kc d i
+,
+,
+cb d i
+,
+,
+ci
+–
+(
+)
++
+=
+
+
+
+
+=== PAGE 193 ===
+193 ---
+T H E  T R A N S P O R T  O F  D I L U T E D  S P E C I E S  I N T E R F A C E  |  193
+include any arbitrary user-specified expressions. It can be a constant or a function of a 
+dependent variable or independent variables.
+U P S I D E  I N W A R D  F L U X
+For 1D components, enter the cross-sectional perimeter Pc to get the out-of-plane flux
+.
+The default value of Pc is the circumference. Either keep the default value, for a circular 
+cross-section shape, or edit the value to get a user-defined shape of the out-of-plane 
+cross-section.
+The available flux type options are General inward flux and External convection. Select 
+the Species checkbox for the species for which to specify the flux, and enter a value or 
+expression for the inward flux in the corresponding field. Use a minus sign when 
+specifying a flux directed out of the system. To use another boundary condition for a 
+specific species, click to clear the checkbox for that species.
+Set Flux type to External convection to prescribe a flux to or from an exterior domain 
+(not modeled) assumed to include convection. The exterior can for example include a 
+forced convection to control the temperature or to increase the mass transport. In this 
+case the prescribed mass flux corresponds to
+where kc is a mass transfer coefficient and cb is the bulk concentration, the typical 
+concentration far into the surrounding exterior domain.
+D O W N S I D E  I N W A R D  F L U X
+The available options are General inward flux and External convection. The settings are 
+the same as for the Upside Inward Flux section.
+F U R T H E R  R E A D I N G
+For an example of using the Out-of-Plane Flux node, see this application example:
+J0 i
+,
+PcJ0 z i
+,
+,
+=
+J0
+kc cb
+c
+–
+(
+)
+=
+Cross-Flow Mass Transfer in a Thin Domain: Application Library path 
+Chemical_Reaction_Engineering_Module/Tutorials/thin_domain
+
+
+
+
+=== PAGE 194 ===
+194 ---
+194 |  C H A P T E R  3 :  C H E M I C A L  S P E C I E S  T R A N S P O R T  I N T E R F A C E S
+Fracture
+Use this node to model mass transport along thin fractures in porous media. The node 
+assumes that the transport in the tangential direction along the fracture is dominant as 
+a result of lower flow resistance.
+The Fracture feature has two default subfeatures — the Fluid (Fracture) subfeature 
+where convection and diffusion are specified and the Fracture Material subfeature 
+where the porosity εp is defined.
+F R A C T U R E  P R O P E R T I E S
+Specify a value for the Fracture thickness dfr.
+For the Fracture boundary condition, there are a number of Attributes available which 
+can be accessed either via the Physics Ribbon toolbar (for Windows) or by 
+right-clicking on the Fracture node. These attributes are identical to the Boundary, 
+Edge, Point, and Pair Nodes for the Transport of Diluted Species in Fractures 
+Interface.
+Fluid (Fracture)
+Use this node to specify the mass transfer in the mobile fluid solvent filling the pores 
+of a fracture.
+It uses the same input options as the Fluid (Porous Medium) subfeature under the 
+Porous Medium feature. There are further details about the settings.
+M O D E L  I N P U T S
+The temperature model input is always available. By default, the Temperature model 
+input is set to Common model input, and the temperature is controlled from Default 
+Model Inputs under Global Definitions or by a locally defined Model Input. If a Heat 
+Transfer interface is included in the component, it controls the temperature Common 
+model input. Alternatively, the temperature field can be selected from another physics 
+interface. All physics interfaces have their own tags (Name). For example, if a Heat 
+Transfer in Fluids interface is included in the component, the Temperature (ht) option 
+is available for T.
+This feature is only available in a limited set of add-on products. See 
+www.comsol.com/products/specifications/ for more details on 
+
+=== PAGE 195 ===
+195 ---
+T H E  T R A N S P O R T  O F  D I L U T E D  S P E C I E S  I N T E R F A C E  |  195
+C O N V E C T I O N
+If transport by convection is active, the velocity field of the solvent needs to be 
+specified. Select an option from the Velocity field list to specify the convective velocity 
+along the fracture. For a consistent model, use a Fracture feature in a Darcy’s Law 
+interface to compute the fluid flow velocity in the fracture.
+For User defined, enter values or expressions for the velocity components in the table 
+shown
+D I F F U S I O N
+Use this section to specify diffusion coefficients describing the diffusion of each species 
+in the solvent fluid.
+Fracture Material
+Specify the Porosity εp (dimensionless) of the porous matrix. This is by default taken 
+From material. Select From pellet bed densities to compute the porosity from the (dry 
+bulk) Bed density ρb and the (single phase) Pellet density ρpe through the relation
+For User defined, enter a value or expression for the porosity.
+The Diffusion settings are similar to those for the diffusion coefficients in 
+the Fluid (Porous Medium) node under Porous Medium.
+εp
+1
+ρb
+ρpe
+-------
+–
+=
+
+
+
+
+=== PAGE 196 ===
+196 ---
+196 |  C H A P T E R  3 :  C H E M I C A L  S P E C I E S  T R A N S P O R T  I N T E R F A C E S
+The Transport of Diluted Species in 
+Fractures Interface
+The Transport of Diluted Species in Fractures (dsf) interface (
+), found under the 
+Chemical Species Transport branch (
+), is used to model the transport of a solute 
+species along thin porous fractures, taking into account diffusion, dispersion, 
+convection, and chemical reactions. The fractures are defined by boundaries and the 
+solute species is assumed to be present in a solvent.
+The interface supports simulation of species transport along boundaries in 2D and 3D, 
+and axisymmetric components in 2D. The dependent variable is the molar 
+concentration, c. Modeling multiple species transport is possible, whereby the physics 
+interface solves for the molar concentration, ci, of each species i.
+S E T T I N G S
+The Label is the default physics interface name.
+The Name is used primarily as a scope prefix for variables defined by the physics 
+interface. Refer to such physics interface variables in expressions using the pattern 
+<name>.<variable_name>. In order to distinguish between variables belonging to 
+different physics interfaces, the name string must be unique. Only letters, numbers, and 
+underscores (_) are permitted in the Name field. The first character must be a letter.
+The default Name (for the first physics interface in the model) is dsf.
+B O U N D A R Y  S E L E C T I O N
+If the model geometry includes boundaries that should not be included in the mass 
+transfer simulation, remove those from the selection list.
+O U T - O F - P L A N E  T H I C K N E S S
+For 2D components, the Thickness field (default value: 1 m) defines a parameter for the 
+thickness of the geometry perpendicular to the two-dimensional cross-section. Both 
+constant and varying thicknesses are supported. The value of this parameter is used, 
+This interface is only available in a limited set of add-on products. For a 
+detailed overv
+
+=== PAGE 197 ===
+197 ---
+T H E  T R A N S P O R T  O F  D I L U T E D  S P E C I E S  I N  F R A C T U R E S  I N T E R F A C E  |  197
+among other things, to automatically calculate molar flow rates from the total molar 
+flux.
+T R A N S P O R T  M E C H A N I S M S
+Use the Convection checkbox, available under Additional transport mechanisms, to 
+control whether to also include convective transport.
+C O N S I S T E N T  S T A B I L I Z A T I O N
+To display this section, click the Show button (
+) and select Stabilization. Use this 
+section to control the application of the available consistent stabilization methods; 
+Streamline diffusion and Crosswind diffusion.
+• When the Crosswind diffusion checkbox is selected, a weak term that reduces spurious 
+oscillations is added to the transport equation. The resulting equation system is 
+always nonlinear. There are two options for the Crosswind diffusion type:
+-
+Do Carmo and Galeão — the default option. This type of crosswind diffusion 
+reduces undershoots and overshoots to a minimum but can in rare cases give 
+equation systems that are difficult to fully converge.
+-
+Codina. This option is less diffusive compared to the Do Carmo and Galeão 
+option but can result in more undershoots and overshoots. It is also less effective 
+for anisotropic meshes. The Codina option activates a text field for the Lower 
+gradient limit glim. Its default value is 0.1[mol/m^3)/tds.helem, where 
+tds.helem is the local element size.
+• For both consistent stabilization methods select an Equation residual. Approximate 
+residual is the default and means that derivatives of the diffusion tensor components 
+are neglected. This setting is usually accurate enough and is computationally faster. 
+If required, select Full residual instead.
+I N C O N S I S T E N T  S T A B I L I Z A T I O N
+To display this section, click the Show button (
+) and select Stabilization. By default, 
+the Isotropic diffusion checkbox is not selected, because this type of stabilization adds 
+artifi
+
+=== PAGE 198 ===
+198 ---
+198 |  C H A P T E R  3 :  C H E M I C A L  S P E C I E S  T R A N S P O R T  I N T E R F A C E S
+The Value type when using splitting of complex variables setting should in most pure 
+mass transfer problems be set to Real, which is the default. It makes sure that the 
+dependent variable does not get affected by small imaginary contributions, which can 
+occur, for example, when combining a Time Dependent or Stationary study with a 
+frequency-domain study. For more information, see Splitting Complex-Valued 
+Variables in the COMSOL Multiphysics Reference Manual.
+D E P E N D E N T  V A R I A B L E S
+The dependent variable name is Concentration c by default. A dependent variable name 
+must be unique with respect to all other dependent variables in the component.
+Add or remove species variables in the model and also change the names of the 
+dependent variables that represent the species concentrations.
+Enter the Number of species. Use the Add concentration (
+) and Remove 
+concentration (
+) buttons as needed.
+F U R T H E R  R E A D I N G
+Boundary, Edge, Point, and Pair Nodes for the Transport of Diluted 
+Species in Fractures Interface
+The Transport of Diluted Species Interface has the following boundary, edge, point, 
+and pair nodes, listed in alphabetical order, available from the Physics ribbon toolbar 
+• Mass Transport in Fractures in the theory section.
+• Numerical Stabilization in the COMSOL Multiphysics Reference 
+Manual.
+• Domain, Boundary, and Pair Nodes for the Transport of Diluted 
+Species Interface
+• In the COMSOL Multiphysics Reference Manual, see Table 2-4 for 
+links to common sections and Table 2-5 for common feature nodes. 
+You can also search for information: press F1 to open the Help window 
+or Ctrl+F1 to open the Documentation window.
+
+
+
+
+=== PAGE 199 ===
+199 ---
+T H E  T R A N S P O R T  O F  D I L U T E D  S P E C I E S  I N  F R A C T U R E S  I N T E R F A C E  |  199
+(Windows users), Physics context menu (Mac or Linux users), or by right-clicking to 
+access the context menu (all users).
+Furthermore, there are the following attributes to the Fracture node
+Adsorption
+Use this node to model adsorption of the fluid phase species onto the porous media 
+surface of the fracture.
+M A T R I X  P R O P E R T I E S
+Use the Porous material list to define a material specifying the matrix properties on the 
+current selection. By default the Boundary material is used as The Transport of Diluted 
+Species Interface is active on boundaries only. The Density ρ of the porous media is 
+needed when modeling adsorption to the surface of the porous matrix. By default the 
+option From material is selected.
+A D S O R P T I O N
+Select an Adsorption isotherm — Langmuir (the default), Freundlich, Toth, BET, or User 
+defined to specify how to compute cP, the amount of species sorbed to the solid phase 
+(moles per unit dry weight of the solid). Also activate the checkbox for the species ci 
+for which adsorption takes place.
+• For Langmuir:
+• Concentration
+• Flux
+• Fracture
+• Inflow
+• Initial Values
+• No Flux
+• Outflow
+• Reactions
+• Species Source
+• Adsorption
+• Dispersion
+
+
+

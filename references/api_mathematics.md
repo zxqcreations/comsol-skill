@@ -1,238 +1,292 @@
 # Mathematics Module — Comprehensive API Reference
 
-PDE Interfaces — Coefficient Form, General Form, Weak Form, ODE/DAE, Optimization
-
-COMSOL 6.4 · mph Python API · Extracted from official documentation and tags.json
+COMSOL 6.4 · mph Python API · Based on COMSOL Multiphysics Users Guide (PDE Interfaces chapter) and tags.json
 
 ---
 
-## Contents
+## 1. PDE Interfaces Overview
 
-1. [Physics Interfaces](#physics-interfaces)
-2. [Domain Features](#domain-features)
-3. [Boundary Conditions](#boundary-conditions)
-4. [Edge & Point Conditions](#edge-point-conditions)
-5. [Pair Conditions](#pair-conditions)
-6. [Expression Reference](#expression-reference)
-7. [Multiphysics Couplings](#multiphysics-couplings)
-8. [Common Patterns & Notes](#common-patterns)
+The Mathematics branch provides equation-based modeling without predefined physics:
 
----
-
-## 1. Physics Interfaces
-
-| Interface | mph Tag | COMSOL Name | Description |
-|-----------|---------|-------------|-------------|
-| `?` | `` | ? |  (4 features) |
-| `BoundaryODE` | `bode` | BoundaryODE | ODE/DAE interface (2 features) |
-| `Brinkman` | `br` | Brinkman |  (1 features) |
-| `BubblyFlowkeps` | `bf` | BubblyFlowkeps |  (1 features) |
-| `Circuit` | `cir` | Circuit |  (1 features) |
-| `CoefficientFormBoundaryPDE` | `cb` | CoefficientFormBoundaryPDE | Mathematics PDE interface (2 features) |
-| `CoefficientFormPDE` | `c` | CoefficientFormPDE | Mathematics PDE interface (5 features) |
-| `ConvectionDiffusionEquation` | `cdeq` | ConvectionDiffusionEquation |  (2 features) |
-| `DarcysLaw` | `dl` | DarcysLaw |  (1 features) |
-| `DilutedSpecies` | `tds` | DilutedSpecies | Chemical species transport (1 features) |
-| `DomainODE` | `dode` | DomainODE | ODE/DAE interface (2 features) |
-| `EdgeODE` | `eode` | EdgeODE | ODE/DAE interface (1 features) |
-| `ElectromagneticWaves` | `emw` | ElectromagneticWaves |  (1 features) |
-| `ElectromagneticWavesBeamEnvelopes` | `ewbe` | ElectromagneticWavesBeamEnvelopes | Beam envelope (slowly varying) (1 features) |
-| `ElectromagneticWavesFrequencyDomain` | `ewfd` | ElectromagneticWavesFrequencyDomain | Frequency-domain electromagnetic waves (2 features) |
-| `ElectromagneticWavesTransient` | `ewt` | ElectromagneticWavesTransient | Time-domain electromagnetic waves (2 features) |
-| `Electrostatics` | `es` | Electrostatics |  (2 features) |
-| `GeneralFormBoundaryPDE` | `gb` | GeneralFormBoundaryPDE | Mathematics PDE interface (1 features) |
-| `GeneralFormPDE` | `g` | GeneralFormPDE | Mathematics PDE interface (7 features) |
-| `GeneralOptimization` | `opt` | GeneralOptimization | Optimization interface (10 features) |
-| `GeometricalOptics` | `gop` | GeometricalOptics | Ray tracing optics (1 features) |
-| `GlobalEquations` | `ge` | GlobalEquations |  (1 features) |
-| `HeatTransfer` | `ht` | HeatTransfer |  (3 features) |
-| `HeatTransferInBuildingMaterials` | `ht` | HeatTransferInBuildingMaterials |  (1 features) |
-| `HeatTransferInFluids` | `ht` | HeatTransferInFluids |  (1 features) |
-| `HeatTransferInSolidsAndFluids` | `ht` | HeatTransferInSolidsAndFluids |  (2 features) |
-| `HighMachNumberFlow` | `hmnf` | HighMachNumberFlow |  (1 features) |
-| `InductionCurrents` | `mf` | InductionCurrents |  (1 features) |
-| `LaminarFlow` | `spf` | LaminarFlow |  (3 features) |
-| `LaplaceEquation` | `lpeq` | LaplaceEquation |  (3 features) |
-| `LayeredShell` | `lshell` | LayeredShell |  (1 features) |
-| `MultibodyDynamics` | `mbd` | MultibodyDynamics |  (3 features) |
-| `Parametric` | `` | Parametric |  (17 features) |
-| `PointODE` | `pode` | PointODE | ODE/DAE interface (2 features) |
-| `PoroelasticWavesSinglePhysics` | `pelw` | PoroelasticWavesSinglePhysics |  (1 features) |
-| `PorousMediaHeatTransfer` | `ht` | PorousMediaHeatTransfer |  (1 features) |
-| `PressureAcoustics` | `acpr` | PressureAcoustics |  (1 features) |
-| `RotatingMachineryMagnetic` | `rmm` | RotatingMachineryMagnetic |  (1 features) |
-| `SchrodingerEquation` | `schr` | SchrodingerEquation |  (2 features) |
-| `Semiconductor` | `semi` | Semiconductor | Semiconductor device (1 features) |
-| `Sensitivity` | `sens` | Sensitivity |  (1 features) |
-| `Shell` | `shell` | Shell |  (1 features) |
-| `SlipFlow` | `slpf` | SlipFlow |  (1 features) |
-| `SolidMechanics` | `solid` | SolidMechanics |  (4 features) |
-| `Stationary` | `` | Stationary |  (19 features) |
-| `StructuralMembrane` | `mbrn` | StructuralMembrane |  (1 features) |
-| `TertiaryCurrentDistributionNernstPlanck` | `tcd` | TertiaryCurrentDistributionNernstPlanck |  (2 features) |
-| `ThinFilmFlowShell` | `tffs` | ThinFilmFlowShell |  (1 features) |
-| `Time` | `elte` | Time |  (6 features) |
-| `Timeparametric` | `` | Timeparametric |  (6 features) |
-| `TransientElectromagneticWaves` | `temw` | TransientElectromagneticWaves | Time-domain electromagnetic waves (1 features) |
-| `Truss` | `truss` | Truss |  (1 features) |
-| `TurbulentFlowAlgebraicYplus` | `spf` | TurbulentFlowAlgebraicYplus |  (19 features) |
-| `TurbulentFlowkeps` | `spf` | TurbulentFlowkeps |  (2 features) |
-| `TurbulentFlowkomega` | `spf` | TurbulentFlowkomega |  (1 features) |
-| `WeakFormBoundaryPDE` | `wb` | WeakFormBoundaryPDE | Mathematics PDE interface (1 features) |
+| Interface | mph Tag | Default | Description |
+|-----------|---------|---------|-------------|
+| Coefficient Form PDE | `c` | `c` | Most common: −∇·(c∇u) + β·∇u + au = f |
+| General Form PDE | `g` | `g` | Conservative: ∇·Γ = F with Γ = −c∇u − αu + γ |
+| Weak Form PDE | `w` | `w` | User-defined weak: ∫(test(u)·F − ∇test(u)·Γ)dV = 0 |
+| ODE/DAE | `ode` | `ode` | Global ODEs (no spatial derivatives) |
+| Distributed ODE | `dode` | `dode` | ODE at each spatial point |
+| Boundary ODE | `bode` | `bode` | ODE defined on boundaries only |
+| Domain ODE | `dode2` | — | ODE within spatial domains |
+| Optimization | `opt` | `opt` | Objective + constraint formulation |
+| Sensitivity | `sens` | `sens` | Parameter sensitivity analysis |
+| Shape Optimization | `shapeopt` | — | Free boundary optimization |
+| Topology Optimization | `topoopt` | — | Material distribution optimization |
 
 ---
 
-## 2. Domain Features
+## 2. Coefficient Form PDE (c)
 
-| Feature Name | mph Tag | Interface | Key Properties |
-|-------------|---------|-----------|---------------|
-| `GlobalEquations` | `ge*` |  | — |
-| `GlobalEquations` | `ge*` |  | — |
-| `GlobalEquations` | `ge*` |  | — |
-| `GlobalEquations` | `ge*` |  | — |
-| `GlobalEquations` | `ge*` |  | — |
-| `GlobalEquations` | `ge*` |  | — |
-| `DestinationDomains` | `dd*` |  | — |
-| `GlobalEquations` | `ge*` |  | — |
-| `GlobalEquations` | `ge*` |  | — |
-| `GlobalEquations` | `ge*` |  | — |
-| `GlobalEquations` | `ge*` |  | — |
-| `GlobalEquations` | `ge*` |  | — |
-| `GlobalEquations` | `ge*` |  | — |
-| `GlobalEquations` | `ge*` |  | — |
-| `GlobalEquations` | `ge*` |  | — |
-| `GlobalEquations` | `ge*` |  | — |
-| `GlobalEquations` | `ge*` |  | — |
-| `GlobalEquations` | `ge*` |  | — |
-| `GlobalEquations` | `ge*` |  | — |
-| `GlobalEquations` | `ge*` |  | — |
-| `GlobalEquations` | `ge*` |  | — |
-| `GlobalEquations` | `ge*` |  | — |
+### 2.1 Governing Equation
 
----
+eₐ∂²u/∂t² + dₐ∂u/∂t + ∇·(−c∇u − αu + γ) + β·∇u + au = f
 
-## 3. Boundary Conditions
+| Coefficient | Symbol | Unit | Description |
+|------------|--------|------|-------------|
+| Diffusion | c | varies | Isotropic/Diagonal/Symmetric/Full tensor |
+| Absorption | a | 1/m²·[u] | Sink term (Helmholtz: a = −k²) |
+| Source | f | [u]/m³ | Source term |
+| Damping/Mass | dₐ | [u]·s | Time-derivative coefficient |
+| Conservative flux convection | α | — | Matrix for Γ convection |
+| Conservative flux source | γ | [u]/m² | Vector source in flux |
+| Convection | β | 1/m | Non-conservative convection |
+| Mass acceleration | eₐ | [u]·s² | Wave equation term |
 
-| BC Name | mph Tag | Interface | Key Properties |
-|---------|---------|-----------|---------------|
-| `DirichletBoundary` | `dir*` |  | — |
-| `DirichletBoundary` | `dir*` |  | — |
-| `FluxBoundary` | `flux*` |  | — |
-| `ZeroFluxBoundary` | `zflx*` |  | — |
-| `DirichletBoundary` | `dir*` |  | — |
-| `FluxBoundary` | `flux*` |  | — |
-| `PeriodicCondition` | `pc*` |  | — |
-| `ZeroFluxBoundary` | `zflx*` |  | — |
-| `DirichletBoundary` | `dir*` |  | — |
-| `ZeroFluxBoundary` | `zflx*` |  | — |
-| `DirichletBoundary` | `dir*` |  | — |
-| `FluxBoundary` | `flux*` |  | — |
-| `ZeroFluxBoundary` | `zflx*` |  | — |
-| `FluxBoundary` | `fl*` |  | — |
-| `HeatFluxBoundary` | `hf*` |  | — |
-| `HeatFluxBoundary` | `hf*` |  | — |
-| `HeatFluxBoundary` | `hf*` |  | — |
-| `HeatFluxBoundary` | `hf*` |  | — |
-| `HeatFluxBoundary` | `hf*` |  | — |
-| `PeriodicCondition` | `pc*` |  | — |
-| `PeriodicCondition` | `pc*` |  | — |
-| `PeriodicCondition` | `pc*` |  | — |
-| `PeriodicCondition` | `pc*` |  | — |
-| `PeriodicCondition` | `pc*` |  | — |
-| `PeriodicCondition` | `pc*` |  | — |
-| `PeriodicCondition` | `pc*` |  | — |
-| `PeriodicCondition` | `pc*` |  | — |
-| `PeriodicCondition` | `pc*` |  | — |
-| `PeriodicCondition` | `pc*` |  | DestinationDomains |
-| `PeriodicCondition` | `pc*` |  | — |
-| `PeriodicCondition` | `pc*` |  | — |
-| `InletBoundary` | `inl*` |  | — |
-| `InteriorWallBC` | `iwbc*` |  | — |
-| `OutletBoundary` | `out*` |  | — |
-| `PeriodicFlowCondition` | `pfc*` |  | — |
-| `Wall` | `wall*` |  | WallBC |
-| `WallBC` | `wallbc*` |  | — |
+### 2.2 PDE Settings
+
+| Setting | Values | Description |
+|---------|--------|-------------|
+| Dependent variables | u, u2, ... | Number of PDEs to solve |
+| Units | User-specified | Dependent variable unit and source term unit |
+| Discretization | `Linear`, `Quadratic`, `Cubic`, etc. | Shape function order |
+
+### 2.3 Boundary Conditions
+
+| BC | mph Type | Equation | Dim |
+|----|---------|----------|-----|
+| Dirichlet | `DirichletBoundaryCondition` | u = r | 1 |
+| Flux/Source | `FluxBoundary` | −n·Γ = g − qu | 1 |
+| Zero Flux | `ZeroFluxBoundary` | −n·Γ = 0 | 1 |
+| Constraint | `Constraint` | General constraint | 1 |
+| Periodic Condition | `PeriodicCondition` | u_src = u_dst | 1 |
+
+**Flux BC properties**:
+
+| Property | Description |
+|----------|-------------|
+| `g` | Boundary flux/source |
+| `q` | Boundary absorption coefficient |
+
+### 2.4 Initial Values
+
+| Setting | Description |
+|---------|-------------|
+| u(t=0) | Initial value for dependent variable |
+| ∂u/∂t(t=0) | Initial time derivative (eₐ > 0) |
+
+### 2.5 Eigenvalue PDE
+
+When used with Eigenvalue study, the PDE becomes:
+
+∇·(c∇u) − au = λdₐu − λ²eₐu
+
+Where λ is the eigenvalue. Set `a` for the desired spectral transformation.
 
 ---
 
-## 4. Edge & Point Conditions
+## 3. General Form PDE (g)
 
-| Name | mph Tag | Type | Interface |
-|------|---------|------|-----------|
-| `CoefficientFormPDE` | `cfeq*` | Other |  |
-| `CoefficientFormPDE` | `cfeq*` | Other |  |
-| `init` | `init*` | Other |  |
-| `GeneralFormPDE` | `gfeq*` | Other |  |
-| `Constraint` | `cons*` | Other |  |
-| `GeneralFormPDE` | `gfeq*` | Other |  |
-| `init` | `init*` | Other |  |
-| `WeakFormPDE` | `wfeq*` | Other |  |
-| `PointwiseConstraint` | `constr*` | Point |  |
-| `GlobalConstraint` | `gconstr*` | Other |  |
-| `GlobalConstraint` | `gconstr*` | Other |  |
-| `PointwiseConstraint` | `constr*` | Point |  |
-| `PressurePointConstraint` | `prpc*` | Point |  |
-| `Constraints` | `ct*` | Other |  |
-| `FixedConstraint` | `fix*` | Other |  |
-| `AxialSymmetry` | `axi*` | Other |  |
-| `ExtFan` | `fan*` | Other |  |
-| `FluidProperties` | `fp*` | Other |  |
-| `Gravity` | `grav*` | Other |  |
-| `Grille` | `grille*` | Other |  |
-| `PressurePointConstraint` | `prpc*` | Point |  |
-| `StationaryFreeSurface` | `sfs*` | Other |  |
-| `Symmetry` | `sym*` | Other |  |
-| `VolumeForce` | `vf*` | Other |  |
-| `WeakContribution` | `weak*` | Other |  |
-| `init` | `init*` | Other |  |
-| `PressurePointConstraint` | `prpc*` | Point |  |
-| `DistributedODE` | `dode*` | Other |  |
-| `init` | `init*` | Other |  |
-| `DistributedODE` | `dode*` | Other |  |
-| `init` | `init*` | Other |  |
-| `DistributedODE` | `dode*` | Point |  |
-| `init` | `init*` | Point |  |
-| `ControlVariableBounds` | `bound*` | Other |  |
-| `ControlVariableField` | `cvar*` | Other |  |
-| `CoordinateColumn` | `c*` | Other |  |
-| `GlobalControlVariables` | `gcvar*` | Other |  |
-| `GlobalLeastSquaresObjective` | `glsobj*` | Other |  |
-| `GlobalObjective` | `gobj*` | Other |  |
-| `IntegralInequality` | `iconstr*` | Other |  |
+### 3.1 Governing Equation
+
+eₐ∂²u/∂t² + dₐ∂u/∂t + ∇·Γ = F
+
+Where:
+- Γ = −c∇u − αu + γ (conservative flux)
+- F = f − β·∇u − au (source)
+
+**Key difference from Coefficient Form**: Equations written in **conservative form** — better for nonlinear problems where flux continuity is critical.
+
+### 3.2 Boundary Conditions
+
+Same types as Coefficient Form, but Flux BC uses Γ directly:
+
+| BC | mph Type | Equation |
+|----|---------|----------|
+| Dirichlet | `DirichletBoundaryCondition` | u = r |
+| Flux | `FluxBoundary` | −n·Γ = g − qu |
+| Zero Flux | `ZeroFluxBoundary` | −n·Γ = 0 |
+| Constraint | `Constraint` | Any expression |
+
+### 3.3 Conservative Flux Specification
+
+| Component | Expression | Format |
+|-----------|-----------|--------|
+| Γ (flux vector) | −c∇u − αu + γ | Enter as components (Γx, Γy, Γz) |
+| F (source) | f − β·∇u − au | Scalar expression |
 
 ---
 
-## 5. Pair Conditions
+## 4. Weak Form PDE (w)
 
-| Name | mph Tag | Interface |
-|------|---------|----------|
-| `ContactAngle` | `cnta*` |  |
+### 4.1 Formulation
+
+∫Ω (test(u)·F − ∇test(u)·Γ) dV + boundary terms = 0
+
+Where `test(u)` is the test function for variable u.
+
+### 4.2 Weak Expression
+
+| Term | mph Property | Description |
+|------|-------------|-------------|
+| Weak contribution | `weak` | Domain integral expression |
+| Boundary weak | — | Boundary integral (add as subnode) |
+| Constraint | — | Pointwise constraints |
+| Pointwise constraint | — | Lagrange multiplier enforcement |
+
+### 4.3 Usage Pattern
+
+```python
+# Poisson equation: ∇²u = f → weak form: ∫(−∇v·∇u − v·f)dV = 0
+w = comp.physics().create('w', 'WeakFormPDE', 'geom1')
+w.set('weak', '-test(ux)*ux - test(uy)*uy - test(u)*f')
+```
 
 ---
 
-## 6. Expression Reference
+## 5. ODE/DAE Interfaces
 
-Common postprocessing expressions (use with `model.evaluate()`):
+### 5.1 Global ODEs and DAEs (ode)
 
-| Expression | Unit | Description |
-|-----------|------|-------------|
-| `c.u` | — | PDE dependent variable |
-| `g.u` | — | PDE dependent variable |
+| Interface | Scope | Variables | Purpose |
+|-----------|-------|-----------|---------|
+| Global ODEs/DAEs | Model-wide | Scalar ODE variables | Lumped parameter models |
+| Domain ODEs | Per-domain | u(x,y,z,t) | ODE at each spatial point |
+| Boundary ODEs | Per-boundary | u(t) on boundary | Surface reactions, circuits |
+| Point ODEs | Per-point | u(t) at vertices | Lumped element attachment |
+
+### 5.2 ODE Equation Format
+
+eₐ·d²u/dt² + dₐ·du/dt = f(t,u)
+
+| Coefficient | Purpose |
+|------------|---------|
+| `f` | Right-hand side (source) |
+| `d_a` | Damping coefficient (multiplies du/dt) |
+| `e_a` | Mass coefficient (multiplies d²u/dt²) |
+
+### 5.3 DAE (Differential-Algebraic) Format
+
+When `d_a = 0` for some equations, the system becomes a DAE:
+
+f(t,u,v) = 0  (algebraic constraint)
+dₐ·dv/dt = g(t,u,v)  (differential equation)
+
+COMSOL automatically detects DAE structure and applies consistent initialization.
+
+### 5.4 Initial Conditions
+
+| Setting | For |
+|---------|-----|
+| `u(t0)` | Initial value of variable (all ODEs/DAEs) |
+| `du/dt(t0)` | Initial derivative (2nd-order ODEs only) |
 
 ---
 
-## 7. Multiphysics Couplings
+## 6. Optimization Interfaces
 
-| Coupling | mph Type | Links |
-|----------|---------|-------|
-| *(No module-specific multiphysics couplings)* |
+### 6.1 Optimization (opt)
+
+| Feature | mph Type | Purpose |
+|---------|---------|---------|
+| Objective | `Objective` | Quantity to minimize/maximize |
+| Control Variable | `ControlVariable` | Parameter to optimize |
+| Constraint | `Constraint` | Equality/inequality constraint |
+
+**Objective types**:
+
+| Type | Description |
+|------|-------------|
+| Integral objective | ∫f(u)dV — minimize total quantity |
+| Point objective | f at a specific point |
+| Global objective | Single scalar from Global Evaluation |
+| Least-squares | Σ(yᵢ − yᵢ_target)²/N |
+
+### 6.2 Sensitivity (sens)
+
+Computes df/dp for objective f with respect to parameter p.
+
+**Methods**: Forward (direct), Adjoint (efficient for many parameters)
+
+### 6.3 Shape Optimization
+
+Optimizes the shape of boundaries to minimize an objective subject to PDE constraints. Uses free boundary displacement as control.
+
+### 6.4 Topology Optimization
+
+Optimizes material distribution (density ρ ∈ [0,1]) in a design domain. Uses SIMP (Solid Isotropic Material with Penalization) or level-set methods.
 
 ---
 
-## 8. Common Patterns & COMSOL 6.4 Notes
+## 7. Expression Reference
 
-- **mph API rule**: Use column-major flat arrays for all matrix properties
-- **mph API rule**: Set property mode (`*_mat='userdef'`) before setting value
-- **mph API rule**: Use COMSOL unit expressions (`'100[nm]'`) for Box selections
-- **COMSOL 6.4**: `FloatingPotential` causes singular matrix in pure-field problems
+### 7.1 PDE Variables (`c.*`, `g.*`, `w.*`)
 
+| Expression | Description |
+|-----------|-------------|
+| `c.u` | Dependent variable (Coefficient Form) |
+| `c.ux`, `c.uy`, `c.uz` | Spatial derivatives |
+| `c.uxx`, `c.uyy`, `c.uzz` | Second derivatives |
+| `c.ut` | Time derivative |
+| `c.utt` | Second time derivative |
+| `g.u`, `g.ux`, etc. | Same for General Form |
+| `w.u`, `w.ux`, etc. | Same for Weak Form |
+
+### 7.2 ODE Variables (`ode.*`)
+
+| Expression | Description |
+|-----------|-------------|
+| `ode.u1`, `ode.u2` | ODE variables |
+| `ode.ut1` | Time derivative |
+| `ode.utt1` | Second derivative |
+
+### 7.3 Optimization (`opt.*`)
+
+| Expression | Description |
+|-----------|-------------|
+| `opt.obj` | Objective value |
+| `opt.sens_<param>` | Sensitivity w.r.t. parameter |
+
+---
+
+## 8. mph API Usage
+
+### Coefficient Form PDE
+
+```python
+c = comp.physics().create('c', 'CoefficientFormPDE', 'geom1')
+c.selection().all()
+c.set('c', '1')       # Diffusion coefficient = 1
+c.set('a', '0')       # Absorption = 0
+c.set('f', '1')       # Source = 1
+c.set('da', '0')      # No damping
+c.set('ea', '0')      # No mass term
+
+# Dirichlet BC: u = 0 at boundary
+dirichlet = c.feature().create('dir1', 'DirichletBoundaryCondition', 1)
+dirichlet.selection().set([bnd])
+dirichlet.set('r', '0')
+
+# Flux BC: −n·Γ = 1
+flux = c.feature().create('flux1', 'FluxBoundary', 1)
+flux.set('g', '1')
+```
+
+### ODE
+
+```python
+ode = comp.physics().create('ode1', 'GlobalEquations')
+ode.set('u1_init', '0')
+ode.set('f_1', 'sin(2*pi*1[Hz]*t)')  # f(t,u) RHS
+ode.set('da_1', '1')                   # du/dt coefficient
+```
+
+---
+
+## 9. COMSOL 6.4 Specific Notes
+
+- **PDE unit handling**: COMSOL requires consistent units; set `Dependent variable unit` and `Source term unit` in PDE Settings
+- **Eigenvalue PDE**: Use `Eigenvalue` study; a = −λ² for Helmholtz (eₐ=0, dₐ=0), or a = 0 for diffusion eigenmodes
+- **Weak form integration**: Use `test(u)` notation; COMSOL automatically handles integration by parts
+- **DAE initialization**: For DAEs, COMSOL uses consistent initialization; may require `Initial Values` study step first
+- **Optimization solver**: Requires Optimization Module license; uses SNOPT, MMA, or IPOPT
+- **Shape optimization**: Mesh deformation via ALE (Arbitrary Lagrangian-Eulerian) — geometry must be parameterized
+- **Topology optimization**: HELMholtz filter for mesh-independence; projection for 0/1 designs

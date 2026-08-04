@@ -1,261 +1,226 @@
 # Chemical Species Transport Module — Comprehensive API Reference
 
-Transport of Diluted/Concentrated Species, Reaction Engineering, Chemistry
-
-COMSOL 6.4 · mph Python API · Extracted from official documentation and tags.json
-
----
-
-## Contents
-
-1. [Physics Interfaces](#physics-interfaces)
-2. [Domain Features](#domain-features)
-3. [Boundary Conditions](#boundary-conditions)
-4. [Edge & Point Conditions](#edge-point-conditions)
-5. [Pair Conditions](#pair-conditions)
-6. [Expression Reference](#expression-reference)
-7. [Multiphysics Couplings](#multiphysics-couplings)
-8. [Common Patterns & Notes](#common-patterns)
+COMSOL 6.4 · mph Python API · Based on official Chemical Reaction Engineering Module Users Guide and tags.json
 
 ---
 
 ## 1. Physics Interfaces
 
-| Interface | mph Tag | COMSOL Name | Description |
-|-----------|---------|-------------|-------------|
-| `?` | `` | ? |  (3 features) |
-| `BoltzmannEquation` | `be` | BoltzmannEquation |  (1 features) |
-| `ChargeTransport` | `ct` | ChargeTransport | Chemical species transport (1 features) |
-| `Chemistry` | `chem` | Chemistry |  (5 features) |
-| `CoefficientFormPDE` | `c` | CoefficientFormPDE | Mathematics PDE interface (2 features) |
-| `ColdPlasma` | `plas` | ColdPlasma | Plasma discharge (5 features) |
-| `ConcentratedSpecies` | `tcs` | ConcentratedSpecies | Chemical species transport (7 features) |
-| `ConvectionDiffusionEquation` | `cdeq` | ConvectionDiffusionEquation |  (4 features) |
-| `CurrentDistributionBEM` | `cdbem` | CurrentDistributionBEM |  (1 features) |
-| `CurrentDistributionShell` | `cdsh` | CurrentDistributionShell |  (1 features) |
-| `CurvilinearCoordinates` | `cc` | CurvilinearCoordinates |  (4 features) |
-| `DarcysLaw` | `dl` | DarcysLaw |  (1 features) |
-| `DilutedSpecies` | `tds` | DilutedSpecies | Chemical species transport (15 features) |
-| `DilutedSpeciesInPorousMedia` | `tds` | DilutedSpeciesInPorousMedia | Chemical species transport (22 features) |
-| `ElectrophoreticTransport` | `el` | ElectrophoreticTransport | Chemical species transport (14 features) |
-| `FluidParticleTracing` | `fpt` | FluidParticleTracing |  (2 features) |
-| `FreeAndPorousMediaFlow` | `fp` | FreeAndPorousMediaFlow |  (8 features) |
-| `GeneralFormPDE` | `g` | GeneralFormPDE | Mathematics PDE interface (2 features) |
-| `HeatTransfer` | `ht` | HeatTransfer |  (1 features) |
-| `HeatTransferInBuildingMaterials` | `ht` | HeatTransferInBuildingMaterials |  (1 features) |
-| `HeatTransferInFluids` | `ht` | HeatTransferInFluids |  (6 features) |
-| `HeatTransferInMoistAir` | `ht` | HeatTransferInMoistAir |  (1 features) |
-| `HeatTransferInShellsLM` | `htlsh` | HeatTransferInShellsLM |  (2 features) |
-| `HeatTransferInSolidsAndFluids` | `ht` | HeatTransferInSolidsAndFluids |  (3 features) |
-| `HeatTransferPipes` | `htp` | HeatTransferPipes |  (1 features) |
-| `HeavySpeciesTransport` | `hs` | HeavySpeciesTransport | Chemical species transport (2 features) |
-| `LaplaceEquation` | `lpeq` | LaplaceEquation |  (2 features) |
-| `MagneticFieldsNoCurrentsBoundaryElements` | `mfncbe` | MagneticFieldsNoCurrentsBoundaryElements | Boundary element method EM (2 features) |
-| `MagnetostaticsNoCurrents` | `mfnc` | MagnetostaticsNoCurrents |  (2 features) |
-| `MoistureTransportInAir` | `mt` | MoistureTransportInAir | Chemical species transport (1 features) |
-| `MoistureTransportInBuildingMaterials` | `mt` | MoistureTransportInBuildingMaterials | Chemical species transport (1 features) |
-| `NonisothermalPipeFlow` | `nipfl` | NonisothermalPipeFlow |  (1 features) |
-| `PhaseTransport` | `phtr` | PhaseTransport | Chemical species transport (1 features) |
-| `PhaseTransportPorousMedia` | `phtr` | PhaseTransportPorousMedia | Chemical species transport (10 features) |
-| `PlasmaTimePeriodic` | `ptp` | PlasmaTimePeriodic | Plasma discharge (4 features) |
-| `PoroelasticWavesSinglePhysics` | `pelw` | PoroelasticWavesSinglePhysics |  (1 features) |
-| `PorousMedia` | `tds` | PorousMedia |  (3 features) |
-| `PorousMediaHeatTransfer` | `ht` | PorousMediaHeatTransfer |  (25 features) |
-| `PrimaryCurrentDistribution` | `cd` | PrimaryCurrentDistribution |  (1 features) |
-| `ReactionEng` | `re` | ReactionEng | Reaction engineering (11 features) |
-| `RotatingMachineryMagnetic` | `rmm` | RotatingMachineryMagnetic |  (2 features) |
-| `SchrodingerEquation` | `schr` | SchrodingerEquation |  (1 features) |
-| `SecondaryCurrentDistribution` | `cd` | SecondaryCurrentDistribution |  (2 features) |
-| `SolidMechanics` | `solid` | SolidMechanics |  (1 features) |
-| `SurfaceReactions` | `sr*` | SurfaceReactions | Reaction engineering (4 features) |
-| `TertiaryCurrentDistributionNernstPlanck` | `tcd` | TertiaryCurrentDistributionNernstPlanck |  (21 features) |
-| `TertiaryElectroanalysis` | `tcd` | TertiaryElectroanalysis |  (5 features) |
-| `empty` | `` | empty |  (2 features) |
-| `mixed` | `` | mixed |  (2 features) |
-| `solid` | `` | solid |  (4 features) |
-| `surface` | `` | surface |  (1 features) |
+The module spans two categories:
+
+### 1.1 Chemical Species Transport Interfaces
+
+| Interface | mph Tag | Default | Description |
+|-----------|---------|---------|-------------|
+| Transport of Diluted Species | `tds` | `tds` | Fickian diffusion + convection + migration for dilute solutions |
+| Transport of Diluted Species in Porous Media | `tds` | `tds` | Same with porosity ε, tortuosity τ |
+| Transport of Diluted Species in Porous Catalysts | `tds` | `tds` | Porous media + catalytic reactions |
+| Transport of Concentrated Species | `tcs` | `tcs` | Maxwell-Stefan multicomponent diffusion |
+| Nernst-Planck Equations | `npe` | `npe` | Electrolyte ion transport with electroneutrality |
+| Electrokinetic Flow | `ek` | `ek` | Electroosmosis + electrophoresis |
+| Reacting Flow in Porous Media | — | — | Transport + reaction in porous flow |
+| Reacting Flow, Diluted Species | — | — | Transport + reaction with fluid flow |
+
+### 1.2 Chemistry & Reaction Engineering Interfaces
+
+| Interface | mph Tag | Default | Description |
+|-----------|---------|---------|-------------|
+| Chemistry | `chem` | `chem` | Define species, reactions, thermodynamics |
+| Reaction Engineering | `re` | `re` | Ideal reactor models (batch, CSTR, PFR) |
+
+### 1.3 Transport of Diluted Species (tds) — Default Nodes
+
+| Default Node | mph Type | Purpose |
+|-------------|---------|---------|
+| Transport Properties | `TransportProperties` | Dᵢ, u (velocity field) |
+| No Flux | `NoFlux` | n·Nᵢ = 0 (default BC) |
+| Initial Values | `InitialValues` | cᵢ = cᵢ₀ |
+
+**Governing equation**: ∂cᵢ/∂t + ∇·(−Dᵢ∇cᵢ) + u·∇cᵢ = Rᵢ
+
+Where Dᵢ is the diffusion coefficient, u is convection velocity, Rᵢ is reaction source term.
+
+**Available transport mechanisms** (each can be toggled on/off):
+
+| Mechanism | Equation Term | When to Use |
+|-----------|--------------|-------------|
+| Diffusion | −Dᵢ∇cᵢ | Always (Fick's law) |
+| Convection | u·∇cᵢ | Flow fields from CFD coupling |
+| Migration | −zᵢuₘᵢFcᵢ∇V | Electrolytes with electric field |
+| Turbulent mixing | −(D_T/Sc_T)∇cᵢ | Turbulent flow coupling |
 
 ---
 
-## 2. Domain Features
+## 2. Domain Features — Transport of Diluted Species
 
-| Feature Name | mph Tag | Interface | Key Properties |
-|-------------|---------|-----------|---------------|
-| `ReactionWithTurbulenceModel` | `treac*` |  | — |
-| `ConvectionDiffusionEquation` | `cdeq*` |  | — |
-| `FluidPorousMedium` | `fluid*` |  | — |
-| `PorousMatrixPorousMedium` | `pm*` |  | — |
-| `PorousMedium` | `porous*` |  | FluidPorousMedium, PorousMatrixPorousMedium |
-| `FluidPorousMedium` | `fluid*` |  | — |
-| `GasUnsaturatedPorousMedium` | `gas*` |  | — |
-| `LiquidUnsaturatedPorousMedium` | `liquid*` |  | — |
-| `PorousMatrixPorousMedium` | `pm*` |  | — |
-| `PorousMedium` | `porous*` |  | Adsorptions, Dispersion, FluidPorousMedium, PorousMatrixPorousMedium |
-| `UnsaturatedPorousMedium` | `usporous*` |  | Adsorptions, Dispersion, GasUnsaturatedPorousMedium, LiquidUnsaturatedPorousMedium, PorousMatrixPorousMedium |
-| `FluidPorousMediumHeatTransferModel` | `fluid*` |  | — |
-| `PorousMatrixPorousMediumHeatTransferModel` | `pm*` |  | — |
-| `PorousMediumHeatTransferModel` | `porous*` |  | FluidPorousMediumHeatTransferModel, PorousMatrixPorousMediumHeatTransferModel |
-| `PorousMediumDiscontinuity` | `pmd*` |  | — |
-| `FluidHeatTransferModel` | `fluid*` |  | Opacity |
-| `FluidPorousMediumHeatTransferModel` | `fluid*` |  | PhaseChangeMaterial |
-| `ImmobileFluidPorousMaterial` | `imf*` |  | — |
-| `IsothermalDomainInterface` | `idi*` |  | LayerOpacity |
-| `PhaseChangeMaterial` | `phc*` |  | — |
-| `PorousMatrixPorousMediumHeatTransferModel` | `pm*` |  | — |
-| `PorousMediumHeatTransferModel` | `porous*` |  | FluidPorousMediumHeatTransferModel, PhaseChangeMaterial, ImmobileFluidPorousMaterial, PorousMatrixPorousMediumHeatTransferModel |
-| `PorousMediumLayeredShell` | `pmls*` |  | init, ThermalInsulation |
-| `SolidHeatTransferModel` | `solid*` |  | Opacity |
-| `PartitionDomains` | `pard*` |  | — |
-| `PartitionDomains` | `pard*` |  | — |
-| `PartitionDomains` | `pard*` |  | — |
-| `PartitionDomains` | `pard*` |  | — |
+### 2.1 Transport Properties (default)
+
+| Property | Symbol | Unit | Description |
+|----------|--------|------|-------------|
+| Diffusion coefficient | Dᵢ | m²/s | Per species; can be T/c-dependent |
+| Velocity field | u | m/s | From Laminar/Turbulent Flow interface |
+| Electric potential | V | V | From Electrostatics/Electric Currents |
+| Temperature | T | K | For T-dependent Dᵢ |
+| Porosity | ε | 1 | For porous media variant |
+| Tortuosity | τ | 1 | D_eff = D·ε/τ |
+
+### 2.2 Reactions
+
+| Feature | mph Type | Purpose |
+|---------|---------|---------|
+| Reactions | `Reactions` | Bulk volume reactions Rᵢ in domain |
+| Volumetric Reaction Rate | — | User-defined rate expression |
+
+### 2.3 Additional Domain Features
+
+| Feature | mph Type | Purpose |
+|---------|---------|---------|
+| Species Source/Sink | `Source` | External species source term |
+| Dispersion | `Dispersion` | Dispersion tensor for porous media |
+| Adsorption/Desorption | `Adsorption` | Surface adsorption equilibrium |
+| Partition Coefficient | `Partition` | Interface partitioning (membrane) |
 
 ---
 
-## 3. Boundary Conditions
+## 3. Boundary Conditions — Transport of Diluted Species
 
-| BC Name | mph Tag | Interface | Key Properties |
-|---------|---------|-----------|---------------|
-| `PeriodicCondition` | `pc*` |  | — |
-| `DirichletBoundary` | `dir*` |  | — |
-| `ZeroFluxBoundary` | `zflx*` |  | — |
-| `BoundaryReactionCoefficients` | `rc*` |  | — |
-| `FluxBoundary` | `fl*` |  | — |
-| `WallDriftDiffusion` | `wall*` |  | — |
-| `WallDefault` | `wall*` |  | — |
-| `WallDriftDiffusion` | `wall*` |  | — |
-| `FluxBoundary` | `flux*` |  | — |
-| `ZeroFluxBoundary` | `zflx*` |  | — |
-| `FluxBoundary` | `flux*` |  | — |
-| `ZeroFluxBoundary` | `zflx*` |  | — |
-| `HeatFluxBoundary` | `hf*` |  | — |
-| `HeatFluxBoundary` | `hf*` |  | — |
-| `HeatFluxBoundary` | `hf*` |  | — |
-| `HeatFluxBoundary` | `hf*` |  | — |
-| `FluxBoundary` | `flux*` |  | — |
-| `ZeroFluxBoundary` | `zflx*` |  | — |
-| `BoundaryHeatSource` | `bhs*` |  | — |
-| `ContinuityOnInteriorBoundary` | `cib*` |  | — |
-| `HeatFluxBoundary` | `hf*` |  | — |
-| `OpenBoundary` | `open*` |  | — |
-| `TemperatureBoundary` | `temp*` |  | — |
-| `InletBoundary` | `inl*` |  | — |
-| `OutletBoundary` | `out*` |  | — |
-| `Wall` | `wall*` |  | WallBC |
-| `WallBC` | `wallbc*` |  | — |
+| BC | mph Type | Equation | Purpose |
+|----|---------|----------|---------|
+| Concentration | `Concentration` | cᵢ = c₀ | Fixed concentration |
+| Flux | `Flux` | −n·Nᵢ = N₀ | Specified inward flux |
+| No Flux | `NoFlux` | −n·Nᵢ = 0 | Insulation/symmetry (default) |
+| Inflow | `Inflow` | cᵢ = c₀ᵢ (inflow), −n·Dᵢ∇cᵢ = 0 (outflow) | Open boundary with fluid flow |
+| Outflow | `Outflow` | −n·Dᵢ∇cᵢ = 0 | Convection-dominated outlet |
+| Symmetry | `Symmetry` | −n·Nᵢ = 0 | Symmetry plane |
+| Thin Diffusion Barrier | `ThinDiffusionBarrier` | Interior BC with resistance | Membrane/permeable wall |
+| Periodic Condition | `PeriodicCondition` | c_src = c_dst | Unit cell |
+| Surface Reactions | — | −n·Nᵢ = R_surf | Catalytic surface reactions |
 
 ---
 
-## 4. Edge & Point Conditions
+## 4. Transport of Concentrated Species (tcs)
 
-| Name | mph Tag | Type | Interface |
-|------|---------|------|-----------|
-| `ReactionChem` | `rch*` | Other |  |
-| `ReversibleReactionGroup` | `rgr*` | Other |  |
-| `SpeciesChem` | `sch*` | Other |  |
-| `SpeciesGroup` | `sg_rgr*` | Other |  |
-| `SpeciesThermodynamics` | `sthm*` | Other |  |
-| `ConvectionDiffusionMigration` | `cdm*` | Other |  |
-| `Inflow` | `in*` | Other |  |
-| `NoFlux` | `nflx*` | Other |  |
-| `Outflow` | `out*` | Other |  |
-| `ReactionSources` | `reac*` | Other |  |
-| `TCSPorousMediaTransportProperties` | `pmtcs*` | Other |  |
-| `AxialSymmetry` | `axi*` | Other |  |
-| `Concentration` | `conc*` | Other |  |
-| `ElectricInsulation` | `ein*` | Other |  |
-| `ElectrodeReaction` | `er*` | Other |  |
-| `ElectrodeSurface` | `es*` | Other |  |
-| `Electrolyte` | `ice*` | Other |  |
-| `ElectrolytePotential` | `eip*` | Other |  |
-| `ElectrolytePotentialPoint` | `eip*` | Point |  |
-| `EquilibriumReaction` | `eqreac*` | Other |  |
-| `GlobalConstraint` | `gconstr*` | Other |  |
-| `HighlyConductivePorousElectrode` | `hcpce*` | Other |  |
-| `Inflow` | `in*` | Other |  |
-| `IonExchangeMembrane` | `iem*` | Other |  |
-| `NoFlux` | `nflx*` | Other |  |
-| `NonFaradaicReactions` | `nfr*` | Other |  |
-| `Outflow` | `out*` | Other |  |
-| `PorousElectrodeReaction` | `per*` | Other |  |
-| `Separator` | `sep*` | Other |  |
-| `SurfaceChargeDensity` | `sfcd*` | Other |  |
-| `init` | `init*` | Other |  |
-| `init` | `init*` | Other |  |
-| `Concentration` | `conc*` | Other |  |
-| `ConvectionDiffusionMigration` | `cdm*` | Other |  |
-| `Inflow` | `in*` | Other |  |
-| `NoFlux` | `nflx*` | Other |  |
-| `Outflow` | `out*` | Other |  |
-| `PartitionCondition` | `pac*` | Other |  |
-| `Reactions` | `reac*` | Other |  |
-| `SurfaceEquilibriumReaction` | `seqreac*` | Other |  |
+Uses **Maxwell-Stefan** equations for multicomponent diffusion:
+
+dₖ = −Σ xₖxⱼ(uₖ−uⱼ)/Đₖⱼ
+
+**Key Differences from Diluted**:
+
+| Aspect | Diluted (tds) | Concentrated (tcs) |
+|--------|--------------|-------------------|
+| Diffusion model | Fick's law (Dᵢ per species) | Maxwell-Stefan (Đₖⱼ per pair) |
+| Solvent | Implicit (excess solvent) | All species explicit |
+| Use case | Trace species in solvent | Gas mixtures, concentrated electrolytes |
+| Computaion | Light (N equations) | Heavy (N(N−1)/2 pairs) |
 
 ---
 
-## 5. Pair Conditions
+## 5. Reaction Engineering Interface (re)
 
+Ideal reactor models for kinetic studies:
+
+| Reactor Type | Variables | Description |
+|-------------|-----------|-------------|
+| Batch | c(t) | Closed system, no flow |
+| CSTR | c (steady) | Continuous stirred tank |
+| PFR | c(z) | Plug flow reactor (1D) |
+| Semibatch | c(t), V(t) | Feed addition over time |
+
+**Reaction definition**:
+```python
+# Reaction: A + 2B → C
+reaction.set('Formula', 'A+2B=>C')
+reaction.set('RateConstant', 'kf')
+reaction.set('Rate', 'kf*cA*cB^2')    # Elementary
+reaction.set('ActivationEnergy', 'Ea')  # Arrhenius k = A·exp(−Ea/(RT))
+```
+
+**Rate law types**:
+
+| Type | Rate Expression | Parameters |
+|------|----------------|-----------|
+| Mass action | r = k·Πcᵢ^(νᵢ) | k, reaction order |
+| Langmuir-Hinshelwood | r = k·K·c/(1+K·c) | k, K |
+| Enzymatic (Michaelis-Menten) | r = V_max·c/(K_m+c) | V_max, K_m |
+| User defined | Any expression | — |
 
 ---
 
-## 6. Expression Reference
+## 6. Chemistry Interface (chem)
 
-Common postprocessing expressions (use with `model.evaluate()`):
+Defines species and reactions independent of transport. Used to:
+
+1. Generate rate expressions automatically from formulas
+2. Import CHEMKIN files
+3. Define thermodynamic properties (NASA polynomials)
+4. Couple to transport interfaces via "Species" matching
+
+```python
+chem = comp.physics().create('chem', 'Chemistry')
+# Add species
+sp = chem.feature().create('sp_O2', 'Species')
+sp.set('Formula', 'O2')
+# Add reaction
+rxn = chem.feature().create('rxn1', 'Reaction')
+rxn.set('Formula', 'H2+0.5O2=>H2O')
+rxn.set('RateConstant', '1e10[m^3/(mol*s)]')
+```
+
+---
+
+## 7. Expression Reference
+
+### 7.1 Transport Variables (`tds.*`)
 
 | Expression | Unit | Description |
 |-----------|------|-------------|
-| `tds.c` | mol/m^3 | Concentration |
-| `tds.Nx` | mol/(m^2*s) | Flux, x-component |
-| `c.u` | — | PDE dependent variable |
-| `g.u` | — | PDE dependent variable |
+| `tds.c` | mol/m³ | Concentration (indexed by species) |
+| `tds.c_<name>` | mol/m³ | Named species concentration |
+| `tds.Nx`, `tds.Ny`, `tds.Nz` | mol/(m²·s) | Total flux |
+| `tds.D_<name>` | m²/s | Diffusion coefficient |
+| `tds.R_<name>` | mol/(m³·s) | Reaction rate |
+| `tds.dfluxMag_<name>` | mol/(m²·s) | Diffusive flux magnitude |
+| `tds.cfluxMag_<name>` | mol/(m²·s) | Convective flux magnitude |
+
+### 7.2 Concentrated Species (`tcs.*`)
+
+| Expression | Unit | Description |
+|-----------|------|-------------|
+| `tcs.x_<name>` | 1 | Mole fraction |
+| `tcs.c` | mol/m³ | Total concentration |
+| `tcs.w_<name>` | 1 | Mass fraction |
+| `tcs.Dij` | m²/s | Binary Maxwell-Stefan diffusivity |
+
+### 7.3 Reaction Engineering (`re.*`)
+
+| Expression | Unit | Description |
+|-----------|------|-------------|
+| `re.c_<name>` | mol/m³ | Species concentration |
+| `re.r_<reaction>` | mol/(m³·s) | Reaction rate |
+| `re.k_f_<name>` | varies | Forward rate constant |
+| `re.K_eq` | varies | Equilibrium constant |
 
 ---
 
-## 7. Multiphysics Couplings
+## 8. Multiphysics Couplings
 
-| Coupling | mph Type | Links |
-|----------|---------|-------|
-| `AcousticPorousBoundary` | `apb*` | — |
-| `MultiphaseFlowInPorousMedia` | `mfpm*` | — |
-| `PorousStructureBoundary` | `psb*` | — |
+| Coupling | Interfaces | Application |
+|----------|-----------|-------------|
+| Reacting Flow | tds/tds + spf/ns | Chemical reactor with flow |
+| Transport of Diluted Species–Laminar Flow | tds + spf | Microfluidic mixing |
+| Nernst-Planck–Electrostatics | npe + es | Electrochemical cells |
+| Porous Media Transport | tds + brinkman/darcy | Catalytic packed beds |
+| Chemistry–Transport | chem + tds | Complex kinetics in flow |
 
 ---
 
-## 8. Common Patterns & COMSOL 6.4 Notes
+## 9. COMSOL 6.4 Specific Notes
 
-- Note: Some of the additional transport mechanisms listed below are only available in 
-certain products. For details see www.comsol.com/products/specifications/.
-• By default, the Convection checkbox i
-
-- Note: Mass transport in porous media is only available in a limited set of 
-add-on products. See www.comsol.com/products/specifications/ for 
-more details on availability.
-
-
---- Page 137 ---
-T H E  T 
-
-- Note: There are other definitions of the migration transport equations in the 
-literature which use mobilities expressed in m2/(V·s), whereas COMSOL 
-Multiphysics uses s·mol/kg. To convert mobilities 
-
-- Note: Some features explained in this section require certain add-on modules. For 
-details see www.comsol.com/products/specifications/
-
-
---- Page 354 ---
-354 |  C H A P T E R  3 :  C H E M I C A L  S 
-
-- Note: The features below are only available in a limited set of add-on products. For a 
-detailed overview of which features are available in each product, visit 
-www.comsol.com/products/specifications
-
-- Note: Migration is only available in a limited set of add-on products. For a detailed 
-overview of which features are available in each product, visit 
-www.comsol.com/products/specifications/
-In addit
-
-- Note: In the Nernst–Planck Equations interface, the ionic species contribute to the 
-charge transfer in the solution. It includes an electroneutrality condition and also 
-computes the electric potenti
-
+- **Species names**: Must be valid COMSOL identifiers (no spaces, special chars) — use underscores
+- **Diffusion coefficients**: For liquids ~10⁻⁹ m²/s; for gases ~10⁻⁵ m²/s
+- **Migration**: Requires electric field from AC/DC interface; mobility uₘ = D/(RT) (Nernst-Einstein)
+- **Surface reactions**: Flux BC — rate in mol/(m²·s), convert from volume rate × surface area
+- **Equilibrium reactions**: Set `ReactionType` to `Equilibrium`; COMSOL solves algebraic constraint
+- **CHEMKIN import**: Use `chem.feature().create('imp1', 'CHEMKINImport')` — reads gas-phase kinetics
+- **Turbulent Schmidt number**: Sc_T ≈ 0.7 for gases, ≈ 1000 for liquids (default in COMSOL)
+- **Porous media tortuosity**: Bruggeman model: τ = ε^(−0.5)
