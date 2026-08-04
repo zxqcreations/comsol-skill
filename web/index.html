@@ -467,13 +467,12 @@ const btoPositions = [
   { z: H_gce + 155 * scale },  // BTO2 center z=255nm
   { z: H_gce + 255 * scale },  // BTO3 center z=355nm
 ];
-const btoMeshes = [];
 btoPositions.forEach(({ z }) => {
   const sphere = new THREE.Mesh(btoGeom, btoMat.clone());
   sphere.position.set(0, z, 0);
   sphere.castShadow = true;
   scene.add(sphere);
-  btoMeshes.push(sphere);
+  meshes.particles.push(sphere);
 });
 
 // Symmetry axis line
@@ -536,7 +535,7 @@ function animate() {
 
   // Subtle BTO glow pulsing
   const t = performance.now() * 0.001;
-  btoMeshes.forEach((m, i) => {
+  modelMeshes.particles.forEach((m, i) => {
     m.material.emissiveIntensity = 0.4 + 0.15 * Math.sin(t * 1.5 + i * 0.8);
   });
 
