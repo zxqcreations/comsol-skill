@@ -1,0 +1,3493 @@
+
+=== PAGE 61 ===
+61 ---
+ 61
+ 3
+The Semiconductor Branch Interfaces
+This chapter describes the physics interfaces found under the Semiconductor 
+branch (
+).
+In this chapter:
+• The Semiconductor Interface
+• Theory for the Semiconductor Interface
+• The Semiconductor Optoelectronics, Beam Envelopes Interface
+• The Semiconductor Optoelectronics, Frequency Domain Interface
+• The Schrödinger Equation Interface
+• Theory for the Schrödinger Equation Interface
+• The Schrödinger–Poisson Equation Multiphysics Interface
+
+
+
+
+=== PAGE 62 ===
+62 ---
+62 |  C H A P T E R  3 :  T H E  S E M I C O N D U C T O R  B R A N C H  I N T E R F A C E S
+The Semiconductor Interface
+The Semiconductor (semi) interface (
+), found under the Semiconductor branch (
+) 
+when adding a physics interface, solves Poisson’s equation for the electric potential and 
+the drift–diffusion equations for electrons and holes in a semiconductor material. The 
+default domain feature is the Semiconductor Material Model, which adds these equations 
+to the domain, solving for the electric potential and dependent variables related to the 
+electron and hole concentrations.
+When this physics interface is added, these default nodes are also added to the Model 
+Builder — Semiconductor Material Model, Insulation, Zero Charge, and Initial Values. 
+Then, from the Physics toolbar, add other nodes that implement, for example, 
+boundary conditions and Generation–Recombination models. You can also right-click 
+Semiconductor to select physics features from the context menu.
+S E T T I N G S
+The Label is the default physics interface name.
+The Name is used primarily as a scope prefix for variables defined by the physics 
+interface. Refer to such physics interface variables in expressions using the pattern 
+<name>.<variable_name>. In order to distinguish between variables belonging to 
+different physics interfaces, the name string must be unique. Only letters, numbers, and 
+underscores (_) are permitted in the Name field. The first character must be a letter.
+The default Name (for the first physics interface in the model) is semi.
+T H I C K N E S S  ( 1 D / 2 D  M O D E L S )
+Enter the Out-of-plane thickness d (SI unit: m) (2D components), or Cross-section area 
+A (SI unit: m2) (1D components), or Vertical height d (SI unit: m) (1D axisymmetric 
+components).
+M O D E L  P R O P E R T I E S
+Use Model properties to set the carrier statistics and solution variables in the model.
+
+
+
+
+=== PAGE 63 ===
+63 ---
+T H E  S E M I C O N D U C T O R  I N T E R F A C E  |  63
+Carrier Statistics
+Select an option from the Carrier statistics list — Maxwell–Boltzmann (the default) or 
+Fermi–Dirac.
+• Maxwell–Boltzmann statistics apply when both the electron and hole quasi-Fermi 
+levels are within the band gap and at least several kBT away from the band edges.
+• Fermi–Dirac statistics are required to simulate degenerate semiconductors. Fermi–
+Dirac statistics should be used when one or more of the quasi-Fermi levels are close 
+to a band edge or even within the band.
+Solution
+Select an option from the Solution list — Electrons and holes (the default) to solve for 
+both, or Majority carriers only to solve the drift diffusion equations for only one of the 
+carriers, computing the concentration of the other carrier by means of the mass action 
+law: np = ni
+2. For Majority carriers only also select the Majority carriers — Electrons (the 
+default) or Holes.
+C O N T I N U A T I O N  S E T T I N G S
+Enter the Interface continuation parameter Cp (dimensionless). The default is 1.
+Select a Doping and trap density continuation — No continuation (the default), Use 
+interface continuation parameter, or User defined. For User defined enter a value for the 
+Doping and trap density continuation parameter Cp (dimensionless). The default is 1.
+R E F E R E N C E  T E M P E R A T U R E
+To display this section, click the Show More Options button (
+) and select Advanced 
+Physics Options in the Show More Options dialog. Enter a Reference temperature for 
+energy levels T0 (SI unit: K). The default is 293.15 K.
+The reference temperature is the temperature at which the equilibrium 
+Fermi level is defined. The equilibrium Fermi level is the Fermi-level of 
+the material when there are no applied voltages or currents and when the 
+temperature is uniform throughout the model at the reference 
+temperature. All potentials within the band diagram (for example, the 
+electron and hole Fermi levels and the conduction and valence bands) are 
+measured with respect to the equilibrium Fermi-level (which corresponds 
+to 0 eV).
+
+
+
+
+=== PAGE 64 ===
+64 ---
+64 |  C H A P T E R  3 :  T H E  S E M I C O N D U C T O R  B R A N C H  I N T E R F A C E S
+D I S C R E T I Z A T I O N
+Use this section to change the discretization of the semiconductor equations.
+Select a Formulation — Finite volume (constant shape function) (the default), Finite 
+element, log formulation (linear shape function), Finite element, log formulation 
+(quadratic shape function), Finite element quasi Fermi level (quadratic shape function), 
+Finite element quasi Fermi level (linear shape function), Finite element density-gradient 
+(quadratic shape function), Finite element density-gradient (linear shape function), Mixed 
+finite element, log formulation (linear shape function), or Mixed finite element, log 
+formulation (quadratic shape function).
+The Finite volume discretization is the default, and provides better current 
+conservation in most cases. The Finite element, log formulation uses fewer degrees of 
+freedom (with a linear shape function) and is generally more efficient (recommended 
+for 3D modeling). The quasi-Fermi level formulation can be suitable for some systems, 
+such as those with wide band gap or at very low temperatures. The density-gradient 
+formulation provides a computationally efficient method to include the effect of 
+quantum confinement in the conventional drift–diffusion equations. Mixed finite 
+element, log formulation is advantageous for calculating the leakage current 
+distribution in highly doped semiconductors operating under reverse bias conditions.
+Also specify the Value type when using splitting of complex variables — Real or Complex 
+(the default).
+S T A B I L I Z A T I O N
+To display the section: Click the Show More Options button (
+) and select Stabilization 
+in the Show More Options dialog. Then under Discretization, select one of these options 
+to further define this section: Finite element, log formulation (linear shape function), 
+Finite element, log formulation (quadratic shape function).
+Streamline diffusion is off by default. When Streamline diffusion is active additional 
+contributions to the equation system are added which improve the numerical stability. 
+This, however, can add unphysical artificial diffusion to the problem, which can 
+perturb the carrier densities if they take very small values.
+O P T I M A L  A V E R A G I N G  F O R  T H E  D I F F U S I O N  E N H A N C E M E N T  F A C T O R S  G N  
+G P
+To display the section click the Show More Options button (
+) and select Advanced 
+Physics Options. This section is only applicable and visible for the Fermi–Dirac statistics 
+with the Finite volume discretization. By selecting the checkbox, the computed 
+
+
+
+
+=== PAGE 65 ===
+65 ---
+T H E  S E M I C O N D U C T O R  I N T E R F A C E  |  65
+current density is most consistent with the limiting case of equilibrium condition (zero 
+current density).
+D E P E N D E N T  V A R I A B L E S
+The dependent variable (field variable) is for the Electric potential V, Electron 
+concentration Ne, and/or Hole concentration Ph depending on the selected Solution 
+(Electron and holes or Majority carrier only) under Model Properties. For the 
+quasi-Fermi level formulation and the density-gradient formulation, the dependent 
+variable for the electrons or holes is their quasi-Fermi level instead of their 
+concentration. In addition, for the density-gradient formulation, the Slotboom 
+variables are added to the list of dependent variables.
+The name of the dependent variable can be changed, but the names of fields and 
+dependent variables must be unique within a model.
+Domain, Edge, Boundary, Pair, and Point Nodes for the 
+Semiconductor Interface
+The Semiconductor Interface has these domain, edge, boundary, pair, and point nodes 
+available from the Physics ribbon toolbar (Windows users), Physics context menu 
+(macOS or Linux users), or by right-clicking the main physics interface node to access 
+the context menu (all users).
+• Discretization and Formulation Options
+• Domain, Edge, Boundary, Pair, and Point Nodes for the 
+Semiconductor Interface
+• Theory for the Semiconductor Interface
+In general, to add a node, go to the Physics toolbar, no matter what 
+operating system you are using. Subnodes are available by clicking the 
+parent node and selecting it from the Attributes menu.
+In the COMSOL Multiphysics Reference Manual see Table 2-4 for links 
+to common sections and Table 2-5 to common feature nodes. You can 
+also search for information: press F1 to open the Help window or Ctrl+F1 
+to open the Documentation window.
+
+
+
+
+=== PAGE 66 ===
+66 ---
+66 |  C H A P T E R  3 :  T H E  S E M I C O N D U C T O R  B R A N C H  I N T E R F A C E S
+These nodes and subnodes are described in this section and listed in alphabetical order:
+• The Semiconductor Interface
+• Theory for the Semiconductor Interface
+• Analytic Doping Model
+• Analytic Trap Density
+• Arora Mobility Model (LI)
+• Auger Recombination
+• Boundary Selection for Doping Profile
+• Boundary Selection for Trap Density 
+Profile
+• Caughey–Thomas Mobility Model (E)
+• Continuity/Heterojunction
+• Continuous Energy Levels 
+(Boundaries)
+• Continuous Energy Levels (Domains)
+• Continuous Energy Levels 
+(Heterointerfaces)
+• Direct Recombination
+• Discrete Energy Level (Boundaries)
+• Discrete Energy Level (Domains)
+• Discrete Energy Level 
+(Heterointerfaces)
+• Fletcher Mobility Model (C)
+• Floating Gate
+• Geometric Doping Model
+• Geometric Trap Density
+• Impact Ionization Generation
+• Indirect Optical Transitions
+• Initial Values
+• Insulation
+• Insulator Interface
+• Lombardi Surface Mobility Model (S)
+• Metal Contact
+• Optical Transitions
+• Power Law Mobility Model (L)
+• Semiconductor Material Model
+• Thin Insulator Gate
+• Transition Between Discrete Levels 
+(Boundaries)
+• Transition Between Discrete Levels 
+(Domains)
+• Transition Between Discrete Levels 
+(Heterointerfaces)
+• Trap-Assisted Heterointerface 
+Recombination
+• Trap-Assisted Recombination
+• Trap-Assisted Surface Recombination
+• User-Defined Generation
+• User-Defined Mobility Model
+• User-Defined Recombination
+• WKB Tunneling Model, Electrons
+• WKB Tunneling Model, Holes
+
+
+
+
+=== PAGE 67 ===
+67 ---
+T H E  S E M I C O N D U C T O R  I N T E R F A C E  |  67
+These nodes and subnodes are described for The Electrostatics Interface:
+Semiconductor Material Model
+Use the Semiconductor Material Model to set the physical and transport properties of the 
+semiconducting material. The following subnodes are available from the context menu 
+(right-click the parent node) or from the Physics toolbar, Attributes menu.
+• User-Defined Mobility Model
+• Power Law Mobility Model (L)
+• Arora Mobility Model (LI)
+• Fletcher Mobility Model (C)
+• Caughey–Thomas Mobility Model (E)
+• Lombardi Surface Mobility Model (S)
+M A T E R I A L  P R O P E R T I E S
+For each of the following, the default is taken From material. For User defined enter a 
+value or expression in the text field.
+• Relative permittivity εr (dimensionless). For User defined, also select Isotropic, 
+Diagonal, Symmetric, or Full.
+• Change Cross Section
+• Change Thickness (Out-of-Plane)
+• Charge Conservation
+• Distributed Capacitance
+• Electric Displacement Field
+• Electric Potential
+• External Surface Charge 
+Accumulation
+• Floating Potential
+• Ground
+• Line Charge
+• Line Charge (on Axis)
+• Line Charge (Out-of-Plane)
+• Point Charge
+• Point Charge (on Axis)
+• Space Charge Density
+• Surface Charge Density
+• Terminal
+• Zero Charge
+See the theory in The Semiclassical Model.
+
+
+
+
+=== PAGE 68 ===
+68 ---
+68 |  C H A P T E R  3 :  T H E  S E M I C O N D U C T O R  B R A N C H  I N T E R F A C E S
+• Band gap Eg,0 (SI unit: V). The band gap is the energy difference between the 
+conduction and valence band at equilibrium (independent of doping). The input is 
+actually the band gap energy divided by the elementary charge. Therefore it takes 
+on the unit of electric potential, and its numerical value is the same as the band gap 
+energy in eV. The default is 1.12 V.
+• Electron affinity χ0 (SI unit: V). The electron affinity is the difference in energy 
+between the vacuum level and the conduction band at equilibrium. The input is 
+actually the electron affinity divided by the elementary charge. Therefore it takes on 
+the unit of electric potential, and its numerical value is the same as the electron 
+affinity in eV. The default is 4.05 V.
+• Effective density of states, valence band Nv (SI unit: 1/m3). The default is 
+2.66·1019 1/cm3.
+• Effective density of states, conduction band Nc (SI unit: 1/m3). The default is 
+2.86·1019 1/cm3.
+M A T E R I A L  P R O P E R T I E S ,  D E N S I T Y - G R A D I E N T
+This section appears only when one of the density-gradient formulation options are 
+selected under the Discretization section.
+• Electron effective mass, density-gradient me
+DG (SI unit: kg). The default is 
+me_const.
+• Hole effective mass, density-gradient mh
+DG (SI unit: kg). The default is me_const.
+S E M I C O N D U C T O R  E Q U I L I B R I U M  S T U D Y  S E T T I N G S
+To display this section, which only applies for the Semiconductor Equilibrium study step, 
+click the Show More Options button (
+) and select Advanced Physics Options.
+The default Equilibrium condition is Bias voltage, suitable for situations where there is a 
+well-defined bias electric potential for the domain, for example, given by a metal 
+contact. Enter a Bias voltage V0,bias (SI unit: V). The default is 0 V. All metal contacts 
+attached to the domain will be set to the specified value of V0,bias for the Semiconductor 
+Equilibrium study step.
+The other option for Equilibrium condition is Total charge, suitable for situations where 
+there is a well-defined total charge for the domain, for example, if the domain is 
+insulated on all its exterior boundaries by dielectric material and/or thin insulator gate. 
+Enter a Total charge Q0,tot (SI unit: C). The default is 0 C. In this case, the electric 
+potential of the system still needs to be constrained, for example, by a Terminal or an 
+Electric Potential boundary condition attached to a dielectric domain, or a Thin 
+
+
+
+
+=== PAGE 69 ===
+69 ---
+T H E  S E M I C O N D U C T O R  I N T E R F A C E  |  69
+Insulator Gate boundary condition attached to the Semiconductor Material Model 
+domain. If there are also metal contacts attached to the semiconductor domain, then 
+the bias voltage on those contacts will be set to a value that is consistent with the 
+specified total charge Q0,tot.
+M O B I L I T Y  M O D E L
+These settings determine the mobility values actually used by the Semiconductor 
+interface. The defaults take constant values From material. For User defined manually 
+define the electron and hole mobilities.
+• Electron mobility μn (SI unit: m2/(V⋅s)).
+• Hole mobility μp (SI unit: m2/(V⋅s)).
+If mobility model subfeatures are added to the material model it is possible to select 
+the output of these mobility models to be used as the mobility by changing the feature 
+input from the appropriate model.
+B A N D  G A P  N A R R O W I N G
+Band gap narrowing effects occur at high doping levels. To apply band gap narrowing, 
+select an option from the Band gap narrowing list — None (the default), Slotboom, Jain–
+Roulston model, or User defined. Enter values or expressions for the following:
+Slotboom
+This option applies Slotboom’s empirical model for the band gap narrowing. The 
+model computes the band gap narrowing according to the equation:
+If there are two separate Semiconductor Material Model nodes, one assigned 
+to each of two adjacent domains, then care must be taken when specifying 
+the above settings, to ensure that the two domains are at the same 
+equilibrium electric potential, for example, set the Bias voltage of the two 
+domains to the same value.
+See the theory in Mobility Models.
+The Band Gap Narrowing theory section also describes these options.
+
+
+
+
+=== PAGE 70 ===
+70 ---
+70 |  C H A P T E R  3 :  T H E  S E M I C O N D U C T O R  B R A N C H  I N T E R F A C E S
+where NI = Nd + Na and the other parameters are material properties. The fraction of 
+the band gap narrowing taken up by the conduction band is defined directly as a 
+material property by default.
+For each of the following model properties the default takes values From material, or 
+for User defined enter a different value or expression. There are additional options also 
+available for each.
+• Conduction band fraction α (dimensionless). The default is 0.5.
+• Band gap narrowing reference energy Eref (SI unit: V). The default is 0.00692 V.
+• Band gap narrowing reference concentration Nref (SI unit: 1/m3). The default is 
+1.3·1017 1/cm3.
+Jain–Roulston Model
+This option applies the physics-based model of Jain and Roulston for the band gap 
+narrowing. Coefficients for the model are available for a wide range of III-V materials, 
+as well as for silicon and germanium. The band gap narrowing is given by
+where An, Ap, Bn, Bp, Cn, and Cp are material properties (with the same units as the 
+band gap) and Nref is a reference doping level (SI unit: 1/m3). The fraction of the 
+band gap narrowing taken up by the conduction band is defined directly as a material 
+property by default.
+For each of the following properties the default takes values From material, or for User 
+defined enter a different value or expression. There are additional options available for 
+each.
+• Conduction band fraction α (dimensionless). The default is 0.5.
+• Jain–Roulston coefficient (n-type), A (An) (SI unit: V). The default is 10e-9 V.
+• Jain–Roulston coefficient (n-type), B (Bn) (SI unit: V). The default is 3e-7 V.
+ΔEg
+Eref
+NI
+Nref
+----------
+
+
+
+
+ln
+NI
+Nref
+----------
+
+
+
+
+ln
+2
+1
+2--
++
++
+
+
+
+
+
+
+=
+ΔEg
+An
+Nd
+Nref
+-----------
+
+
+
+
+1
+3--
+Bn
+Nd
+Nref
+-----------
+
+
+
+
+1
+4--
+Cn
+Nd
+Nref
+-----------
+
+
+
+
+1
+2--
++
++
+Nd
+Na
+≥
+Ap
+Na
+Nref
+-----------
+
+
+
+
+1
+3--
+Bp
+Na
+Nref
+-----------
+
+
+
+
+1
+4--
+Cp
+Na
+Nref
+-----------
+
+
+
+
+1
+2--
++
++
+Nd
+Na
+<
+
+
+
+
+
+
+
+
+
+=
+
+
+
+
+=== PAGE 71 ===
+71 ---
+T H E  S E M I C O N D U C T O R  I N T E R F A C E  |  71
+• Jain–Roulston coefficient (n-type), C (Cn) (SI unit: V). The default is 10e-12 V.
+• Jain–Roulston coefficient (p-type), A (Ap) (SI unit: V). The default is 10e-9 V.
+• Jain–Roulston coefficient (p-type), B (Bp) (SI unit: V). The default is 3e-7 V.
+• Jain–Roulston coefficient (p-type), C (Cp) (SI unit: V). The default is 10e-12 V.
+• Band gap narrowing reference concentration Nref (SI unit: 1/m3). The default is 
+1.3·1017 1/cm3.
+User Defined
+Enter a value or expression for Band gap narrowing voltage ΔEg (SI unit: V). The default 
+is 0 V, which represents the amount of band narrowing. Usually a function of the 
+dopant concentrations should be specified.
+Enter a value or expression for Conduction band fraction α (dimensionless). In general, 
+the change in the band-gap energy can be taken up by a decrease in the conduction 
+band energy and an increase in the valence band energy. The parameter α determines 
+what fraction of the change is taken up by the conduction band. When band-gap 
+narrowing is active Ec →Ec −αΔEg and Ec →Ec + (1 −α)ΔEg. The default value of α 
+is 1.
+D O P A N T  I O N I Z A T I O N
+This section determines the ionization of the donors and acceptors. Specify the Dopant 
+ionization — Complete ionization (the default) or Incomplete ionization. For Incomplete 
+ionization, select an Ionization model — Standard (the default) or User defined.
+For Standard enter values or expressions for the following:
+• Relative donor energy (below conduction band) ΔEd (SI unit: V). The default is 
+0.05 V.
+• Relative acceptor energy (above valence band) ΔEd (SI unit: V). The default is 0.05 V.
+• Donor degeneracy factor gd (dimensionless). The default is 2.
+• Acceptor degeneracy factor gd (dimensionless). The default is 4.
+For User defined enter values or expressions for the following:
+• Donor ionization fraction Nd
++/Nd (dimensionless). The default is 1.
+• Acceptor ionization fraction Na
+–/Na (dimensionless). The default is 1.
+Incomplete ionization cannot be used together with the mobility models.
+
+
+
+
+=== PAGE 72 ===
+72 ---
+72 |  C H A P T E R  3 :  T H E  S E M I C O N D U C T O R  B R A N C H  I N T E R F A C E S
+Optical Transitions
+The Optical Transitions feature adds stimulated and spontaneous emission 
+generation/recombination rates to the semiconductor and computes the 
+corresponding changes in the complex refractive index or relative permittivity.
+O P T I C A L  T R A N S I T I O N S
+Select a Frequency domain representation — Extra dimension (the default) or No extra 
+dimension. This setting determines whether an extra dimension is added to represent 
+the frequency domain. The use of an extra dimension typically makes the problem 
+faster to solve, but it means that additional memory is required. An extra dimension 
+also allows quantities such as the stimulated emission power to be visualized as a 
+function of frequency.
+Select a Transitions model — Direct band gap model (the default) or User defined.
+Direct Band Gap Model
+The Direct band gap model uses a two-band model to represent a direct band gap 
+semiconductor, as described in Optical Transitions in the Theory for the 
+Semiconductor Interface.
+Select the Spontaneous emission checkbox to compute the recombination due to 
+spontaneous emission. Select the Stimulated absorption and emission checkbox to add 
+the stimulated emission generation or recombination terms. Both checkboxes are 
+selected by default.
+User Defined
+The User defined transitions model allows arbitrary specification of the recombination 
+and generation rates due to spontaneous and stimulated emission, and can also be used 
+to compute the Kramers–Kronig integral for the stimulated emission contribution to 
+the change in the real part of the dielectric constant or the refractive index.
+For this model enter the:
+• Net generation rate from stimulated processes, Gstim (SI unit: 1/(m3·s)).
+See the theory in Incomplete Ionization.
+
+
+
+
+=== PAGE 73 ===
+73 ---
+T H E  S E M I C O N D U C T O R  I N T E R F A C E  |  73
+• Net generation rate from stimulated processes, reference material, Gref
+stim (SI unit: 
+1/(m3·s)). This rate is used when performing the Kramers–Kronig integral to 
+compute the change in the real part of the dielectric constant or refractive index.
+• Spontaneous emission recombination rate, Rspon (SI unit: 1/(m3·s)).
+T R A N S I T I O N  M A T R I X  E L E M E N T
+This section is available when the Direct band gap model is selected as the Transitions 
+model.
+Select how to define the Matrix element — From spontaneous lifetime (the default), 
+Momentum matrix element, Dipole matrix element, or Kane 4-band model.
+Based on the options chosen enter:
+• The spontaneous lifetime, τspon (SI unit: s). The default is 2 ns.
+• The momentum matrix element, |M12av|2, (SI unit: kg2⋅m2/s2). The default is 
+0 kg2⋅m2/s2.
+• The dipole matrix element, |μ12av|2, (SI unit: m2⋅s2⋅A2). The default is 0 m2⋅s2⋅A2.
+For the Kane 4-band model enter the Kane 4-band model parameters:
+• Electron effective mass: Select From band structure properties (the default, defined in 
+the corresponding section), From density of states (converted from Nc, which is 
+defined on the Semiconductor Material Model domain feature), or User defined. For 
+User defined enter the ratio of the effective mass to the electron mass me*/me 
+(dimensionless). The default is 0.053.
+• Band gap: Select From band structure properties (defined in the corresponding 
+section), From semiconductor material model (defined in the Semiconductor Material 
+Model node), or User defined. For User defined enter the band gap Eg (SI unit: V). 
+The default is 0.341 V.
+• Valence band spin orbital splitting Δ (SI unit: V). The default is 0.341 V.
+The matrix element can be dependent on the excitation angular frequency 
+if desired. Any function of the angular frequency can be used, but the 
+angular frequency should take the form: semi.ot1.omega (for interface 
+tag semi and feature tag ot1).
+
+
+
+
+=== PAGE 74 ===
+74 ---
+74 |  C H A P T E R  3 :  T H E  S E M I C O N D U C T O R  B R A N C H  I N T E R F A C E S
+B A N D  S T R U C T U R E  P R O P E R T I E S
+This section is available when the Direct band gap model is selected for the Transitions 
+model.
+• Select an Electron effective mass me* — From density of states (the default, which is 
+converted from Nc, defined on the Semiconductor Material Model domain feature), 
+or User defined. For User defined enter the ratio of the electron effective mass to the 
+electron mass me*/me (dimensionless). The default is 0.063.
+• Select a Hole effective mass mh* — From density of states (the default, which is 
+converted from Nv, defined on the Semiconductor Material Model domain feature), 
+or User defined. For User defined enter the ratio of the hole effective mass to the 
+electron mass mh*/me (dimensionless). The default is 0.51.
+• Select a Band gap Eg — From semiconductor material model (defined in the material 
+properties section of the Semiconductor Material Model domain feature) or User 
+defined. For User defined enter the band gap Eg (SI unit: V). The default is 1.424 V.
+O P T I C A L  E X C I T A T I O N  F R E Q U E N C Y
+This section is available when the excitation frequency is needed to calculate the 
+stimulated emission rate or the matrix element and when the feature is not coupled to 
+an Electromagnetic Waves interface.
+Select an Excitation frequency f0 — From study (the default), User-defined frequency, or 
+User-defined wavelength.
+• For User-defined frequency, enter the excitation frequency, f0 (SI unit: Hz). The 
+default is 344 GHz.
+• For User-defined wavelength, enter the wavelength, λ0 (SI unit: m). The default is 
+870 nm.
+O P T I C A L  I N T E N S I T Y
+This section is available in the absence of a multiphysics coupling when the Direct band 
+gap model is selected for the Transitions model and when the Stimulated absorption and 
+emission checkbox is selected. It is used to define the intensity of the optical field that 
+is driving the stimulated emission. Enter the Electric field norm, E0 (SI unit: V/m). The 
+default is 500 V/m.
+O P T I C A L  M A T E R I A L  P R O P E R T I E S
+Select the Electric displacement field model — Refractive index (the default) or Relative 
+permittivity.
+
+
+
+
+=== PAGE 75 ===
+75 ---
+T H E  S E M I C O N D U C T O R  I N T E R F A C E  |  75
+Refractive Index
+For Refractive index the default Refractive index n and Refractive index, imaginary part k 
+take values From material. For User defined select Isotropic (for Diagonal the average of 
+the diagonal elements are taken). The material parameters Refractive index n and 
+Refractive index, imaginary part k form the complex relative permittivity (n – jk)2.
+Relative Permittivity
+The default Relative permittivity (real part) ε' and Relative permittivity (imaginary part) 
+ε'' take values From material. For User defined select Isotropic (for Diagonal the average 
+of the diagonal elements are taken). The material parameters Relative permittivity ε' 
+and Relative permittivity (imaginary part) ε'' form the complex relative permittivity 
+εr = ε' – jε''.
+O P T I C A L  O U T P U T S
+Select the Compute change in real part of susceptibility checkbox to compute the change 
+in the real part of the susceptibility (or permittivity/refractive index) using a Kramers–
+Kronig integral.
+I N T E G R A L  P R O P E R T I E S
+The settings in this section determine the range and resolution of the numerical 
+scheme used to compute integrals over the frequency domain.
+The Frequency domain integral discretization factor (dimensionless) is an integer related 
+to the discretization of the frequency domain. A higher number indicates a finer mesh 
+in the extra dimension (if present) or smaller steps in the numerical integration (if no 
+extra dimension is used). The default is 6.
+The Frequency domain integral lower limit specifies the lower limit used in frequency 
+domain integrals in units of 
+ (if Stimulated absorption and emission is enabled, or 
+user defined is chosen — ω0 is the excitation angular frequency) or in units of the band 
+gap (if only spontaneous emission is chosen). The lower limit should be less than the 
+band gap. The default is 0.5.
+The time-harmonic Sign Convention used in COMSOL Multiphysics 
+requires that a lossy material to have a positive material parameter k.
+The time-harmonic Sign Convention used in COMSOL requires that a 
+lossy material has a positive material parameter ε''.
+hω0
+
+
+
+
+=== PAGE 76 ===
+76 ---
+76 |  C H A P T E R  3 :  T H E  S E M I C O N D U C T O R  B R A N C H  I N T E R F A C E S
+The Frequency domain integral upper limit specifies the upper limit used in frequency 
+domain integrals in units of 
+ (if Stimulated absorption and emission is enabled, or 
+user defined is chosen — ω0 is the excitation angular frequency) or in units of the band 
+gap (if only spontaneous emission is chosen). The upper limit should be chosen so that 
+the processes of interest are negligible above it. The default is 3.
+The Kramers–Kronig integral pole region width specifies the total width of the pole 
+region around the excitation frequency in units of 
+ (if Stimulated absorption and 
+emission is enabled, or user defined is chosen — ω0 is the excitation angular frequency) 
+or in units of the band gap (if only spontaneous emission is chosen). It should be 
+chosen so that the change in the susceptibility or the change in the absorption 
+coefficient is linear to a good accuracy across the region. The default is 0.01.
+Indirect Optical Transitions
+The Indirect Optical Transitions feature obtains the real and imaginary components of 
+the refractive index from materials as the default transition model. Alternatively, an 
+empirical absorption model for silicon is defined to enable easy simulation of optical 
+absorption in photovoltaic devices. The model uses the data from Ref. 46 to obtain the 
+frequency-dependent real and imaginary components of the refractive index of silicon. 
+In case none of the above are relevant to your model, you can choose to specify a 
+user-defined absorption via either supplying an absorption coefficient or the imaginary 
+part of the refractive index — this enables the feature to be used for other materials for 
+which this data is known. The photogeneration due to absorbed photons is then added 
+into the model via a term that contributes to the carrier generation rate. If a 
+multiphysics coupling between the Semiconductor interface and an Electromagnetic 
+Waves interface is active, the refractive index data from the Indirect Optical Transitions 
+feature is automatically used by the Electromagnetic Waves interface for calculating 
+wave propagation. Also, the frequency and magnitude of the electromagnetic wave, 
+which are required in order to calculate the absorption rate, are obtained automatically 
+from the Electromagnetic Waves interface. If multiphysics coupling is not used, these 
+quantities can be specified directly within the Indirect Optical Transitions feature.
+T R A N S I T I O N S  M O D E L
+Select a Transitions model — Absorption from material (the default), Empirical silicon 
+absorption (Green and Keevers), or User-defined absorption.
+• Absorption from material: This option obtains the real and imaginary components of 
+the refractive index from materials.
+hω0
+hω0
+
+
+
+
+=== PAGE 77 ===
+77 ---
+T H E  S E M I C O N D U C T O R  I N T E R F A C E  |  77
+• Empirical silicon absorption (Green and Keevers): This option automatically obtains 
+the frequency-dependent real and imaginary components of the refractive index and 
+computes the absorption and associate carrier generation. This model is most 
+appropriate for intrinsic silicon at temperatures around 300 K.
+• User-defined absorption: This option enables the user to specify the absorption. The 
+photogeneration rate is then computed and the extra carriers are added to the model 
+automatically via an extra generation term. You can either supply the imaginary part 
+of the refractive index or the absorption coefficient.
+S P E C I F Y  A B S O R P T I O N
+This section is available when User-defined absorption is selected as the transitions 
+model.
+Select an option from the Specify absorption list — Absorption coefficient (the default) 
+or Refractive index. Then enter the following as required:
+• Imaginary part of refractive index n (dimensionless).
+• Absorption coefficient α (SI unit: 1/m).
+• Real part of the refractive index k (dimensionless).
+O P T I C A L  E X C I T A T I O N  F R E Q U E N C Y
+This section is available if a multiphysics coupling is not used. It enables the frequency 
+of the electromagnetic wave to be specified. If either the Absorption from material or 
+Empirical silicon absorption (Green and Keevers) transition model is selected, this 
+frequency is used to look up the corresponding refractive index data. For all transition 
+model options the frequency is used in calculating the photogeneration rate.
+Select an Excitation frequency — From study (the default), User-defined frequency, or 
+User-defined wavelength.
+• For User-defined frequency, enter the excitation frequency, f0 (SI unit: Hz). The 
+default is 375 GHz.
+• For User-defined wavelength, enter the wavelength, λ0 (SI unit: m). The default is 
+800 nm.
+O P T I C A L  I N T E N S I T Y
+This section is available if a multiphysics coupling is not used. It enables the magnitude 
+of the electromagnetic wave to be specified.
+Enter the Electric field norm, E0 (SI unit: V/m).
+
+
+
+
+=== PAGE 78 ===
+78 ---
+78 |  C H A P T E R  3 :  T H E  S E M I C O N D U C T O R  B R A N C H  I N T E R F A C E S
+Insulation
+The Insulation node is the default boundary condition. It specifies the zero normal flux 
+condition at the selected boundaries, that is, setting the normal component of the 
+electron current, hole current, and electric displacement field to zero.
+D E N S I T Y - G R A D I E N T
+This section appears only when one of the density-gradient formulation options are 
+selected under the Discretization section.
+Formulation
+• Zero density gradient as the name suggested.
+• Potential barrier adds the quantum confinement effect of an abrupt potential barrier 
+at the boundary. Enter the carrier effective masses (SI unit: kg) the defaults are 
+me_const. Enter the Barrier heights (SI unit: V) the defaults are 0.1[V].
+Continuity/Heterojunction
+The Continuity/Heterojunction node is added by default to all interior boundaries in a 
+model. When the material properties are continuous across the boundary the feature 
+has no effect. If there is a discontinuity in the material properties across the boundary 
+then the feature includes the equations required to model a heterojunction.
+C O N T I N U A T I O N  S E T T I N G S
+These settings are the same as for Fletcher Mobility Model (C).
+H E T E R O J U N C T I O N
+Select a Continuity model — Continuous quasi-Fermi levels (the default), Thermionic 
+emission, or User-defined junction current. The Continuous quasi-Fermi levels model 
+enforces continuity of both quasi-Fermi levels at the boundary. The Thermionic 
+emission model adds thermionic emission of the carriers over the boundary to the 
+The functionality of the Surface traps checkbox in versions prior to 5.4 has 
+been replaced and expanded by the Trap-Assisted Surface Recombination 
+boundary condition.
+The Continuation Settings do not scale the equation contributions for the 
+Continuous Quasi-Fermi level option.
+
+
+
+
+=== PAGE 79 ===
+79 ---
+T H E  S E M I C O N D U C T O R  I N T E R F A C E  |  79
+model. The User-defined junction current option allows the user to specify the normal 
+electron and hole current densities across the heterojunction.
+E X T R A  C U R R E N T  C O N T R I B U T I O N
+This section appears if the Continuity model is set to Thermionic emission (See the 
+section Heterojunction above).
+Select an option for the Extra electron current list:
+1 No extra current (the default)
+2 WKB tunneling model — Computes the extra current contribution using the WKB 
+approximation for tunneling. For this option to work, the user needs to manually 
+add a WKB Tunneling Model, Electrons subnode to specify the tunneling 
+parameters.
+3 User-defined extra current fraction — Computes the extra current contribution using 
+the user-defined extra current fraction entered into the input field Extra current 
+fraction, electrons that appears when this option is selected.
+Select an option for the Extra hole current list, which has a set of options analogous to 
+the ones for electrons described above. For the option WKB tunneling model to work, 
+remember to add a WKB Tunneling Model, Holes subnode.
+WKB Tunneling Model, Electrons
+This subnode is available when the option WKB tunneling model is selected for a 
+heterojunction or Schottky contact. Add this subnode to compute the contribution to 
+the electron current density from tunneling, using the WKB approximation.
+P O T E N T I A L  B A R R I E R  D O M A I N  S E L E C T I O N
+Select a domain adjacent to the boundary selection of this subnode, where the 
+potential barrier is located and electrons tunnel across the domain.
+• Solving in the Modeling Guidelines chapter.
+• Boundary Conditions and Continuity/Heterojunction
+When drawing the geometry for the device model, consider adding a thin 
+layer of domain adjacent to the heterojunction or Schottky contact, where 
+you plan to use the WKB tunneling feature.
+
+
+
+
+=== PAGE 80 ===
+80 ---
+80 |  C H A P T E R  3 :  T H E  S E M I C O N D U C T O R  B R A N C H  I N T E R F A C E S
+O P P O S I T E  B O U N D A R Y  S E L E C T I O N
+Select a boundary on the opposite side of the Potential Barrier Domain Selection from 
+the boundary selection of this subnode. These two boundary selections are each at the 
+upstream and downstream of the electric field line. In other words, if an electron 
+tunnel into the boundary selection of the subnode, it emerges out of the Opposite 
+Boundary Selection.
+W K B  T U N N E L I N G  M O D E L ,  E L E C T R O N S
+In this section, enter the electron effective mass and one or more coordinates 
+depending on the space dimension of the model.
+• For Effective mass, enter the electron effective mass m (SI unit: kg). The default is 
+the free electron mass me_const.
+• For Field line coordinate, enter an appropriate variable flc (SI unit: m) that is 
+(approximately) proportional to the arc length along the electric field line across the 
+potential barrier domain selection. The default is the first coordinate of the global 
+coordinate system. The variable should be valid within the potential barrier domain 
+selection and its isosurfaces should be approximately parallel to the equipotential 
+surfaces in the domain.
+• For 2D and 3D components, enter Boundary coordinate bndc (SI unit: m). The 
+default is the second coordinate of the global coordinate system. See below for more 
+details.
+• For 2D axisymmetry and 3D components, enter Boundary coordinate 2 bndc2 (SI 
+unit: m). The default is the Z coordinate of the global coordinate system. For this 
+input and the input for bndc above, enter an appropriate variable that can be used 
+to form the boundary coordinate system of the boundary selection of the subnode. 
+In general a Curvilinear Coordinates physics interface can be used to 
+compute the (approximated) electric field line coordinate, or each of the 
+boundary coordinates below. See the Application Libraries example 
+Heterojunction Tunneling: Application Library path 
+Semiconductor_Module/Verification_Examples/heterojunction_tunneling
+
+
+
+
+=== PAGE 81 ===
+81 ---
+T H E  S E M I C O N D U C T O R  I N T E R F A C E  |  81
+The variable should be valid within the potential barrier domain selection and its 
+isosurfaces should be approximately parallel to the electric field lines in the domain.
+WKB Tunneling Model, Holes
+Add this subnode to compute the contribution to the hole current density from 
+tunneling, using the WKB approximation.
+The settings of this subnode is analogous to the ones for the subnode WKB Tunneling 
+Model, Electrons described above.
+Initial Values
+The Initial Values node provides initial values for the electric potential V, electron 
+concentration, and the hole concentration that serve as an initial condition for a 
+transient simulation or as an initial guess for the nonlinear solver in other studies.
+I N I T I A L  V A L U E S
+Select an option from the Specify initial values list — Automatic (the default), 
+Equilibrium (carriers and potential), Equilibrium (carriers), Intrinsic (carriers and 
+potential), Intrinsic (carriers), or User defined.
+Then depending on the choice, enter a value or expression or keep the defaults as 
+follows:
+• For Equilibrium (carriers) or Intrinsic (carriers) the default Electric potential V 
+(SI unit: V) is −4 V. The carrier concentrations are automatically set to the 
+equilibrium or intrinsic values.
+• For User defined the default Electric potential V (SI unit: V) is −4 V, the default 
+Electron concentration N (SI unit: 1/m3) is semi.n_init, and the default Hole 
+For the formulation used in the WKB Tunneling Model subnodes, see the 
+theory section WKB Tunneling Model.
+The Automatic setting varies based on the Discretization settings for the 
+physics interface. If Finite volume (constant shape function) is selected, 
+then equilibrium conditions are used. If any of the Finite element 
+discretizations are selected, then the intrinsic concentrations are used.
+
+
+
+
+=== PAGE 82 ===
+82 ---
+82 |  C H A P T E R  3 :  T H E  S E M I C O N D U C T O R  B R A N C H  I N T E R F A C E S
+concentration P (SI unit: 1/m3) is semi.p_init. For quasi-Fermi level formulation, 
+the default user-defined quasi-Fermi levels are 0 V.
+User-Defined Mobility Model
+The User-Defined Mobility Model subnode is available from the context menu 
+(right-click the Semiconductor Material Model parent node) or from the Physics 
+toolbar, Attributes menu. This can be used to define a mobility model using 
+expressions based on, for example, the temperature and the dopant concentrations.
+D O M A I N  S E L E C T I O N
+U S E R - D E F I N E D  M O B I L I T Y  M O D E L
+Enter a value in the Electron input mobility μn,in (SI unit: m2/(V⋅s)) text field. This 
+parameter is used to define an input mobility that can be edited in the Electron 
+mobility text field. The default Electron input mobility is for silicon at equilibrium, that 
+is, 1448 cm2/(V⋅s). Any electron input mobility from other mobility models added to 
+the Semiconductor Material Model can be chosen from the list.
+Enter a value in the Hole input mobility μp,in (SI unit: m2/(V⋅s)) text field. This 
+parameter is used to define an input mobility that can be edited in the Hole mobility 
+field. The default Hole input mobility is for silicon at equilibrium, that is, 
+473 cm2/(V⋅s). Any hole input mobility from other mobility models added to the 
+Semiconductor Material Model can be chosen from the list.
+The Electron mobility μ0,n (SI unit: m2/(V⋅s)) field defines the output electron 
+mobility. The default value is taken from Electron input mobility. Any valid 
+mathematical expression can be used to modify the default value.
+The Hole mobility μ0,p (SI unit: m2/(V⋅s)) field defines the output hole mobility. The 
+default value is taken from Hole input mobility. Any valid mathematical expression can 
+be used to modify the default value.
+Usually the mobility model selection should not be changed from that of 
+the parent Semiconductor Material Model.
+Mobility Models and Theory for the User-defined Mobility Model
+
+
+
+
+=== PAGE 83 ===
+83 ---
+T H E  S E M I C O N D U C T O R  I N T E R F A C E  |  83
+Power Law Mobility Model (L)
+The Power Law Mobility Model (L) subnode is available from the context menu 
+(right-click the Semiconductor Material Model parent node) or from the Physics 
+toolbar, Attributes menu. This model incorporates the effect of lattice or phonon 
+scattering into the electron and hole mobilities for the material (the ‘L’ given in 
+brackets indicates lattice scattering). The equations for the mobility model are shown 
+in the Equation section.
+D O M A I N  S E L E C T I O N
+G E N E R A L  P A R A M E T E R S
+The default Reference temperature Tref (SI unit: K) is taken From material. For User 
+defined enter a value in the text field. The default is 300 K.
+E L E C T R O N  P A R A M E T E R S
+For each of the following properties the default takes values From material or for User 
+defined enter a different value or expression in the text field.
+• Electron mobility reference μn,0 (SI unit: m2/(V⋅s)). The default value is for silicon 
+(1448 cm2/(V-s)). This value represents the zero field mobility at equilibrium.
+• Electron exponent αn (dimensionless). The default for silicon is 2.33.
+H O L E  P A R A M E T E R S
+For each of the following properties the default takes values From material or for User 
+defined enter a different value or expression in the text field.
+• Hole mobility reference μp,0 (SI unit: m2/(V⋅s)). The default value is for silicon 
+(473 cm2/(V⋅s)). This value represents the zero field mobility at equilibrium.
+• Hole exponent αp (dimensionless). The default value is for silicon (2.23).
+Usually the mobility model selection should not be changed from that of 
+the parent Semiconductor Material Model.
+Mobility Models and Theory for the Power Law Mobility Model (L)
+
+
+
+
+=== PAGE 84 ===
+84 ---
+84 |  C H A P T E R  3 :  T H E  S E M I C O N D U C T O R  B R A N C H  I N T E R F A C E S
+Fletcher Mobility Model (C)
+The Fletcher Mobility Model (C) subnode is available from the context menu (right-click 
+the Semiconductor Material Model parent node) or from the Physics toolbar, 
+Attributes menu. Use this to add carrier–carrier scattering to an existing mobility 
+model (or to a constant input mobility). The ‘C’ in brackets indicates the model 
+includes carrier–carrier scattering only. It accepts input mobilities of type L or LI, as 
+well as user-defined input mobilities. The set of equations defining the Fletcher 
+mobility model is shown in the Equation section.
+D O M A I N  S E L E C T I O N
+C O N T I N U A T I O N  S E T T I N G S
+The continuation settings enable the equation contributions for the feature to be 
+gradually introduced into the model.
+The Continuation type defaults to No continuation, which means that the equation 
+contribution is added in the usual way.
+The continuity feature allows the equation contribution to be weighted by an external 
+parameter: the value should be between 0 and 1. Then you can sweep this parameter 
+with the continuity solver.
+Selecting User defined allows the parameter to be specified within the feature or select 
+Use interface level continuation parameter to specify the parameter on the physics 
+interface level.
+• For User defined enter a Continuation parameter Cp (dimensionless) between 0 and 
+1 to determine the scaling of the equation contribution. Generally the parameter is 
+ramped from 0 to 1 in a continuation study.
+• For Use interface continuation parameter, the continuation parameter is linked to the 
+value of the continuation parameter specified in the Continuation Settings section 
+Usually the mobility model domain selection should not be changed from 
+that of the parent Semiconductor Material Model.
+
+
+
+
+=== PAGE 85 ===
+85 ---
+T H E  S E M I C O N D U C T O R  I N T E R F A C E  |  85
+for The Semiconductor Interface. This enables several features to be introduced 
+simultaneously into the equation system with a single setting controlling it all.
+I N P U T  M O B I L I T I E S
+The Electron input mobility μn,in (SI unit: m2/(V⋅s)) parameter is used to define an 
+input mobility to which carrier–carrier scattering is added. The default value is User 
+defined and is a room temperature mobility for silicon, that is, 1448 cm2/(V⋅s).
+The Hole input mobility μp,in (SI unit: m2/(V⋅s)) parameter is used to define an input 
+mobility to which carrier–carrier scattering is added. The default value is User defined, 
+and is for silicon at equilibrium, that is, 473 cm2/(V⋅s).
+G E N E R A L  P A R A M E T E R S
+For each of the following properties the default takes values From material or for User 
+defined enter a different value or expression in the text field.
+• Reference temperature Tref (SI unit: K). The default is 300 K.
+• Fletcher mobility coefficient1 F1 (SI unit: 1/(m·V⋅s)). The default is for silicon 
+(1.04·1021 1/(cm·V⋅s)).
+• Fletcher mobility coefficient2 F2 (SI unit: 1/(m2)). The default is for silicon 
+(7.45·1012 1/cm-2).
+Caughey–Thomas Mobility Model (E)
+The Caughey–Thomas Mobility Model (E) subnode is available from the context menu 
+(right-click the Semiconductor Material Model parent node) or from the Physics 
+Solving
+Other mobility models of type L (Power Law Mobility Model (L)) or LI 
+(Arora Mobility Model (LI) as well as User-Defined Mobility Model 
+input mobilities can be used as the Electron input mobility and Hole input 
+mobility.
+Mobility Models and Theory for the Fletcher Mobility Model (C)
+
+
+
+
+=== PAGE 86 ===
+86 ---
+86 |  C H A P T E R  3 :  T H E  S E M I C O N D U C T O R  B R A N C H  I N T E R F A C E S
+toolbar, Attributes menu. It adds a high field correction to an existing mobility model. 
+The ‘E’ in brackets indicates the model includes high field effects only. It accepts input 
+mobilities of type L, I, C, or S as well as user-defined input mobilities. The set of 
+equations defining the Caughey–Thomas mobility model is shown in the Equation 
+section.
+D O M A I N  S E L E C T I O N
+C O N T I N U A T I O N  S E T T I N G S
+These settings are the same as for Fletcher Mobility Model (C).
+D R I V I N G  F O R C E
+Select the desired driving force formulation from the Driving force Fn,p list:
+•
+Magnitude of parallel component of electric field
+•
+Positive parallel component of electric field (antiparallel component has no effect)
+•
+Magnitude of total electric field
+•
+User defined
+For User defined, enter the electron and hole driving forces Fn and Fp (SI unit: V/m, 
+default is 0).
+I N P U T  M O B I L I T I E S
+The Electron input mobility μn,in (SI unit: m2/(V⋅s)) parameter is used to define the 
+input mobility to which high field velocity saturation is added. The default is User 
+defined for silicon at equilibrium, 1448 cm2/(V⋅s).
+Usually the mobility model domain selection should not be changed from 
+that of the parent Semiconductor Material Model.
+The Semiconductor interface automatically creates a suggested solver 
+sequence for better convergence upon detection of the Caughey–Thomas 
+mobility model.
+Solving
+
+
+
+
+=== PAGE 87 ===
+87 ---
+T H E  S E M I C O N D U C T O R  I N T E R F A C E  |  87
+The Hole input mobility μp,in (SI unit: m2/(V⋅s)) defines the input mobility to which 
+high field velocity saturation is added. The default is User defined for silicon at 
+equilibrium, 473 cm2/(V⋅s).
+G E N E R A L  P A R A M E T E R S
+The default Reference temperature Tref (SI unit: K) is taken From material. For User 
+defined enter a different value in the text field. The default is 300 K.
+E L E C T R O N  P A R A M E T E R S
+The default for each of the following is taken From material. For User defined enter a 
+different value in the text field.
+• Electron alpha coefficient αn,0 (dimensionless). The default is 1.11.
+• Electron saturation velocity vn,0 (SI unit: m/s). The default is 1·107 cm/s.
+• Electron alpha exponent βn,1 (dimensionless). The default is 0.66.
+• Electron velocity saturation exponent βn,2 (dimensionless). The default is −0.87.
+H O L E  P A R A M E T E R S
+• Hole alpha coefficient αp,0 (dimensionless). The default is 1.21.
+• Hole saturation velocity vp,0 (SI unit: m/s). The default is 8.37·106 cm/s.
+• Hole alpha exponent βp,1 (dimensionless). The default is 0.17.
+• Hole velocity saturation exponent βp,2 (dimensionless). The default is −0.52.
+Lombardi Surface Mobility Model (S)
+The Lombardi Surface Mobility Model (S) subnode is available from the context menu 
+(right-click the Semiconductor Material Model parent node) or from the Physics 
+toolbar, Attributes menu. It changes an input mobility to account for surface effects, 
+particularly surface roughness and scattering due to acoustic phonons. The ‘S’ in 
+Any other Electron input mobility and Hole input mobility from mobility 
+models of the Semiconductor Material Model can be chosen.
+Mobility Models and Theory for the Caughey–Thomas Mobility Model 
+(E)
+
+
+
+
+=== PAGE 88 ===
+88 ---
+88 |  C H A P T E R  3 :  T H E  S E M I C O N D U C T O R  B R A N C H  I N T E R F A C E S
+brackets indicates that the model includes surface effects only. The mobility model 
+accepts input mobilities of type L, LI, or C as well as user-defined input mobilities.
+The set of equations defining the Lombardi Surface mobility model is shown in the 
+Equation section.
+D O M A I N  S E L E C T I O N
+C O N T I N U A T I O N  S E T T I N G S
+These settings are the same as for Fletcher Mobility Model (C).
+I N P U T  M O B I L I T I E S
+The Electron input mobility μn,in (SI unit: m2/(V⋅s)) parameter is used to define an 
+input mobility. The default is User defined for silicon at equilibrium, 1448 cm2/(V⋅s).
+Usually the mobility model domain selection should not be changed from 
+that of the parent Semiconductor Material Model.
+The Semiconductor interface automatically creates a suggested solver 
+sequence for better convergence upon detection of the Lombardi Surface 
+mobility model.
+Solving
+Lombardi Surface Mobility shows how to use the continuity solver and 
+how to inspect the autogenerated solver sequence when using this 
+mobility model. Application Library path: 
+Semiconductor_Module/Transistors/lombardi_surface_mobility
+
+
+
+
+=== PAGE 89 ===
+89 ---
+T H E  S E M I C O N D U C T O R  I N T E R F A C E  |  89
+The Hole input mobility μp,in (SI unit: m2/(V⋅s)) defines an input mobility. The default 
+is User defined for silicon at equilibrium 473 cm2/(V⋅s).
+G E N E R A L  P A R A M E T E R S
+The default for each of the following is taken From material. For User defined enter a 
+different value or expression in the text field.
+• Reference temperature Tref (SI unit: K). The default is 1 K.
+• Electric field reference Eref (SI unit: V/m). The default is 1 V/cm.
+• Doping concentration reference Nref (SI unit: 1/m3). The default is 1 1/cm3.
+E L E C T R O N  P A R A M E T E R S
+The default for each of the following is taken From material. For User defined enter a 
+different value or expression in the text field.
+• Electron delta coefficient δn (SI unit: V/s). The default is 5.82·1014 V/s.
+• Electron mobility reference μn,1 (SI unit: m2/(V⋅s)). The default is 
+4.75·107 cm2/(V⋅s).
+• Electron mobility reference μn,2 (SI unit: m2/(V⋅s)). The default is 
+1.74·105 cm2/(V⋅s).
+• Electron alpha coefficient αn(SI unit: 1). The default is 0.125.
+H O L E  P A R A M E T E R S
+• Hole delta coefficient δp (SI unit: V/s). The default is 2.05·1014 V/s.
+• Hole mobility reference μp,1 (SI unit: m2/(V·s)). The default is 9.93·107 cm2/(V·s)
+• Hole mobility reference μp,2 (SI unit: m2/(V·s)). The default is 8.84·105 cm2/(V·s)
+• Hole alpha coefficient αp (SI unit: 1). The default is 0.0317.
+Other mobility models of type L (Power Law Mobility Model (L)), LI 
+(Arora Mobility Model (LI), C Fletcher Mobility Model (C), or 
+User-Defined Mobility Model input mobilities can be used as the Electron 
+input mobility and Hole input mobility.
+
+
+
+
+=== PAGE 90 ===
+90 ---
+90 |  C H A P T E R  3 :  T H E  S E M I C O N D U C T O R  B R A N C H  I N T E R F A C E S
+A D V A N C E D
+To display this section, click the Show More Options button (
+) and select Advanced 
+Physics Options. Enter a Current density activation threshold Jtol (SI unit: A/m2). The 
+default is 1·106 A/m2.
+Arora Mobility Model (LI)
+The Arora Mobility Model (LI) subnode is available from the context menu (right-click 
+the Semiconductor Material Model parent node) or from the Physics toolbar, 
+Attributes menu. Use it to simulate the effect of phonon/lattice and impurity 
+scattering on the electron and hole mobilities in the semiconducting material (the ‘L’ 
+in brackets indicates that the model includes lattice scattering, and the ‘I’ indicates that 
+the model includes impurity scattering). The Arora mobility model is empirical and 
+involves many parameters. The set of equations defining the model is shown in the 
+Equation section.
+D O M A I N  S E L E C T I O N
+G E N E R A L  P A R A M E T E R S
+For each of the following properties the default takes values From material, or for 
+User defined enter a different value or expression in the text field.
+• Reference temperature Tref (SI unit: K). The default is 300 K.
+• Alpha coefficient α0 (dimensionless). The default is for silicon 0.88.
+• Mobility reference minimum exponent β1 (dimensionless). The default is for 
+silicon −0.57.
+• Mobility reference exponent β2 (dimensionless). The default is for silicon −2.33.
+• Impurity concentration reference exponent β3 (dimensionless). The default is for 
+silicon 2.4.
+• Alpha coefficient exponent β4 (dimensionless). The default is for silicon −0.146.
+Mobility Models and Theory for the Lombardi Surface Mobility Model 
+(S)
+Usually the mobility model selection should not be changed from that of 
+the parent Semiconductor Material Model.
+
+
+
+
+=== PAGE 91 ===
+91 ---
+T H E  S E M I C O N D U C T O R  I N T E R F A C E  |  91
+E L E C T R O N  P A R A M E T E R S
+For each of the following properties the default takes values From material, or for 
+User defined enter a different value or expression in the text field.
+• Electron mobility reference μn,0
+ref (SI unit: m2/(V⋅s)). The default value is for silicon 
+(1252 cm2/(V⋅s)).
+• Electron mobility minimum reference μn,
+ref
+min (SI unit: m2/(V⋅s)). The default value 
+is for silicon (88 cm2/(V⋅s)).
+• Electron reference impurity concentration Nn
+ref
+0 (SI unit: 1/m3). The default value 
+is for silicon (1.26·1017 1/cm3).
+H O L E  P A R A M E T E R S
+For each of the following properties the default takes values From material, or for 
+User defined enter a different value or expression in the text field.
+• Hole mobility reference μp,0
+ref (SI unit: m2/(V⋅s). The default value is for silicon 
+(407 cm2/(V⋅s).
+• Hole mobility minimum reference μp,
+ref
+min (SI unit: m2/(V⋅s)). The default value is 
+for silicon (54.3 cm2/(V⋅s)).
+• Hole reference impurity concentration Np,
+ref
+0 (SI unit: 1/m3). The default value is 
+for silicon (2.35·1017 1/cm3).
+Klaassen Unified Mobility Model (LIC)
+The Klaassen Unified Mobility Model (LIC) (sometimes referred to as Philips Unified 
+Mobility Model) subnode is available from the context menu (right-click the 
+Semiconductor Material Model parent node) or from the Physics toolbar, Attributes 
+menu. Use it to simulate the combined effects of lattice (phonon) scattering (indicated 
+by the ‘L’ in the parenthesis), impurity scattering (‘I’ in the parenthesis), and carrier–
+carrier scattering (‘C’ in the parenthesis). Screening of the impurities by the charge 
+carriers and clustering of impurities at high doping levels are also taken into account. 
+The Klaassen unified mobility model involves many parameters. The set of equations 
+defining the model is shown in the Equation section in the graphical user interface.
+Mobility Models and Theory for the Arora Mobility Model (LI)
+
+
+
+
+=== PAGE 92 ===
+92 ---
+92 |  C H A P T E R  3 :  T H E  S E M I C O N D U C T O R  B R A N C H  I N T E R F A C E S
+D O M A I N  S E L E C T I O N
+P A R A M E T E R S
+For each of the following properties the default takes values From material, or for 
+User defined enter a different value or expression in the text field.
+•
+Reference temperature Tref (SI unit: K). The default is 300 K.
+•
+Klaassen max electron mobility μe,max (SI unit: m2/(V⋅s)). The default is for silicon 
+1414.0 cm2/(V⋅s).
+•
+Klaassen max hole mobility μh,max (SI unit: m2/(V⋅s)). The default is for silicon 
+470.5 cm2/(V⋅s).
+•
+Klaassen lattice mobility electron exponent θe (dimensionless). The default is for 
+silicon 2.285.
+•
+Klaassen lattice mobility hole exponent θh (dimensionless). The default is for silicon 
+2.247.
+•
+Klaassen min electron mobility μe,min (SI unit: m2/(V⋅s)). The default is for silicon 
+68.5 cm2/(V⋅s).
+•
+Klaassen min hole mobility μh,min (SI unit: m2/(V⋅s)). The default is for silicon 
+44.9 cm2/(V⋅s).
+•
+Klaassen dopant and carrier mobility electron exponent αe,1 (dimensionless). The 
+default is for silicon 0.711.
+•
+Klaassen dopant and carrier mobility hole exponent αh,1 (dimensionless). The default 
+is for silicon 0.719.
+•
+Klaassen electron reference density Nref,e,1 (SI unit: 1/m3). The default value is for 
+silicon (9.20·1016 1/cm3).
+•
+Klaassen hole reference density Nref,h,1 (SI unit: 1/m3). The default value is for 
+silicon (2.23·1017 1/cm3).
+•
+Klaassen cluster function donor coefficient cD (dimensionless). The default is for 
+silicon 0.21.
+•
+Klaassen cluster function acceptor coefficient cA (dimensionless). The default is for 
+silicon 0.50.
+Usually the mobility model selection should not be changed from that of 
+the parent node Semiconductor Material Model.
+
+
+
+
+=== PAGE 93 ===
+93 ---
+T H E  S E M I C O N D U C T O R  I N T E R F A C E  |  93
+•
+Klaassen cluster function donor reference density Nref,D (SI unit: 1/m3). The default 
+value is for silicon (4.0·1020 1/cm3).
+•
+Klaassen cluster function acceptor reference density Nref,A (SI unit: 1/m3). The 
+default value is for silicon (7.2·1020 1/cm3).
+•
+Klaassen P parameter BH weight fBH (dimensionless). The default is for silicon 3.828.
+•
+Klaassen P parameter CW weight fCW (dimensionless). The default is for silicon 
+2.459.
+•
+Klaassen P parameter BH prefactor NBH (SI unit: 1/m3). The default value is for 
+silicon (1.36·1020 1/cm3).
+•
+Klaassen P parameter CW prefactor PCW (dimensionless). The default value is for 
+silicon (3.97·1013).
+•
+Klaassen electron mobility mass me (SI unit: kg). The default value is for silicon 
+(me_const).
+•
+Klaassen hole mobility mass mh (SI unit: kg). The default value is for silicon 
+(1.258*me_const).
+•
+Klaassen 1st ~ 7th s parameters s1 ~ s7 (dimensionless). The default values are for 
+silicon (0.89233, 0.41372, 0.19778, 0.28227, 0.005978, 1.80618, 0.72169).
+•
+Klaassen 1st ~ 6th r parameters r1 ~ r6 (dimensionless). The default values are for 
+silicon (0.7643, 2.2999, 6.5502, 2.3670, −0.01552, 0.6478).
+Analytic Doping Model
+Use the Analytic Doping Model to set the doping type and concentration within a 
+Semiconductor Material Model domain. The concentration is defined as a function of 
+the local coordinate system, making this doping method suitable for profiles that are 
+convenient to express in terms of the coordinate axes.
+The configuration of doping is critical in semiconductor modeling. You can visualize 
+doping profiles by clicking the preview buttons before solving the model. Two buttons 
+named as 
+ Plot Doping Profile for Selected and 
+ Plot Net Doping Profile for All are 
+available both in the toolbar and the context menu. The doping profile will be shown 
+in a separate plot window named as 
+ Doping Profile Plot. Note that p-type and 
+n-type domains are shown in red and blue color, respectively.
+Mobility Models and Theory for the Klaassen unified mobility model 
+(LIC)
+
+
+
+
+=== PAGE 94 ===
+94 ---
+94 |  C H A P T E R  3 :  T H E  S E M I C O N D U C T O R  B R A N C H  I N T E R F A C E S
+C O N T I N U A T I O N  S E T T I N G S
+In some cases it is desirable to increase the doping from zero or a low value to that 
+required in the simulation during the solution process. This can improve the 
+convergence of the simulation significantly. The continuity settings allow the dopant 
+densities to be weighted by an external parameter, whose value should be between 0 
+and 1.
+• By default the Continuation type is set to Use interface continuation parameter. This 
+means that the continuity settings are determined by the Doping and trap density 
+continuation in the Continuation Settings section for The Semiconductor Interface.
+• To introduce the doping from a specific feature independently of the other features, 
+select User defined and manually enter the Continuation parameter. This should be set 
+to a dimensionless parameter that is swept from zero to 1 using the continuation 
+solver.
+• To disable the continuation for a particular doping feature select No continuation for 
+the Continuation type.
+D I S T R I B U T I O N
+Choose the type of dopant distribution to apply on the selected domains from the 
+Distribution list: User defined (the default) to enable any expression to be used to define 
+the dopant distribution, or Box to create a block-shaped region of uniform doping 
+away from which the concentration decays to a background level according to a 
+specified profile. The Profile of the distribution away from the uniform region is 
+selected from a list of preset functions.
+I M P U R I T Y
+Choose an Impurity type to set the species of the dopants — Acceptor doping (p-type) 
+(the default) or Donor doping (n-type). Once the impurity type is selected, enter a value 
+For the finite volume method it is recommended that a zero value of the 
+parameter is avoided. Instead, start with a small value (for example, 1e-6) 
+and increase the value of the parameter gradually to 1. The continuation 
+solver usually does not manage the transition from zero to finite doping 
+when the finite volume method is used.
+Solving
+
+
+
+
+=== PAGE 95 ===
+95 ---
+T H E  S E M I C O N D U C T O R  I N T E R F A C E  |  95
+or expression for the Acceptor concentration NA0 or Donor concentration ND0 
+(SI unit: 1/m3).
+For a User defined Distribution input, you can use any expression in terms of the 
+coordinate system. This expression then defines the dopant concentration through the 
+selected domains (if a constant value is entered this simply assigns a uniform 
+concentration to all selected domains). For a Box distribution, a constant value must 
+be entered and this sets the concentration within the region of uniform doping. The 
+default value for both distributions is a constant value of 1·1016 cm3.
+U N I F O R M  R E G I O N
+This section is available when Box is selected under Distribution. It is used to define the 
+location and size of the region of uniform doping.
+Set the position of the region using the Base list. Select Corner (the default) or Center.
+The Base position r0 (SI unit: m) vector sets the location of the region. When Corner is 
+selected it describes the coordinate of the lower left front corner of the region, and 
+when Center is selected it describes the coordinate of the center of the region. The 
+default value is at the origin of the coordinate system.
+The extent of the region is defined with the Width, Depth, and Height inputs. Only the 
+inputs relevant to the dimension of the component to which the feature belongs are 
+displayed, for example, in a 2D component only the Width and Depth are available.
+•
+Width W (SI unit: m). This is the extent of the region in the direction parallel to the 
+local x-axes.
+•
+Depth D (SI unit: m). This is the extent of the region in the direction parallel to the 
+local y-axes.
+•
+Height H (SI unit: m). This is the extent of the region in the direction parallel to the 
+local z-axes.
+The default value is 0 for each dimension.
+It is possible to set the height, width, or depth of the region to zero. In 
+2D, for example, setting the height of the region to zero results in a line 
+of constant doping away from which the profile function decays.
+
+
+
+
+=== PAGE 96 ===
+96 ---
+96 |  C H A P T E R  3 :  T H E  S E M I C O N D U C T O R  B R A N C H  I N T E R F A C E S
+P R O F I L E
+This section is available when Box is selected under Distribution. Select a Profile away 
+from uniform region — Gaussian (the default), Linear, or Error function (erf).
+Then select an option from the Specify profile length scale list — Junction depth 
+(available for all profiles), Decay length (available for a Gaussian), Gradient (available for 
+Linear), or Argument factor (available for Error function (erf)).
+By default, the Specify different length scales for each direction checkbox is not selected. 
+It is possible to specify a different profile length scale in each coordinate direction 
+when this checkbox is selected.
+Junction Depth
+For Junction depth enter a value for the Junction depth dj (SI unit: m, default value is 
+1 μm) to specify the location at which the profile concentration drops to equal the 
+Background doping concentration Nb (SI unit: 1/m3). The default background 
+concentration is User defined with a doping concentration of 1·1015 1/cm3. 
+Alternately, the doping distribution from another Analytic Doping Model or 
+Geometric Doping Model can be used as the background concentration.
+Each profile has a profile-specific parameter to directly control the length scale of the 
+decay.
+Decay Length — for Gaussian profile
+For Decay length enter a value for the Decay length lj of the Gaussian decay. (SI unit: m, 
+default value is 1 μm).
+Gradient — for Linear profile
+For Gradient enter a value for the Gradient Ngrad of the Linear profile (SI unit: 1/m4, 
+default value is −1·1020 1/cm4).
+Argument Factor — for Error function (erf) profile
+For Argument factor enter a value for the Argument factor m (SI unit: 1/m, default 
+value is 1 (1/μm)) to specify the factor by which the coordinate values are multiplied 
+before being operated on by the erf function.
+As when the Junction depth option is used, by default the Specify different length scales 
+for each direction checkbox is not selected. Select it to specify a different profile length 
+scale in each coordinate direction.
+
+
+
+
+=== PAGE 97 ===
+97 ---
+T H E  S E M I C O N D U C T O R  I N T E R F A C E  |  97
+Geometric Doping Model
+Use the Geometric Doping Model to define a dopant distribution in terms of the distance 
+from selected boundaries. This is convenient when specifying distributions which are 
+not easily expressed in terms of the coordinate system. For example, if a profile is 
+defined in terms of the distance from a surface then it may not need to have its 
+expression modified if the geometry is altered. This feature also allows any user defined 
+decay profile away from the selected boundaries, which is suitable for cases where none 
+of the preset decay functions available in the Analytic Doping Model are appropriate.
+A default Boundary Selection for Doping Profile is added where the boundaries from 
+which the distance is calculated can be specified.
+The configuration of doping is critical in semiconductor modeling. You can visualize 
+doping profiles by clicking the preview buttons before solving the model. Two buttons 
+named as 
+ Plot Doping Profile for Selected and 
+ Plot Net Doping Profile for All are 
+available both in the toolbar and the context menu. The doping profile will be shown 
+in a separate plot window named as 
+ Doping Profile Plot. Note that p-type and 
+n-type domains are shown in red and blue color, respectively.
+C O N T I N U A T I O N  S E T T I N G S
+These settings are the same as for Analytic Doping Model.
+D I S T R I B U T I O N
+Select an option from the Profile away from the boundary list — Gaussian (the default), 
+Linear, Error function (erf), or User defined.
+• Doped Semiconductors
+• Doping and Using the Analytic Doping Model
+• Specifying the Dopant Distribution and Theory for the Analytic 
+Doping Model
+
+
+
+
+=== PAGE 98 ===
+98 ---
+98 |  C H A P T E R  3 :  T H E  S E M I C O N D U C T O R  B R A N C H  I N T E R F A C E S
+I M P U R I T Y
+For Gaussian, Linear, or Error function (erf) profiles, select the Impurity type — Acceptor 
+doping (the default) or Donor doping. Then specify the maximum doping concentration 
+of the distribution; this is the concentration of the dopants at the selected boundaries.
+• For Acceptor doping specify the Acceptor concentration at boundary NA0 (SI unit: 
+1/m3) of the electron acceptor impurities. The default value is 1·1016 1/cm3.
+• For Donor doping specify the Donor concentration at boundary ND0 (SI unit: 1/m3) 
+of the electron donor impurities. The default value is 1·1016 1/cm3.
+For User defined profiles select the Dopant type — Acceptor doping (the default) or 
+Donor doping. Then enter an expression for Define profile as a function of the distance, 
+D, from the boundaries N(D) (SI unit 1/m3). The distance from the selected 
+boundaries is available as variable semi.gdm#.D, which can be used in an expression to 
+define the doping profile. The default expression gives an example of a Gaussian profile 
+defined using this variable.
+P R O F I L E
+For the Gaussian, Linear, and Error function (erf) profiles it is necessary to specify the 
+length scale of the profile decay. The Profile section allows the length scale of the profile 
+to be controlled. As with the Analytic Doping Model, the length scale can be 
+controlled either by entering a junction depth or via a profile-specific length scale 
+parameter. See Analytic Doping Model, under Profile for the settings for more details.
+Boundary Selection for Doping Profile
+A default Boundary Selection for Doping Profile is added to the Geometric Doping 
+Model. This node enables the boundaries from which the distance is calculated to be 
+• Doped Semiconductors
+• Doping and Using the Geometric Doping Model
+• Specifying the Dopant Distribution and Theory for the Geometric 
+Doping Model
+
+
+
+
+=== PAGE 99 ===
+99 ---
+T H E  S E M I C O N D U C T O R  I N T E R F A C E  |  99
+selected. Any interior or exterior boundary that bounds, or is within, the domains to 
+which the corresponding Geometric Doping Model is applied can be selected.
+Analytic Trap Density
+Use the Analytic Trap Density node to specify the density of traps within the domain. 
+This feature enables a density to be defined by an expression written in terms of the 
+local coordinate system. Alternately, it enables a region of uniform trap density which 
+decays into a background density with one of three preset profile functions to be 
+created. The trap density can be used in conjunction with a Trap-Assisted 
+Recombination feature to specify recombination via trapping sites whose density varies 
+in space. The available options are similar to the Analytic Doping Model feature.
+C O N T I N U A T I O N  S E T T I N G S
+In some cases it is desirable to increase the trapping from zero or a low value to that 
+required in the simulation during the solution process. This can improve the 
+convergence of the problem significantly. The continuity settings allow the trap 
+densities to be weighted by an external parameter whose value should be between 0 
+and 1. By default the Continuation type is set to Use interface continuation parameter. 
+This means that the continuity settings are determined by the Doping and trap density 
+continuation in the Continuation Settings section for The Semiconductor Interface. To 
+introduce the trapping from a specific feature independently of the other features, 
+select User defined and manually enter the Continuation parameter. This should be set 
+to a dimensionless parameter that is swept from zero to 1 using the continuation solver.
+To disable the continuation for a particular trapping feature select No continuation for 
+the Continuation type. The effect of the traps can also be ramped on using the 
+continuation feature within the trap-assisted recombination feature.
+• Doped Semiconductors
+• Doping
+• Specifying the Dopant Distribution
+Solving
+
+
+
+
+=== PAGE 100 ===
+100 ---
+100 |  C H A P T E R  3 :  T H E  S E M I C O N D U C T O R  B R A N C H  I N T E R F A C E S
+D I S T R I B U T I O N
+Select a Distribution — User defined (the default) or Box.
+I M P U R I T Y
+Select an Impurity type to give the conductivity type of the selected semiconductor 
+material — Donor traps (the default), Acceptor traps, Neutral electron traps, or Neutral 
+hole traps.
+For any selection, enter a Trap density Nt0 (SI unit: 1/m3). The default value is 
+1·1016 1/cm3.
+U N I F O R M  R E G I O N
+This section is available when Box is selected under Distribution. See Analytic Doping 
+Model for these settings.
+P R O F I L E
+This section is available when Box is selected under Distribution. Select a Profile away 
+from uniform region — Gaussian (the default), Linear, or Error function (erf).
+By default, the Specify different length scales for each direction checkbox is not selected. 
+It is possible to specify a different profile length scales in each coordinate direction 
+when this checkbox is selected.
+Based on the selected profile above, enter one of the following:
+•
+Decay length ld (SI unit: m, default value is 1 μm) (Gaussian profiles).
+•
+Gradient Ngrad (SI unit: 1/m4, default value is −1·1020 1/cm4) (Linear profiles).
+•
+Argument factor m (SI unit: 1/m, default value is 1 (1/μm)) to specify the factor by 
+which the coordinate values are multiplied before being operated on by the erf() 
+function (Error function (erf) profiles).
+Geometric Trap Density
+Use the Geometric Trap Density node to specify the density of traps within the domain. 
+This feature enables the trap density to be entered as a function of the distance from 
+selected boundaries. In addition to enabling a fully user-defined trap density to be 
+The Impurity type setting has no effect if a neutral level is used within the 
+Trap-Assisted Recombination feature(s).
+
+
+
+
+=== PAGE 101 ===
+101 ---
+T H E  S E M I C O N D U C T O R  I N T E R F A C E  |  101
+entered, three preset density profiles are also available. The trap density can be used in 
+conjunction with a Trap-Assisted Recombination feature to specify recombination via 
+trapping sites whose density varies in space. The available options are similar to the 
+Geometric Doping Model feature.
+C O N T I N U A T I O N  S E T T I N G S
+These settings are the same as for Analytic Doping Model.
+D I S T R I B U T I O N
+Select an option from the Profile away from the boundary list — Gaussian (the default), 
+Linear, Error function (erf), or User defined.
+I M P U R I T Y
+Select an Impurity type to give the conductivity type of the selected semiconductor 
+material — Donor traps (the default), Acceptor traps, Neutral electron traps, or Neutral 
+hole traps.
+For Gaussian, Linear, or Error function (erf) distribution profiles, enter a Trap density at 
+boundary Nt0 (SI unit: 1/m3). The default value is 1·1016 1/cm3.
+For a User defined profile, enter a value to Define profile as a function of the distance, D, 
+from the boundaries N(D) (SI unit 1/m3).
+P R O F I L E
+This section is available for Gaussian, Linear, or Error function (erf) distribution profiles. 
+Based on the profile selection enter one of the following:
+•
+Decay length ld (SI unit: m, default value is 1 μm) (Gaussian profiles).
+•
+Gradient Ngrad (SI unit: 1/m4, default value is −1·1020 1/cm4) (Linear profiles).
+•
+Argument factor m (SI unit: 1/m, default value is 1 (1/μm)) to specify the factor by 
+which the coordinate values are multiplied before being operated on by the erf() 
+function (Error function (erf) profiles).
+The Impurity type setting has no effect if a neutral level is used within the 
+Trap-Assisted Recombination feature(s).
+
+
+
+
+=== PAGE 102 ===
+102 ---
+102 |  C H A P T E R  3 :  T H E  S E M I C O N D U C T O R  B R A N C H  I N T E R F A C E S
+Boundary Selection for Trap Density Profile
+A default Boundary Selection for Trap Density Profile is added to the Geometric Trap 
+Density. This node enables the boundaries from which the distance is calculated to be 
+selected. Any interior or exterior boundary that bounds, or is within, the domains to 
+which the corresponding Geometric Trap Density is applied can be selected.
+Trap-Assisted Recombination
+Use the Trap-Assisted Recombination model to set the electron and hole recombination 
+rates in indirect band-gap semiconductors such as silicon under low electric fields. 
+Select this option from the Generation–Recombination submenu.
+T R A P - A S S I S T E D  R E C O M B I N A T I O N
+Select a Domain trapping model:
+•
+Shockley–Read–Hall model (the default). This option corresponds to the original 
+Shockley–Read–Hall model for steady state recombination via states located at the 
+midgap.
+•
+Explicit trap distribution. This option allows the specification of a number of discrete 
+traps or a continuous density of trap states at energies within the band-gap. Degrees 
+of freedom are added to the equation system to represent the occupancy of traps at 
+a particular energy.
+This feature is an expanded version of the original Shockley–Read–Hall 
+Recombination feature, with new options to allow for more detailed 
+modeling of traps.
+Recombination and Generation and Theory for Trap-Assisted 
+Recombination: Shockley–Read–Hall Recombination
+When Explicit trap distribution is selected as the Domain trapping model, 
+the Discrete Energy Level (Domains) subnode is available from the 
+context menu (right-click the parent node) or from the Physics toolbar, 
+Attributes menu.
+
+
+
+
+=== PAGE 103 ===
+103 ---
+T H E  S E M I C O N D U C T O R  I N T E R F A C E  |  103
+S H O C K L E Y – R E A D – H A L L  R E C O M B I N A T I O N
+This section is available when Shockley–Read–Hall model is selected as the Domain 
+trapping model:
+The Shockley–Read–Hall recombination rate is defined as
+with
+where γn and γp are the electron and hole degeneracy factors, Nc,0 and Nv,0 are the 
+effective densities of states for the conduction and valence band, Eg is the band gap 
+and ΔEg the band gap narrowing energies (SI unit: V) — scaled by the electron charge, 
+q. Vth = kBT/q, where kB is Boltzmann’s constant and T is the temperature. The 
+parameters τn and τp are carrier lifetimes (SI unit: s) and Et is the trap energy level (SI 
+unit: V) — scaled by the electron charge.
+Enter values for the following:
+• The Electron lifetime, SRH τn (SI unit: s) is taken From material. For User defined enter 
+a value in the text field. The default is 10 μs.
+• The Hole lifetime, SRHτp (SI unit: s) is taken From material. For User defined enter a 
+value in the text field. The default is 10 μs.
+• Enter a value for Energy difference between the defect level and the intrinsic level ΔEt 
+(SI unit: V) in the text field. The default is 0 V.
+T R A P P I N G
+This section is available when Explicit trap distribution is selected as the Domain trapping 
+model.
+Rn
+Rp
+np
+ni mod
+,
+2
+–
+τp n
+n1
++
+(
+)
+τn p
+p1
++
+(
+)
++
+------------------------------------------------------------
+=
+=
+ni mod
+,
+γnγp Nc0Nv0
+ 
+Eg
+ΔEg
+–
+2Vth
+-----------------------
+–
+
+
+
+
+exp
+=
+n1
+γn Nc0Nv0
+ 
+Eg
+ΔEg
+–
+2Vth
+ 
+-----------------------
+–
+
+
+
+
+
+
+ΔEt
+Vth
+ 
+---------
+
+
+
+
+
+
+exp
+exp
+=
+p1
+γpγp Nc0Nv0
+ 
+Eg
+ΔEg
+–
+2Vth
+ 
+-----------------------
+–
+
+
+
+
+
+
+ΔEt
+Vth
+ 
+---------
+
+
+
+
+
+
+exp
+exp
+=
+
+
+
+
+=== PAGE 104 ===
+104 ---
+104 |  C H A P T E R  3 :  T H E  S E M I C O N D U C T O R  B R A N C H  I N T E R F A C E S
+By default, Specify the discrete levels only is selected. Or select Specify continuous and/or 
+discrete levels.
+For either choice:
+• The Specify trap species checkbox is not selected by default. In this case the software 
+does not distinguish between different types of trap and the charge due to the traps 
+is determined by the neutral energy level.
+• To set the Neutral energy level, select — Midgap (the default), From valence band edge, 
+From conduction band edge, or Relative. Then enter the applicable information:
+-
+Neutral level for traps (available when From valence band edge or From conduction 
+band edge is selected) E0 (SI unit: V). The default is 0 V.
+-
+Neutral level for traps (between 0 and 1, 0.5 is midgap) (available when Relative is 
+selected) E0 (dimensionless). The default is 0.5.
+Discrete Energy Level (Domains)
+The Discrete Energy Level subnode is available from the context menu (right-click the 
+parent node) or from the Physics toolbar, Attributes menu when Explicit trap 
+distribution is selected as the Domain trapping model for the Trap-Assisted 
+Recombination node. Use this feature to specify a single discrete energy level for the 
+traps.
+T R A P  T Y P E
+This section is available when the Specify trap species checkbox is selected for the parent 
+node. Different trap types have a different charge when they are occupied or 
+unoccupied. Select a Trap type:
+•
+Donor traps. Neutral when unionized (occupied by electron) and positively charged 
+when ionized (unoccupied by electron).
+•
+Acceptor traps. Neutral when unionized (occupied by hole) and negatively charged 
+when ionized (unoccupied by hole; that is, filled by electron).
+When Explicit trap distribution is selected as the Domain trapping model, 
+and Specify continuous and/or discrete levels is selected above, the 
+Continuous Energy Levels (Domains) subnode is available from the 
+context menu (right-click the parent node) or from the Physics toolbar, 
+Attributes menu.
+
+
+
+
+=== PAGE 105 ===
+105 ---
+T H E  S E M I C O N D U C T O R  I N T E R F A C E  |  105
+•
+Neutral electron traps. Negatively charged when occupied (electron trapped) and 
+neutral when unoccupied (no electron trapped).
+•
+Neutral hole traps. Positively charged when occupied (hole trapped) and neutral 
+when unoccupied (no hole trapped).
+T R A P S
+When there is no Trap type defined, enter a Trap number density Nt (SI unit: 1/m3). 
+The default is 1·1012 1/cm3.
+When the Trap type is defined, enter one of the following:
+•
+Donor trap density Nt,d (SI unit: 1/m3). The default is 1·1012 1/cm3.
+•
+Acceptor trap density Nt,a (SI unit: 1/m3). The default is 1·1012 1/cm3.
+•
+Neutral electron trap density Nt,ne (SI unit: 1/m3). The default is 1·1012 1/cm3.
+•
+Neutral hole trap density Nt,nh (SI unit: 1/m3). The default is 1·1012 1/cm3.
+For any option, select an Impurity energy level — Midgap (the default), From valence 
+band edge, From conduction band edge, or Relative. Then enter the applicable 
+information:
+•
+Impurity energy level (available when From valence band edge or From conduction 
+band edge is selected) Et,0 (SI unit: V). The default is 0 V.
+•
+Impurity energy level (between 0 and 1, 0 being the valence band) (available when 
+Relative is selected) Et,0 (dimensionless). The default is 0.5.
+Enter the Ground-state degeneracy factor gd (dimensionless). The default is 1.
+Enter the Trap occupancy initial value ft,init (dimensionless). The default is 0.5.
+C A R R I E R  C A P T U R E
+Choose how to define the Probability of electron capture (Cn) — From cross section (the 
+default) or User defined.
+• For From cross section, enter an Averaged cross section for electron capture <σn> 
+(SI unit: m2; the default is 1·1018 1/cm2) and Electron thermal velocity Vth
+n 
+(SI unit: m/s; the default is 1.562·107 m/s).
+• For User defined, enter Cn (SI unit: m3/s). The default is 2.042·10-11 cm3/s.
+
+
+
+
+=== PAGE 106 ===
+106 ---
+106 |  C H A P T E R  3 :  T H E  S E M I C O N D U C T O R  B R A N C H  I N T E R F A C E S
+Define the Probability of hole capture (Cp) — From cross section (the default) or User 
+defined.
+• For From cross section, enter an Averaged cross section for hole capture <σp> 
+(SI unit: m2; the default is 1·1018 1/cm2) and Hole thermal velocity Vth
+p (SI unit: 
+m/s; the default is 1.562·107 m/s).
+• For User defined enter Cp (SI unit: m3/s). The default is 1.562·10−11 cm3/s.
+A D D I T I O N A L  C A R R I E R  C A P T U R E  R A T E
+Optionally enter user-defined additional contributions to the electron and hole capture 
+rates Rn,extra and Rp,extra (SI unit: 1/m3/s). The default is 0.
+Transition Between Discrete Levels (Domains)
+When there are two or more Discrete Energy Level (Domains) subnodes under the 
+Trap-Assisted Recombination feature, transition between two different discrete trap 
+levels can be specified using this subfeature.
+L O W E R  L E V E L  ( 1 )
+Select one of the discrete trap levels from the list. The default is None.
+U P P E R  L E V E L  ( 2 )
+Select a different discrete trap levels from the list. The default is None.
+D E C A Y  L I F E T I M E  F R O M  U P P E R  T O  L O W E R  L E V E L :  ( τ21)
+Enter the decay lifetime from upper to lower level τ21 (SI unit: s). The default is 10 μs.
+Continuous Energy Levels (Domains)
+The Continuous Energy Level subnode is available from the context menu (right-click 
+the Trap-Assisted Recombination parent node) or from the Physics toolbar, Attributes 
+menu when Explicit trap distribution is selected as the Domain trapping model, and 
+Specify continuous and/or discrete levels is selected under Trapping. Use this node to 
+define a density of trap states.
+T R A P  T Y P E
+This section is available when the Specify trap species checkbox is selected for the parent 
+node. See Discrete Energy Level (Domains).
+
+
+
+
+=== PAGE 107 ===
+107 ---
+T H E  S E M I C O N D U C T O R  I N T E R F A C E  |  107
+T R A P S
+Select a Trap density distribution — Gaussian (the default), Rectangle, Exponential, or 
+User defined. Then enter the applicable information:
+•
+Width (for Gaussian distribution) σ (SI unit: V). The default is 0.333 V.
+•
+Width (for rectangle distribution) Ewidth (SI unit: V). The default is 0 V.
+•
+Size of transition zone (for rectangle distribution) ΔEtran (SI unit: V). The default is 
+0.05 V. This value determines the width of the smoothing employed on the step 
+function for the rectangle distribution.
+•
+Damping coefficient (for exponential distribution) d (SI unit: V). The default is 
+0.1 V.
+•
+Density of trap states (for user defined) gt(E) (SI unit: s3⋅A/(m5⋅kg)). The default is 
+0 s3⋅A/(m5⋅kg).
+Enter a Trap number density Nt (SI unit: 1/m3). The default is 1·1012 1/cm3.
+When the Trap type is defined, enter one of the following:
+•
+Donor trap density Nt,d (SI unit: 1/m3). The default is 1·1012 1/cm3.
+•
+Acceptor trap density Nt,a (SI unit: 1/m3). The default is 1·1012 1/cm3.
+•
+Neutral electron trap density Nt,ne (SI unit: 1/m3). The default is 1·1012 1/cm3.
+•
+Neutral hole trap density Nt,nh (SI unit: 1/m3). The default is 1·1012 1/cm3.
+This quantity represents the total trap density, or the integrated density of states:
+where g (E) is the density of trap states, and Et,min and Et,max define the range of the 
+energy (see user inputs below), with the default being the energy levels corresponding 
+to the conduction and valence band edges in the absence of band gap narrowing. The 
+energy range is truncated within the default range so that there is no trap level within 
+the conduction band or the valence band.
+Select a Distribution centerpoint — Midgap (the default), From valence band edge, From 
+conduction band edge, or Relative. Then enter the applicable information:
+•
+Distribution centerpoint Et,0 (SI unit: V). The default is 0 V.
+•
+Distribution centerpoint (between 0 and 1, 0 being the valence band) Et,0 
+(dimensionless). The default is 0.5.
+Nt
+gt E
+(
+) E
+d
+Et min
+,
+Et max
+,
+
+=
+
+
+
+
+=== PAGE 108 ===
+108 ---
+108 |  C H A P T E R  3 :  T H E  S E M I C O N D U C T O R  B R A N C H  I N T E R F A C E S
+Enter the Ground-state degeneracy factor gd (dimensionless). The default is 1.
+Enter the Trap occupancy initial value ft,init (dimensionless). The default is 0.5.
+Enter the Continuous energy discretization, number of mesh points Nxd
+elem 
+(dimensionless). The default is 25.
+Enter the Continuous energy discretization, min energy Et,min (SI unit: V). The default 
+is semi.Ev0, the valence band edge in the absence of band gap narrowing.
+Enter the Continuous energy discretization, max energy Et,max (SI unit: V). The default 
+is semi.Ec0, the conduction band edge in the absence of band gap narrowing.
+C A R R I E R  C A P T U R E
+These settings are the same as for Discrete Energy Level (Domains).
+Auger Recombination
+Use the Auger Recombination model to set the electron and hole recombination rates 
+at high nonequilibrium carrier densities in semiconducting materials. Select this option 
+from the Generation–Recombination submenu.
+The Auger recombination rate is defined as
+with
+where γn and γp are the electron and hole degeneracy factors, Nc,0 and Nv,0 are the 
+effective densities of states for the conduction and valence band, Eg is the band-gap 
+(SI unit: V), and ΔEg the band gap narrowing (SI unit: V). The parameters Cn and Cp 
+are material constants (SI unit: m6/s).
+Recombination and Generation and Theory for Auger Recombination
+Rn
+Rp
+Cnn
+Cpp
++
+(
+) np
+ni mod
+,
+2
+–
+(
+)
+=
+=
+ni mod
+,
+γnγp Nc0Nv0
+ 
+Eg
+ΔEg
+–
+2Vth
+ 
+-----------------------
+–
+
+
+
+
+
+
+exp
+=
+
+
+
+
+=== PAGE 109 ===
+109 ---
+T H E  S E M I C O N D U C T O R  I N T E R F A C E  |  109
+A U G E R  R E C O M B I N A T I O N
+The electron lifetime Auger recombination factor, electrons Cn (SI unit: m6/s) is taken 
+From material. For User defined, enter a value in the text field, the default value is for 
+silicon, 2.8·10−31 cm6/s.
+The electron lifetime Auger recombination factor, holes Cp (SI unit: m6/s) is taken From 
+material. For User defined, enter a value in the text field, the default value is for silicon, 
+9.9·10−32 cm6/s.
+Direct Recombination
+Use the Direct Recombination to set the recombination rate in direct band-gap 
+semiconductor materials such as gallium arsenide. Select this option from the 
+Generation–Recombination submenu.
+The recombination rate for both electrons and holes is set using the following 
+equation:
+with
+where γn and γp are the electron and hole degeneracy factors, Nc,0 and Nv,0 are the 
+effective densities of states for the conduction and valence band, Eg is the band-gap 
+and ΔEg the band-gap narrowing (SI unit: V).
+D I R E C T  R E C O M B I N A T I O N
+The default Direct recombination factor C (SI unit: m3/s) is taken From material. For 
+User defined enter a value in the text field. The default value is 0 m3/s.
+Recombination and Generation and Theory for the Direct 
+Recombination Feature
+Rn
+Rp
+C np
+ni mod
+,
+2
+–
+(
+)
+=
+=
+ni mod
+,
+γnγp Nc0Nv0
+ 
+Eg
+ΔEg
+–
+2Vth
+ 
+-----------------------
+–
+
+
+
+
+
+
+exp
+=
+
+
+
+
+=== PAGE 110 ===
+110 ---
+110 |  C H A P T E R  3 :  T H E  S E M I C O N D U C T O R  B R A N C H  I N T E R F A C E S
+Impact Ionization Generation
+Impact Ionization Generation occurs when, for example, an energetic electron 
+undergoes a collision in which it loses sufficient energy to promote an electron in the 
+valence band to the conduction band, resulting in an additional electron hole pair 
+being produced. It is the mechanism responsible for avalanche breakdown. Select this 
+option from the Generation–Recombination submenu.
+The carrier generation rate due to impact ionization is given by
+The values of αn and αp can be user defined or can be related to the material properties 
+in the following manner:
+where E||,n and E||,p are the components of the electric field parallel to the electron and 
+hole currents respectively and Tref, an, ap, bn, bp, cn, cp, dn, and dp are material 
+properties.
+I M P A C T  I O N I Z A T I O N  G E N E R A T I O N
+Indirect Update of Generation Rate
+The default is disabled, which means that the generation rate is applied directly in the 
+equation system.
+If the checkbox is selected, then additional degrees of freedom are created for the 
+generation rate. This allows the use of the Previous Solution node in the solver sequence 
+to delay the update of the generation rate, which helps convergence at the expense of 
+the accuracy of the solution (take smaller steps to check the accuracy).
+Recombination and Generation and Theory for Impact Ionization
+Rn
+II
+Rp
+II
+αn
+q
+------ Jn
+–
+αp
+q
+------ Jp
+–
+=
+=
+αn
+an 1
+cn T
+Tref
+–
+(
+)
++
+(
+)E|| n
+,
+n0
+bn 1
+dn T
+Tref
+–
+(
+)
++
+(
+)
+E|| n
+,
+-----------------------------------------------------
+
+
+
+
+m0
+–
+
+
+
+
+exp
+=
+αp
+ap 1
+cp T
+Tref
+–
+(
+)
++
+(
+)E|| p
+,
+n0
+bp 1
+dp T
+Tref
+–
+(
+)
++
+(
+)
+E|| p
+,
+----------------------------------------------------
+
+
+
+
+m0
+–
+
+
+
+
+exp
+=
+
+
+
+
+=== PAGE 111 ===
+111 ---
+T H E  S E M I C O N D U C T O R  I N T E R F A C E  |  111
+Impact Ionization Model
+The default Impact Ionization model is Okuto–Crowell model. For User defined, enter a 
+desired value or expression in the input field for the values of αn and αp.
+For the Okuto–Crowell model, the default Temperature reference Tref is 300 K. Two 
+Okuto–Crowell ionization parameters n0 and m0 are set to 1 and 2, respectively, as 
+default values. Change these values to adapt to a different model, for example, n0 = 0 
+and m0 = 1.
+For the Okuto–Crowell model, the defaults for the following are all taken From material. 
+For User defined, enter a different value or expression in the text field.
+•
+a factor, electrons, impact ionization an (SI unit: 1/V). The default is 0.426 (1/V).
+•
+a factor, holes, impact ionization ap (SI unit: 1/V). The default is 0.243 (1/V).
+•
+b factor, electrons, impact ionization bn (SI unit: V/m). The default is 
+4.81·105 V/cm.
+•
+b factor, holes, impact ionization bp (SI unit: V/m). The default is 6.53·105 V/cm.
+•
+c factor, electrons, impact ionization cn (SI unit: 1/K). The default is 
+3.05·10-4 (1/K).
+•
+c factor, holes, impact ionization cp (SI unit: 1/K). The default is 5.35·10-4 (1/K).
+•
+d factor, electrons, impact ionization dn (SI unit: 1/K). The default is 
+6.86·10-4 (1/K).
+•
+d factor, holes, impact ionization dp (SI unit: 1/K). The default is 5.67·10-4 (1/K).
+User-Defined Recombination
+Use the User-Defined Recombination feature to manually set a recombination rate for 
+electrons and holes in the semiconducting material. Select this option from the 
+Generation–Recombination submenu.
+U S E R  D E F I N E D  R E C O M B I N A T I O N
+Enter the following recombination rates:
+•
+User-defined recombination rate, electrons Rn,0 (SI unit: 1/(m3·s)).
+•
+User-defined recombination rate, holes Rp,0 (SI unit: 1/(m3·s)).
+Recombination and Generation and User-Defined Recombination
+
+
+
+
+=== PAGE 112 ===
+112 ---
+112 |  C H A P T E R  3 :  T H E  S E M I C O N D U C T O R  B R A N C H  I N T E R F A C E S
+User-Defined Generation
+Use the User-Defined Generation feature to manually set a generation rate for electrons 
+and holes in the semiconducting material. Select this option from the Generation–
+Recombination submenu.
+U S E R  D E F I N E D  G E N E R A T I O N
+Enter the following generation rates:
+•
+User-defined generation rate, electrons Gn,0 (SI unit: 1/(m3·s)).
+•
+User-defined generation rate, holes Gp,0 (SI unit: 1/(m3·s)).
+Metal Contact
+The Metal Contact node is used for modeling metal–semiconductor contacts.
+The Harmonic Perturbation subnode (it is of the exclusive type) is available from the 
+context menu (right-click the parent node) or in the Physics toolbar, click the Attributes 
+menu and select Harmonic Perturbation.
+T E R M I N A L
+Specify the terminal properties. To indicate which boundaries belong to the same 
+terminal, enter the same name in the Terminal name field. The Terminal name should 
+be numeric for sweeps to work properly.
+Select a Terminal type — Voltage (the default), Current, or Circuit. Select:
+•
+Voltage to enter an electric potential V0 (SI unit: V). The default is 0 V.
+•
+Current to enter a current I0 (SI unit: A). The default is zero current, corresponding 
+to an open circuit.
+•
+Circuit (current) to specify a terminal connected to an external circuit, where the 
+external circuit acts as a current source for the semiconductor model.
+•
+Circuit (voltage) to specify a terminal connected to an external circuit, where the 
+external circuit acts as a voltage source for the semiconductor model.
+•
+Power to enter a current P0 (SI unit: W). The default is zero power, corresponding 
+to an open circuit.
+Recombination and Generation and User-Defined Generation
+
+
+
+
+=== PAGE 113 ===
+113 ---
+T H E  S E M I C O N D U C T O R  I N T E R F A C E  |  113
+Contact resistance
+Select the Contact resistance checkbox (default is disabled) to add an infinitesimally 
+thin resistive layer, and then enter the Specific contact resistivity ρc (SI unit: Ω·m2). The 
+default is 1e-8[ohm*cm^2].
+C O N T A C T  T Y P E
+Select a Type — Ideal ohmic (the default) or Ideal Schottky.
+• Use the Ideal ohmic option for a nonrectifying metal–semiconductor junction, that 
+is a contact with negligible resistance relative to the total resistance of the modeled 
+semiconductor device.
+• Use the Ideal Schottky option for a simple rectifying metal–semiconductor junction, 
+that is, when the current–voltage characteristics at the interface depend on the 
+potential barrier formed at the junction. For this option, surface recombination 
+effects and surface charge densities associated with surface traps can be included in 
+the model by adding Trap-Assisted Surface Recombination boundary conditions to 
+the same boundary selection as the Metal Contact boundary condition.
+C O N T A C T  P R O P E R T I E S
+This section is available if Ideal Schottky is selected as the contact Type.
+Choose between an Ideal (the default) and User defined definition of the Barrier height.
+For the Ideal barrier height, the default Metal work function Φ (SI unit: V) is 4.5 V. The 
+metal work function is the difference in energy between the vacuum level and the 
+conduction band at equilibrium in the metal in contact with the semiconductor. The 
+ideal barrier height is given by the difference between the metal work function and the 
+electron affinity of the semiconductor.
+For the User defined barrier height, enter a value for the Barrier height ΦB (SI unit: V). 
+In this case, the metal work function is not used.
+T H E R M I O N I C  C U R R E N T S
+This section is available if Ideal Schottky is selected as the contact Type.
+Select the Thermionic currents — Richardson’s coefficients (the default) or Surface 
+recombination velocities.
+
+
+
+
+=== PAGE 114 ===
+114 ---
+114 |  C H A P T E R  3 :  T H E  S E M I C O N D U C T O R  B R A N C H  I N T E R F A C E S
+For Richardson’s coefficients enter an:
+•
+Effective Richardson constant for electrons An* (SI unit: A/(m2⋅K2)). The default 
+constant is 110 A/(K⋅cm)2 for silicon.
+•
+Effective Richardson constant for holes Ap* (SI unit: A/(m2⋅K2)). The default 
+constant is 90 A/(K⋅cm)2 for silicon.
+For Surface recombination velocities enter a:
+•
+Surface recombination velocity, electrons Vs,n (SI unit: m/s). The default is 
+21,605 m/s for silicon.
+•
+Surface recombination velocity, holes Vs,p (SI unit: m/s). The default is 19,006 m/s 
+for silicon.
+E X T R A  C U R R E N T  C O N T R I B U T I O N
+This section is available if Ideal Schottky is selected as the contact Type.
+The settings are the same as described in this section Extra Current Contribution.
+C O N S T R A I N T  S E T T I N G S
+This section is available when a finite-element formulation is used. To display this 
+section, click the Show More Options button (
+) and select Advanced Physics Options. 
+For Current, Circuit (current), and Power terminals, weak constraints are used by 
+default.
+Thin Insulator Gate
+Use the Thin Insulator Gate node to model a thin insulating material between the 
+semiconductor and a metal. The layer has the thickness dins and the relative 
+permittivity εins. The indices ins and s refer to the insulator and semiconductor side 
+of the boundary, respectively.
+• Boundary Conditions and Metal Contacts
+• Small-Signal Analysis
+• Harmonic Perturbation, Prestressed Analysis, and Small-Signal 
+Analysis in the COMSOL Multiphysics Reference Manual.
+
+
+
+
+=== PAGE 115 ===
+115 ---
+T H E  S E M I C O N D U C T O R  I N T E R F A C E  |  115
+The Harmonic Perturbation subnode (it is of the exclusive type) is available from the 
+context menu (right-click the parent node) or in the Physics toolbar, click the Attributes 
+menu and select Harmonic Perturbation.
+C O N T I N U A T I O N  S E T T I N G S
+These settings are the same as for Fletcher Mobility Model (C).
+T E R M I N A L
+Specify the terminal properties. To indicate which boundaries belong to the same 
+terminal, enter the same name in the Terminal name field. The Terminal name should 
+be numeric for sweeps to work properly.
+Select a Terminal type — Voltage (the default), Charge, or Circuit. Select:
+•
+Voltage to enter an electric potential V0 (SI unit: V). The default is 0 V.
+•
+Charge to specify a charge Q0 (SI unit: C). This is the charge on the contact side of 
+the parallel plate capacitor. The default is 0 V.
+• Circuit to specify a terminal connected to an external circuit.
+G A T E  C O N T A C T
+Specify the insulator dimensions and permittivity as well as the metal work function.
+•
+Oxide relative permittivity εins (dimensionless). The default relative permittivity is 1.
+• Small-Signal Analysis
+• Harmonic Perturbation — Exclusive and Contributing Nodes in the 
+COMSOL Multiphysics Reference Manual.
+Solving
+It is important to realize that the Charge setting does not specify an 
+interface charge at the boundary between the semiconductor and the 
+insulator — it specifies the charge on the top conductor of the gate 
+capacitor.
+
+
+
+
+=== PAGE 116 ===
+116 ---
+116 |  C H A P T E R  3 :  T H E  S E M I C O N D U C T O R  B R A N C H  I N T E R F A C E S
+•
+Oxide thickness dins (SI unit: m). The default thickness is 0.1 μm.
+•
+Metal work function Φ (SI unit: V). The default barrier height is 4.1 V. The metal 
+work function is the difference in energy between the vacuum level and the 
+conduction band at equilibrium in the metal in contact with the semiconductor.
+D E N S I T Y - G R A D I E N T
+This section appears only when one of the density-gradient formulation options are 
+selected under the Discretization section. See the identically named section 
+Density-Gradient for details.
+Trap-Assisted Surface Recombination
+The Trap-Assisted Surface Recombination boundary condition adds contributions to the 
+surface recombination rate and the surface charge density associated with the surface 
+traps for the following boundary conditions: Insulation, Thin Insulator Gate, Insulator 
+Interface, and Metal Contact (Ideal Schottky type only). This feature replaces and 
+expands the functionality of the Surface traps checkbox seen in versions prior to 5.4. 
+Both the Shockley–Read–Hall model and the Explicit trap distribution options are 
+available. All the settings are the same as its domain condition counterpart 
+Trap-Assisted Recombination.
+Discrete Energy Level (Boundaries)
+The Discrete Energy Level subnode is available from the context menu (right-click the 
+parent node) or from the Physics toolbar, Attributes menu when the Trapping model list 
+The functionality of the Surface traps checkbox in versions prior to 5.4 has 
+been replaced and expanded by the Trap-Assisted Surface Recombination 
+boundary condition.
+• Boundary Conditions and Thin Insulating Gates
+• Harmonic Perturbation, Prestressed Analysis, and Small-Signal 
+Analysis in the COMSOL Multiphysics Reference Manual.
+
+
+
+
+=== PAGE 117 ===
+117 ---
+T H E  S E M I C O N D U C T O R  I N T E R F A C E  |  117
+is set to the Explicit trap distribution option for the Trap-Assisted Surface 
+Recombination boundary condition.
+Transition Between Discrete Levels (Boundaries)
+When there are two or more Discrete Energy Level (Boundaries) subnodes under the 
+Trap-Assisted Surface Recombination feature, transition between two different 
+discrete trap levels can be specified using this subfeature.
+The settings are similar to the ones for Transition Between Discrete Levels (Domains).
+Continuous Energy Levels (Boundaries)
+The Continuous Energy Level subnode is available from the context menu (right-click 
+the parent node) or from the Physics toolbar, Attributes menu when the Trapping model 
+list is set to the Explicit trap distribution option for the Trap-Assisted Surface 
+Recombination boundary condition.
+Trap-Assisted Heterointerface Recombination
+The Trap-Assisted Heterointerface Recombination boundary condition adds 
+contributions to the interface recombination rate and the interface charge density 
+associated with the interface traps for the Continuity/Heterojunction boundary 
+condition (not applicable for the Continuous quasi-Fermi levels option). All the settings 
+are the same as its surface counterpart Trap-Assisted Surface Recombination, except 
+for the Trapping model option, only the Explicit trap distribution option is available, 
+since there is no simple formula like the Shockley–Read–Hall model in the Trap-Assisted 
+Recombination and Trap-Assisted Surface Recombination features, due to the dual 
+contributions to the recombination rates from both sides of the heterojunction.
+The settings for this node are the same as for Discrete Energy Level 
+(Domains). The only difference is that the units for Trap number density 
+are 1/m2 instead of 1/m3.
+The settings for this node are the same as for Continuous Energy Levels 
+(Domains). The only difference is that the units for Trap number density 
+are 1/m2 instead of 1/m3.
+
+
+
+
+=== PAGE 118 ===
+118 ---
+118 |  C H A P T E R  3 :  T H E  S E M I C O N D U C T O R  B R A N C H  I N T E R F A C E S
+Discrete Energy Level (Heterointerfaces)
+The Discrete Energy Level subnode is available from the context menu (right-click the 
+parent node) or from the Physics toolbar, Attributes menu for the Trap-Assisted 
+Heterointerface Recombination boundary condition.
+Transition Between Discrete Levels (Heterointerfaces)
+When there are two or more Discrete Energy Level (Heterointerfaces) subnodes under 
+the Trap-Assisted Heterointerface Recombination feature, transition between two 
+different discrete trap levels can be specified using this subfeature.
+The settings are similar to the ones for Transition Between Discrete Levels (Domains).
+Continuous Energy Levels (Heterointerfaces)
+The Continuous Energy Level subnode is available from the context menu (right-click 
+the parent node) or from the Physics toolbar, Attributes menu for the Trap-Assisted 
+Heterointerface Recombination boundary condition.
+Floating Gate
+Use the Floating Gate feature to model a gate contact to a dielectric domain (not a 
+semiconductor domain), which is unconnected to any voltage source, or which is 
+connected to a circuit with a floating potential.
+In combination with the Insulator Interface feature that connects the dielectric 
+domain and an adjacent semiconductor domain, the Floating Gate can model both the 
+charging and discharging of a floating gate by tunneling from the semiconductor 
+domain through the dielectric domain.
+The settings for this node are the same as for Discrete Energy Level 
+(Boundaries). The only difference is that now there are two Carrier 
+Capture and Additional Carrier Capture Rate sections, one for each side of 
+the heterojunction.
+The settings for this node are the same as for Continuous Energy Levels 
+(Boundaries). The only difference is that now there are two Carrier 
+Capture sections, one for each side of the heterojunction.
+
+
+
+
+=== PAGE 119 ===
+119 ---
+T H E  S E M I C O N D U C T O R  I N T E R F A C E  |  119
+Add this feature from the boundary level Electrostatics submenu.
+F L O A T I N G  G A T E
+Select an External connection — None (the default) or Circuit (to connect the terminal 
+to an electrical circuit).
+Select a Tunnel current Itun (SI unit: A) from the list — None, User defined, or choose 
+a tunnel current announced by one of the Insulator Tunneling features in the model. 
+Current injected into the gate accumulates as charge.
+Enter a Contact work function Φc (SI unit: V).
+Use the Initial charge Qinit (SI unit: C) setting to determine the initial charge on the 
+gate in a transient simulation, or the charge on the gate in a stationary simulation.
+Insulator Interface
+The Insulator Interface feature is automatically applied to the boundaries at the 
+interface between Semiconductor Material Model domains and Charge Conservation 
+(dielectric) domains. A number of options are available to modify the behavior of the 
+boundary.
+T U N N E L I N G
+Select a Tunneling type — None (the default), Fowler–Nordheim tunneling, or User 
+defined.
+F O W L E R – N O R D H E I M  T U N N E L I N G
+In combination with the Floating Gate feature, use this option to model both the 
+charging and discharging of a floating gate by Fowler–Nordheim tunneling from the 
+domain.
+The functionality of the Surface traps checkbox in versions prior to 5.4 has 
+been replaced and expanded by the Trap-Assisted Surface Recombination 
+boundary condition.
+
+
+
+
+=== PAGE 120 ===
+120 ---
+120 |  C H A P T E R  3 :  T H E  S E M I C O N D U C T O R  B R A N C H  I N T E R F A C E S
+For Fowler–Nordheim tunneling, select an option from the Fowler–Nordheim tunneling 
+list — Electrons (the default), Holes, or Electrons and holes. This determines the species 
+for which the tunnel current is computed. Based on this selection, enter:
+•
+Electron Fowler–Nordheim coefficients An
+FN (SI unit: A/V2) and Bn
+FN (SI unit: 
+V/m).
+•
+Hole Fowler–Nordheim coefficients Ap
+FN (SI unit: A/V2) and Bp
+FN (SI unit: V/m).
+U S E R - D E F I N E D  T U N N E L I N G
+For User defined, enter an Electron tunnel current density Jn
+UD (SI unit: A/m2). Enter 
+a Hole tunnel current density Jp
+UD (SI unit: A/m2) to define a user defined tunnel 
+current expression.
+D E N S I T Y - G R A D I E N T
+This section appears only when one of the density-gradient formulation options are 
+selected under the Discretization section. See the identically named section 
+Density-Gradient for details.
+Semiconductor–Electrostatics Coupling
+The Semiconductor–Electrostatics Coupling (
+) node overrides the built-in 
+electrostatics equation defined in the Semiconductor interface with the one defined in 
+a separate Electrostatics interface. This feature is useful when an advanced electrostatics 
+formulation—for example the Charge Conservation, Ferroelectric—is needed.
+S E T T I N G S
+The Label is the default multiphysics coupling feature name.
+The Name is used primarily as a scope prefix for variables defined by the coupling node. 
+The software refer to variables in expressions using the pattern 
+<name>.<variable_name>. In order to distinguish between variables belonging to 
+different coupling nodes or physics interfaces, the name string must be unique. Only 
+letters, numbers, and underscores (_) are permitted in the Name field. The first 
+character must be a letter.
+The default Name (for the first multiphysics coupling feature in the model) is sec1.
+D O M A I N  S E L E C T I O N
+The default setting is All domains which couples all domains in the Semiconductor 
+interface with the corresponding domains in the Electrostatics interface.
+
+
+
+
+=== PAGE 121 ===
+121 ---
+T H E  S E M I C O N D U C T O R  I N T E R F A C E  |  121
+C O U P L E D  I N T E R F A C E S
+This section defines the physics involved in the coupling. By default, the software 
+selects an appropriate physics interface for you from the Semiconductor and 
+Electrostatics lists. These selections determine the two interfaces that are coupled by 
+the feature.
+
+
+
+
+=== PAGE 122 ===
+122 ---
+122 |  C H A P T E R  3 :  T H E  S E M I C O N D U C T O R  B R A N C H  I N T E R F A C E S
+Theory for the Semiconductor 
+Interface
+Detailed introductions to the physics of semiconductors are available in Refs 1 to 5. 
+Ref. 6 is an introduction to semiconductor device modeling using the drift–diffusion 
+method used by COMSOL Multiphysics. Ref. 47 provides a comprehensive review of 
+the density-gradient (DG) theory which adds the effect of quantum confinement to 
+the drift–diffusion method in a computationally efficient fashion. The 
+DG-Confinement theory is implemented by COMSOL and the corresponding 
+equations are pointed out when they differ from the conventional drift–diffusion 
+method.
+A brief summary of the physics of semiconductors is included here, to a level sufficient 
+to derive the drift–diffusion equations and to develop a basic understanding of 
+semiconductor band structures. The derivation of the density-gradient theory is not 
+included. See Ref. 47 if interested.
+To completely describe the dynamics of electrons within a solid, the many body 
+Schrödinger equation must be solved in the periodic structure defined by the crystal 
+structure of the solid. In practice this is not possible and approximations must be made. 
+Solid state physicists have devised a number of methods to solve simplified forms of 
+this equation and these methods have been validated through experiment (see, for 
+example, chapters 9 to 11 of Ref. 1 and chapters 4 and 5 of Ref. 2). A starting point 
+for many of these methods is to consider only the motion of the electrons through an 
+essentially stationary lattice of nuclei (known as the adiabatic approximation). Then 
+the many electron wave function is simplified into a form in which it reduces to a set 
+of one electron wave functions. The effect of the nuclei and of electron–electron 
+interactions can be incorporated into these one electron models by modifications to 
+the effective potential. Models within the so-called one-electron approximation have 
+been very successful at predicting the properties of semiconductors and semiconductor 
+transport. Although the one electron model explained in this section seems very 
+simplistic (particularly when considering the complexity of electron–electron and 
+electron–ion interactions), in practice this model can be used to develop a very detailed 
+understanding of transport in semiconductors.
+
+
+
+
+=== PAGE 123 ===
+123 ---
+T H E O R Y  F O R  T H E  S E M I C O N D U C T O R  I N T E R F A C E  |  123
+In this section:
+The Sommerfeld Model and the Density of States
+Sommerfeld was the first person to successfully apply quantum mechanics to the 
+physics of transport in solids. The Sommerfeld model considers the physics of 
+independent electrons in a large potential well. The starting point for this model is the 
+time-independent Schrödinger equation for an independent electron:
+ (3-1)
+where 
+ is the Planck constant divided by 2π and m is the electron mass. The 
+time-independent Schrödinger equation takes the form of an eigenvalue equation. The 
+modulus squared of the (complex) eigenfunctions (ψ) or wave functions that solve the 
+equation represent the probability that an electron in the corresponding state can be 
+• The Sommerfeld Model and the 
+Density of States
+• The Effect of Periodicity
+• Electrons in a Perturbed Periodic 
+Potential
+• The Semiclassical Model
+• The Boltzmann Equation
+• Doped Semiconductors
+• Specifying the Dopant Distribution
+• Equilibrium Carrier Concentrations
+• The Semiconductor Equations
+• Mobility Models
+• Traps
+• Recombination and Generation
+• Incomplete Ionization
+• Band Gap Narrowing
+• Optical Transitions
+• Boundary Conditions
+• Metal Contacts
+• Thin Insulating Gates
+• Continuity/Heterojunction
+• Boundary Conditions for Charge 
+Conservation
+• Boundary Conditions for the 
+Density-Gradient Formulation
+• Tunneling
+• References for the Semiconductor 
+Interface
+• Semiconductor–Electromagnetic 
+Waves Coupling
+Modeling Guidelines
+_h
+2m
+--------∇2ψ
+–
+Eψ
+=
+_h
+
+
+
+
+=== PAGE 124 ===
+124 ---
+124 |  C H A P T E R  3 :  T H E  S E M I C O N D U C T O R  B R A N C H  I N T E R F A C E S
+found at a given position p(r) (that is, p(r) = ⏐ψ⏐2). The corresponding eigenvalue E 
+for the state gives the energy associated with the state. For a detailed introduction to 
+quantum mechanics see Ref. 7 and Ref. 8.
+Since it is expected that the solid is periodic, the equation is solved on a cube of side 
+L assuming the periodic boundary condition:
+ (3-2)
+The solutions of Equation 3-1 and Equation 3-2 are plane waves of the form
+ (3-3)
+where Ω = L3 is the volume of the solid (which appears in the equation to correctly 
+normalize the wave function) and:
+where nx, ny, and nz are integers.
+Since these states are all periodic, it is convenient to label them by means of the wave 
+number k. Think of a k-space populated by these states in a regular cubic grid. As a 
+consequence of the Pauli exclusion principle, each state can hold two electrons (one 
+spin up and one spin down).
+The density of states (g(k) = dns/ dξk), that is, the number of states (ns) per unit 
+volume of k-space (ξk) for unit volume of the material, is given by
+Substituting Equation 3-3 into Equation 3-1 gives the energy of the particle in a given 
+state:
+ (3-4)
+ψ x
+L
++
+y
+L
++
+z
+L
++
+,
+,
+(
+)
+ψ x y z
+, ,
+(
+)
+=
+ψ x y z
+, ,
+(
+)
+1
+Ω1 2
+⁄
+------------
+i kxx
+kyy
+kzz
++
++
+[
+]
+(
+)
+exp
+=
+kx
+2πnx
+L
+------------
+=
+ky
+2πny
+L
+------------
+=
+kz
+2πnz
+L
+------------
+=
+g k
+(
+)
+1
+4π3
+---------
+=
+Ek
+_h2 kx
+2
+ky
+2
+kz
+2
++
++
+(
+)
+2m
+-----------------------------------------------------
+_h2 k2
+2m
+---------------
+=
+=
+
+
+
+
+=== PAGE 125 ===
+125 ---
+T H E O R Y  F O R  T H E  S E M I C O N D U C T O R  I N T E R F A C E  |  125
+At zero temperature electrons fill up the states with the lowest energy first, filling the 
+grid so as to minimize the total energy. The surface dividing the filled states from the 
+empty states — known as the Fermi surface — is spherical for large numbers of 
+electrons as a result of Equation 3-4. For an electron number density n at zero 
+temperature the magnitude of the wave vector corresponding to the states at the Fermi 
+surface (kF,0) is given by
+so that
+At finite temperatures and at equilibrium, the principles of statistical mechanics (see for 
+example Ref. 10) give the mean occupancy of the states (f0 (k)) as
+ (3-5)
+where EF is the Fermi energy or the chemical potential. At finite temperatures EF is 
+determined by the requirement that the total number of electrons per unit volume is 
+equal to n:
+ (3-6)
+where g(E) = dns/ dE is the energy density of states, given by
+ (3-7)
+In deriving Equation 3-7, the E–k relationship (Equation 3-4) was used to evaluate 
+the derivative and to convert from k to E.
+These results form the basis of the Sommerfeld model and are useful in this discussion. 
+Using this simple model, you can predict the thermal and electrical properties of some 
+metals with reasonable accuracy (see Ref. 1 and Ref. 2 for details). However, the 
+4
+3--πkF 0
+,
+3
+n
+g k
+(
+)
+-----------
+4π3n
+=
+=
+kF 0
+,
+3π2n
+(
+)
+1 3
+⁄
+=
+f0 k
+(
+)
+1
+1
+Ek
+EF
+–
+(
+)
+kBT
+(
+)
+⁄
+[
+]
+exp
++
+-----------------------------------------------------------------------
+=
+n
+f0 k
+(
+)g E
+(
+) E
+d
+0
+∞
+
+g E
+(
+)
+1
+Ek
+EF
+–
+(
+)
+kBT
+(
+)
+⁄
+[
+]
+exp
++
+----------------------------------------------------------------------- E
+d
+0
+∞
+
+=
+=
+g E
+(
+) E
+d
+g k
+(
+)dξk
+k2
+π2
+----- dk
+dE
+-------dE
+mk
+π2 _h 2
+---------------dE
+1
+2π2
+--------- 2m
+_h 2
+---------
+
+
+
+3 2
+⁄
+E1 2
+⁄ dE
+=
+=
+=
+=
+The density of states varies with the square root of the energy.
+
+
+
+
+=== PAGE 126 ===
+126 ---
+126 |  C H A P T E R  3 :  T H E  S E M I C O N D U C T O R  B R A N C H  I N T E R F A C E S
+model does not explain the existence of insulators or semiconductors because it is 
+missing important information about the microscopic periodicity of the material. The 
+Effect of Periodicity section describes how this periodicity can be treated.
+The Effect of Periodicity
+T H E  L A T T I C E  A N D  T H E  R E C I P R O C A L  L A T T I C E
+The 3D periodicity of crystalline materials is conventionally described by a set of lattice 
+vectors and a basis (a specific pattern of atoms) associated with each lattice point. 
+Consider the case of a “primitive lattice”, that is, a crystal made up of a single atom, 
+where the atomic locations are coincident with the lattice points. Such a lattice does 
+not require a basis (or more formally the basis is a single atom located at (0,0,0)). The 
+set of lattice vectors R can be written as
+ (3-8)
+where n1, n2, and n3 are integers (taking all values between –∞ and ∞) and a1, a2, and 
+a3 are the lattice vectors. For a primitive lattice, the unit cell is the parallelepiped 
+constructed from the vectors a1, a2, and a3.
+A useful way to represent the lattice is by means of an array of delta functions. A 
+physical quantity of interest (for example the electric potential) can then be 
+represented by the convolution of the variation in the potential within a single unit cell 
+of the lattice with the delta function array. This approach is easiest to understand 
+in 1D, when the delta function array is known as a Dirac comb. A 1D lattice can be 
+represented as
+where a is the lattice parameter. This periodic function can be represented by a Fourier 
+series of the form
+ (3-9)
+R
+n1a1
+n2a2
+n3a3
++
++
+=
+δ x
+na
+–
+(
+)
+n
+∞
+–
+=
+n
+∞
+=
+
+δ x
+na
+–
+(
+)
+n
+∞
+–
+=
+n
+∞
+=
+
+1
+a-- e2πinx a
+⁄
+n
+∞
+–
+=
+n
+∞
+=
+
+=
+
+
+
+
+=== PAGE 127 ===
+127 ---
+T H E O R Y  F O R  T H E  S E M I C O N D U C T O R  I N T E R F A C E  |  127
+Of particular importance to understand semiconductor transport is the concept of the 
+reciprocal lattice. This is the lattice produced by taking the Fourier transform of the 
+real space lattice. For the Dirac comb this is given by
+where the final step follows from Equation 3-9. The reciprocal lattice is another Dirac 
+comb with spacing proportional to the reciprocal of the real space lattice.
+In 3D the lattice can be represented as δ (r–R) where the summation over all 
+combinations of lattice vectors is implied by the use of the set of vectors R. The Fourier 
+transform of the lattice is
+where Ω is the volume of the real space unit cell (Ω = a1 ⋅ (a2 × a3)) and K* is the set 
+of reciprocal lattice vectors given by
+where n1, n2, and n3 are integers (taking all values between –∞ and ∞) and b1, b2, and 
+b3 are the reciprocal lattice vectors given by
+ (3-10)
+FT
+δ x
+na
+–
+(
+)
+n
+∞
+–
+=
+n
+∞
+=
+
+
+
+
+
+
+
+
+
+
+
+δ x
+na
+–
+(
+)eikx x
+d
+
+n
+∞
+–
+=
+n
+∞
+=
+
+eikna
+n
+∞
+–
+=
+n
+∞
+=
+
+=
+=
+     
+2π
+a
+------δ k
+2πn
+a
+----------
+–
+
+
+
+
+n
+∞
+–
+=
+n
+∞
+=
+
+=
+FT
+δ r
+R
+–
+(
+)
+n
+∞
+–
+=
+n
+∞
+=
+
+
+
+
+
+
+
+
+
+
+
+δ r
+R
+–
+(
+)e
+ik r
+⋅
+r
+d
+
+e
+ik R
+⋅
+=
+=
+            
+2π
+(
+)3
+Ω
+--------------δ k
+K∗
+–
+(
+)
+=
+K∗
+n1b1
+n2b2
+n3b3
++
++
+=
+b1
+2π
+Ω
+------a2
+a3
+×
+=
+b2
+2π
+Ω
+------a3
+a1
+×
+=
+b3
+2π
+Ω
+------a1
+a2
+×
+=
+
+
+
+
+=== PAGE 128 ===
+128 ---
+128 |  C H A P T E R  3 :  T H E  S E M I C O N D U C T O R  B R A N C H  I N T E R F A C E S
+Understanding the reciprocal lattice in terms of Fourier transforms as described above 
+is useful. The Heisenberg uncertainty principle can be seen to be related to the 
+properties of the Fourier transform (in the time domain: ΔfΔt≈1). Also the effect of a 
+lattice basis can be straightforwardly introduced by taking the convolution of the basis 
+with the lattice in real space. The convolution theorem then tells us that the result in 
+reciprocal space (or k-space) is the product of the reciprocal lattice and the Fourier 
+transform of the basis. The main effect of the basis is to modulate the amplitude (and 
+phase) of the reciprocal lattice points. When zeros in the Fourier transform of the basis 
+coincide with reciprocal lattice points, the basis leads to the elimination of these points 
+in the reciprocal lattice. In X-ray imaging experiments, which sample the reciprocal 
+lattice by crystal diffraction, this is referred to as extinction.
+Importantly, any physical quantity with a periodicity that matches that of the lattice can 
+straightforwardly be represented as the convolution of some function with the 
+reciprocal lattice in real space, or as a modulating function for the reciprocal lattice in 
+k-space, changing the amplitudes of each of the lattice points in k-space. Since each of 
+these points represents a single harmonic component of the quantity of interest this 
+construction can be thought of as a representation of a three dimensional Fourier 
+series. For example, consider a periodic potential V(r) = V(r + R). V(r), which can be 
+written in the form:
+ (3-11)
+where the summation occurs over all the reciprocal lattice vectors K*. The reciprocal 
+lattice is therefore a representation of the Fourier components required in 3D to 
+represent a function with the periodicity of the lattice.
+B L O C H  F U N C T I O N S
+The Sommerfeld model did not attempt to include the effective electric potential of 
+the crystal or the other electrons. It is clear that the effective potential must be periodic 
+with the same periodicity as the crystal lattice. The periodicity of the lattice has 
+important consequences for the electrons. First, since the problem has periodic 
+symmetry, observable physical quantities must also have periodic symmetry. As a 
+consequence ⏐ψ⏐ must be periodic, so that, using the notation developed previously:
+equivalently:
+V r
+( )
+VK∗e
+iK∗r
+⋅
+–
+K∗
+=
+ψ r
+R
++
+(
+)
+ψ r
+( )
+=
+
+
+
+
+=== PAGE 129 ===
+129 ---
+T H E O R Y  F O R  T H E  S E M I C O N D U C T O R  I N T E R F A C E  |  129
+ (3-12)
+The translational symmetry of the lattice imposes additional restrictions on the form 
+of θ(R). For two lattice vectors, RA and RA + RB, translational symmetry implies:
+which leads to the requirement that θ depends linearly on the three integers, n1, n2, 
+and n3, which specify R (see Equation 3-8):
+θ can therefore be written in the form:
+for constants c1, c2, and c3. Writing k = c1b1 + c2b1 + c3b1 leads to the requirement 
+θ = k⋅R and Equation 3-12 then becomes:
+ (3-13)
+If ψ (r) is written in the form:
+ (3-14)
+substituting into Equation 3-13 shows that uk(r+R) = uk(r). Equation 3-14, along 
+with the periodicity requirement on uk(r), is known as Bloch’s theorem. It is extremely 
+useful as it allows the wave function corresponding to a particular k vector to be 
+expanded in a Fourier series of the same form as that of the potential (Equation 3-11):
+Wave functions which satisfy Bloch’s theorem are frequently referred to as Bloch 
+functions.
+I N D E P E N D E N T  E L E C T R O N S  I N  A  P E R I O D I C  P O T E N T I A L
+The time-independent Schrödinger equation can now be written using the periodic 
+expansion for both the potential and the Bloch wave function:
+ψ r
+R
++
+(
+)
+ψ r
+( )e
+iθ R
+(
+)
+=
+θ RA
+RB
++
+(
+)
+θ RA
+(
+)
+–
+θ RB
+(
+)
+=
+θ RA
+RB
++
+(
+)
+θ RA
+(
+)
+θ RB
+(
+)
++
+=
+θ
+n1c1
+n2c2
+n3c3
++
++
+=
+ψ r
+R
++
+(
+)
+ψ r
+( )e
+ik R
+⋅
+=
+ψk r
+( )
+uk r
+( )e
+ik r
+⋅
+=
+uk
+CKe
+iK r
+⋅
+–
+K
+=
+
+
+
+
+=== PAGE 130 ===
+130 ---
+130 |  C H A P T E R  3 :  T H E  S E M I C O N D U C T O R  B R A N C H  I N T E R F A C E S
+where G is used for the potential reciprocal lattice vector to distinguish it from K. 
+Simplifying this equation gives:
+To obtain the equation for the coefficients of the sum, premultiply the sum by
+and integrate over all space. This gives:
+ (3-15)
+Equation 3-15 is valid for any periodic potential, small or large.
+T H E  N E A R L Y  F R E E  E L E C T R O N  M O D E L
+To obtain the small potential limit of Equation 3-15, consider the case of a single 
+sinusoidal potential component with a small amplitude:
+Since the periodicity of the potential is one dimensional, it is only necessary to consider 
+Fourier components in the direction of K1 in the expansion of uk(r), which can 
+therefore be written in the form:
+_h 2
+2m
+---------∇2
+CKe
+i k K
+–
+(
+) r
+⋅
+K
+VGe
+i
+– G r
+⋅
+G
+
+
+
+
+
+
+CKe
+i k K
+–
+(
+) r
+⋅
+K
+
+
+
+
+
+
++
+E
+CKe
+i k K
+–
+(
+) r
+⋅
+K
+=
+_h 2
+2m
+---------
+CK k
+K
+–
+(
+)2e
+iK r
+⋅
+–
+K
+VGCKe
+i
+– G
+K
++
+(
+) r
+⋅
+G K
+,
++
+E
+CKe
+i
+– K r
+⋅
+K
+=
+e
+iK' r
+⋅
+_h 2
+2m
+---------CK' k
+K'
+–
+(
+)2
+VGCK' G
+–
+G
++
+ECK'
+=
+V r
+( )
+2V1
+K1 R
+⋅
+(
+)
+cos
+V1 e
+iK1 R
+⋅
+e
+iK1 R
+⋅
+–
++
+(
+)
+=
+=
+uk
+Cpe
+ipK1 r
+⋅
+–
+p
+=
+
+
+
