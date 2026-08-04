@@ -130,4 +130,23 @@ sel.set('xmax', str(float_value))    # Raw float ❌ (interpreted as meters, not
 - `references/api_acdc.md` — **AC/DC Module**: Electrostatics, Currents, Magnetic Fields
 - `references/api_thermal_cfd.md` — **Heat Transfer + CFD**: Thermal, Laminar, Turbulent Flow
 - `references/api_echem.md` — **Electrochemistry + Chemical**: Current distribution, Transport
-- `references/api_acoustics_mems.md` — **Acoustics + MEMS**: Pressure acoustics, Multiphysics
+## Module Coverage (13/13 Complete)
+
+| # | Module | Reference | Lines |
+|---|--------|-----------|-------|
+| 1 | AC/DC | `references/api_acdc.md` | 308 |
+| 2 | Acoustics | `references/api_acoustics_mems.md` | 385 |
+| 3 | Chemical Species Transport | `references/api_chemical_transport.md` | 607 |
+| 4 | Electric Discharge | `references/api_electric_discharge.md` | 540 |
+| 5 | Electrochemistry | `references/api_echem.md` | 312 |
+| 6 | Fluid Flow | `references/api_fluid_flow.md` | 179 |
+| 7 | Heat Transfer | `references/api_heat_transfer.md` | 155 |
+| 8 | Optics (Ray + Wave) | `references/api_optics.md` | 1,159 |
+| 9 | Plasma | `references/api_plasma.md` | 610 |
+| 10 | Radio Frequency | `references/api_rf.md` | 694 |
+| 11 | Semiconductor | `references/api_semiconductor.md` | 573 |
+| 12 | Structural Mechanics | `references/api_structural.md` | 560 |
+| 13 | Mathematics (PDE/ODE) | `references/api_mathematics.md` | 183 |
+| — | COMSOL Core | `references/api_core.md` | 829 |
+
+**Total: 7,166 lines across 14 reference files**
