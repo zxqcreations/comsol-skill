@@ -4,7 +4,7 @@ Sources:
 - `D:\ENV\COMSOL64\Multiphysics\doc\pdf\ACDC_Module\ACDCModuleUsersGuide.pdf` (COMSOL 6.4, 540 pp)
 - `D:\ENV\COMSOL64\Multiphysics\doc\pdf\ACDC_Module\IntroductionToACDCModule.pdf` (84 pp)
 - `D:\ENV\COMSOL64\Multiphysics\doc\pdf\RF_Module\RFModuleUsersGuide.pdf` (Electromagnetic Waves, Frequency Domain node list)
-- mph tags.json (exact feature type strings) via `references/tags_physics.md`; verified against working code in `D:\tmp\wyk\Comsol仿真\scheme1\scripts\01_build_model_v2.py`
+- mph tags.json (exact feature type strings) via `references/tags_physics.md`; verified against working COMSOL models
 
 Conventions (same as `api_structural.md`):
 - **Feature type string** = Java/model-tree node type passed to
@@ -256,7 +256,7 @@ Naming: `<physics_name>.<variable>`. Units shown; all components exist (x/y/z, r
 | `es.C11`, `es.C12` … | capacitance matrix entries (lumped parameters) | F |
 | `es.Forcex_<fn>` / `es.Torquex_<fn>` | force / torque from Force Calculation | N / N·m |
 
-Verified in working piezo code: `maxop1(es.V)`, `aveop_top(es.Dz)` (Scheme1 scripts).
+Commonly used operators: `maxop1(es.V)`, `aveop_top(es.Dz)`. Create them before solving.
 
 ### Electric Currents (`ec`)
 | Expression | Meaning | Unit |

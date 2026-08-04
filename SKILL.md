@@ -55,7 +55,7 @@ pmat.set('dET', _DET_4MM)
 ```python
 # rho, E, nu etc. — MUST set *_mat='userdef' FIRST, or value is silently ignored
 pmat.set('rho_mat', 'userdef')  # ← CRITICAL: set mode first
-pmat.set('rho', 'rho_BTO')      # ← Now this takes effect
+pmat.set('rho', 'rho_material')  # ← Now this takes effect
 ```
 
 ### COMSOL Unit Expressions in Geometry

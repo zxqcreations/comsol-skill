@@ -25,7 +25,7 @@ Complete compilation of all issues encountered and solved during the build of 2D
 ### 1.4 Domain Splitting with Full Circles
 - Full circles at r=0 in 2D automatically split by Form Union into r>=0 and r<0 halves
 - r<0 domains must be excluded from ALL physics (both Solid Mechanics and Electrostatics)
-- Typical result: N BTO particles → 3*N+2 domains (N valid BTO + N invalid BTO + GCE + MXene)
+- Typical result: N particles → 3*N+2 domains (N valid + N invalid + substrate + matrix)
 
 ## 2. Materials
 

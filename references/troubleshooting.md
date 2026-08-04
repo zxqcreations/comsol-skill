@@ -1,5 +1,7 @@
 # COMSOL Troubleshooting Guide
 
+> **Living document**: When new issues are encountered and solved during simulation projects, add them to this file with the same format: symptom → root cause → fix. This builds institutional knowledge over time.
+
 ## Solver Issues
 
 ### es.V = -Inf (Potential Unbounded)
@@ -73,7 +75,7 @@
 **Root Causes**:
 1. **d-matrix or e-matrix is all zeros** (not filled or filled incorrectly)
 2. **Piezoelectric Effect multiphysics not created** or not referencing correct physics
-3. **Charge Conservation Piezo not on BTO domains**
+3. **Charge Conservation Piezo not on piezo domains**
 4. **Constitutive relation mismatch** (StrainCharge with eES, or StressCharge with dET)
 
 ### Study Not Found by mph
