@@ -1,0 +1,120 @@
+# COMSOL Simulation Skill
+
+Full-lifecycle automation for COMSOL Multiphysics simulations via mph Python API and COMSOL MCP.
+Covers: research → planning → modeling → simulation → parameter sweep → data extraction → processing → visualization.
+
+## When to Use
+
+Trigger when the user requests:
+- Building a new COMSOL model (any physics)
+- Parameter sweeps or optimization studies
+- Extracting and plotting COMSOL results
+- Debugging COMSOL model issues
+- Setting up multiphysics simulations (piezoelectric, thermal-stress, etc.)
+
+## Core Architecture
+
+### Tool Selection Strategy
+
+| Operation | Preferred Tool | Reason |
+|-----------|---------------|--------|
+| Start COMSOL session | `mph.start(cores=N)` | Reliable across versions |
+| Create/load model | `mph.Client().create()/load()` | Standard workflow |
+| Set parameters | `model.java.param().set()` | Direct, reliable |
+| Build geometry | `model.java.component().geom()` | Full control over features |
+| Set physics | `model.java.component().physics()` | Access to all feature types |
+| Piezo/custom materials | `pmat.set(name, col_major_array)` | setIndex fails in 6.4 |
+| Mesh | `model.java.component().mesh()` | Domain-specific sizing |
+| Study creation | `jm.study().create()` | Java API |
+| Solve | `model.solve()` (mph) or `study.run()` | Use mph to avoid dataset issues |
+| Evaluate results | `model.evaluate(expr, unit)` | mph evaluate works after mph solve |
+| Export data/images | `jm.result().export()` or MCP | Both work |
+
+## Critical API Rules
+
+### Matrix Properties: Column-Major Flat Arrays
+
+```python
+# COMSOL's set(name, array) reads in COLUMN-MAJOR (Fortran) order
+# For MxN matrix: array[col*M + row] = matrix[row][col]
+
+# WRONG (row-major — all entries misplaced):
+pmat.set('dET', ['0','0','0','0','564[pC/N]','0', ...])  # Row-major!
+
+# CORRECT (column-major):
+_DET_4MM = [
+    # col xx:             col yy:              col zz:          col yz:          col xz:           col xy:
+    '0','0','-33.4[pC/N]','0','0','-33.4[pC/N]','0','0','90[pC/N]','0','564[pC/N]','0','564[pC/N]','0','0','0','0','0',
+]
+pmat.set('dET_mat', 'userdef')
+pmat.set('dET', _DET_4MM)
+```
+
+### Scalar Properties: Set Mode Before Value
+
+```python
+# rho, E, nu etc. — MUST set *_mat='userdef' FIRST, or value is silently ignored
+pmat.set('rho_mat', 'userdef')  # ← CRITICAL: set mode first
+pmat.set('rho', 'rho_BTO')      # ← Now this takes effect
+```
+
+### COMSOL Unit Expressions in Geometry
+
+```python
+# Geometry has lengthUnit('nm'), so Box selections MUST use unit expressions:
+sel.set('xmin', 'R_rve/2')           # Parameter name ✅
+sel.set('ymin', '100[nm]')           # Unit string ✅
+sel.set('xmax', str(float_value))    # Raw float ❌ (interpreted as meters, not nm!)
+```
+
+### Correct Feature Type Names (COMSOL 6.4)
+
+| Purpose | Correct Type | Wrong Type |
+|---------|-------------|------------|
+| Linear elastic domain | `LinearElasticModel` | `LinearElasticMaterial` |
+| Prescribed displacement BC | `Displacement1` | `Displacement`, `PrescribedDisplacement` |
+| Piezo material model | `PiezoelectricMaterialModel` | — |
+| Fixed constraint | `Fixed` | `FixedConstraint` |
+
+### Correct Property Names (strain-charge piezo)
+
+| Purpose | Correct Name | Wrong Name |
+|---------|-------------|------------|
+| Constitutive relation | `ConstitutiveRelation` = `'StrainCharge'` | `'constitutiverelation'`, `'straincharge'` |
+| Coupling matrix (d) | `dET` (mode: `dET_mat`) | `dET` with setIndex |
+| Compliance matrix | `sE` (mode: `sE_mat`) | `cE` for strain-charge |
+| Permittivity | `epsilonrS` (mode: `epsilonrS_mat`) | `epsS_mat`, `epsS11` |
+| Density mode | `rho_mat = 'userdef'` | Direct `rho` set without mode |
+
+## Standard Pipeline
+
+```
+01_design/          <- Research plan, parameter study, literature
+02_build_model.py   <- Build mph model (geometry, physics, BCs, mesh, study)
+03_baseline.py      <- Solve baseline, verify, extract key metrics
+04_sweep.py         <- Multi-phase parameter sweep with CSV output
+05_extract.py       <- Unit conversion, structured data export
+06_process.py       <- Fitting, statistics, derived quantities
+07_plot.py          <- Publication-quality figures (PDF+PNG)
+```
+
+## Troubleshooting Quick Reference
+
+| Symptom | Likely Cause | Fix |
+|---------|-------------|-----|
+| `es.V = -Inf` | No ground reference in ES domain | Add Ground, ensure domain in ES |
+| `solid.mises = 0` | Material stiffness not applied | Check E/nu are User defined, not From material |
+| Matrix entries wrong in GUI | Row-major array passed | Use column-major flat array |
+| Mesh 0 elements | Semcircle/Boolean Diff geometry | Use full circles + domain exclusion |
+| "not a scalar" error | setIndex with string expr | Use set(name, flat_array) |
+| Study not found by mph | Java API created study | Use mph model.solve() not Java study.run() |
+| Singular matrix | FloatingPotential in piezo-ES | Remove FP, use Zero Charge |
+
+## References
+
+- `references/mph_api.md` — Complete mph Python API reference
+- `references/mcp_tools.md` — COMSOL MCP tools reference
+- `references/piezo_setup.md` — Piezoelectric material setup guide
+- `references/geometry_guide.md` — 2D/3D/Axisymmetric geometry patterns
+- `references/troubleshooting.md` — Extended troubleshooting guide
+- `references/lessons_learned.md` — All lessons from Scheme 1 build

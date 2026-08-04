@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COMSOL Simulation Dashboard — MXene/BaTiO₃ RVE</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-deep: #0a0d14;
+  --bg-card: #141820;
+  --bg-active: #1c2130;
+  --bg-hover: #1e2435;
+  --gold: #e8c547;
+  --gold-dim: #8a7430;
+  --blue: #5b9bd5;
+  --blue-dim: #2d4d6a;
+  --text: #e4e8f0;
+  --text-muted: #8b9dc3;
+  --text-dim: #556a85;
+  --danger: #e0556a;
+  --success: #4caf93;
+  --border: #1e2636;
+  --radius: 6px;
+  --font-display: 'JetBrains Mono', monospace;
+  --font-body: 'Inter', system-ui, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg-deep);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.5;
+  overflow: hidden;
+  height: 100vh;
+}
+
+/* Layout */
+.app { display: grid; grid-template-columns: 220px 1fr; grid-template-rows: 1fr 32px; height: 100vh; }
+
+/* Sidebar */
+.sidebar {
+  background: var(--bg-card);
+  border-right: 1px solid var(--border);
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  overflow-y: auto;
+}
+.sidebar-brand { font-family: var(--font-display); font-size: 14px; color: var(--gold); letter-spacing: 0.5px; }
+.sidebar-stage { display: flex; flex-direction: column; gap: 2px; }
+.stage-item {
+  display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: var(--radius);
+  color: var(--text-dim); font-size: 12px; cursor: pointer; transition: all 0.2s;
+  border-left: 2px solid transparent;
+}
+.stage-item:hover { background: var(--bg-hover); color: var(--text-muted); }
+.stage-item.active { background: var(--bg-active); color: var(--text); border-left-color: var(--gold); }
+.stage-item.done { color: var(--success); border-left-color: var(--success); }
+.stage-item.failed { color: var(--danger); border-left-color: var(--danger); }
+.stage-dot {
+  width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  background: var(--text-dim); transition: all 0.3s;
+}
+.stage-item.active .stage-dot { background: var(--gold); box-shadow: 0 0 8px var(--gold); }
+.stage-item.done .stage-dot { background: var(--success); }
+.stage-item.failed .stage-dot { background: var(--danger); }
+
+/* Tab bar */
+.tab-bar {
+  display: flex; background: var(--bg-card); border-bottom: 1px solid var(--border);
+  padding: 0 16px; gap: 2px;
+}
+.tab-btn {
+  padding: 10px 18px; background: none; border: none; color: var(--text-dim);
+  font-family: var(--font-display); font-size: 11px; cursor: pointer;
+  border-bottom: 2px solid transparent; transition: all 0.2s;
+}
+.tab-btn:hover { color: var(--text-muted); }
+.tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+/* Tab content */
+.tab-content { display: none; padding: 20px; overflow-y: auto; height: calc(100vh - 72px); }
+.tab-content.active { display: block; }
+
+/* Cards */
+.card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; margin-bottom: 16px; }
+.card-header { font-family: var(--font-display); font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+
+/* Metrics grid */
+.metrics { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; margin-bottom: 20px; }
+.metric { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; }
+.metric-label { font-size: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; }
+.metric-value { font-family: var(--font-display); font-size: 22px; font-weight: 500; margin-top: 4px; }
+.metric-value.gold { color: var(--gold); }
+.metric-value.blue { color: var(--blue); }
+.metric-unit { font-size: 11px; color: var(--text-muted); margin-left: 4px; }
+
+/* Status bar */
+.status-bar {
+  grid-column: 1 / -1; background: var(--bg-card); border-top: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between; padding: 0 16px;
+  font-family: var(--font-display); font-size: 10px; color: var(--text-dim);
+}
+.status-dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; margin-right: 6px; }
+.status-dot.active { background: var(--success); }
+.status-dot.idle { background: var(--text-dim); }
+
+/* Three.js canvas */
+#model-canvas { width: 100%; height: 100%; display: block; border-radius: var(--radius); }
+
+/* Log */
+.log-container { font-family: var(--font-display); font-size: 11px; line-height: 1.8; }
+.log-line { color: var(--text-muted); }
+.log-line.warn { color: var(--gold); }
+.log-line.error { color: var(--danger); }
+.log-line.success { color: var(--success); }
+
+/* Parameter table */
+.param-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.param-table th, .param-table td { padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border); }
+.param-table th { font-family: var(--font-display); font-size: 10px; color: var(--text-dim); text-transform: uppercase; }
+.param-table td { font-family: var(--font-display); }
+.param-table tr:hover { background: var(--bg-hover); }
+
+/* Documents list */
+.doc-item { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+.doc-icon { color: var(--blue); font-size: 16px; }
+.doc-name { color: var(--text); font-weight: 500; }
+.doc-desc { color: var(--text-dim); font-size: 11px; }
+
+/* Model legend */
+.model-legend { position: absolute; top: 12px; right: 12px; background: rgba(20,24,32,0.9); border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 14px; font-size: 10px; z-index: 10; }
+.legend-item { display: flex; align-items: center; gap: 8px; margin: 4px 0; }
+.legend-swatch { width: 10px; height: 10px; border-radius: 2px; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-deep); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .app { grid-template-columns: 1fr; }
+  .sidebar { display: none; }
+  .metrics { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">COMSOL Pipeline</div>
+    <div>
+      <div style="font-size: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">Scheme 1 — MXene/BTO RVE</div>
+      <div class="sidebar-stage" id="stage-list">
+        <div class="stage-item done"><span class="stage-dot"></span> 01 Design</div>
+        <div class="stage-item done"><span class="stage-dot"></span> 02 Build Model</div>
+        <div class="stage-item active"><span class="stage-dot"></span> 03 Baseline</div>
+        <div class="stage-item"><span class="stage-dot"></span> 04 Sweep</div>
+        <div class="stage-item"><span class="stage-dot"></span> 05 Extract</div>
+        <div class="stage-item"><span class="stage-dot"></span> 06 Plot</div>
+      </div>
+    </div>
+    <div style="margin-top: auto; font-size: 10px; color: var(--text-dim);">
+      COMSOL 6.4 &middot; mph API<br>
+      <span id="model-status" style="color: var(--text-dim);">Model loaded</span>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main>
+    <!-- Tab bar -->
+    <nav class="tab-bar" id="tab-bar">
+      <button class="tab-btn active" data-tab="dashboard">Dashboard</button>
+      <button class="tab-btn" data-tab="model3d">3D Model</button>
+      <button class="tab-btn" data-tab="results">Results</button>
+      <button class="tab-btn" data-tab="documents">Documents</button>
+      <button class="tab-btn" data-tab="parameters">Parameters</button>
+      <button class="tab-btn" data-tab="log">Log</button>
+    </nav>
+
+    <!-- Dashboard Tab -->
+    <section class="tab-content active" id="tab-dashboard">
+      <div class="metrics" id="metrics-grid">
+        <div class="metric"><div class="metric-label">Peak Piezo Voltage</div><div class="metric-value gold" id="m-vmax">--</div><div class="metric-unit">mV</div></div>
+        <div class="metric"><div class="metric-label">Max E-Field</div><div class="metric-value blue" id="m-emax">--</div><div class="metric-unit">kV/m</div></div>
+        <div class="metric"><div class="metric-label">Max von Mises Stress</div><div class="metric-value" id="m-stress">--</div><div class="metric-unit">MPa</div></div>
+        <div class="metric"><div class="metric-label">Mesh Elements</div><div class="metric-value" id="m-mesh">1502</div><div class="metric-unit">elements</div></div>
+        <div class="metric"><div class="metric-label">BTO Particles</div><div class="metric-value">3</div><div class="metric-unit">r=45nm</div></div>
+        <div class="metric"><div class="metric-label">RVE Dimensions</div><div class="metric-value">250&#215;400</div><div class="metric-unit">nm</div></div>
+      </div>
+      <div class="card">
+        <div class="card-header">Pipeline Progress</div>
+        <div style="display: flex; gap: 4px; margin-top: 8px;">
+          <div style="flex:1; height:4px; background:var(--success); border-radius:2px;" title="01 Design"></div>
+          <div style="flex:1; height:4px; background:var(--success); border-radius:2px;" title="02 Build"></div>
+          <div style="flex:1; height:4px; background:var(--gold); border-radius:2px; animation: pulse 1.5s infinite;" title="03 Baseline"></div>
+          <div style="flex:1; height:4px; background:var(--border); border-radius:2px;" title="04 Sweep"></div>
+          <div style="flex:1; height:4px; background:var(--border); border-radius:2px;" title="05 Extract"></div>
+          <div style="flex:1; height:4px; background:var(--border); border-radius:2px;" title="06 Plot"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3D Model Tab -->
+    <section class="tab-content" id="tab-model3d" style="position:relative; padding:0;">
+      <div class="model-legend">
+        <div class="legend-item"><span class="legend-swatch" style="background:#5b9bd5;"></span> MXene Matrix</div>
+        <div class="legend-item"><span class="legend-swatch" style="background:#e8c547;"></span> BaTiO₃ (x3)</div>
+        <div class="legend-item"><span class="legend-swatch" style="background:#2a2a35;"></span> GCE Substrate</div>
+      </div>
+      <canvas id="model-canvas"></canvas>
+    </section>
+
+    <!-- Results Tab -->
+    <section class="tab-content" id="tab-results">
+      <div class="card">
+        <div class="card-header">Baseline Results</div>
+        <div id="results-content" style="color: var(--text-dim); font-family: var(--font-display); font-size: 11px;">
+          Run baseline simulation to populate results.
+        </div>
+      </div>
+    </section>
+
+    <!-- Documents Tab -->
+    <section class="tab-content" id="tab-documents">
+      <div class="card">
+        <div class="card-header">Project Documents</div>
+        <div class="doc-item"><span class="doc-icon">&#128196;</span><div><div class="doc-name">01_research_plan.md</div><div class="doc-desc">Research objectives, model variants, pipeline design</div></div></div>
+        <div class="doc-item"><span class="doc-icon">&#128196;</span><div><div class="doc-name">GUI_MANUAL_V2.md</div><div class="doc-desc">GUI verification manual for multi-particle RVE model</div></div></div>
+        <div class="doc-item"><span class="doc-icon">&#128196;</span><div><div class="doc-name">MODEL_DIAGNOSIS.md</div><div class="doc-desc">Model diagnosis checklist (9 inspection points)</div></div></div>
+        <div class="doc-item"><span class="doc-icon">&#128196;</span><div><div class="doc-name">API_FINDINGS.md</div><div class="doc-desc">mph API findings: column-major arrays, property modes</div></div></div>
+        <div class="doc-item"><span class="doc-icon">&#128196;</span><div><div class="doc-name">config_scheme1.py</div><div class="doc-desc">Complete parameter definitions (BTO, MXene, GCE)</div></div></div>
+      </div>
+    </section>
+
+    <!-- Parameters Tab -->
+    <section class="tab-content" id="tab-parameters">
+      <div class="card">
+        <div class="card-header">BaTiO₃ Material Parameters (Zgonik 1994)</div>
+        <table class="param-table">
+          <tr><th>Parameter</th><th>Value</th><th>Description</th></tr>
+          <tr><td>d₃₃</td><td>90 pC/N</td><td>Longitudinal piezo strain constant</td></tr>
+          <tr><td>d₃₁</td><td>-33.4 pC/N</td><td>Transverse piezo strain constant</td></tr>
+          <tr><td>d₁₅</td><td>564 pC/N</td><td>Shear piezo strain constant</td></tr>
+          <tr><td>c₁₁</td><td>222 GPa</td><td>Elastic stiffness</td></tr>
+          <tr><td>c₃₃</td><td>151 GPa</td><td>Elastic stiffness (poling axis)</td></tr>
+          <tr><td>c₄₄</td><td>61 GPa</td><td>Elastic shear stiffness</td></tr>
+          <tr><td>εᵣ₁₁</td><td>2200</td><td>Clamped relative permittivity</td></tr>
+          <tr><td>εᵣ₃₃</td><td>56</td><td>Clamped permittivity (poling axis)</td></tr>
+          <tr><td>ρ</td><td>6020 kg/m³</td><td>Density</td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <div class="card-header">MXene & GCE Parameters</div>
+        <table class="param-table">
+          <tr><th>Parameter</th><th>Value</th><th>Description</th></tr>
+          <tr><td>E_MX</td><td>483.5 GPa</td><td>MXene Young modulus (Rong 2024)</td></tr>
+          <tr><td>ν_MX</td><td>0.20</td><td>MXene Poisson ratio</td></tr>
+          <tr><td>σ_MX</td><td>10⁴ S/cm</td><td>MXene conductivity</td></tr>
+          <tr><td>E_gce</td><td>12 GPa</td><td>GCE Young modulus</td></tr>
+          <tr><td>Uz_app</td><td>50 nm</td><td>Applied z-displacement</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <!-- Log Tab -->
+    <section class="tab-content" id="tab-log">
+      <div class="card">
+        <div class="card-header">Simulation Log</div>
+        <div class="log-container" id="log-content">
+          <div class="log-line">[09:10:33] <span class="success">BUILD OK</span> — 5 domains, 22 boundaries</div>
+          <div class="log-line">[09:10:35] Material setup: cE 6x6 4mm, dET 3x6, epsrS diagonal</div>
+          <div class="log-line">[09:10:37] Mesh: 1,502 elements (FreeTri, BTO refinement 5nm)</div>
+          <div class="log-line">[09:10:40] Study std1 (Stationary) created</div>
+          <div class="log-line">[09:15:00] <span class="warn">WARNING</span> — FloatingPotential removed (singular matrix)</div>
+          <div class="log-line">[09:20:00] sE compliance matrix computed from cE (6x6, column-major)</div>
+          <div class="log-line">[--:--:--] <span class="error">Baseline pending</span> — solver divergence issue under investigation</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Status bar -->
+  <div class="status-bar">
+    <span><span class="status-dot idle"></span> COMSOL 6.4 &middot; mph API &middot; 4 cores</span>
+    <span id="status-time">--</span>
+  </div>
+</div>
+
+<!-- Three.js Import Map -->
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+// ============================================================
+// Tabs
+// ============================================================
+const tabs = document.querySelectorAll('.tab-btn');
+const contents = document.querySelectorAll('.tab-content');
+tabs.forEach(btn => {
+  btn.addEventListener('click', () => {
+    tabs.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    contents.forEach(c => c.classList.remove('active'));
+    document.getElementById(`tab-${btn.dataset.tab}`).classList.add('active');
+    if (btn.dataset.tab === 'model3d') resizeRenderer();
+  });
+});
+
+// ============================================================
+// Three.js 3D RVE Model
+// ============================================================
+const canvas = document.getElementById('model-canvas');
+const container = canvas.parentElement;
+
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.shadowMap.enabled = true;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.2;
+
+const scene = new THREE.Scene();
+
+const camera = new THREE.PerspectiveCamera(45, 2, 0.1, 1000);
+camera.position.set(3.5, 2.0, 5.5);
+camera.lookAt(0, 0.6, 0);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.target.set(0, 0.6, 0);
+controls.enableDamping = true;
+controls.dampingFactor = 0.08;
+controls.minDistance = 2;
+controls.maxDistance = 12;
+controls.maxPolarAngle = Math.PI * 0.75;
+controls.update();
+
+// Lighting
+const ambientLight = new THREE.AmbientLight('#334466', 1.5);
+scene.add(ambientLight);
+const keyLight = new THREE.DirectionalLight('#ffffff', 3);
+keyLight.position.set(5, 8, 5);
+scene.add(keyLight);
+const rimLight = new THREE.DirectionalLight('#e8c547', 1.5);
+rimLight.position.set(-2, 2, -3);
+scene.add(rimLight);
+const fillLight = new THREE.DirectionalLight('#5b9bd5', 1);
+fillLight.position.set(0, 0, 5);
+scene.add(fillLight);
+
+// Scene scale: 1 unit = 100nm
+// RVE: R=250nm → 2.5 units, H=400nm → 4.0 units
+const scale = 0.01; // 1nm = 0.01 units
+const R = 250 * scale;  // 2.5
+const H_mx = 300 * scale; // 3.0 (MXene)
+const H_gce = 100 * scale; // 1.0 (GCE)
+const H_total = 4.0;
+const a = 45 * scale;  // 0.45 (BTO radius)
+
+// Ground plane grid
+const grid = new THREE.GridHelper(8, 20, '#1e2636', '#0d1018');
+grid.position.y = -0.1;
+scene.add(grid);
+
+// MXene matrix: semi-transparent cylinder
+const mxGeom = new THREE.CylinderGeometry(R, R, H_mx, 64, 1, true);
+const mxMat = new THREE.MeshPhysicalMaterial({
+  color: '#5b9bd5',
+  metalness: 0.1,
+  roughness: 0.2,
+  transparent: true,
+  opacity: 0.25,
+  side: THREE.DoubleSide,
+  envMapIntensity: 0.3,
+});
+const mxMesh = new THREE.Mesh(mxGeom, mxMat);
+mxMesh.position.y = H_gce + H_mx / 2; // GCE on bottom, MXene above
+scene.add(mxMesh);
+
+// MXene top and bottom caps (thin rings)
+const ringGeom = new THREE.TorusGeometry(R, 0.02, 16, 64);
+const ringMat = new THREE.MeshStandardMaterial({ color: '#8bb8e0', metalness: 0.3, roughness: 0.3 });
+const topRing = new THREE.Mesh(ringGeom, ringMat);
+topRing.rotation.x = Math.PI / 2;
+topRing.position.y = H_gce + H_mx;
+scene.add(topRing);
+const botRing = new THREE.Mesh(ringGeom, ringMat);
+botRing.rotation.x = Math.PI / 2;
+botRing.position.y = H_gce;
+scene.add(botRing);
+
+// GCE substrate: dark cylinder
+const gceGeom = new THREE.CylinderGeometry(R, R, H_gce, 64);
+const gceMat = new THREE.MeshStandardMaterial({ color: '#2a2a35', metalness: 0.4, roughness: 0.6 });
+const gceMesh = new THREE.Mesh(gceGeom, gceMat);
+gceMesh.position.y = H_gce / 2;
+scene.add(gceMesh);
+
+// BTO particles: 3 golden spheres
+const btoGeom = new THREE.SphereGeometry(a, 48, 48);
+const btoMat = new THREE.MeshStandardMaterial({
+  color: '#e8c547',
+  metalness: 0.6,
+  roughness: 0.15,
+  emissive: '#3d2a00',
+  emissiveIntensity: 0.4,
+});
+const btoPositions = [
+  { z: H_gce + 55 * scale },   // BTO1 center z=155nm global → 0.55 above GCE
+  { z: H_gce + 155 * scale },  // BTO2 center z=255nm
+  { z: H_gce + 255 * scale },  // BTO3 center z=355nm
+];
+const btoMeshes = [];
+btoPositions.forEach(({ z }) => {
+  const sphere = new THREE.Mesh(btoGeom, btoMat.clone());
+  sphere.position.set(0, z, 0);
+  sphere.castShadow = true;
+  scene.add(sphere);
+  btoMeshes.push(sphere);
+});
+
+// Symmetry axis line
+const axisGeom = new THREE.BufferGeometry().setFromPoints([
+  new THREE.Vector3(0, -0.3, 0),
+  new THREE.Vector3(0, H_total + 0.3, 0),
+]);
+const axisLine = new THREE.Line(axisGeom, new THREE.LineDashedMaterial({ color: '#556a85', dashSize: 0.3, gapSize: 0.15 }));
+scene.add(axisLine);
+
+// z-axis arrow
+const arrowGeom = new THREE.ConeGeometry(0.1, 0.3, 16);
+const arrowMat = new THREE.MeshStandardMaterial({ color: '#8b9dc3' });
+const arrow = new THREE.Mesh(arrowGeom, arrowMat);
+arrow.position.y = H_total + 0.4;
+scene.add(arrow);
+
+// Label sprites (simple dots for particle positions)
+function createGlow(y, color, size = 0.08) {
+  const glowGeom = new THREE.SphereGeometry(size, 16, 16);
+  const glowMat = new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.3 });
+  return new THREE.Mesh(glowGeom, glowMat);
+}
+btoPositions.forEach(({ z }) => {
+  const glow = createGlow(z, '#e8c547');
+  scene.add(glow);
+});
+
+// Particle labels using sprites
+function createLabel(text, position, color = '#e4e8f0') {
+  const canvas2 = document.createElement('canvas');
+  canvas2.width = 128; canvas2.height = 32;
+  const ctx = canvas2.getContext('2d');
+  ctx.fillStyle = color; ctx.font = '24px Inter'; ctx.textAlign = 'center';
+  ctx.fillText(text, 64, 24);
+  const tex = new THREE.CanvasTexture(canvas2);
+  tex.minFilter = THREE.LinearFilter;
+  const spriteMat = new THREE.SpriteMaterial({ map: tex, transparent: true, depthTest: false });
+  const sprite = new THREE.Sprite(spriteMat);
+  sprite.position.copy(position);
+  sprite.scale.set(0.8, 0.2, 1);
+  return sprite;
+}
+btoPositions.forEach(({ z }, i) => {
+  scene.add(createLabel(`BTO-${i+1}`, new THREE.Vector3(a + 0.4, z, 0), '#e8c547'));
+});
+
+// Animation
+const clock = new THREE.Clock();
+let currentTab = 'dashboard';
+function animate() {
+  requestAnimationFrame(animate);
+  const dt = clock.getDelta();
+  controls.update();
+
+  // Subtle BTO glow pulsing
+  const t = performance.now() * 0.001;
+  btoMeshes.forEach((m, i) => {
+    m.material.emissiveIntensity = 0.4 + 0.15 * Math.sin(t * 1.5 + i * 0.8);
+  });
+
+  if (currentTab === 'model3d') {
+    renderer.render(scene, camera);
+  }
+}
+animate();
+
+function resizeRenderer() {
+  const rect = container.getBoundingClientRect();
+  renderer.setSize(rect.width, rect.height);
+  camera.aspect = rect.width / Math.max(rect.height, 1);
+  camera.updateProjectionMatrix();
+}
+window.addEventListener('resize', resizeRenderer);
+
+// Render model tab when visible
+const modelObserver = new MutationObserver(() => {
+  if (document.getElementById('tab-model3d').classList.contains('active')) {
+    currentTab = 'model3d';
+    resizeRenderer();
+  } else {
+    currentTab = 'other';
+  }
+});
+document.querySelectorAll('.tab-content').forEach(c => {
+  modelObserver.observe(c, { attributes: true, attributeFilter: ['class'] });
+});
+
+// ============================================================
+// Status bar clock
+// ============================================================
+function updateClock() {
+  const now = new Date();
+  document.getElementById('status-time').textContent = now.toLocaleTimeString();
+}
+updateClock();
+setInterval(updateClock, 1000);
+
+// ============================================================
+// Data update API
+// ============================================================
+window.updateMetrics = function(data) {
+  for (const [id, val] of Object.entries(data)) {
+    const el = document.getElementById('m-' + id);
+    if (el) el.textContent = val;
+  }
+};
+
+window.updateStage = function(stageNum, status) {
+  const items = document.querySelectorAll('.stage-item');
+  items.forEach((item, i) => {
+    item.classList.remove('active', 'done', 'failed');
+    if (i + 1 < stageNum) item.classList.add('done');
+    else if (i + 1 === stageNum) item.classList.add(status || 'active');
+  });
+};
+
+window.addLog = function(msg, level) {
+  const log = document.getElementById('log-content');
+  const line = document.createElement('div');
+  line.className = 'log-line ' + (level || '');
+  const time = new Date().toLocaleTimeString();
+  line.textContent = `[${time}] ${msg}`;
+  log.appendChild(line);
+  log.scrollTop = log.scrollHeight;
+};
+
+// Initial render
+resizeRenderer();
+</script>
+</body>
+</html>
