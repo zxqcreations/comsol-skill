@@ -175,6 +175,16 @@ The pipeline includes a dynamic web dashboard (`web/index.html`) for real-time m
 
 **3D model preview**: The dashboard includes a Three.js 3D view. When starting a new project, edit the `buildModelGeometry()` function in `web/index.html` to match the project's COMSOL geometry. This is a hardcoded function using standard Three.js primitives (CylinderGeometry, SphereGeometry, BoxGeometry, etc.) — no abstraction layer needed. Each project writes its own geometry directly in JS. See the `// PER-PROJECT: UPDATE THIS FUNCTION` comment in the file.
 
+**How to run the dashboard**: The dashboard uses `fetch()` to read `pipeline_state.json` and project `.md` files. Due to browser CORS policy, it must be served via HTTP (not opened directly from disk via `file://`). Start a local server in the project directory:
+
+```bash
+cd your_project/
+python -m http.server 8000
+# Then open: http://localhost:8000/web/index.html
+```
+
+When opened via `file://`, all dynamic features (pipeline polling, MD viewer, document list) are gracefully disabled and a help message is shown.
+
 **When GUI manual check is required**: Set `"status": "gui_check"` and populate `gui_checklist`. The dashboard will display a yellow alert panel with the checklist items.
 
 ## Troubleshooting Quick Reference
