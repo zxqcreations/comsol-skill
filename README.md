@@ -87,8 +87,7 @@ comsol-skill/
 
 ## Built From
 
-- Real MXene/BaTiO3 piezoelectric RVE simulation project (Scheme 1)
+- Real multiphysics RVE simulation projects
 - COMSOL 6.4 PDF documentation (~50 module directories)
 - mph 1.3.1 source code and tags.json (3,281 entries)
-- Zgonik et al. (1994) — BaTiO3 constants
-- Rong et al. (2024) — MXene mechanical properties
+- COMSOL official Users Guides for all 13 physics modules

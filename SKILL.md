@@ -142,7 +142,7 @@ When ANY error or unexpected behavior occurs during modeling or simulation:
 
 - `references/mph_api.md` — Complete mph Python API reference for COMSOL 6.4
 - `references/mcp_tools.md` — COMSOL MCP tools reference
-- `references/lessons_learned.md` — All lessons from Scheme 1 MXene/BaTiO3 RVE builds
+- `references/lessons_learned.md` — All lessons from real multiphysics RVE model builds
 - `references/troubleshooting.md` — Common issues, symptoms, root causes, and fixes
 - `references/tags_physics.md` — **2021 physics feature types** (all interfaces)
 - `references/tags_geometries.md` — **293 geometry features** with tags

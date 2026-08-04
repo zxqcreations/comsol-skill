@@ -1,6 +1,6 @@
-# Lessons Learned — Scheme 1 MXene/BaTiO3 RVE Model
+# Lessons Learned — Multiphysics RVE Model
 
-Complete compilation of all issues encountered and solved during the build of a 2D axisymmetric piezoelectric RVE model in COMSOL 6.4 via mph.
+Complete compilation of all issues encountered and solved during the build of 2D axisymmetric piezoelectric RVE models in COMSOL 6.4 via mph.
 
 ## 1. Geometry
 

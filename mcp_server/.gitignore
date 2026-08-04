@@ -1,0 +1,16 @@
+*.mph
+*.mph.*
+*.class
+*.class.*
+*.java
+__pycache__/
+*.pyc
+.DS_Store
+*.log
+*.err
+comsol_models/
+client_script/
+knowledge_base/
+pdf/
+*.sqlite3
+*.png
