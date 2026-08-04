@@ -1,389 +1,275 @@
 # Plasma Module — Comprehensive API Reference
 
-Plasma physics — DC, CCP, ICP, Microwave, and Drift Diffusion
-
-COMSOL 6.4 · mph Python API · Extracted from official documentation and tags.json
-
----
-
-## Contents
-
-1. [Physics Interfaces](#physics-interfaces)
-2. [Domain Features](#domain-features)
-3. [Boundary Conditions](#boundary-conditions)
-4. [Edge & Point Conditions](#edge-point-conditions)
-5. [Pair Conditions](#pair-conditions)
-6. [Expression Reference](#expression-reference)
-7. [Multiphysics Couplings](#multiphysics-couplings)
-8. [Common Patterns & Notes](#common-patterns)
+COMSOL 6.4 · mph Python API · Based on official Plasma Module Users Guide and tags.json
 
 ---
 
 ## 1. Physics Interfaces
 
-| Interface | mph Tag | COMSOL Name | Description |
-|-----------|---------|-------------|-------------|
-| `?` | `` | ? |  (36 features) |
-| `Batch` | `` | Batch |  (1 features) |
-| `BeamRotor` | `rotbm` | BeamRotor | Beam envelope (slowly varying) (3 features) |
-| `BioHeat` | `ht` | BioHeat |  (1 features) |
-| `BoltzmannEquation` | `be` | BoltzmannEquation |  (4 features) |
-| `ChargedParticleTracing` | `cpt` | ChargedParticleTracing |  (9 features) |
-| `Chemistry` | `chem` | Chemistry |  (5 features) |
-| `Circuit` | `cir` | Circuit |  (1 features) |
-| `ColdPlasma` | `plas` | ColdPlasma | Plasma discharge (20 features) |
-| `ConcentratedSpecies` | `tcs` | ConcentratedSpecies | Chemical species transport (11 features) |
-| `ConductiveMedia` | `ec` | ConductiveMedia |  (3 features) |
-| `ConductiveMediaShell` | `ecs` | ConductiveMediaShell |  (2 features) |
-| `ConvectedWaveEquation` | `cwe` | ConvectedWaveEquation |  (6 features) |
-| `ConvectionDiffusionEquation` | `cdeq` | ConvectionDiffusionEquation |  (4 features) |
-| `CurrentDistributionBEM` | `cdbem` | CurrentDistributionBEM |  (7 features) |
-| `CurrentDistributionShell` | `cdsh` | CurrentDistributionShell |  (4 features) |
-| `CurvilinearCoordinates` | `cc` | CurvilinearCoordinates |  (5 features) |
-| `DarcysLaw` | `dl` | DarcysLaw |  (21 features) |
-| `DeformedGeometry` | `dg` | DeformedGeometry |  (2 features) |
-| `DilutedSpecies` | `tds` | DilutedSpecies | Chemical species transport (22 features) |
-| `DilutedSpeciesInPorousMedia` | `tds` | DilutedSpeciesInPorousMedia | Chemical species transport (22 features) |
-| `Eigenfrequency` | `` | Eigenfrequency |  (28 features) |
-| `Eigenvalue` | `` | Eigenvalue |  (9 features) |
-| `ElectricCurrentsShell` | `ecis` | ElectricCurrentsShell |  (3 features) |
-| `ElectricInductionCurrents` | `mef` | ElectricInductionCurrents |  (8 features) |
-| `ElectricalBreakdownDetection` | `ebd` | ElectricalBreakdownDetection |  (4 features) |
-| `ElectrodeShell` | `els` | ElectrodeShell |  (1 features) |
-| `ElectromagneticWaves` | `emw` | ElectromagneticWaves |  (6 features) |
-| `ElectromagneticWavesBeamEnvelopes` | `ewbe` | ElectromagneticWavesBeamEnvelopes | Beam envelope (slowly varying) (5 features) |
-| `ElectromagneticWavesFrequencyDomain` | `ewfd` | ElectromagneticWavesFrequencyDomain | Frequency-domain electromagnetic waves (9 features) |
-| `ElectromagneticWavesTransient` | `ewt` | ElectromagneticWavesTransient | Time-domain electromagnetic waves (4 features) |
-| `ElectrophoreticTransport` | `el` | ElectrophoreticTransport | Chemical species transport (3 features) |
-| `Electrostatics` | `es` | Electrostatics |  (7 features) |
-| `ElectrostaticsBoundaryElements` | `esbe` | ElectrostaticsBoundaryElements | Boundary element method EM (1 features) |
-| `FlowInPipes` | `pfl` | FlowInPipes |  (1 features) |
-| `FluidParticleTracing` | `fpt` | FluidParticleTracing |  (2 features) |
-| `FreeMolecularFlow` | `fmf` | FreeMolecularFlow |  (1 features) |
-| `GeneralFormPDE` | `g` | GeneralFormPDE | Mathematics PDE interface (1 features) |
-| `GeneralOptimization` | `opt` | GeneralOptimization | Optimization interface (10 features) |
-| `GeometricalOptics` | `gop` | GeometricalOptics | Ray tracing optics (6 features) |
-| `GlobalEquations` | `ge` | GlobalEquations |  (1 features) |
-| `HeatTransfer` | `ht` | HeatTransfer |  (4 features) |
-| `HeatTransferInBuildingMaterials` | `ht` | HeatTransferInBuildingMaterials |  (1 features) |
-| `HeatTransferInFilmsLM` | `htlsh` | HeatTransferInFilmsLM |  (1 features) |
-| `HeatTransferInFluids` | `ht` | HeatTransferInFluids |  (2 features) |
-| `HeatTransferInMoistAir` | `ht` | HeatTransferInMoistAir |  (1 features) |
-| `HeatTransferInShellsLM` | `htlsh` | HeatTransferInShellsLM |  (1 features) |
-| `HeatTransferInSolidsAndFluids` | `ht` | HeatTransferInSolidsAndFluids |  (3 features) |
-| `HeavySpeciesTransport` | `hs` | HeavySpeciesTransport | Chemical species transport (4 features) |
-| `HermitianBeam` | `beam` | HermitianBeam | Beam envelope (slowly varying) (3 features) |
-| `HighMachNumberFlow` | `hmnf` | HighMachNumberFlow |  (2 features) |
-| `HighMachNumberFlowTurbulentSpalartAllmaras` | `hmnf` | HighMachNumberFlowTurbulentSpalartAllmaras |  (1 features) |
-| `HighMachNumberFlowTurbulentkeps` | `hmnf` | HighMachNumberFlowTurbulentkeps |  (1 features) |
-| `HydrodynamicBearing` | `hdb` | HydrodynamicBearing |  (4 features) |
-| `InductionCurrents` | `mf` | InductionCurrents |  (28 features) |
-| `LaminarFlow` | `spf` | LaminarFlow |  (1 features) |
-| `LaplaceEquation` | `lpeq` | LaplaceEquation |  (6 features) |
-| `LayeredShell` | `lshell` | LayeredShell |  (3 features) |
-| `MagneticFieldFormulation` | `mfh` | MagneticFieldFormulation | Mathematics PDE interface (5 features) |
-| `MagneticFieldsNoCurrentsBoundaryElements` | `mfncbe` | MagneticFieldsNoCurrentsBoundaryElements | Boundary element method EM (3 features) |
-| `MagnetostaticsNoCurrents` | `mfnc` | MagnetostaticsNoCurrents |  (3 features) |
-| `MaterialSweep` | `` | MaterialSweep |  (1 features) |
-| `MathParticle` | `pt` | MathParticle |  (2 features) |
-| `MoistureTransportInAir` | `mt` | MoistureTransportInAir | Chemical species transport (1 features) |
-| `MoistureTransportInBuildingMaterials` | `mt` | MoistureTransportInBuildingMaterials | Chemical species transport (1 features) |
-| `MovingMesh` | `ale` | MovingMesh |  (2 features) |
-| `MultibodyDynamics` | `mbd` | MultibodyDynamics |  (20 features) |
-| `NONE` | `` | NONE |  (14 features) |
-| `Parametric` | `` | Parametric |  (54 features) |
-| `ParticipatingMediaRadiation` | `rpm` | ParticipatingMediaRadiation |  (4 features) |
-| `PhaseTransportPorousMedia` | `phtr` | PhaseTransportPorousMedia | Chemical species transport (1 features) |
-| `PipeMechanics` | `pipem` | PipeMechanics |  (2 features) |
-| `PlasmaTimePeriodic` | `ptp` | PlasmaTimePeriodic | Plasma discharge (14 features) |
-| `PlotGroup1D` | `` | PlotGroup1D |  (5 features) |
-| `PlotGroup2D` | `` | PlotGroup2D |  (8 features) |
-| `PlotGroup3D` | `` | PlotGroup3D |  (5 features) |
-| `PolarGroup` | `` | PolarGroup |  (1 features) |
-| `PoroelasticWavesSinglePhysics` | `pelw` | PoroelasticWavesSinglePhysics |  (1 features) |
-| `PorousMediaHeatTransfer` | `ht` | PorousMediaHeatTransfer |  (1 features) |
-| `PressureAcoustics` | `acpr` | PressureAcoustics |  (9 features) |
-| `PrimaryCurrentDistribution` | `cd` | PrimaryCurrentDistribution |  (9 features) |
-| `RayAcoustics` | `rac` | RayAcoustics | Ray tracing optics (1 features) |
-| `ReactionEng` | `re` | ReactionEng | Reaction engineering (11 features) |
-| `RichardsEquation` | `dl` | RichardsEquation |  (7 features) |
-| `RotatingMachineryMagnetic` | `rmm` | RotatingMachineryMagnetic |  (10 features) |
-| `SchrodingerEquation` | `schr` | SchrodingerEquation |  (14 features) |
-| `SecondaryCurrentDistribution` | `cd` | SecondaryCurrentDistribution |  (19 features) |
-| `Semiconductor` | `semi` | Semiconductor | Semiconductor device (14 features) |
-| `Sequence` | `` | Sequence |  (1 features) |
-| `ShallowWaterEquationsTimeExplicit` | `swe` | ShallowWaterEquationsTimeExplicit | Explicit time-stepping EM waves (4 features) |
-| `Shell` | `shell` | Shell |  (6 features) |
-| `SlipFlow` | `slpf` | SlipFlow |  (1 features) |
-| `SmithGroup` | `` | SmithGroup |  (2 features) |
-| `SolidMechanics` | `solid` | SolidMechanics |  (31 features) |
-| `SolidRotor` | `rotsld` | SolidRotor |  (7 features) |
-| `Stationary` | `` | Stationary |  (43 features) |
-| `StructuralMembrane` | `mbrn` | StructuralMembrane |  (2 features) |
-| `SurfaceReactions` | `sr*` | SurfaceReactions | Reaction engineering (4 features) |
-| `SurfaceToSurfaceRadiation` | `rad` | SurfaceToSurfaceRadiation |  (6 features) |
-| `TertiaryCurrentDistributionNernstPlanck` | `tcd` | TertiaryCurrentDistributionNernstPlanck |  (21 features) |
-| `TertiaryElectroanalysis` | `tcd` | TertiaryElectroanalysis |  (5 features) |
-| `ThermoacousticsSinglePhysicsTransient` | `tatd` | ThermoacousticsSinglePhysicsTransient | Time-domain electromagnetic waves (1 features) |
-| `ThinFilmFlowDomain` | `tff` | ThinFilmFlowDomain |  (1 features) |
-| `ThinFilmFlowShell` | `tffs` | ThinFilmFlowShell |  (1 features) |
-| `Time` | `elte` | Time |  (45 features) |
-| `Timeparametric` | `` | Timeparametric |  (21 features) |
-| `TransientElectromagneticWaves` | `temw` | TransientElectromagneticWaves | Time-domain electromagnetic waves (3 features) |
-| `TransientPressureAcoustics` | `actd` | TransientPressureAcoustics | Time-domain electromagnetic waves (3 features) |
-| `TransmissionLine` | `tl` | TransmissionLine |  (4 features) |
-| `Truss` | `truss` | Truss |  (8 features) |
-| `TurbulentFlowAlgebraicYplus` | `spf` | TurbulentFlowAlgebraicYplus |  (5 features) |
-| `TurbulentFlowkeps` | `spf` | TurbulentFlowkeps |  (4 features) |
-| `TurbulentFlowkomega` | `spf` | TurbulentFlowkomega |  (1 features) |
-| `curve` | `` | curve |  (3 features) |
-| `empty` | `` | empty |  (11 features) |
-| `mixed` | `` | mixed |  (9 features) |
-| `solid` | `` | solid |  (20 features) |
-| `surface` | `` | surface |  (8 features) |
+The Plasma Module provides 4 core interfaces under the **Plasma** branch:
+
+| Interface | mph Tag | Default Name | Purpose |
+|-----------|---------|-------------|---------|
+| Plasma | `plas` | `plas` | Integrated multiphysics: Drift Diffusion + Heavy Species Transport + Electrostatics |
+| Drift Diffusion | `dd` | `dd` | Electron density and mean energy transport |
+| Heavy Species Transport | `hst` | `hst` | Ion and neutral species transport with reactions |
+| Boltzmann Equation, Two-Term Approximation | `eb` | `eb` | Electron energy distribution function (EEDF) from cross-section data |
+
+### 1.1 Plasma (plas) — Default Nodes
+
+When adding the Plasma interface, COMSOL auto-creates:
+
+| Default Node | mph Type | Purpose |
+|-------------|---------|---------|
+| Plasma Model | `PlasmaModel` | Species list, reactions, transport properties, electron kinetics |
+| Zero Charge | `ZeroCharge` | n·D = 0 — default exterior BC |
+| Insulation | `Insulation` | Species flux insulation |
+| Initial Values | `InitialValues` | Initial electron density (nₑ₀), mean energy (ε̄₀), potentials |
+
+### 1.2 Plasma Key Settings (Interface Level)
+
+| Setting | Options | Description |
+|---------|---------|-------------|
+| Diffusion model | `MixtureAveraged` (default), `FicksLaw`, `Global` | Species diffusion model |
+| Transport mechanisms | Convection, Migration, Thermodynamic properties, Tensor ion transport | Included transport effects |
+| Heavy species energy | On/Off (Global model only) | Background gas temperature equation |
+| Electron energy distribution | Maxwellian, Two-term Boltzmann, User defined | EEDF type for rate coefficients |
+| Out-of-plane thickness (2D) | d (m) | 1 m default |
+| Cross-section area (1D) | A (m²) | 0.01 m² default |
 
 ---
 
-## 2. Domain Features
+## 2. Domain Features — Plasma Interface
 
-| Feature Name | mph Tag | Interface | Key Properties |
-|-------------|---------|-----------|---------------|
-| `PlasmaEsModel` | `pes*` |  | — |
-| `PlasmaEsModel` | `pes*` |  | — |
-| `WaveEquationElectric` | `wee*` |  | — |
-| `GlobalEquations` | `ge*` |  | — |
-| `WaveEquationElectric` | `wee*` |  | — |
-| `GlobalEquations` | `ge*` |  | — |
-| `GlobalEquations` | `ge*` |  | — |
-| `ReverseCoilGroupDomain` | `rcd*` |  | — |
-| `GlobalEquations` | `ge*` |  | — |
-| `WKBTunnelingModelElectrons` | `wkbe*` |  | — |
-| `DestinationDomains` | `dd*` |  | — |
-| `GlobalEquations` | `ge*` |  | — |
-| `BoltzmannModel` | `bmdl*` |  | — |
-| `ReactionWithTurbulenceModel` | `treac*` |  | — |
-| `FluidPorousMedium` | `fluid*` |  | — |
-| `PorousMatrixPorousMedium` | `pm*` |  | — |
-| `PorousMedium` | `porous*` |  | FluidPorousMedium, PorousMatrixPorousMedium |
-| `FluidPorousMedium` | `fluid*` |  | — |
-| `GasUnsaturatedPorousMedium` | `gas*` |  | — |
-| `LiquidUnsaturatedPorousMedium` | `liquid*` |  | — |
-| `PorousMatrixPorousMedium` | `pm*` |  | — |
-| `PorousMedium` | `porous*` |  | Adsorptions, Dispersion, FluidPorousMedium, PorousMatrixPorousMedium |
-| `UnsaturatedPorousMedium` | `usporous*` |  | Adsorptions, Dispersion, GasUnsaturatedPorousMedium, LiquidUnsaturatedPorousMedium, PorousMatrixPorousMedium |
-| `GlobalEquations` | `ge*` |  | — |
-| `DomainDecomposition` | `dd*` |  | CoarseSolver, Direct, DomainSolver, Direct, DirectPreconditioner |
-| `DomainDecompositionSchur` | `dd*` |  | DomainSolver, Direct, SchurSolver, SchurKrylovPreconditioner, SchurLocal |
-| `DomainSolver` | `ds` |  | Direct, DirectPreconditioner |
-| `ModelReduction` | `mr` |  | — |
-| `PartitionDomains` | `pard*` |  | — |
-| `PartitionDomains` | `pard*` |  | — |
-| `PartitionDomains` | `pard*` |  | — |
-| `PartitionDomains` | `pard*` |  | — |
-| `GlobalEquations` | `ge*` |  | — |
-| `ConvectedWaveEquationModel` | `cwem*` |  | — |
-| `ConvectionDiffusionEquation` | `cdeq*` |  | — |
-| `DarcysLawModel` | `dlm*` |  | — |
-| `PoroelasticMaterial` | `psm*` |  | — |
-| `StorageModel` | `smm*` |  | — |
-| `ElectromagneticModel` | `alc*` |  | — |
-| `WaveEquationBeamEnvelopes` | `webe*` |  | — |
-| `GlobalEquations` | `ge*` |  | — |
-| `WaveEquationElectric` | `wee*` |  | DrudeLorentzPolarization |
-| `GlobalEquations` | `ge*` |  | — |
-| `GlobalEquations` | `ge*` |  | — |
-| `GlobalEquations` | `ge*` |  | — |
-| `GlobalEquations` | `ge*` |  | — |
-| `GlobalEquations` | `ge*` |  | — |
-| `GlobalEquations` | `ge*` |  | — |
-| `LaplaceEquation` | `leq*` |  | — |
-| `GlobalEquations` | `ge*` |  | — |
-| `GlobalEquations` | `ge*` |  | — |
-| `ParticipatingMedium` | `rpm*` |  | — |
-| `NarrowRegionAcousticsModel` | `nra*` |  | — |
-| `RichardsEquationModel` | `remm*` |  | — |
-| `DomainProperties` | `dp*` |  | — |
-| `GlobalEquations` | `ge*` |  | — |
-| `GlobalEquations` | `ge*` |  | — |
-| `GlobalEquations` | `ge*` |  | — |
-| `WaveEquationElectric` | `wee*` |  | DrudeLorentzPolarization |
-| `TransmissionLineEquation` | `tle*` |  | — |
+### 2.1 Plasma Model (default domain node)
+
+| Aspect | Detail |
+|--------|--------|
+| mph type | `PlasmaModel` |
+| Default tag | `pm1` |
+
+**Sub-sections in Settings**:
+
+| Section | Key Properties |
+|---------|---------------|
+| Species | Electron (e), ions (Ar⁺, O₂⁺...), neutrals (Ar, O₂...), excited states |
+| Electron transport | Mobility μₑ, diffusivity Dₑ, energy mobility μₑε, energy diffusivity Dₑε |
+| Heavy species transport | Mobility μₖ, diffusivity Dₖ per ion species |
+| Reactions | Table: reaction formula, type, rate coefficient, energy loss per reaction |
+| Surface reactions | Wall recombination, secondary emission, sputtering |
+| Electron kinetics | EEDF source (Maxwellian, Boltzmann solution, user-defined) |
+| Thermodynamics | Species enthalpy, heat capacity (for energy equation) |
+| Magnetic field | B vector components (for tensor transport) |
+
+### 2.2 Reaction Types
+
+| Type | Formula Example | Description |
+|------|---------------|-------------|
+| Elastic | e + Ar → e + Ar | Momentum transfer, no chemistry change |
+| Excitation | e + Ar → e + Ar* | Electronic excitation |
+| Ionization | e + Ar → 2e + Ar⁺ | Electron impact ionization |
+| Attachment | e + O₂ → O₂⁻ | Electron attachment |
+| Recombination | e + Ar⁺ → Ar | Electron-ion recombination |
+| Charge exchange | Ar⁺ + Ar → Ar + Ar⁺ | Resonant charge transfer |
+| Penning ionization | Ar* + Ar* → e + Ar + Ar⁺ | Excited state pooling |
+| Step-wise ionization | e + Ar* → 2e + Ar⁺ | Ionization from excited state |
+| Dissociation | e + O₂ → e + O + O | Molecular dissociation |
+| Dissociative attachment | e + O₂ → O + O⁻ | Attachment with dissociation |
+| Ion conversion | Ar⁺ + 2Ar → Ar₂⁺ + Ar | Three-body ion conversion |
+| Surface recombination | Ar⁺ + wall → Ar | Ion neutralization at walls |
+| Secondary emission | Ar⁺ + wall → e + Ar | Electron emission from ion impact |
+
+### 2.3 Additional Domain Features
+
+| Feature | mph Type | Purpose |
+|---------|---------|---------|
+| Species | `Species` | Define chemical species and properties |
+| Reaction | `Reaction` | Add reaction to reaction set |
+| Surface Reaction | `SurfaceReaction` | Wall reaction (boundary subnode) |
+| Electron Impact Reaction | — | Cross-section based rate |
+| Heavy Species Reaction | — | Ion-neutral chemistry |
+| Reduced Electric Field | — | E/N based rate coefficients |
+| Source | `Source` | External species/energy source |
+| Loss | `Loss` | Species sink term |
+| Mobility | — | Override species mobility |
+| Diffusivity | — | Override species diffusivity |
 
 ---
 
-## 3. Boundary Conditions
+## 3. Boundary Conditions — Plasma Interface
 
-| BC Name | mph Tag | Interface | Key Properties |
-|---------|---------|-----------|---------------|
-| `Ground` | `gnd*` |  | — |
-| `Terminal` | `term*` |  | — |
-| `WallDriftDiffusion` | `wall*` |  | — |
-| `Ground` | `gnd*` |  | — |
-| `WallDriftDiffusion` | `wall*` |  | — |
-| `BoundaryElectricPotential` | `bpot*` |  | — |
-| `PeriodicCondition` | `pc*` |  | — |
-| `TransitionBoundaryCondition` | `trans*` |  | — |
-| `PeriodicCondition` | `pc*` |  | — |
-| `PeriodicPortReferencePoint` | `pportp*` |  | — |
-| `TransitionBoundaryCondition` | `trans*` |  | — |
-| `PeriodicCondition` | `pc*` |  | — |
-| `CoilGround` | `cg*` |  | — |
-| `CoilTerminal` | `ct*` |  | — |
-| `Impedance` | `imp*` |  | — |
-| `LumpedPort` | `lport*` |  | — |
-| `PerfectMagneticConductor` | `pmc*` |  | — |
-| `BoundarySelectionForDopingProfile` | `gdmbs*` |  | — |
-| `ContinuousEnergyLevelsBoundary` | `ctb*` |  | — |
-| `DiscreteEnergyLevelBoundary` | `dtb*` |  | — |
-| `OpticalTransitions` | `ot*` |  | — |
-| `PeriodicCondition` | `pc*` |  | DestinationDomains |
-| `ThreadBoundarySelection` | `tbs*` |  | Free |
-| `BoundaryReactionCoefficients` | `rc*` |  | — |
-| `FluxBoundary` | `fl*` |  | — |
-| `ElectricGround` | `egnd*` |  | — |
-| `PeriodicCondition` | `pc*` |  | — |
-| `OpenBoundary` | `open*` |  | — |
-| `PeriodicCondition` | `pc*` |  | — |
-| `WallDistanceInitialization` | `wdi` |  | — |
-| `AcousticImpedance` | `imp*` |  | — |
-| `SoundHardWall` | `shw*` |  | — |
-| `DirichletBoundary` | `dir*` |  | — |
-| `ZeroFluxBoundary` | `zflx*` |  | — |
-| `WallDefault` | `wall*` |  | — |
-| `Wall` | `wall*` |  | — |
-| `MatchedBoundaryCondition` | `mbc*` |  | ReferencePoint |
-| `PeriodicCondition` | `pc*` |  | — |
-| `TransitionBoundaryCondition` | `trans*` |  | — |
-| `PeriodicCondition` | `pc*` |  | — |
-| `PeriodicCondition` | `pc*` |  | — |
-| `DirichletBoundary` | `dir*` |  | — |
-| `FluxBoundary` | `flux*` |  | — |
-| `ZeroFluxBoundary` | `zflx*` |  | — |
-| `MagneticFieldBoundary` | `mfb*` |  | — |
-| `ContinuityOnInteriorBoundary` | `cib*` |  | — |
-| `PeriodicCondition` | `pc*` |  | — |
-| `PeriodicCondition` | `pc*` |  | — |
-| `CoilGround` | `cg*` |  | — |
-| `CoilTerminal` | `ct*` |  | — |
-| `MixedFormulationBoundary` | `mxb*` |  | — |
-| `PeriodicCondition` | `pc*` |  | — |
-| `InletBoundary` | `inl*` |  | — |
-| `WallBC` | `wallbc*` |  | — |
-| `PeriodicCondition` | `pc*` |  | — |
-| `LumpedPort` | `lport*` |  | — |
-| `PeriodicFlowCondition` | `pfc*` |  | — |
-| `PeriodicFlowCondition` | `pfc*` |  | — |
-| `PeriodicFlowCondition` | `pfc*` |  | — |
+### 3.1 Wall
+
+| Aspect | Detail |
+|--------|--------|
+| mph type | `Wall` |
+| Dim | 1 (boundary) |
+
+**Wall BC sub-models**:
+
+| Model | Description | Key Properties |
+|-------|-------------|---------------|
+| Insulation | Γₑ·n = 0 (no flux) | Default |
+| Ground | V = 0, plasma in contact with grounded electrode | Secondary emission coefficient γ |
+| Dielectric | Surface charge accumulation σₛ | Surface charge density, secondary emission |
+| Electrode | V = V₀, powered electrode | Voltage, DC/RF, blocking capacitor |
+| Axial Symmetry | Auto on r=0 for 2D axisymmetry | — |
+
+**Wall reaction types**:
+
+| Type | Description |
+|------|-------------|
+| Sticking | Species sticks to wall with probability S |
+| Recombination | Two surface-adsorbed species recombine |
+| Ion neutralization | Ion + wall → neutral (with secondary electron emission) |
+| Sputtering | Energetic ion knocks wall material off |
+
+### 3.2 Additional BCs
+
+| Feature | mph Type | Purpose |
+|---------|---------|---------|
+| Ground | `Ground` | V = 0 at electrode |
+| Electric Potential | `ElectricPotential` | V = V₀, DC or time-dependent |
+| Floating Potential | `FloatingPotential` | Self-consistent V from current balance |
+| Circuit Terminal | `Terminal` | Connect to Electrical Circuit interface |
+| Surface Charge | `SurfaceCharge` | σₛ = Q/A |
+| Axial Symmetry | `AxialSymmetry` | r = 0 for 2D axisymmetry |
 
 ---
 
-## 4. Edge & Point Conditions
+## 4. Standalone Interfaces (without Plasma multiphysics)
 
-| Name | mph Tag | Type | Interface |
-|------|---------|------|-----------|
-| `AxialSymmetry` | `axi*` | Other |  |
-| `ChargeConservation` | `ccn*` | Other |  |
-| `CrossSectionImport` | `xsec*` | Other |  |
-| `DisplacementField` | `df*` | Other |  |
-| `ElectronImpactReaction` | `eir*` | Other |  |
-| `ElectronOutlet` | `eout*` | Other |  |
-| `InitialValues` | `init*` | Other |  |
-| `Insulation` | `ins*` | Other |  |
-| `Outflow` | `out*` | Other |  |
-| `Reaction` | `rxn*` | Other |  |
-| `Species` | `sp*` | Other |  |
-| `SurfaceChargeAccumulation` | `sca*` | Other |  |
-| `SurfaceReaction` | `sr*` | Other |  |
-| `ZeroCharge` | `zc*` | Other |  |
-| `AxialSymmetry` | `axi*` | Other |  |
-| `CrossSectionImport` | `xsecimp*` | Other |  |
-| `ElectronImpactReaction` | `eir*` | Other |  |
-| `Insulation` | `ins*` | Other |  |
-| `Reaction` | `rxn*` | Other |  |
-| `Species` | `sp*` | Other |  |
-| `SurfaceReaction` | `sr*` | Other |  |
-| `ZeroCharge` | `zc*` | Other |  |
-| `init` | `init*` | Other |  |
-| `CurrentConservation` | `cucn*` | Other |  |
-| `ElectricInsulation` | `ein*` | Other |  |
-| `ElectricPotential` | `pot*` | Other |  |
-| `ElectricInsulation` | `ein*` | Other |  |
-| `ElectricPotential` | `pot*` | Other |  |
-| `ElectricPotential` | `pot*` | Other |  |
-| `FarFieldCalculation` | `ffc*` | Other |  |
-| `SpecificAbsorptionRate` | `sar*` | Other |  |
-| `DiffractionOrder` | `dport*` | Other |  |
-| `FarFieldCalculation` | `ffc*` | Other |  |
-| `OrthogonalPolarization` | `oport*` | Other |  |
-| `Polarization` | `pol*` | Other |  |
-| `ChargeConservation` | `ccn*` | Other |  |
-| `ChargeConservationFerroelectric` | `ccnf*` | Other |  |
-| `ChargeConservationPiezo` | `ccnp*` | Other |  |
-| `ElectricPotential` | `pot*` | Other |  |
-| `HarmonicPerturbation` | `hp*` | Other |  |
+### 4.1 Drift Diffusion (dd)
+
+Solves electron continuity and energy equations:
+
+| Node | mph Type | Purpose |
+|------|---------|---------|
+| Drift Diffusion Model | — | μₑ, Dₑ, electron source terms |
+| Effective Diffusion | — | Corrected diffusion for high E/N |
+| Electron Source | — | Net production rate from reactions |
+| Townsend Coefficients | — | α (ionization), η (attachment) |
+
+### 4.2 Heavy Species Transport (hst)
+
+Solves multi-component diffusion for ions and neutrals:
+
+| Node | mph Type | Purpose |
+|------|---------|---------|
+| Transport Properties | — | μₖ, Dₖ per species |
+| Mixture Diffusion | — | Maxwell-Stefan multicomponent diffusion |
+| Migration | — | Electric field drift for ions |
+
+### 4.3 Boltzmann Equation, Two-Term Approximation (eb)
+
+Solves for electron energy distribution function f₀(ε):
+
+| Node | mph Type | Purpose |
+|------|---------|---------|
+| Boltzmann Equation | — | EEDF from cross-section database |
+| Cross Section Data | — | Elastic, excitation, ionization cross sections |
+| Reduced Electric Field | — | E/N sweep for rate coefficient tabulation |
+| Rate Coefficients | — | kₖ = ∫ σₖ(ε)·f₀(ε)·√ε dε |
 
 ---
 
-## 5. Pair Conditions
+## 5. Expression Reference
 
-| Name | mph Tag | Interface |
-|------|---------|----------|
-| `DielectricContact` | `dct*` |  |
-| `MetalContact` | `mct*` |  |
-| `DielectricContact` | `dct*` |  |
-| `MetalContact` | `mct*` |  |
-| `Continuity` | `cont*` |  |
-| `Continuity` | `cont*` |  |
-| `ContactArea` | `ca*` |  |
-| `ContactAngle` | `cnta*` |  |
-| `ContactAngle` | `cnta*` |  |
-
----
-
-## 6. Expression Reference
-
-Common postprocessing expressions (use with `model.evaluate()`):
+### 5.1 Plasma Variables (`plas.*`)
 
 | Expression | Unit | Description |
 |-----------|------|-------------|
-| `tds.c` | mol/m^3 | Concentration |
-| `tds.Nx` | mol/(m^2*s) | Flux, x-component |
-| `c.u` | — | PDE dependent variable |
-| `g.u` | — | PDE dependent variable |
+| `plas.Ne` | 1/m³ | Electron density |
+| `plas.Ni` | 1/m³ | Ion density (per species) |
+| `plas.Nn` | 1/m³ | Neutral density |
+| `plas.V` | V | Electric potential |
+| `plas.Er`, `plas.Ez` | V/m | Electric field |
+| `plas.Te` | eV | Electron temperature (2/3·ε̄) |
+| `plas.en` | V/m | Reduced electric field (E/N) |
+| `plas.mue` | m²/(V·s) | Electron mobility |
+| `plas.De` | m²/s | Electron diffusivity |
+| `plas.Gamma_e` | 1/(m²·s) | Electron flux |
+| `plas.Re` | 1/(m³·s) | Net electron production rate |
+| `plas.Pabs` | W/m³ | Absorbed power density |
+| `plas.Je` | A/m² | Electron current density |
+| `plas.Ji` | A/m² | Ion current density |
+| `plas.Jtot` | A/m² | Total current density |
+| `plas.Vdc` | V | DC bias (CCP) |
+| `plas.Vrf` | V | RF voltage amplitude |
+| `plas.neutral_gas_temp` | K | Background gas temperature |
+
+### 5.2 Drift Diffusion Variables (`dd.*`)
+
+| Expression | Unit | Description |
+|-----------|------|-------------|
+| `dd.Ne` | 1/m³ | Electron density |
+| `dd.mue` | m²/(V·s) | Electron mobility |
+| `dd.Te` | eV | Electron temperature |
+| `dd.alpha` | 1/m | Townsend ionization coefficient |
+| `dd.eta` | 1/m | Townsend attachment coefficient |
 
 ---
 
-## 7. Multiphysics Couplings
+## 6. Multiphysics Couplings
 
-| Coupling | mph Type | Links |
-|----------|---------|-------|
-| `AcousticPipeAcousticConnection` | `apc*` | — |
-| `AcousticPorousBoundary` | `apb*` | — |
-| `ElectricParticleFieldInteraction` | `epfi*` | — |
-| `ElectronHeatSourceMultiphysicsCoupling` | `ehs*` | — |
-| `FluidPipeInteraction` | `fpipe*` | — |
-| `FluidStructureInteractionBC` | `fsi*` | — |
-| `FluidStructureInteractionPair` | `fsip*` | — |
-| `HeatTransferWithRadiationInParticipatingMedia` | `htrpm*` | — |
-| `HeatTransferWithSurfaceToSurfaceRadiation` | `htrad*` | — |
-| `LayeredShellStructTransition` | `lsst*` | — |
-| `LumpedStructureConnection` | `lsc*` | — |
-| `MagneticParticleFieldInteraction` | `mpfi*` | — |
-| `Magnetostriction` | `pzm*` | — |
-| `PipeConnection` | `plc*` | — |
-| `PlasmaConductivityMultiphysicsCoupling` | `pcc*` | — |
-| `ShellBeamConnection` | `shbc*` | — |
-| `SolidBeamConnection3D` | `sbc*` | — |
-| `SolidShellConnection` | `sshc*` | — |
-| `SpaceChargeLimitedEmission` | `scle*` | — |
-| `ThermalExpansion` | `te*` | — |
-| `ThermalExpansionLS` | `tel*` | — |
+| Coupling | Interfaces | Application |
+|----------|-----------|-------------|
+| Plasma (built-in) | dd + hst + es | All plasma discharges |
+| Inductive Plasma | plas ↔ mf | ICP (transformer coupled) |
+| Microwave Plasma | plas ↔ emw | Surface wave, ECR |
+| DC Discharge | plas (DC voltage) | Glow, arc, corona |
+| Capacitively Coupled | plas (RF voltage) | CCP for etching/deposition |
+| Plasma-Circuit | plas ↔ cir | Impedance matching networks |
+| Plasma-Chemistry | plas ↔ chem | Complex gas-phase chemistry |
 
 ---
 
-## 8. Common Patterns & COMSOL 6.4 Notes
+## 7. Study Types
 
-- Note: The state of the switch (on/off) is changed only when a condition goes from 
-false to true and not when going from true to false. Thus, if the state is off and the on 
-condition goes from false 
+| Study | Purpose |
+|-------|---------|
+| Time Dependent | Pulsed DC, RF transients, streamer propagation |
+| Frequency Domain | CCP at fixed frequency |
+| Stationary | DC glow discharge steady state |
+| Time Dependent with Initialization | DC → steady base → RF modulation |
+| Eigenfrequency | Plasma resonance |
 
+---
+
+## 8. mph API Usage
+
+```python
+# Create Plasma interface
+plas = comp.physics().create('plas', 'Plasma', 'geom1')
+
+# Access Plasma Model node
+pm = plas.feature('pm1')
+# Species, reactions, transport are configured in GUI or via complex API
+
+# Set electrode boundary
+el = plas.feature().create('el1', 'ElectricPotential', 1)
+el.selection().set([electrode_bnd])
+el.set('V0', '100[V]')  # DC or RMS for RF
+
+# Ground boundary
+gnd = plas.feature().create('gnd1', 'Ground', 1)
+gnd.selection().set([ground_bnd])
+
+# Time-dependent study for pulsed discharge
+std = jm.study().create('std1')
+td = std.feature().create('td1', 'Transient')
+td.set('tlist', 'range(0,1e-9,1e-5)')
+```
+
+---
+
+## 9. COMSOL 6.4 Specific Notes
+
+- **Plasma (plas)** is a multiphysics interface; it automatically couples dd, hst, es — you don't create them separately
+- **Boltzmann solver (eb)** is typically run BEFORE the plasma simulation to tabulate rate coefficients vs E/N
+- **Surface charge on dielectrics**: Accumulates over time; crucial for DBD and CCP simulations
+- **Secondary emission coefficient γ**: ~0.01-0.3 for most materials; critical for discharge sustainment
+- **Mixture-averaged diffusion** is default and works well for most low-pressure plasmas
+- **Fick's law** is simpler but less accurate for multi-component mixtures
+- **Global model** adds heavy species energy equation for self-consistent gas heating
+- **Tensor transport** only needed for strongly magnetized low-pressure plasmas (ECR, magnetron)

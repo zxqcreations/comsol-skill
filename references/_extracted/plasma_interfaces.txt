@@ -1,0 +1,3455 @@
+
+=== PAGE 149 ===
+149 ---
+T H E  P L A S M A  I N T E R F A C E  |  149
+The Plasma Interface
+The Plasma (plas) interface (
+), found under the Plasma branch (
+) couples the 
+Drift Diffusion, Heavy Species Transport, and Electrostatics interfaces into an 
+integrated multiphysics interface to model plasma discharges.
+When this physics interface is added, these default nodes are also added to the Model 
+Builder: Plasma Model, Zero Charge, Insulation, and Initial Values. Then, from the Physics 
+toolbar, add other nodes that implement, for example, boundary conditions and 
+velocity. You can also right-click Plasma to select physics features from the context 
+menu.
+S E T T I N G S
+The Label is the default physics interface name.
+The Name is used primarily as a scope prefix for variables defined by the physics 
+interface. Refer to such physics interface variables in expressions using the pattern 
+<name>.<variable_name>. In order to distinguish between variables belonging to 
+different physics interfaces, the name string must be unique. Only letters, numbers, and 
+underscores (_) are permitted in the Name field. The first character must be a letter.
+The default Name (for the first physics interface in the model) is plas.
+O U T - O F - P L A N E  T H I C K N E S S  ( 2 D ,  1 D  A X I S Y M M E T R I C ,  A N D  1 D )
+• For 2D components, enter a Thickness d (SI unit: m). The default is 1 m.
+• For 1D axisymmetric components, enter a Vertical height dz (SI unit: m). The 
+default is 0.01 m.
+• For 1D components, enter a Cross-section area A (SI unit: m2). The default is 
+0.01 m2.
+D I F F U S I O N  M O D E L S
+Select a Diffusion model — Mixture-averaged (the default), Fick’s law, or Global. When 
+using the Mixture-averaged or Global models, the mixture averaged diffusion 
+coefficients are automatically computed based on the data specified for each species.
+Except where described in this section, this physics interface shares it 
+physics nodes with The Drift Diffusion Interface, The Heavy Species 
+Transport Interface, and The Electrostatics Interface.
+
+
+
+
+=== PAGE 150 ===
+150 ---
+150 |  C H A P T E R  6 :  P L A S M A  I N T E R F A C E S
+T R A N S P O R T  S E T T I N G S
+Select the checkboxes for which transport mechanisms to Include — Convection, 
+Migration in electric field, Calculate thermodynamic properties, Full expression for 
+diffusivity, or Compute tensor ion transport properties. The selection changes the 
+number of Model Inputs requiring values on the Plasma Model page. Note the 
+following:
+• The Migration term is part of the relative mass flux vector.
+•
+Convection of heavy species present in a plasma can often be neglected due to the 
+low operating pressure.
+• For Calculate thermodynamic properties select that the thermodynamic properties of 
+each reaction and species are computed automatically based on the thermodynamic 
+properties of each species.
+• For Full expression for diffusivity it computes a more accurate expression for the 
+Maxwell–Stefan diffusivities. Often the additional correction terms are negligible in 
+which case the expressions are much simpler and the time taken to assemble the 
+Jacobian matrix is reduced.
+• For Mixture diffusion correction additional terms are included in the definition of the 
+mass flux vector to ensure that the same solution is obtained regardless of the choice 
+of the species which comes from the mass constraint. This option makes the 
+problem more nonlinear and strongly coupled, and is only necessary when the 
+molecular weights of the species differ substantially (such as a mixture of sulfur 
+hexafluoride and hydrogen).
+• For Compute tensor ion transport properties the tensor form of the ion transport 
+properties when a static magnetic field is present is computed. This option only 
+needs to be activated when a strong DC magnetic field exists and the operating 
+pressure is very low (on the order of millitorr). When this option is activated an 
+expression must be provided for the magnetic flux density, which typically another 
+physics interface computes. This is set in the Plasma Model node.
+When the Diffusion model is set to Global only the properties Calculate thermodynamic 
+properties and Full expression for diffusivity are available.
+H E A V Y  S P E C I E S  E N E R G Y  B A L A N C E
+This section is only available when the Diffusion model is set to Global. Select the 
+checkbox Include heavy species energy conservation equation to include the heavy 
+species energy equation that solves for the background gas temperature.
+
+
+
+
+=== PAGE 151 ===
+151 ---
+T H E  P L A S M A  I N T E R F A C E  |  151
+P L A S M A  P R O P E R T I E S
+Select the Compute tensor electron transport properties or Use reduced electron 
+transport properties, or Include thermal diffusion checkboxes as needed and select the 
+model for the Mean electron energy — Local energy approximation (default), Local field 
+approximation, or Fix mean electron energy.
+When the Diffusion model is set to Global only the checkboxes Compute tensor electron 
+transport properties and Include thermal diffusion are not available.
+Compute Tensor Electron Transport Properties
+Select Compute tensor electron transport properties to compute the tensor form of the 
+electron mobility, electron diffusivity, energy mobility and energy diffusivity. This 
+should only be used in cases where a strong DC magnetic field exists. Two quantities 
+must be supplied, both of which are in the Plasma Model node. The DC mobility 
+which is the value of the electron mobility in the absence of a DC magnetic field and 
+the magnetic flux density which would typically be computed by another physics 
+interface.
+Use Reduced Electron Transport Properties
+Select Use reduced electron transport properties to specify the electron mobility, 
+diffusivity, energy mobility and energy diffusivity in reduced form. The electron 
+transport properties are computed from the reduced transport properties using:
+where Nn the neutral number density defined as
+where pA is the absolute pressure and T is the neutral gas temperature that are set in 
+the Plasma Model node.
+Include Thermal Diffusion
+The Include thermal diffusion checkbox adds an additional term to the definition of the 
+electron current due to gradients in the electron diffusivity. If the diffusivity is a 
+constant then including this does not affect the solution. It is only necessary to include 
+this term if the electron diffusivity is a function of the electron temperature, and there 
+are significant gradients in the electron temperature.
+μe
+μred
+Nn
+---------
+=
+Nn
+kBpA
+T
+-------------
+=
+
+
+
+
+=== PAGE 152 ===
+152 ---
+152 |  C H A P T E R  6 :  P L A S M A  I N T E R F A C E S
+Mean Electron Energy
+Select Local energy approximation (default) to solve the mean electron energy equation 
+self-consistently with the continuity, momentum, and Poisson’s equations, and to use 
+the mean electron energy to parameterize transport and source coefficients. This is the 
+most numerical demanding option to find the mean electron energy because of the 
+strong coupling between the mean electron energy and the electromagnetic fields.
+If Local field approximation is selected, it is assumed that transport and source 
+coefficients are well parameterized through the reduced electric field (E/Nn). If 
+Boltzmann equation, two-term approximation (linear) or Boltzmann equation, two-term 
+approximation (quadratic) is selected, the computed E/Nn from the fluid plasma 
+equations is used directly as input to the Boltzmann equation in the two–term 
+approximation and the relation between the reduced electric field is automatically 
+computed. If the Boltzmann equation is not solved, the relation between the reduced 
+electric field and the mean electron energy needs to be provided in the section Mean 
+Electron Energy Specification in the Plasma Model node.
+When using the local field approximation the fluid equation for the mean electron 
+energy is not solved, which reduces significantly the complexity of the numerical 
+problem. The local field approximation is valid in a situation where the rate of electron 
+energy gain from the electric field is locally balanced by the energy loss rate. When this 
+condition is met the electrons are said to be in local equilibrium with the electric field 
+and the electron mean properties can be expressed as a function of the reduced electric 
+field.
+Select Fix mean electron energy to fix the mean electron energy to its initial value. This 
+can be useful in some situations because the strong coupling between the mean 
+electron energy and the electromagnetic fields is removed. This allows for 
+non-self-consistent models to be created quickly, since problems where the mean 
+electron energy is fixed are easier to solve numerically.
+R E A C T O R
+This section is available when the Diffusion model is set to Global. Select a Reactor type 
+— Closed reactor (the default), Constant mass, or Constant pressure.
+•
+Closed reactor solves a closed system where mass and pressure can change, for 
+example, as the result of surface reactions and volume reactions of the associative/
+dissociative type.
+
+
+
+
+=== PAGE 153 ===
+153 ---
+T H E  P L A S M A  I N T E R F A C E  |  153
+•
+Constant mass solves a system with mass-flow feed and outlet. The mass-flow outlet 
+is set to keep the mass-density constant.
+•
+Constant pressure solves a system with mass-flow feed and outlet. The pressure is 
+kept constant by adjusting the system mass-density if needed.
+E L E C T R O N  E N E R G Y  D I S T R I B U T I O N  F U N C T I O N
+If cross-section data is used to define source coefficients in the model then an electron 
+energy distribution function (EEDF) needs to be selected. Select one of these options.
+•
+Maxwellian. This option assumes a Maxwellian EEDF which takes the form:
+where
+where ϕ is the mean electron energy (SI unit: eV), ε is the electron energy (SI unit: eV) 
+and Γ is the incomplete gamma function:
+.
+•
+Druyvesteyn. This option assumes a Druyvesteyn EEDF which takes the form:
+where
+For more information on the electron energy distribution function 
+(EEDF), see the Theory for the Boltzmann Equation, Two-Term 
+Approximation Interface.
+The options Closed reactor and Constant mass reactor are not supported 
+for stationary studies. If a model uses those options and an attempt is 
+made to use a stationary study an error message appears. Only the 
+Constant pressure option is supported for stationary studies.
+f ε
+( )
+ϕ 3 2
+⁄
+–
+β1
+εβ2 ϕ
+⁄
+(
+)
+–
+(
+)
+exp
+=
+β1
+Γ 5 2
+⁄
+(
+)3 2
+⁄ Γ 3 2
+⁄
+(
+) 5
+–
+2
+⁄
+β2
+Γ 5 2
+⁄
+(
+)Γ 3 2
+⁄
+(
+) 1
+–
+=
+,
+=
+Γ s
+( )
+us
+1
+– e u
+–
+u
+d
+0
+∞
+
+=
+f ε
+( )
+2ϕ 3 2
+⁄
+–
+β1
+εβ2 ϕ
+⁄
+(
+)2
+–
+(
+)
+exp
+=
+
+
+
+
+=== PAGE 154 ===
+154 ---
+154 |  C H A P T E R  6 :  P L A S M A  I N T E R F A C E S
+•
+Generalized. Use this option for a generalized distribution function where the EEDF 
+is somewhere between Maxwellian and Druyvesteyn. For this option, specify a 
+power law. This number must be between 1 and 2. Mathematically, the EEDF takes 
+the form:
+where
+•
+Function. If a two-dimensional interpolation function has been added to the model, 
+it can be used for the EEDF. In this case, the x-data should be the electron energy 
+(eV) and the y-data should be the mean electron energy (eV).
+• Boltzmann equation, two-term approximation (linear) and Boltzmann equation, 
+two-term approximation (quadratic). Use these options to solve a two-term 
+approximation of the Boltzmann equation.
+When Boltzmann equation, two-term approximation (linear) or Boltzmann equation, 
+two-term approximation (quadratic) is selected, the EEDF is computed from a partial 
+differential equation instead of taking an assumed function. The following options are 
+available:
+• Select the Temporal behavior — Stationary EEDF (the default), or Time dependent 
+EEDF. This option is only available when Mean electron energy is set to Local field 
+approximation and Diffusion model is set to Global.
+• Select Electron–electron collisions (off by default) if the ionization degree of the 
+discharge is high. The ionization degree and the electron density necessary to model 
+the electron–electron collisions are obtained from the solution of the model 
+β1
+Γ 5 4
+⁄
+(
+)3 2
+⁄ Γ 3 4
+⁄
+(
+) 5
+–
+2
+⁄
+β2
+Γ 5 4
+⁄
+(
+)Γ 3 4
+⁄
+(
+) 1
+–
+=
+,
+=
+f ε
+( )
+gϕ 3 2
+⁄
+–
+β1
+εβ2 ϕ
+⁄
+(
+)g
+–
+(
+)
+exp
+=
+β1
+Γ 5 2g
+⁄
+(
+)3 2
+⁄ Γ 3 2g
+⁄
+(
+) 5
+–
+2
+⁄
+β2
+Γ 5 2g
+⁄
+(
+)Γ 3 2g
+⁄
+(
+) 1
+–
+1
+g
+2
+≤
+≤
+,
+=
+,
+=
+A two-dimensional interpolation function can be computed using a 
+parametric sweep in The Boltzmann Equation, Two-Term Approximation 
+Interface. This allows for modeling of discharges where the EEDF is far 
+from Maxwellian. For step-by-step instructions on how to do this, refer to 
+this blog entry: www.comsol.com/blogs/
+the-boltzmann-equation-two-term-approximation-interface
+See Interpolation in the COMSOL Multiphysics Reference Manual.
+
+
+
+
+=== PAGE 155 ===
+155 ---
+T H E  P L A S M A  I N T E R F A C E  |  155
+equations every time step or iteration. Including this option dramatically increases 
+the computational demand, so it should be avoided if at all possible.
+• Select Equal secondary electron energy sharing (on by default) to describe how the 
+energy is split between two electrons when an ionization collision occurs. If selected, 
+then both electrons take an equal energy after the collision. If not selected, the 
+secondary electron created in an ionization collision has zero energy and the 
+ionizing electron carries all the excess energy.
+• Select Oscillating field if the reduced angular frequency of the discharge is high, 
+which is typically only true for microwave discharges. The reduced angular 
+frequency is the ratio of the angular frequency and the neutral number density, ω/N.
+• If the Oscillating field property is active, enter a Reduced angular frequency ω/N (SI 
+unit: m3/s). The default is 10−13 m3/s. If the reduced angular frequency is high, 
+the proportion of electrons with high energies is substantially increased for the same 
+mean electron energy. This is because in DC fields, collisional momentum transfer 
+impedes electrons acquiring higher energies but high frequency fields have the 
+opposite effect.
+• Enter the Number of elements in eedf extra dimension N (SI unit: dimensionless) to 
+specify the number of mesh elements to use to discretize the underlying energy 
+space. The default is 100, but models with complex gas mixtures may require more.
+• Enter the Element ratio in eedf extra dimension R (SI unit: dimensionless) to specify 
+the rate at which the mesh coarsens away from the zero energy coordinate. The 
+default is 10, and this does not usually need to be changed. Higher values mean that 
+the mesh will be finer closer to the zero energy, and coarser at higher energies.
+• Select Compute maximum energy to have the software automatically compute the 
+maximum energy coordinate based on certain assumptions about the EEDF. This is 
+a powerful feature, in that the maximum energy coordinate does not need to be 
+specified, but it does make the problem more nonlinear and thus difficult to solve.
+• Enter the Maximum energy εmax (SI unit: V) to specify the maximum coordinate in 
+energy space on which we are computing the EEDF. When computing the EEDF 
+at high mean energies, this value may need increasing from its default value of 
+100 V. This option is only available if Compute maximum energy is not selected.
+• Enter the Maximum energy multiplication factor χε (SI unit: dimensionless) to specify 
+how much the maximum energy coordinate should be scaled. This option is only 
+
+
+
+
+=== PAGE 156 ===
+156 ---
+156 |  C H A P T E R  6 :  P L A S M A  I N T E R F A C E S
+available if Compute maximum energy is selected and Mean electron energy is set to 
+Local field approximation.
+• Enter the EEDF minimum value fmin (SI unit: dimensionless) to specify the minimum 
+value that the EEDF should take at the maximum energy coordinate. In order to 
+avoid divide by zero problems, the value should be small and positive. The default 
+value of 1E-15 rarely needs to be changed.
+In all these cases the rate constants in the model are automatically computed based on 
+the selected EEDF using the formula:
+.
+ (6-1)
+The rate coefficients when computed using cross-section data are a highly nonlinear 
+function of the mean electron energy. COMSOL Multiphysics automatically computes 
+the integral in Equation 6-1 and makes the result available for evaluation of the rate 
+coefficient. The variation of the rate coefficient for any particular model can be plotted 
+using <name>.kf_<reaction number>. For example, for reaction number 3 in the 
+Plasma interface, with name plas, the rate coefficient is plotted using plas.kf_3.
+S T A B I L I Z A T I O N
+To display this section, click the Show More Options button (
+) and select Stabilization 
+in the Show More Options dialog.
+If the Equation formulation is set to Log then the solver can run into difficulties as the 
+species mass fractions approach zero. The Reaction source stabilization checkbox 
+(selected by default) adds an additional source term to the rate expression for each 
+species. In the ι field, enter a tuning parameter for the source stabilization. The default 
+value is 1. This value is usually good enough. If the plasma is high pressure 
+(atmospheric) then it can help to lower this number to somewhere in the range of 
+0.25–0.5.
+The solver can also run into difficulties as the electron density or electron energy 
+density approach zero. The Source stabilization checkbox (selected by default) adds an 
+additional source term to the equation for the electron density and electron energy 
+density. In the ζ field, enter a tuning parameter for the source stabilization. The default 
+value is 1. This value is usually good enough. If the plasma is high pressure 
+(atmospheric) then it can help to lower this number to somewhere in the range of 
+0.25–0.5.
+kf
+NAγ
+εσk ε
+( )f ε
+( ) ε
+d
+0
+∞
+
+=
+
+
+
+
+=== PAGE 157 ===
+157 ---
+T H E  P L A S M A  I N T E R F A C E  |  157
+C O N S I S T E N T  S T A B I L I Z A T I O N
+To enable this section, click the Show More Options button (
+) and select Stabilization 
+in the Show More Options dialog. This section is only available if one of the following 
+Finite element (linear shape function) or Finite element (quadratic shape function) are 
+used.
+It is possible to add Streamline diffusion for electrons and Streamline diffusion for ions 
+independently. Both checkboxes for these methods are selected by default and should 
+remain selected for optimal performance.
+Streamline diffusion stabilization is a numerical technique to stabilize the numeric 
+solution of convection-dominated PDEs by adding diffusion in the directions of the 
+streamlines.
+I N C O N S I S T E N T  S T A B I L I Z A T I O N
+To enable this section, click the Show More Options button (
+) and select Stabilization 
+in the Show More Options dialog. This section is only available if one of the following 
+discretizations is used: Finite element (linear shape function), Finite element (quadratic 
+shape function), Finite element, log formulation (linear shape function), or Finite element, 
+log formulation (quadratic shape function).
+This method is equivalent to adding a term to the diffusion coefficient in order to 
+dampen the effect of oscillations by making the system somewhat less dominated by 
+convection or migration. If possible, minimize the use of the inconsistent stabilization 
+method because by using it you no longer solve the original problem. By default, the 
+Isotropic diffusion for electrons and Isotropic diffusion for ions checkboxes are not 
+selected because this type of stabilization adds artificial diffusion and affects the 
+accuracy of the original problem. However, this option can be used to get a good initial 
+guess for underresolved problems.
+If required, select the Isotropic diffusion for electrons or Isotropic diffusion for ions 
+checkboxes and enter a Tuning parameter for electrons δid,e and/or a Tuning parameter 
+for ions δid,i. The default value is 0.25.
+D I S C R E T I Z A T I O N
+Select Formulation — Finite Volume (constant shape function), Finite element, log 
+formulation (linear shape function) (the default), Finite element (linear shape function), 
+Finite element, log formulation (quadratic shape function), or Finite element (quadratic 
+shape function). The finite element options use the Galerkin method to discretize the 
+equations whereas the Finite Volume (constant shape function) option creates degrees of 
+freedom for the dependent variables which are piecewise constant within each mesh 
+
+
+
+
+=== PAGE 158 ===
+158 ---
+158 |  C H A P T E R  6 :  P L A S M A  I N T E R F A C E S
+element. For the charged species, Scharfetter–Gummel upwinding is used. For charge 
+neutral species and the electrostatic field, a centered difference scheme is used. In cases 
+where the ion and electron flux are strongly driven by the electric field, the Finite 
+Volume (constant shape function) option can be more stable. Examples where this is true 
+include dielectric barrier and corona discharges.
+The options with log formulation solve for the log of the dependent variables, ensuring 
+that the mass fraction of any of the species is never lower than zero. This makes it more 
+numerically stable but increases the nonlinearity of the equation system, and as such 
+the model might take slightly longer to solve.
+When the Diffusion model is set to Global the sections Stabilization and Discretization are 
+not available.
+D E P E N D E N T  V A R I A B L E S
+The dependent variables (field variables) are the Electron solution variable, Electron 
+energy solution variable, and Electric potential. The name can be changed but the names 
+of fields and dependent variables must be unique within a model. The physical 
+meanings of Electron solution variable and Electron energy solution variable change 
+depending on the formulation used. For example, when log formulations are used, 
+Electron solution variable is the logarithm of the electron density; whereas for other 
+cases, it is the electron density
+• Domain, Boundary, Edge, Point, and Pair Nodes for the Plasma 
+Interface
+• Plasma Reactors Theory and Capacitively Coupled Plasmas
+• Stabilization
+• Interpolation in the COMSOL Multiphysics Reference Manual
+• GEC ICP Reactor, Argon Chemistry: Application Library path 
+Plasma_Module/Inductively_Coupled_Plasmas/argon_gec_icp
+• DC Glow Discharge: Application Library path Plasma_Module/
+Direct_Current_Discharges/positive_column_2d
+
+
+
+
+=== PAGE 159 ===
+159 ---
+T H E  P L A S M A  I N T E R F A C E  |  159
+Domain, Boundary, Edge, Point, and Pair Nodes for the Plasma 
+Interface
+The Plasma Interface has these domain, boundary, edge, point, and pair nodes, listed 
+in alphabetical order, available from the Physics ribbon toolbar (Windows users), 
+Physics context menu (Mac or Linux users), or right-click to access the context menu 
+(all users).
+These nodes are described in this section:
+• Plasma Model
+• Initial Values
+• Species Group
+• Species Constraint Group
+• Plasma Chemistry Import
+• Capacitive Stochastic Heating
+• Inductive Stochastic Heating
+• Boundary Selection for Stochastic Heating
+In general, to add a node, go to the Physics toolbar, no matter what 
+operating system you are using. Subnodes are available by clicking the 
+parent node and selecting it from the Attributes menu.
+In the COMSOL Multiphysics Reference Manual see Table 2-4 for links 
+to common sections and Table 2-5 to common feature nodes. You can 
+also search for information: press F1 to open the Help window or Ctrl+F1 
+to open the Documentation window.
+
+
+
+
+=== PAGE 160 ===
+160 ---
+160 |  C H A P T E R  6 :  P L A S M A  I N T E R F A C E S
+These nodes are described for the Drift Diffusion or Heavy Species Transport interface 
+(listed in alphabetical order):
+These nodes are described for the Electrostatics interface (listed in alphabetical order):
+Plasma Model
+Use the Plasma Model node to set the electron transport properties, material properties, 
+and model inputs.
+• Cross Section Import
+• Electron Density and Energy
+• Electron Impact Reaction
+• Electron Outlet
+• Electron Production Rate
+• Flux
+• General Power Deposition
+• Heavy Species Flux
+• Inflow
+• Insulation
+• Outflow
+• Reaction
+• Reaction Group
+• Species
+• Surface Reaction
+• Surface Reaction Group
+• Surface Species
+• Symmetry
+• Velocity
+• Wall
+• Dielectric Contact
+• Dielectric Shielding
+• Distributed Capacitance
+• Electric Displacement Field
+• Electric Potential
+• Electrostatic Point Dipole
+• Floating Potential
+• Ground
+• Line Charge
+• Metal Contact
+• Periodic Condition
+• Point Charge
+• Surface Charge Accumulation
+• Surface Charge Density
+• Terminal
+• Thin Low Permittivity Gap
+• Zero Charge
+
+
+
+
+=== PAGE 161 ===
+161 ---
+T H E  P L A S M A  I N T E R F A C E  |  161
+M O D E L  I N P U T S
+This section has fields and values that are inputs to expressions that define material 
+properties. If such user-defined property groups are added, the model inputs display 
+here. Initially, this section is empty. The input depends on which Transport Settings are 
+selected in the Plasma interface.
+• Enter a Temperature T (SI unit: K) for the gas mixture used to compute the gas 
+density and species transport properties.
+• Enter an Absolute pressure pA (SI unit: Pa) to compute the gas density and the 
+Maxwell–Stefan diffusivities.
+• If the Convection checkbox is selected, enter coordinates for the Velocity field u 
+(SI unit: m/s).
+• If the Compute tensor electron transport properties or the Compute tensor ion 
+transport properties property is activated enter an expression for the Magnetic flux 
+density B (SI unit: T). This usually comes from a magnetostatic model, and is used 
+to compute anisotropic transport properties for electrons and ions.
+If Global is selected in Diffusion model this section has the following fields:
+• If Include heavy species energy conservation equation is selected enter the initial 
+temperature of the background gas in Initial temperature T0 (SI unit: K), otherwise 
+enter the temperature of the background gas in Temperature T (SI unit: K).
+• If the Reactor type is set to Closed reactor or Constant mass enter an Initial pressure 
+p0 (SI unit: Pa). If the Reactor type is set to Constant pressure enter an Absolute 
+pressure pA (SI unit: Pa).
+• Enter an Absolute electron Flux |Γe| (SI unit: 1/(m2.s)) if there are reaction rate 
+constants defined using Townsend coefficient.
+E L E C T R O N  D E N S I T Y  A N D  E N E R G Y
+Select an option from the Electron transport properties list — Specify mobility only (the 
+default), From electron impact reactions, From electron energy distribution function, 
+Specify all, Use lookup tables, or Mobility from electron energy distribution function.
+• The options available depend on whether the Use reduced electron transport 
+properties physics interface property is selected and on what option is selected for 
+Electron energy distribution function property. If the physics interface property 
+Compute tensor electron transport properties is selected then only one field appears 
+for the DC or reduced DC electron mobility, μdcNn. The other transport properties 
+are computed using Einstein’s relation. The option From electron energy distribution 
+
+
+
+
+=== PAGE 162 ===
+162 ---
+162 |  C H A P T E R  6 :  P L A S M A  I N T E R F A C E S
+function is only available if Maxwellian, Druyvesteyn, or Generalized are selected. The 
+option Mobility from electron energy distribution function is only available when the 
+Boltzmann equation, two-term approximation (linear) or Boltzmann equation, 
+two-term approximation (quadratic) are selected.
+• For Specify mobility only enter a value or expression for the Electron mobility μe (SI 
+unit: m2/(V·s)). Select Isotropic, Diagonal, Symmetric, or Anisotropic based on the 
+model. The electron diffusivity, energy mobility and energy diffusivity are 
+automatically computed using Einstein’s relation for a Maxwellian EEDF:
+ (6-2)
+For Use reduced electron transport properties enter the Reduced electron mobility 
+μeNn (SI unit: 1/(V·m·s)). The actual electron mobility is then computed by 
+dividing the reduced electron mobility by the neutral number density.
+• With From electron impact reactions the electron mobility is computed from
+ (6-3)
+where ν is the total electron collision frequency computed from
+ (6-4)
+where rj (unit: mol/(m3·s)) is a reaction rate, ce (unit: mol/m3) is the electron 
+molar concentration, and the sum is over all electron impact collisions. The electron 
+diffusivity, energy mobility and energy diffusivity are automatically computed using 
+Einstein’s relation for a Maxwellian EEDF:
+ (6-5)
+• With From electron energy distribution function the electron transport properties are 
+computed directly from the EEDF using the following:
+Tensor Transport Properties
+De
+μeTe
+=
+με
+,
+5
+3--
+
+μe
+=
+Dε
+,
+μεTe
+=
+μe
+e
+meν
+----------
+=
+ν
+1
+ce
+----
+rj
+j
+1
+=
+M
+
+=
+De
+μeTe
+=
+με
+,
+5
+3--
+
+μe
+=
+Dε
+,
+μεTe
+=
+
+
+
+
+=== PAGE 163 ===
+163 ---
+T H E  P L A S M A  I N T E R F A C E  |  163
+ (6-6)
+ (6-7)
+ (6-8)
+ (6-9)
+• For Specify all enter values or expressions for all of the properties, which can be 
+either scalars or tensors. The appropriate values for the transport properties can be 
+computed with The Boltzmann Equation, Two-Term Approximation Interface. For 
+all of the properties, select Isotropic, Diagonal, Symmetric, or Anisotropic from the list 
+based on the model, then enter values or expressions for all of these properties:
+-
+Electron mobility μe (SI unit: m2/(V·s))
+-
+Electron diffusivity De (SI unit: m2/s)
+-
+Electron energy diffusivity Den (SI unit: m2/s)
+-
+Electron energy mobility μen (SI unit: m2/(V·s))
+For Use reduced electron transport properties enter:
+-
+Reduced electron mobility μeNn (SI unit: 1/(V·m·s))
+-
+Reduced electron diffusivity DeNn (SI unit: 1/(m·s))
+-
+Reduced electron energy diffusivity DenNn (SI unit: 1/(m·s))
+-
+Reduced electron energy diffusivity μenNn (SI unit: 1/(V·m·s))
+• For Use lookup tables enter or load a lookup table with the transport properties as 
+listed above versus mean electron energy (eV).
+• With Mobility from electron energy distribution function the electron mobility is 
+computed directly from the EEDF using
+.
+ (6-10)
+The electron diffusivity, energy mobility and energy diffusivity are computed using 
+Einstein’s relation
+μeNn
+γ
+3--
+
+
+ε
+σm
+-------
+ε
+∂
+∂f
+
+
+
+ε
+d
+0
+∞
+
+–
+=
+DeNn
+γ
+3--
+
+
+ε
+σm
+-------f ε
+d
+0
+∞
+
+=
+μεNn
+γ
+3ε
+-----
+
+
+
+
+ε2
+σm
+-------
+ε
+∂
+∂f
+
+
+
+ε
+d
+0
+∞
+
+–
+=
+DεNn
+γ
+3ε
+-----
+
+
+
+
+ε2
+σm
+-------f ε
+d
+0
+∞
+
+=
+μeNn
+γ
+3--
+
+
+ε
+σ˜ m
+-------
+ε
+∂
+∂f
+
+
+
+ε
+d
+0
+∞
+
+–
+=
+
+
+
+
+=== PAGE 164 ===
+164 ---
+164 |  C H A P T E R  6 :  P L A S M A  I N T E R F A C E S
+ (6-11)
+See the Theory for the Boltzmann Equation, Two-Term Approximation Interface for 
+more information.
+M E A N  E L E C T R O N  E N E R G Y  S P E C I F I C A T I O N
+This section is available when the Mean electron energy is set to Local field approximation 
+and if Maxwellian, Druyvesteyn, or Generalized are selected from the Electron energy 
+distribution function property. Select how to provide the relation between the reduce 
+electric field and the mean electron energy from the Specify using list — Expression or 
+Use lookup table.
+If Global is selected in Diffusion model enter an Electric potential V (SI unit: V) used to 
+compute the reduced electric field.
+D E N S I T Y
+Select an option from the Mixture density list — Ideal gas or User defined. For User 
+defined enter a value for ρ (SI unit: kg/m3).
+For Ideal gas it computes the expression for the gas density automatically using the 
+ideal gas law, based on the composition of the mixture. The density is a function of the 
+mean molecular weight:
+where pA is the absolute pressure, T is the temperature, R is the universal gas constant 
+and M is the mean molecular weight given by:
+De
+μeTe
+=
+με
+,
+5
+3--
+
+μe
+=
+Dε
+,
+μεTe
+=
+For the Use reduced electron transport properties physics interface 
+property, the appropriate values for the transport properties can be 
+computed with The Boltzmann Equation, Two-Term Approximation 
+Interface and written out to a text file. The text file can then be loaded in 
+for each electron transport property.
+ρ
+pAM
+RT
+------------
+=
+1
+M
+-----
+wk
+Mk
+-------
+k
+1
+=
+Q
+
+=
+
+
+
+
+=== PAGE 165 ===
+165 ---
+T H E  P L A S M A  I N T E R F A C E  |  165
+T O T A L  M A S S  F L O W
+If Global is selected in Diffusion model and the Reactor type is set to Constant mass or 
+Constant pressure enter the Number of SCCM units for the reactor feed. The Feed mole 
+fraction of individual species can be set in the Species node (
+).
+M E A N  E L E C T R O N  E N E R G Y
+This section is available if Global is selected in Diffusion model and Mean electron energy 
+is set to Local energy approximation or Fix mean electron energy. If Fix mean electron 
+energy is selected enter the Mean electron energy ε (unit: V). If Local energy 
+approximation is selected:
+• Enter the Power absorbed Pabs (SI unit: W) by the plasma.
+• The Mean kinetic energy lost per electron lost εe (unit: V).
+• The Mean kinetic energy lost per ion lost εi (unit: V).
+• The Initial mean electron energy ε0 (unit: V).
+H E A T  T R A N S F E R  T O  S U R F A C E S
+This section is only available when the Diffusion model is set to Global and Include heavy 
+species energy conservation equation is selected. Enter values or expressions for each of 
+the following:
+• The Surface temperature TS (SI unit: K).
+• The Effective diffusion length ΛS (SI unit: K).
+A D D I T I O N A L  G A S  H E A T I N G
+This section is only available when the Diffusion model is set to Global and Include heavy 
+species energy conservation equation is selected. Enter a value or expression for the 
+Additional gas heat source Q0 (SI unit: W).
+E E D F  I N P U T S
+This section is available if Global is selected in Diffusion model, Mean electron energy is 
+set to Local field approximation, and Electron Energy Distribution Function is set to 
+Boltzmann equation, two-term approximation (linear) or Boltzmann equation, two-term 
+approximation (quadratic). Enter values or expressions for each of the following:
+• Enter the Reduced electric field E/N (SI unit: V·m2) for which the Boltzmann 
+equation in the two-term approximation is solved.
+• Enter an EEDF initial mean electron energy ε0 (unit: V) to set the value of the mean 
+electron energy of the Maxwellian EEDF used as initial condition.
+
+
+
+
+=== PAGE 166 ===
+166 ---
+166 |  C H A P T E R  6 :  P L A S M A  I N T E R F A C E S
+Initial Values
+Use the Initial Values node to set the initial values of the electron density, mean electron 
+energy, and electric potential.
+I N I T I A L  V A L U E S
+Enter values or expressions for each of the following:
+• Initial electron density ne,0 (SI unit: 1/m3). This value represents some initial seed 
+electrons in the plasma. If this number is too low then the plasma might not sustain 
+itself. If this number is too high then numerical instabilities can arise at early time 
+steps.
+• Initial mean electron energy e0 (SI unit: V). Enter an approximate guess for the mean 
+electron energy in the reactor. COMSOL Multiphysics automatically computes the 
+exact mean electron energy after solving but the closer the guess is set to the 
+expected value the easier it is to find a solution.
+• Electric potential V (SI unit: V). In nearly all cases the value should be zero. This 
+initial value must also be consistent with any boundary conditions on the electric 
+potential in the model.
+When the Diffusion model is set to Global the initial values are set in the Plasma Model 
+node.
+Species Group
+When using a stationary solver and when a chemical mechanism contains species made 
+up of different elements, the default mass constraint (the sum of all mass fractions 
+equals one) might not be good enough to ensure mass conservation over all elements. 
+The Species Group feature can be used to ensure that the total elemental mass in the 
+system is conserved. Consider a simplified Ar/O2 plasma chemistry with an initial 70/
+30 ratio by mole fraction. For a closed system, the sum of the mass fractions of oxygen 
+species should equal the initial value, and the sum of the mass fractions of argon species 
+should equal their initial values. If the following species are considered in the model: 
+Ar, Ars, Ar_1p, O2, O, O2_1p, then ground state argon should be picked as the From 
+Initial conditions for the heavy species are specified on the individual 
+species features.
+
+
+
+
+=== PAGE 167 ===
+167 ---
+T H E  P L A S M A  I N T E R F A C E  |  167
+mass constraint species, and a Species Group feature should be added with the following 
+table:
+Note that the first species in the table matters. The first species in the table is used to 
+enforce mass conservation for this group of species, meaning that the total number of 
+oxygen atoms in the system is conserved. The first species should correspond to a 
+ground state species present in excess within this group. If additional species N2, N2A, 
+N2_1p were added to the model, an additional Species Group feature would be 
+necessary:
+Species Constraint Group
+For models with complex chemistries, obtaining a converged solution can be tricky, or 
+not possible at all. The Species Constraint Group feature can be used in the following 
+way to help in these cases:
+• Add the species suspected to be causing nonconvergence to the Species Constraint 
+Group feature. Instead of solving for these species, the mass fraction will be 
+constrained to the initial value.
+• Add a study and compute the solution with the troublesome species constrained to 
+their initial values.
+• Add a second study which uses the solution from the first study as the initial value. 
+This is done by using the options in Values of Dependent Variables section of the 
+study settings. In the same study settings, the Species Constraint Group feature can 
+be disabled using the Modify model configuration for study step option.
+This means that the troublesome species will begin to evolve based on a physically 
+correct, converged initial solution, rather than from a “cold start”.
+In the Species Group section, add potentially troublesome species to the Species names 
+table. Note that the names must correspond to the exact name in the Species name 
+TABLE 6-1:  SPECIES GROUP TABLE FOR OXYGEN.
+O2
+O
+O2_1p
+TABLE 6-2:  SPECIES GROUP TABLE FOR NITROGEN.
+N2
+N2A
+N2_1p
+
+
+
+
+=== PAGE 168 ===
+168 ---
+168 |  C H A P T E R  6 :  P L A S M A  I N T E R F A C E S
+field in the Species feature. For example, an argon ion should be entered into the table 
+as Ar_1p and not Ar+.
+Capacitive Stochastic Heating
+The Capacitive Stochastic Heating feature introduces an additional contribution to the 
+electron collision frequency for momentum transfer νm to accounts for stochastic 
+heating effects. An effective collision frequency
+is then used to calculate the electron mobility
+where νs is the stochastic collision frequency, sp is a profile specifying where the 
+stochastic collision frequency is applied, and as is the anisotropy vector associated with 
+the stochastic collision frequency. Further theoretical background on this theory can 
+be found in Ref. 3.
+C A P A C I T I V E  S T O C H A S T I C  H E A T I N G  M O D E L
+Select an option from the Stochastic frequency model list — Collisionless (the default), 
+Collisional, Homogeneous, or User defined.Each option determines how the stochastic 
+collision frequency is calculated.
+Collisionless
+When Collisionless is selected the stochastic collision frequency is defined by
+where the electron mean velocity is given by
+and the remaining quantities are explained below. Note that the electron temperature 
+cancels in this case. The following quantities need to be provided:
+• Plasma bulk thickness d (SI unit: m): the length of the plasma bulk, excluding the 
+sheath region
+νeff
+νm
+ν
++
+sspas
+=
+μe
+e
+meνeff
+---------------
+=
+νs
+Ks
+ve
+hld
+--------
+Vs
+Te
+-----
+=
+ve
+8eTe
+πme
+------------
+=
+
+
+
+
+=== PAGE 169 ===
+169 ---
+T H E  P L A S M A  I N T E R F A C E  |  169
+• Edge-to-center density ratio hl (SI unit: 1): the ratio of the plasma density in the 
+sheath region to that at the center of the reactor
+• Voltage amplitude V (SI unit: V): the rf voltage amplitude across a single sheath
+• Adjusting coefficient Ks (SI unit: 1) the default is 0.33
+Collisional
+When Collisional is selected the stochastic collision frequency is defined by
+.
+To define the Edge electron temperature Te,s choose an option from the list — Local 
+(the default) or User defined. If Local is selected the local space dependent value for the 
+electron temperature is used.
+Additionally enter the following quantities:
+• Plasma bulk thickness d (SI unit: m): the length of the plasma bulk, excluding the 
+sheath region
+• Edge-to-center density ratio hl (SI unit: 1): the ratio of the plasma density in the 
+sheath region to that at the center of the reactor
+• Edges density ns (SI unit: m−3): the plasma density at the interface between the bulk 
+and the sheath region
+• Voltage amplitude V (SI unit: V): the rf voltage amplitude across a single sheath
+• Ion mean-free-path λi (SI unit: m): the ion mean-free-path in the sheath region
+• Adjusting coefficient Ks (SI unit: 1) the default is 0.78
+Homogeneous
+When Homogeneous is selected the stochastic collision frequency is defined by
+.
+To define the Edge electron temperature Te,s choose an option from the list — Local 
+(the default) or User defined. If Local is selected the local space dependent value for the 
+electron temperature is used.
+νs
+Ks
+e7 10
+⁄
+Te s
+,
+1 10
+⁄
+λi
+2 5
+⁄
+me
+1 2
+⁄ hld
+------------------------------------------------- nsVs
+ε0
+------------
+
+
+
+
+1 5
+⁄
+=
+νs
+Ks
+ve
+d----
+=
+
+
+
+
+=== PAGE 170 ===
+170 ---
+170 |  C H A P T E R  6 :  P L A S M A  I N T E R F A C E S
+Additionally enter the following quantities:
+• Plasma bulk thickness d (SI unit: m): the length of the plasma bulk, excluding the 
+sheath region
+• Adjusting coefficient Ks (SI unit: 1) the default is 0.78
+User defined
+When User defined is selected, specify a value in the Stochastic collision frequency field 
+to manually set the collision frequency.
+S P A T I A L  D I S T R I B U T I O N
+If Collisionless, Collisional, or Homogeneous is selected, a Gaussian profile is defined 
+using the following parameters:
+• Profile width pw (SI unit: m) determines the profile spatial spread.
+• Peak distance from the boundary pd (SI unit: m) specifies the location of the profile 
+peak relative to the selected boundary.
+The reference boundary for pd is set via the subfeature Boundary Selection for 
+Stochastic Heating. This profile modulates the spatial distribution of the stochastic 
+collision frequency, enabling localized application of stochastic heating within the 
+plasma domain.
+S T O C H A S T I C  F R E Q U E N C Y  A N I S O T R O P Y
+The Stochastic frequency anisotropy (SI unit: 1) allows to define in which direction the 
+stochastic collision frequency is to be applied.
+Inductive Stochastic Heating
+The Capacitive Stochastic Heating feature introduces an additional contribution to the 
+electron collision frequency for momentum transfer νm to accounts for stochastic 
+heating effects. An effective collision frequency
+is then used to calculate the electron mobility
+where νs is the stochastic collision frequency, sp is a profile specifying where the 
+stochastic collision frequency is applied, and as is the anisotropy vector associated with 
+νeff
+νm
+ν
++
+sspas
+=
+μe
+e
+meνeff
+---------------
+=
+
+
+
+
+=== PAGE 171 ===
+171 ---
+T H E  P L A S M A  I N T E R F A C E  |  171
+the stochastic collision frequency. Further theoretical background on this theory can 
+be found in Ref. 3.
+I N D U C T I V E  S T O C H A S T I C  H E A T I N G  M O D E L
+Select an option from the Stochastic frequency model list — Vahedi (the default), 
+Lieberman, or User defined. Each option determines how the stochastic collision 
+frequency is calculated.
+Vahedi
+When Vahedi is selected the stochastic collision frequency is defined by
+where the regime of validity is defined using
+where δ is the skin depth, ω is the angular frequency, and 
+ is the electron mean 
+velocity. The stochastic frequency branch is selected from the α regime list, with the 
+following options: Low (the default), Middle, or High.
+The following quantities need to be provided:
+• Frequency f (SI unit: Hz): excitation frequency of the inductive power source.
+• Electron temperature Te (unit: eV): choose an option from the list — Local (the 
+default) or User defined. If Local is selected the local space dependent value for the 
+electron temperature is used.
+• Electron density ne (SI unit: m−3): choose an option from the list — Local (the 
+default) or User defined. If Local is selected the local space dependent value for the 
+electron density is used.
+νs
+1
+2π
+------ve
+δ----
+δ
+c2ve
+ω2
+pπω
+-----------------
+
+
+
+
+
+
+1 3
+⁄
+10 4
+–
+α
+0,03
+≤
+≤
+(
+)
+,
+=
+,
+1
+4-- ve
+δ----
+δ
+c
+ωp
+------
+0,03
+α
+10
+≤
+≤
+(
+)
+,
+=
+,
+π
+4ω2
+---------- ve
+δ----
+
+
+
+
+3
+δ
+c
+ωp
+------
+10
+α
+≤
+(
+)
+,
+=
+,
+
+
+
+
+
+
+
+
+
+
+
+
+
+=
+α
+4δ2ω2
+πve
+2
+----------------
+=
+ve
+
+
+
+
+=== PAGE 172 ===
+172 ---
+172 |  C H A P T E R  6 :  P L A S M A  I N T E R F A C E S
+Lieberman
+When Lieberman is selected the stochastic collision frequency is defined by
+with
+where Ei is the exponential integral
+The following quantities need to be provided:
+• Frequency f (SI unit: Hz): excitation frequency of the inductive power source.
+• Electron temperature Te (unit: eV): choose an option from the list — Local (the 
+default) or User defined. If Local is selected the local space dependent value for the 
+electron temperature is used.
+• Electron density ne (SI unit: m−3): choose an option from the list — Local (the 
+default) or User defined. If Local is selected the local space dependent value for the 
+electron density is used.
+The skin depth regime is selected from the Skin depth model list, with the following 
+options: Collisionless (the default), Collisional, or Anomalous.
+• If Collisionless is selected the skin depth is defined as
+• If Collisional is selected, choose an option from the list — Local (the default) or User 
+defined. If Local is selected the local collision frequency for momentum transfer is 
+used. In this case the skin depth is defined as
+• If Anomalous is selected, specify the Anomalous factor. In this case the skin depth is 
+defined as
+νs
+ve
+4δ
+------
+1
+I α
+( )
+α 4
+⁄
++
+----------------------------
+
+
+
+
+=
+I α
+( )
+1
+π-- eα 1
+α
++
+(
+)Ei α
+( )
+1
+–
+[
+]
+=
+Ei α
+( )
+e y
+–
+y
+------- y
+d
+α
+∞
+
+=
+δ
+δp
+c
+ωp
+------
+=
+=
+δ
+δc
+δp
+2νm
+ω
+----------
+
+
+
+
+1 2
+⁄
+=
+=
+
+
+
+
+=== PAGE 173 ===
+173 ---
+T H E  P L A S M A  I N T E R F A C E  |  173
+User defined
+When User defined is selected, specify a value in the Stochastic collision frequency field 
+to manually set the collision frequency.
+S P A T I A L  D I S T R I B U T I O N
+If Collisionless, Collisional, or Homogeneous is selected, a Gaussian profile is defined 
+using the following parameters:
+• Profile width pw (SI unit: m) determines the profile spatial spread.
+• Peak distance from the boundary pd (SI unit: m) specifies the location of the profile 
+peak relative to the selected boundary.
+The reference boundary for pd is set via the subfeature Boundary Selection for 
+Stochastic Heating. This profile modulates the spatial distribution of the stochastic 
+collision frequency, enabling localized application of stochastic heating within the 
+plasma domain.
+S T O C H A S T I C  F R E Q U E N C Y  A N I S O T R O P Y
+The Stochastic frequency anisotropy (SI unit: 1) allows to define in which direction the 
+stochastic collision frequency is to be applied.
+Boundary Selection for Stochastic Heating
+The Boundary Selection for Stochastic Heating subfeature is available in both the 
+Capacitive Stochastic Heating and Inductive Stochastic Heating features. 
+It specifies the reference boundary from which the peak position of the spatial profile, 
+defined by the parameter pd, is measured. This enables spatial control of where the 
+stochastic collision frequency is applied within the plasma domain.
+Plasma Chemistry Import
+The Plasma Chemistry Import node allows you to import a complete plasma chemistry 
+into the model. The data must be in a specific format. Browse to a file containing a set 
+of collision cross sections.
+δ
+δe
+Ce
+2
+----- c2ve
+ωω2
+p
+-------------
+
+
+
+
+
+
+1 3
+⁄
+=
+=
+
+
+
+
+=== PAGE 174 ===
+174 ---
+174 |  C H A P T E R  6 :  P L A S M A  I N T E R F A C E S
+The file must follow the format documented in Plasma Chemistry 
+Import.
+
+
+
+
+=== PAGE 175 ===
+175 ---
+T H E  P L A S M A ,  T I M E  P E R I O D I C  I N T E R F A C E  |  175
+The Plasma, Time Periodic Interface
+The Plasma, Time Periodic (ptp) interface (
+), found under the Plasma branch (
+) 
+is a special interface designed to model capacitively coupled plasmas (CCP).
+When this physics interface is added, these default nodes are also added to the Model 
+Builder: Plasma Model, Zero Charge, Insulation, and Initial Values. Then, from the Physics 
+toolbar, add other nodes that implement, for example, boundary conditions and 
+velocity. You can also right-click Plasma, Time Periodic to select physics features from 
+the context menu.
+S E T T I N G S
+The Label is the default physics interface name.
+The Name is used primarily as a scope prefix for variables defined by the physics 
+interface. Refer to such physics interface variables in expressions using the pattern 
+<name>.<variable_name>. In order to distinguish between variables belonging to 
+different physics interfaces, the name string must be unique. Only letters, numbers, and 
+underscores (_) are permitted in the Name field. The first character must be a letter.
+The default Name (for the first physics interface in the model) is ptp.
+O U T - O F - P L A N E  T H I C K N E S S  ( 2 D ,  1 D  A X I S Y M M E T R I C ,  A N D  1 D )
+• For 2D components, enter a Thickness d (SI unit: m). The default is 1 m.
+• For 1D axisymmetric components, enter a Vertical height dz (SI unit: m). The 
+default is 0.01 m.
+• For 1D components, enter a Cross-section area A (SI unit: m2). The default is 
+0.01 m2.
+T R A N S P O R T  S E T T I N G S
+Select a Diffusion model — Mixture-averaged or Fick’s law. When using the 
+Mixture-averaged model, the mixture averaged diffusion coefficients are automatically 
+computed based on the data specified for each species.
+Except where described in this section, this physics interface shares it 
+physics nodes with The Drift Diffusion Interface, The Heavy Species 
+Transport Interface, and The Electrostatics Interface.
+
+
+
+
+=== PAGE 176 ===
+176 ---
+176 |  C H A P T E R  6 :  P L A S M A  I N T E R F A C E S
+Select the checkboxes for which transport mechanisms to Include — Convection, 
+Migration in electric field, Calculate thermodynamic properties, Full expression for 
+diffusivity, or Compute tensor ion transport properties. The selection changes the 
+number of Model Inputs requiring values on the Plasma Model page. Note the 
+following:
+• The Migration term is part of the relative mass flux vector.
+• For Calculate thermodynamic properties select that the thermodynamic properties of 
+each reaction and species are computed automatically based on the thermodynamic 
+properties of each species.
+• For Full expression for diffusivity it computes a more accurate expression for the 
+Maxwell–Stefan diffusivities. Often the additional correction terms are negligible in 
+which case the expressions are much simpler and the time taken to assemble the 
+Jacobian matrix is reduced.
+• For Mixture diffusion correction additional terms are included in the definition of the 
+mass flux vector to ensure that the same solution is obtained regardless of the choice 
+of the species which comes from the mass constraint. This option makes the 
+problem more nonlinear and strongly coupled, and is only necessary when the 
+molecular weights of the species differ substantially (such as a mixture of sulfur 
+hexafluoride and hydrogen).
+• For Compute tensor ion transport properties the tensor form of the ion transport 
+properties when a static magnetic field is present is computed. This option only 
+needs to be activated when a strong DC magnetic field exists and the operating 
+pressure is very low (on the order of millitorr). When this option is activated an 
+expression must be provided for the magnetic flux density, which typically another 
+physics interface computes. This is set in the Plasma Model node.
+P L A S M A  P R O P E R T I E S
+Select the Compute tensor electron transport properties or Use reduced electron 
+transport properties, or Include thermal diffusion checkboxes as needed.
+Compute Tensor Electron Transport Properties
+Select Compute tensor electron transport properties to compute the tensor form of the 
+electron mobility, electron diffusivity, energy mobility and energy diffusivity. This 
+should only be used in cases where a strong DC magnetic field exists. Two quantities 
+must be supplied, both of which are in the Plasma Model node. The DC mobility 
+which is the value of the electron mobility in the absence of a DC magnetic field and 
+
+
+
+
+=== PAGE 177 ===
+177 ---
+T H E  P L A S M A ,  T I M E  P E R I O D I C  I N T E R F A C E  |  177
+the magnetic flux density which would typically be computed by another physics 
+interface.
+Use Reduced Electron Transport Properties
+Select Use reduced electron transport properties to specify the electron mobility, 
+diffusivity, energy mobility and energy diffusivity in reduced form. The electron 
+transport properties are computed from the reduced transport properties using:
+where Nn the neutral number density defined as
+where pA is the absolute pressure and T is the neutral gas temperature that are set in 
+the Plasma Model node.
+Include Thermal Diffusion
+The Include thermal diffusion checkbox adds an additional term to the definition of the 
+electron current due to gradients in the electron diffusivity. If the diffusivity is a 
+constant then including this does not affect the solution. It is only necessary to include 
+this term if the electron diffusivity is a function of the electron temperature, and there 
+are significant gradients in the electron temperature.
+E L E C T R O N  E N E R G Y  D I S T R I B U T I O N  F U N C T I O N
+If cross-section data is used to define source coefficients in the model then an electron 
+energy distribution function (EEDF) needs to be selected. Select one of these options.
+• Maxwellian. This option assumes a Maxwellian EEDF which takes the form:
+where
+μe
+μred
+Nn
+---------
+=
+Nn
+kBpA
+T
+-------------
+=
+For more information on the electron energy distribution function 
+(EEDF), see the Theory for the Boltzmann Equation, Two-Term 
+Approximation Interface.
+f ε
+( )
+ϕ 3 2
+⁄
+–
+β1
+εβ2 ϕ
+⁄
+(
+)
+–
+(
+)
+exp
+=
+β1
+Γ 5 2
+⁄
+(
+)3 2
+⁄ Γ 3 2
+⁄
+(
+) 5
+–
+2
+⁄
+β2
+Γ 5 2
+⁄
+(
+)Γ 3 2
+⁄
+(
+) 1
+–
+=
+,
+=
+
+
+
+
+=== PAGE 178 ===
+178 ---
+178 |  C H A P T E R  6 :  P L A S M A  I N T E R F A C E S
+where ϕ is the mean electron energy (SI unit: eV), ε is the electron energy (SI unit: eV) 
+and Γ is the incomplete gamma function:
+.
+• Druyvesteyn (the default). This option assumes a Druyvesteyn EEDF which takes the 
+form:
+where
+• Generalized. Use this option for a generalized distribution function where the EEDF 
+is somewhere between Maxwellian and Druyvesteyn. For this option, specify a 
+power law. This number is typically between 1 and 2. Mathematically, the EEDF 
+takes the form:
+where
+• Function. If a two-dimensional interpolation function has been added to the model, 
+it can be used for the EEDF. In this case, the x-data should be the electron energy 
+(eV) and the y-data should be the mean electron energy (eV).
+In all these cases the rate constants in the model are automatically computed based on 
+the selected EEDF using the formula:
+Γ s
+( )
+us
+1
+– e u
+–
+u
+d
+0
+∞
+
+=
+f ε
+( )
+2ϕ 3 2
+⁄
+–
+β1
+εβ2 ϕ
+⁄
+(
+)2
+–
+(
+)
+exp
+=
+β1
+Γ 5 4
+⁄
+(
+)3 2
+⁄ Γ 3 4
+⁄
+(
+) 5
+–
+2
+⁄
+β2
+Γ 5 4
+⁄
+(
+)Γ 3 4
+⁄
+(
+) 1
+–
+=
+,
+=
+f ε
+( )
+gϕ 3 2
+⁄
+–
+β1
+εβ2 ϕ
+⁄
+(
+)g
+–
+(
+)
+exp
+=
+β1
+Γ 5 2g
+⁄
+(
+)3 2
+⁄ Γ 3 2g
+⁄
+(
+) 5
+–
+2
+⁄
+β2
+Γ 5 2g
+⁄
+(
+)Γ 3 2g
+⁄
+(
+) 1
+–
+=
+,
+=
+The two-dimensional interpolation function can be computed using a 
+parametric sweep in The Boltzmann Equation, Two-Term Approximation 
+Interface. This allows for modeling of discharges where the EEDF is far 
+from Maxwellian. For step-by-step instructions on how to do this, refer to 
+this blog entry: www.comsol.com/blogs/
+the-boltzmann-equation-two-term-approximation-interface
+See Interpolation in the COMSOL Multiphysics Reference Manual.
+
+
+
+
+=== PAGE 179 ===
+179 ---
+T H E  P L A S M A ,  T I M E  P E R I O D I C  I N T E R F A C E  |  179
+.
+ (6-12)
+The rate coefficients when computed using cross-section data are a highly nonlinear 
+function of the mean electron energy. COMSOL Multiphysics automatically computes 
+the integral in Equation 6-1 and makes the result available for evaluation of the rate 
+coefficient. The variation of the rate coefficient for any particular model can be plotted 
+using <name>.kf_<reaction number>. For example, for reaction number 3 in the 
+Plasma interface, with name plas, the rate coefficient is plotted using plas.kf_3.
+E X T R A  D I M E N S I O N  S E T T I N G S
+Enter the Period Pxd (SI unit: s) over which the extra dimension should be constructed. 
+The default is 1/(13.56[MHz]), which corresponds to the time for 1 RF period at the 
+classical operating frequency of 13.56 MHz. This corresponds to the time, in seconds, 
+of the lower excitation frequency in the system. Some care must be taken when 
+specifying this value if there are multiple frequencies included in the model, see Using 
+Consistent Source Frequencies and Period Settings for more details.
+Enter the Number of elements over which to discretize the extra dimension. The default 
+value of 40 means that 40 mesh elements will be used to discretize the RF period in 
+the extra dimension. In most cases, 40 should be enough for a single frequency. As for 
+the Period setting, using more than one frequency typically means the Number of 
+elements must be increased.
+The remaining settings describe in which space the nonelectron should be computed. 
+See Choosing the Correct Space on Which to Solve for the Heavy Species for more 
+details. For the Heavy species selection, there are two options available:
+• The Product space option means that all the nonelectron species in the model will 
+be computed in the product space of the base geometry and the extra dimension. 
+This option can generate a significant number of degrees of freedom and is better 
+suited to 1D models.
+• For 2D models, it is usually better to solve for the heavy species in the Base geometry. 
+This keeps the number of degrees of freedom to a minimum, while sacrificing little 
+in terms of accuracy.
+If the Heavy species selection is set to Product space, there is an additional option for 
+the Electric field applied to ions. This can be either Instantaneous, in which case the time 
+modulating electric field is used to compute the ion migrative fluxes, or Time averaged, 
+in which case the ions experience the period averaged electric field. Using the Time 
+kf
+NAγ
+εσk ε
+( )f ε
+( ) ε
+d
+0
+∞
+
+=
+
+
+
+
+=== PAGE 180 ===
+180 ---
+180 |  C H A P T E R  6 :  P L A S M A  I N T E R F A C E S
+averaged option is very computationally expensive, and is usually only used for testing 
+simple 1D models.
+S E C O N D A R Y  E M I S S I O N  M O D E L
+To display this section, click the Show More Options button (
+) and select Advanced 
+Physics Options.
+By default the Secondary emission model is set to From surfaces. With this option the 
+gain of electrons due to secondary emission is made through the normal component 
+of the electron flux at the wall. See The Wall Boundary Condition for more details. If 
+the Secondary emission model is set to Uniform the gain of electrons from secondary 
+emission is distributed uniformly across the domain through the electron rate 
+expression. This source of electrons is computed from
+ (6-13)
+where the number of ionization events per secondary electron emitted is obtained 
+from
+ (6-14)
+where the sum is over all ionization reactions by electron impact, g is the Characteristic 
+gap size, nk is the target number density, σk is the reaction cross section, and εb is the 
+Beam energy. In Equation 6-13 the integrand is the period-averaged secondary 
+emission flux from all possible surface reactions, the integral is over all surfaces, and V 
+is the reactor volume. Only contributions from individual surface reaction features are 
+considered to compute Equation 6-13. The Uniform model is an extremely simplistic 
+model that tries to capture the nonlocal behavior of ionization events produced by 
+secondary electrons that are accelerated to very high energies. This phenomenon is 
+important at low pressures below the 10 s of millitorr range. See Validity of Fluid 
+Models for more detail on the regime of validity.
+S T A B I L I Z A T I O N
+To display this section, click the Show More Options button (
+) and select 
+Stabilization.
+The solver can run into difficulties as the species mass fractions approach zero. The 
+Reaction source stabilization checkbox (off by default) adds an additional source term 
+Re sec
+,
+Ni sec
+,
+1
+V---
+Γi sec
+,
+S
+d
+Ω
+∂
+=
+Ni sec
+,
+g
+nkσk εb
+(
+)
+k
+=
+
+
+
+
+=== PAGE 181 ===
+181 ---
+T H E  P L A S M A ,  T I M E  P E R I O D I C  I N T E R F A C E  |  181
+to the rate expression for each species. In the ι field, enter a tuning parameter for the 
+source stabilization. By default, no stabilization is added. However, if working with a 
+model with no secondary electron emission included, it may be necessary to activate 
+this. A value of 1 or higher is recommended, although if the plasma is high pressure 
+(atmospheric) then it can help to lower this number to somewhere in the range 0.25–
+0.5.
+The solver can also run into difficulties as the electron density or electron energy 
+density approach zero. The Source stabilization checkbox (off by default) adds an 
+additional source term to the equation for the electron density and electron energy 
+density. The same values and guidelines as above apply.
+I N C O N S I S T E N T  S T A B I L I Z A T I O N
+To enable this section, click the Show More Options button (
+) and select Stabilization 
+in the Show More Options dialog. This section is only available if the Heavy species 
+selection in Extra Dimension Settings is set to Base geometry.
+This method is equivalent to adding a term to the diffusion coefficient in order to 
+dampen the effect of oscillations by making the system somewhat less dominated by 
+convection or migration. If possible, minimize the use of the inconsistent stabilization 
+method because by using it you no longer solve the original problem. By default, the 
+Isotropic diffusion for ions checkboxes are not selected because this type of stabilization 
+adds artificial diffusion and affects the accuracy of the original problem. However, this 
+option can be used to get a good initial guess for underresolved problems.
+If required, select the Isotropic diffusion for ions checkboxes and enter a Tuning 
+parameter for ions δid,i. The default value is 0.25.
+D I S C R E T I Z A T I O N
+Select Formulation — Finite element, log formulation (linear shape function) (the 
+default), or Finite element, log formulation (quadratic shape function).
+D E P E N D E N T  V A R I A B L E S
+The dependent variables (field variables) are the Electron solution variable, and Electron 
+energy solution variable, Electric potential. The name can be changed but the names of 
+fields and dependent variables must be unique within a model. The dependents 
+
+
+
+
+=== PAGE 182 ===
+182 ---
+182 |  C H A P T E R  6 :  P L A S M A  I N T E R F A C E S
+variables that by default end with _per are only used to map the time periodic solution 
+into a time-dependent solution using the Time Periodic to Time Dependent study.
+Domain, Boundary, Edge, and Point for the Plasma, Time Periodic 
+Interface
+The Plasma, Time Periodic Interface has these domain, boundary, edge, and point 
+nodes, listed in alphabetical order, available from the Physics ribbon toolbar (Windows 
+users), Physics context menu (Mac or Linux users), or right-click to access the context 
+menu (all users).
+• Domain, Boundary, Edge, Point, and Pair Nodes for the Plasma 
+Interface
+• Plasma Reactors Theory and Capacitively Coupled Plasmas
+• Stabilization
+• Interpolation in the COMSOL Multiphysics Reference Manual
+• Alpha to Gamma Transition: Application Library path 
+Plasma_Module/Capacitively_Coupled_Plasmas/
+alpha_to_gamma_transition
+• Ion Energy Distribution Function in a Capacitively Coupled Plasma 
+Reactor: Application Library path Plasma_Module/
+Capacitively_Coupled_Plasmas/ccp_ion_energy_distribution_function
+• Computing the Plasma Impedance: Application Library path 
+Plasma_Module/Capacitively_Coupled_Plasmas/
+computing_plasma_impedance
+In general, to add a node, go to the Physics toolbar, no matter what 
+operating system you are using. Subnodes are available by clicking the 
+parent node and selecting it from the Attributes menu.
+
+
+
+
+=== PAGE 183 ===
+183 ---
+T H E  P L A S M A ,  T I M E  P E R I O D I C  I N T E R F A C E  |  183
+These nodes are described in The Plasma Interface chapter:
+• Plasma Model
+• Initial Values
+• Plasma Chemistry Import
+• Capacitive Stochastic Heating
+• Boundary Selection for Stochastic Heating
+These nodes are described in the chapters for The Drift Diffusion Interface and The 
+Heavy Species Transport Interface (listed in alphabetical order):
+These nodes are available to describe how to excite and ground the plasma:
+• Species Group
+• Species Constraint Group
+• Dielectric Contact
+• Ground
+• Metal Contact
+• Surface Charge Accumulation
+• Terminal
+• Zero Charge
+In the COMSOL Multiphysics Reference Manual see Table 2-4 for links 
+to common sections and Table 2-5 to common feature nodes. You can 
+also search for information: press F1 to open the Help window or Ctrl+F1 
+to open the Documentation window.
+• Cross Section Import
+• Electron Impact Reaction
+• General Power Deposition
+• Reaction
+• Reaction Group
+• Species
+• Surface Reaction Group
+• Surface Species
+• Surface Reaction
+• Wall
+
+
+
+
+=== PAGE 184 ===
+184 ---
+184 |  C H A P T E R  6 :  P L A S M A  I N T E R F A C E S
+The following node is available as a subnode for the Metal Contact and Terminal 
+nodes:
+• Periodic Excitation
+The following nodes allow to set inflow and outflow boundary conditions:
+• Inflow
+• Outflow
+Species Group
+When a chemical mechanism contains species made up of different elements, the 
+default mass constraint (the sum of all mass fractions equals one) might not be good 
+enough to ensure mass conservation over all elements. The Species Group feature can 
+be used to ensure that the total elemental mass in the system is conserved. Consider a 
+simplified Ar/O2 plasma chemistry with an initial 70/30 ratio by mole fraction. For a 
+closed system, the sum of the mass fractions of oxygen species should equal the initial 
+value, and the sum of the mass fractions of argon species should equal their initial 
+values. If the following species are considered in the model: Ar, Ars, Ar_1p, O2, O, 
+O2_1p, then ground state argon should be picked as the From mass constraint species, 
+and a Species Group feature should be added with the following table:
+Note that the first species in the table matters. The first species in the table is used to 
+enforce mass conservation for this group of species, meaning that the total number of 
+oxygen atoms in the system is conserved. The first species should correspond to a 
+ground state species present in excess within this group. If additional species N2, N2A, 
+N2_1p were added to the model, an additional Species Group feature would be 
+necessary:
+TABLE 6-3:  SPECIES GROUP TABLE FOR OXYGEN.
+O2
+O
+O2_1p
+TABLE 6-4:  SPECIES GROUP TABLE FOR NITROGEN.
+N2
+N2A
+N2_1p
+
+
+
+
+=== PAGE 185 ===
+185 ---
+T H E  P L A S M A ,  T I M E  P E R I O D I C  I N T E R F A C E  |  185
+Species Constraint Group
+For models with complex chemistries, obtaining a converged solution can be tricky, or 
+not possible at all. The Species Constraint Group feature can be used in the following 
+way to help in these cases:
+• Add the species suspected to be causing nonconvergence to the Species Constraint 
+Group feature. Instead of solving for these species, the mass fraction will be 
+constrained to the initial value.
+• Add a study and compute the solution with the troublesome species constrained to 
+their initial values.
+• Add a second study which uses the solution from the first study as the initial value. 
+This is done by using the options in Values of Dependent Variables section of the 
+study settings. In the same study settings, the Species Constraint Group feature can 
+be disabled using the Modify model configuration for study step option.
+This means that the troublesome species will begin to evolve based on a physically 
+correct, converged initial solution, rather than from a “cold start”.
+In the Species Group section, add potentially troublesome species to the Species names 
+table. Note that the names must correspond to the exact name in the Species name 
+field in the Species feature. For example, an argon ion should be entered into the table 
+as Ar_1p and not Ar+.
+Dielectric Contact
+Use the Dielectric Contact node is used for modeling what happens when a plasma is in 
+contact with a dielectric (insulating) surface. The Dielectric Contact can only be applied 
+on boundaries adjacent to the Plasma Model feature.
+Ground
+The Ground node implements ground (zero potential) as the boundary condition 
+V = 0. Ground means that there is a zero potential on the boundary at all points in the 
+base geometry and the extra dimension. This boundary condition is also applicable at 
+symmetry boundaries where the potential is known to be antisymmetric with respect 
+to the boundary.
+
+
+
+
+=== PAGE 186 ===
+186 ---
+186 |  C H A P T E R  6 :  P L A S M A  I N T E R F A C E S
+Metal Contact
+The Metal Contact is applied to exterior boundaries which are adjacent to the Plasma 
+Model feature. This corresponds to a powered electrode, where the source voltage, 
+power, or external circuit can be specified. The following options are available:
+• For the Terminal type, choose either Voltage, Power, or Circuit. When Circuit is 
+selected, refer to the Circuit Options section. In nearly all cases, the Power option is 
+a more stable way of driving the plasma, as multiple physically significant solutions 
+can exist when a voltage source is used. When driving with a fixed power, there can 
+only be one solution to the problem.
+For the Source, select one of the following options:
+• RF. In this case, the excitation is periodic and the maximum and minimum amplitude 
+of the applied voltage are equal. The following options are available.
+- Select whether the Periodic function should be Cosine, Sine, Pulsed or Dual Pulsed. 
+The first two options simply determine whether the excitation waveform should 
+be a cosine or sine over the period. The last two apply a sinusoidal excitation at a 
+given frequency for a specified number of periods. The usage of the pulsed 
+options is discussed in Pulsed Discharges.
+- If the Terminal type is Voltage, enter the Voltage amplitude Va (SI unit: V) at the 
+electrode. If the Terminal type is Power, enter the RF Power Prf (SI unit: W) to be 
+deposited into the plasma.
+- Enter the Frequency fp (SI unit: Hz) for the applied voltage or power. This value 
+must be consistent with the value given for the Period property of the physics 
+interface. See Using Consistent Source Frequencies and Period Settings for 
+further information.
+- Enter the Source phase α (SI unit: dimensionless) of the generator. The default is 
+zero and this rarely needs to be changed.
+• RF and DC. This option allows an additional bias power or voltage to be applied, or 
+the DC self–bias to be computed. In addition to the options for the RF case above, 
+the following options are available:
+-
+Compute DC self–bias. In asymmetric discharges, where the grounded surface area 
+of the discharge is different from the powered electrode surface area, the powered 
+electrode will form a negative DC self–bias. This requires that the period 
+averaged current arriving on the electrode surface is zero. By checking this 
+option, the software will automatically compute the DC self–bias on the 
+
+
+
+
+=== PAGE 187 ===
+187 ---
+T H E  P L A S M A ,  T I M E  P E R I O D I C  I N T E R F A C E  |  187
+electrode. When this option is selected, no other options in the DC Source section 
+are available.
+- When the Terminal type is Voltage, and Compute DC self–bias is off, enter a DC bias 
+voltage Vdc,b (SI unit: V). This can be used to increase the ion or electron fluxes 
+to the electrode which may result in a net current flow into the electrode. When 
+the Terminal type is Power, and Compute DC self–bias is off, enter a DC bias power 
+Pdc,b (SI unit: W). There is an additional option to specify whether the Bias 
+should be Negative or Positive.
+• DC. This option can be used to add a pure DC bias somewhere in the system, but 
+there has to be at least one feature adding an RF excitation elsewhere. Adding a pure 
+DC source generally makes it more difficult to obtain a converged solution. The 
+following options are available:
+- When the Terminal type is Voltage, enter a DC voltage Vdc (SI unit: V). When the 
+Terminal type is Power, enter a DC power Pdc (SI unit: W). There is an additional 
+option to specify whether the Electrode type should be Cathode or Anode, 
+depending on whether the power should be deposited using a negative or positive 
+potential.
+When the Pulsed option is used the following options are available:
+•
+Number of periods on Non: Set the number of periods applied during the phase that 
+the pulse is on. 
+•
+Number of periods off Noff: Set the number of periods applied during the phase that 
+the pulse is off.
+•
+Number of periods to ramp to high power Nlow, high: Set the number of periods used 
+to ramp up to the on phase. 
+•
+Number of periods to ramp to lower power Nhigh, low: Set the number of periods used 
+to ramp down to the off phase.
+If Create a mesh suggestion for the extra dimension is selected an automatic mesh along 
+the extra dimension that represents the period is created. The following options are 
+also available:
+•
+Number of elements per on period Nel, on: Set the number elements used per period 
+when the pulse is on.
+•
+Total number of elements when excitation is off Nel, off: Set the total number elements 
+used when the pulse is off
+
+
+
+
+=== PAGE 188 ===
+188 ---
+188 |  C H A P T E R  6 :  P L A S M A  I N T E R F A C E S
+When the Dual pulsed option is used the following options are available:
+•
+Low power pulse Plow, rf: set the power of the low power phase of the pulse.
+•
+Number of periods on, low power Nlow, on: Set the number of periods applied during 
+the low power phase of the pulse.
+•
+High power pulse Phigh, rf: set the power of the high power phase of the pulse.
+•
+Number of periods on, high power Nhigh, on: Set the number of periods applied during 
+the high power phase of the pulse.
+•
+Number of periods to ramp to high power Nlow, high: Set the number of periods used 
+to ramp up to the high power phase. 
+•
+Number of periods to ramp to lower power Nhigh, low: Set the number of periods used 
+to ramp down to the low power phase.
+If Create a mesh suggestion for the extra dimension is selected an automatic mesh along 
+the extra dimension that represents the period is created. The following options are 
+also available:
+•
+Number of elements per period, low power Nel, low: Set the number of elements used 
+per period for the low power phase.
+•
+Number of elements per period, high power Nel, high: Set the number of elements used 
+per period for the high power phase
+Surface Charge Accumulation
+On interior boundaries which are adjacent to both a Plasma Model and Charge 
+Conservation feature, the Surface Charge Accumulation node is used to determine the 
+accumulation of surface charge on the dielectric surface due to incident ion and 
+electron fluxes. This condition should always be applied on boundaries which are 
+adjacent to both a Plasma Model and Charge Conservation feature, otherwise the charged 
+species will “leak” from the modeling domain, resulting in unphysical results. 
+Mathematically, the following boundary condition is implemented:
+ (6-15)
+where ρs is the solution of the following distributed ODE on the boundary:
+ (6-16)
+n
+–
+D1
+D2
+–
+(
+)
+⋅
+ρs
+=
+t
+d
+dρs
+n Ji
+⋅
+n Je
+⋅
++
+=
+
+
+
+
+=== PAGE 189 ===
+189 ---
+T H E  P L A S M A ,  T I M E  P E R I O D I C  I N T E R F A C E  |  189
+where n · Ji is the normal component of the total ion current density on the wall and 
+n · Je is the normal component of the total electron current density on the wall. In 
+addition, since the solution is assumed to be time periodic, a periodic boundary 
+condition on the surface charge density is imposed in the extra dimension.
+Terminal
+The Terminal is applied to exterior boundaries which are adjacent to the Charge 
+Conservation feature. This corresponds to a powered electrode in contact with a 
+dielectric material, where the source voltage, power, or external circuit can be 
+specified. This condition cannot be applied on boundaries adjacent to the Plasma Model 
+feature. The following options are available:
+• For the Terminal type, choose either Voltage, Power, or Circuit. When Circuit is 
+selected, refer to the Circuit Options section. In nearly all cases, the Power option is 
+a more stable way of driving the plasma, as multiple physically significant solutions 
+can exist when a voltage source is used. When driving with a fixed power, there can 
+only be one solution to the problem.
+For the Source, select one of the following options:
+• RF. In this case, the excitation is periodic and the maximum and minimum amplitude 
+of the applied voltage are equal. The following options are available.
+- Select whether the Periodic function should be Cosine or Sine. This simply 
+determines whether the excitation waveform should form a cosine or sine wave 
+over the period.
+- If the Terminal type is Voltage, enter the Voltage amplitude Va (SI unit: V) at the 
+electrode. If the Terminal type is Power, enter the RF Power Prf (SI unit: W) to be 
+deposited into the plasma.
+- Enter the Frequency fp (SI unit: Hz) for the applied voltage or power. This value 
+must be consistent with the value given for the Period property of the physics 
+interface. See Using Consistent Source Frequencies and Period Settings for 
+further information.
+- Enter the Source phase α (SI unit: dimensionless) of the generator. The default is 
+zero and this rarely needs to be changed.
+
+
+
+
+=== PAGE 190 ===
+190 ---
+190 |  C H A P T E R  6 :  P L A S M A  I N T E R F A C E S
+Zero Charge
+The Zero Charge node adds the condition that there is zero charge on the boundary 
+so that n · D = 0. This boundary condition is also applicable at symmetry boundaries 
+where the potential is known to be symmetric with respect to the boundary. This is the 
+default boundary condition at exterior boundaries. At interior boundaries, it means 
+that no displacement field can penetrate the boundary and that the electric potential is 
+discontinuous across the boundary.
+Periodic Excitation
+The Periodic Excitation node can be added as a subfeature to either the Metal Contact 
+or Terminal features. This allows for dual frequency reactors to be modeled, although 
+certain restrictions apply, see Using Consistent Source Frequencies and Period 
+Settings.
+The Terminal type setting should be the same as the parent feature (the Metal Contact 
+or Terminal). If the Terminal type differs, a warning node appears in the Model Builder. 
+The following options are available for all terminal types:
+• Enter the Frequency fp (SI unit: Hz) for the applied voltage or power. This value 
+must be consistent with the value given for the Period property of the physics 
+interface. See Using Consistent Source Frequencies and Period Settings for further 
+information.
+• Enter the Source phase α (dimensionless) of the generator. The default is zero and 
+this rarely needs to be changed.
+Depending on the Terminal type, the following is available:
+• When the Terminal type is Voltage or Power, select whether the Periodic function 
+should be Cosine or Sine. This simply determines whether the excitation waveform 
+should form a cosine or sine wave over the period.
+• Enter values for either the Voltage amplitude Va or Vcir (SI unit: V) or RF Power Prf 
+(SI unit: W) depending on the value selected for the Terminal type.
+Circuit Options
+The Metal Contact and Terminal features both allow the Terminal type to be Circuit. In 
+this case, there are 3 options available, Parallel RC circuit, L–network, and Reversed L–
+network.
+
+
+
+
+=== PAGE 191 ===
+191 ---
+T H E  P L A S M A ,  T I M E  P E R I O D I C  I N T E R F A C E  |  191
+P A R A L L E L  R C  C I R C U I T
+The circuit diagram for the most general parallel RC circuit is shown below:
+The circuit includes an optional blocking capacitor (Cb) and stray capacitance (Cs). 
+Both are off by default, and both make the model more nonlinear and thus more 
+difficult to solve when active. The parallel RC circuit is often used to perform some 
+initial investigations before moving onto designing a matching network.
+L – N E T W O R K
+The L–network is a matching circuit designed to ensure maximum power transfer 
+between the RF generator and the plasma. The most general form of the circuit is 
+shown below:
+As with the parallel RC circuit, the blocking capacitor and stray capacitance are 
+optional, and off by default. The match inductance (Lm) and capacitance (Cp) can be 
+adjusted to maximize the power transfer for a known plasma impedance. This type of 
+match is only appropriate when the real part of the plasma impedance is below 50 Ω, 
+which typically occurs when the discharge power is high.
+
+
+
+
+=== PAGE 192 ===
+192 ---
+192 |  C H A P T E R  6 :  P L A S M A  I N T E R F A C E S
+R E V E R S E D  L – N E T W O R K
+The reversed L-network is similar to the L-network, except the parallel capacitor is 
+moved to the other side of the inductor:
+As with the parallel RC circuit, the blocking capacitor and stray capacitance are 
+optional, and off by default. This type of match is only appropriate when the real part 
+of the plasma impedance is above 50 Ω, which typically occurs when the discharge 
+power is low.
+Enter the following settings:
+• Source type. This determines whether the generator acts like a Voltage source (the 
+default) or Power source. When Voltage source is selected:
+- Enter the Voltage amplitude Vcir (SI unit: V) of the generator.
+When Power source is selected:
+- Enter the Source power Ps (SI unit: W) of the generator.
+Using the Power source option is usually more stable, meaning that its more likely 
+that the solver will converge than the Voltage source option.
+• Enter the Series resistance Rs (SI unit: Ω) of the generator. This corresponds to the 
+impedance the generator and is 50 Ω (the default value) in most practical 
+applications.
+• Enter the Parallel capacitance Cp (SI unit: F) which corresponds to the capacitance 
+parallel to the plasma. When the Circuit type is L–network or Reversed L–network, this 
+value can be computed to ensure proper matching.
+Computing the Plasma Impedance: Application Library path 
+Plasma_Module/Capacitively_Coupled_Plasmas/
+computing_plasma_impedance
+
+
+
+
+=== PAGE 193 ===
+193 ---
+T H E  P L A S M A ,  T I M E  P E R I O D I C  I N T E R F A C E  |  193
+• When the Circuit type is L–network or Reversed L–network, enter the Series inductance 
+(SI unit: H). This value can also be computed to obtain a proper match.
+• Enter the Source frequency fp (SI unit: Hz) of the generator. This value must be 
+consistent with the value given for the Period property of the physics interface. See 
+Using Consistent Source Frequencies and Period Settings for further information.
+• Enter the Source phase α (dimensionless) of the generator. The default is zero and 
+this rarely needs to be changed.
+In the Additional Circuit Elements section, there are the following options:
+• Include blocking capacitor. When this is active, enter the Blocking capacitance Cb (SI 
+unit: F). This places a blocking capacitor between the plasma and the external circuit 
+which will shield any accumulated surface charges on the electrode.
+• Include stray capacitance. When this is active, enter the Stray capacitance Cs (SI unit: 
+F). This adds an additional parallel capacitance across the plasma corresponding to 
+stray leads or the vacuum capacitance of the system. The presence of a stray 
+capacitance can lead to an impedance mismatch between the generator and plasma 
+in a system which would otherwise be perfectly matched.
+
+
+
+
+=== PAGE 194 ===
+194 ---
+194 |  C H A P T E R  6 :  P L A S M A  I N T E R F A C E S
+The Inductively Coupled Plasma 
+Interface
+The Inductively Coupled Plasma interface is used to study discharges that are sustained 
+by induction currents. The induction currents are solved for in the frequency domain. 
+The electron heating due to the induction currents is automatically handled by the 
+software. This physics interface is available for 2D and 2D axisymmetric components.
+When a predefined Inductively Coupled Plasma interface (
+) is added from the Plasma 
+branch (
+) of the Model Wizard or Add Physics windows, Plasma and Magnetic Fields 
+interfaces are added to the Model Builder. In addition, the Multiphysics Couplings node 
+is added, which automatically includes the multiphysics coupling features Plasma 
+Conductivity Coupling and Electron Heat Source.
+When the Plasma physics interface is added, these default nodes are also added to the 
+Model Builder — Plasma Model, Zero Charge, Insulation, and Initial Values. Then, from 
+the Physics toolbar, add other nodes that implement, for example, the plasma 
+chemistry and boundary conditions.
+When the Magnetic Fields interface is added, these default nodes are also added to the 
+Model Builder — Ampère’s Law, Magnetic Insulation, and Initial Values. Then, from the 
+Physics toolbar, add other nodes that implement, for example, a coil.
+S E T T I N G S
+The settings for the Plasma interface can be found in The Plasma Interface section. The 
+settings for the Magnetic Fields interface can be found in The Magnetic Fields Interface 
+in the AC/DC Module User’s Guide.
+For a description of the multiphysics coupling nodes, refer to:
+• Plasma Conductivity Coupling
+• Electron Heat Source
+• Collisionless Heating Coupling
+With an AC/DC Module license, this physics interface is also available in 
+3D. This also enables additional features that are available with the AC/
+DC Module, and described in the AC/DC Module User’s Guide.
+
+
+
+
+=== PAGE 195 ===
+195 ---
+T H E  I N D U C T I V E L Y  C O U P L E D  P L A S M A  W I T H  R F  B I A S  I N T E R F A C E  |  195
+The Inductively Coupled Plasma with 
+RF Bias Interface
+The Inductively Coupled Plasma with RF Bias interface is used to study discharges that 
+are sustained by induction currents and have an additional time periodic electric 
+excitation. The magnetic field is solved in the frequency domain and the plasma solves 
+for a periodic steady-state. Multiphysics couplings couple the time averaged plasma 
+conductivity to the Magnetic Fields interface and couple the resulting electron heating 
+due to the induction currents back to the Plasma, Time Periodic interface. This physics 
+interface is available for 2D and 2D axisymmetric components.
+When a predefined Inductively Coupled Plasma with RF Bias interface (
+) is added 
+from the Plasma branch (
+) of the Model Wizard or Add Physics windows, Plasma, 
+Time Periodic and Magnetic Fields interfaces are added to the Model Builder. In 
+addition, the Multiphysics Couplings node is added, which automatically includes the 
+multiphysics coupling features Plasma Conductivity Coupling and Electron Heat Source.
+When the Plasma, Time Periodic interface is added, these default nodes are also added 
+to the Model Builder — Plasma Model, Zero Charge, Insulation, and Initial Values. Then, 
+from the Physics toolbar, add other nodes that implement, for example, the plasma 
+chemistry and boundary conditions.
+When the Magnetic Fields interface is added, these default nodes are also added to the 
+Model Builder — Ampère’s Law, Magnetic Insulation, and Initial Values. Then, from the 
+Physics toolbar, add other nodes that implement, for example, a coil.
+S E T T I N G S
+The settings for the Plasma, Time Periodic interface can be found in The Plasma, Time 
+Periodic Interface section. The settings for the Magnetic Fields interface can be found 
+in The Magnetic Fields Interface in the AC/DC Module User’s Guide.
+For a description of the multiphysics coupling nodes, refer to:
+• Plasma Conductivity Coupling
+A AC/DC Module license is necessary to have access to the Coil feature. 
+This also enables additional features that are available with the AC/DC 
+Module, and described in the AC/DC Module User’s Guide.
+
+
+
+
+=== PAGE 197 ===
+197 ---
+T H E  M I C R O W A V E  P L A S M A  I N T E R F A C E  |  197
+The Microwave Plasma Interface
+The Microwave Plasma physics interface is suitable for studying discharges that are 
+sustained by electromagnetic waves (wave-heated discharge). The electromagnetic 
+waves are solved for in the frequency domain, and all plasma variables are solved for in 
+the time-domain.
+When a predefined Microwave Plasma interface (
+) is added from the Plasma 
+branch (
+) of the Model Wizard or Add Physics windows, Plasma and Electromagnetic 
+Waves, Frequency Domain interfaces are added to the Model Builder. In addition, the 
+Multiphysics Couplings node is added, which automatically includes the multiphysics 
+coupling features Plasma Conductivity Coupling and Electron Heat Source.
+When the Plasma physics interface is added, these default nodes are also added to the 
+Model Builder: Plasma Model, Zero Charge, Insulation, and Initial Values. Then, from the 
+Physics toolbar, add other nodes that implement, for example, the plasma chemistry 
+and boundary conditions.
+When the Electromagnetic Waves, Frequency Domain interface is added, these default 
+nodes are also added to the Model Builder — Wave Equation, Electric; Perfect Electric 
+Conductor; and Initial Values. Then, from the Physics toolbar, add other nodes that 
+implement, for example, a port.
+S E T T I N G S
+The settings for the Plasma interface can be found in The Plasma Interface section. The 
+settings for the Electromagnetic Waves, Frequency Domain interface can be found in The 
+Electromagnetic Waves, Frequency Domain Interface in the RF Module User’s Guide.
+For a description of the multiphysics coupling nodes, refer to:
+• Plasma Conductivity Coupling
+• Electron Heat Source
+This physics interface requires a RF Module license. For theory and 
+physics interface feature descriptions, see the RF Module User’s Guide.
+
+
+
+
+=== PAGE 198 ===
+198 ---
+198 |  C H A P T E R  6 :  P L A S M A  I N T E R F A C E S
+The Plasma, Nonisothermal Flow 
+Interface
+The Plasma, Nonisothermal Flow (
+) interface is used to simulate the coupling 
+between plasma, fluid flow and heat transfer.
+It combines the Plasma, Heat Transfer in Fluids, and Laminar Flow interfaces. The 
+Nonisothermal Plasma Flow multiphysics coupling is automatically added. The flow 
+velocity and the pressure are computed in the fluid flow interface and passed to other 
+interfaces. The temperature is computed in the heat transfer interface and passed to 
+other interfaces. Thermal conductivity, dynamic viscosity and other thermodynamic 
+properties are calculated in the plasma interface and passed to other interfaces. The 
+plasma interface calculates the enthalpy of all reactions and energy transferred to heavy 
+species by electron impact elastic collisions and passes it to the heat transfer interface 
+as a volume heat source.
+When a Plasma, Nonisothermal Flow (
+) interface is added from the Nonisothermal 
+Plasma Flow branch (
+) of the Model Wizard or Add Physics windows, Plasma, Laminar 
+Flow, and Heat Transfer in Fluids interfaces are added to the Model Builder. In addition, 
+the Multiphysics Couplings node is added, which automatically includes the multiphysics 
+coupling feature Nonisothermal Plasma Flow.
+S E T T I N G S
+For a description of the multiphysics coupling nodes, refer to:
+• Nonisothermal Plasma Flow
+
+
+
+
+=== PAGE 199 ===
+199 ---
+T H E  I N D U C T I V E L Y  C O U P L E D  P L A S M A ,  N O N I S O T H E R M A L  F L O W  I N T E R F A C E  |  199
+The Inductively Coupled Plasma, 
+Nonisothermal Flow Interface
+The Inductively Coupled Plasma, Nonisothermal Flow (
+) interface combines the 
+Inductively Coupled Plasma multiphysics interface and the Plasma, Nonisothermal Flow 
+multiphysics interface.
+This multiphysics interface adds Plasma, Laminar Flow, Heat Transfer in Fluids, and 
+Magnetic Fields interfaces. The Nonisothermal Plasma Flow, Plasma Conductivity Coupling, 
+and Electron Heat Source multiphysics features are also added.
+The magnetic field is solved in the frequency domain and the plasma, the fluid flow, 
+and the heat transfer are solved in the time domain.
+S E T T I N G S
+For a description of the multiphysics coupling nodes, refer to:
+• Nonisothermal Plasma Flow
+• Plasma Conductivity Coupling
+• Electron Heat Source
+
+
+
+
+=== PAGE 200 ===
+200 ---
+200 |  C H A P T E R  6 :  P L A S M A  I N T E R F A C E S
+The Microwave Plasma, 
+Nonisothermal Flow Interface
+The Microwave Plasma, Nonisothermal Flow (
+) interface combines the Microwave 
+Plasma multiphysics interface and the Plasma, Nonisothermal Flow multiphysics 
+interface.
+This multiphysics interface adds Plasma, Laminar Flow, Heat Transfer in Fluids, and 
+Electromagnetic Waves interfaces. The Nonisothermal Plasma Flow, Plasma Conductivity 
+Coupling, and Electron Heat Source multiphysics features are also added.
+The electromagnetic waves are solved in the frequency domain and the plasma, the 
+fluid flow, and the heat transfer are solved in the time domain.
+S E T T I N G S
+For a description of the multiphysics coupling nodes, refer to:
+• Nonisothermal Plasma Flow
+• Plasma Conductivity Coupling
+• Electron Heat Source
+
+
+
+
+=== PAGE 201 ===
+201 ---
+T H E  P L A S M A ,  T I M E  P E R I O D I C ,  N O N I S O T H E R M A L  F L O W  I N T E R F A C E  |  201
+The Plasma, Time Periodic, 
+Nonisothermal Flow Interface
+The Plasma, Time Periodic, Nonisothermal Flow (
+) interface is similar to the Plasma, 
+Nonisothermal Flow interface except that the Plasma interface is replaced by the Plasma, 
+Time Periodic interface for studying discharges that are sustained by periodic electric 
+fields.
+It combines the Plasma, Time Periodic, Heat Transfer in Fluids, and Laminar Flow 
+interfaces. The Nonisothermal Plasma Flow multiphysics coupling is automatically 
+added. The flow velocity and the pressure are computed in the fluid flow interface and 
+passed to other interfaces. The temperature is computed in the heat transfer interface 
+and passed to other interfaces. Thermal conductivity, dynamic viscosity and other 
+thermodynamic properties are calculated in the plasma interface and passed to other 
+interfaces. The plasma interface calculates the enthalpy of all reactions and energy 
+transferred to heavy species by electron impact elastic collisions and passes it to the heat 
+transfer interface as a volume heat source.
+S E T T I N G S
+For a description of the multiphysics coupling nodes, refer to:
+• Nonisothermal Plasma Flow
+
+
+
+
+=== PAGE 202 ===
+202 ---
+202 |  C H A P T E R  6 :  P L A S M A  I N T E R F A C E S
+The Inductively Coupled Plasma with 
+RF Bias, Nonisothermal Flow 
+Interface
+The Inductively Coupled Plasma with RF Bias, Nonisothermal Flow (
+) interface 
+combines the Inductively Coupled Plasma with RF Bias multiphysics interface and the 
+Plasma, Time Periodic, Nonisothermal Flow multiphysics interface.
+This multiphysics interface adds Plasma, Time Periodic, Laminar Flow, Heat Transfer in 
+Fluids, and Magnetic Fields interfaces. The Nonisothermal Plasma Flow, Plasma 
+Conductivity Coupling, and Electron Heat Source multiphysics features are also added.
+The magnetic field is solved in the frequency domain and the plasma, the fluid flow, 
+and the heat transfer are solved in the time domain.
+S E T T I N G S
+For a description of the multiphysics coupling nodes, refer to:
+• Nonisothermal Plasma Flow
+• Plasma Conductivity Coupling
+• Electron Heat Source
+For all the aforementioned five multiphysics interfaces under the 
+Nonisothermal Plasma Flow (
+) branch, some settings are predefined, 
+meaning they are different from their default values if adding the single 
+physics interface independently. These predefined settings are:
+• The Calculate thermodynamic properties and the Convection checkboxes 
+are selected in the Transport Settings section in the main node of the 
+Plasma interface.
+• The Fluid type is set as Gas/Liquid in the Thermodynamics, Fluid section 
+of the Fluid node, in the Heat Transfer interface.
+• The Compressibility is set as Compressible flow (Ma<0.3) in the Physical 
+Model section in the main node of the Fluid Flow interface.
+
+
+
+
+=== PAGE 203 ===
+203 ---
+M U L T I P H Y S I C S  C O U P L I N G S  |  203
+Multiphysics Couplings
+Plasma Conductivity Coupling
+The Plasma Conductivity Coupling multiphysics coupling node (
+) computes the 
+electric conductivity of the plasma based on the cold plasma approximation. The 
+electron density is provided by the Plasma or Plasma, Time Periodic interfaces and the 
+collision frequency can be provided by the Plasma or Plasma, Time Periodic interfaces 
+or set by the user. The angular frequency is provided by the Magnetic Fields or 
+Electromagnetic Waves, Frequency Domain interfaces.
+C O L L I S I O N  F R E Q U E N C Y  S P E C I F I C A T I O N
+Select how to set the collision frequency from Specify collision frequency using — User 
+defined, Electron mobility (the default), or Electron energy distribution function. The 
+option Electron energy distribution function only exists for the Plasma interface.
+• When User defined is selected enter values for the Effective collision frequency and the 
+Field coefficient. The plasma conductivity is computed using these values and the 
+electron density provided by the Plasma or Plasma, Time Periodic interfaces. For the 
+Plasma, Time Periodic interface the electron density used in the plasma conductivity 
+is period averaged.
+• When Electron mobility is selected the momentum collision frequency used to 
+computed the plasma conductivity is obtain from the mobility defined in the Plasma 
+interface using
+ (6-17)
+and for the Plasma, Time Periodic interface using 
+ (6-18)
+where μe is the period averaged electron mobility.
+• The option Electron energy distribution function is only available when the options 
+two-term approximation (linear), or Boltzmann equation, two-term approximation 
+(quadratic) are selected from the property Electron energy distribution function. 
+When using this option the effective collision frequency νeff and the field coefficient 
+φ are automatically computed using:
+νm
+e
+meμe
+-------------
+=
+νm
+e
+me μe
+
+
+------------------
+=
+
+
+
+
+=== PAGE 204 ===
+204 ---
+204 |  C H A P T E R  6 :  P L A S M A  I N T E R F A C E S
+ (6-19)
+ (6-20)
+where μr and μi are the real and imaginary parts of the mobility defined in Boltzmann 
+Equation, Two-Term Approximation.
+When the feature Inductive Stochastic Heating is used the electron mobility includes 
+the additional stochastic frequency contribution only when Specify collision frequency 
+using is set to Electron mobility.
+C O M P U T E  T E N S O R  P L A S M A  C O N D U C T I V I T Y
+If a static magnetic field is present, and the pressure is suitably low, it may be necessary 
+to use a full tensor for the plasma conductivity. This can result is a nonlinear and 
+anisotropic plasma conductivity, as is the case in electron cyclotron resonance. When 
+Compute tensor plasma conductivity is active, enter a value for the Doppler broadening 
+parameter. This can smooth resonance zones where the power deposition is focused 
+over a very small region. The lower the value entered, the more smoothing occurs. 
+More information can be found in the Resonance Zone section.
+This option is not available for the Plasma, Time Periodic interface.
+C O U P L E D  I N T E R F A C E S
+The selection for this multiphysics coupling is locked, and corresponds to the 
+intersection of the Magnetic Fields or Electromagnetic Waves, Frequency Domain and 
+Plasma or Plasma, Time Periodic interfaces specified in the Coupled Interfaces section.
+Electron Heat Source
+The Electron Heat Source multiphysics coupling node (
+) applies the heat source 
+from the Magnetic Fields or Electromagnetic Waves, Frequency Domain to the electrons 
+in the Plasma or Plasma, Time Periodic interfaces. This corresponds to inductive heating 
+or wave-heating of the electrons respectively.
+When coupling to the Plasma, Time Periodic interface the electron heating is assumed 
+constant along the period defined in the extra dimension.
+νeff
+μr
+μi
+-----ω
+–
+=
+φ
+μr
+2
+μi
+2
++
+μi
+------------------meω
+e
+-----------
+–
+=
+
+
+
+
+=== PAGE 205 ===
+205 ---
+M U L T I P H Y S I C S  C O U P L I N G S  |  205
+C O U P L E D  I N T E R F A C E S
+The selection for this multiphysics coupling node is locked, and corresponds to the 
+intersection of the Magnetic Fields or Electromagnetic Waves, Frequency Domain and 
+Plasma or Plasma, Time Periodic interfaces specified in the Coupled Interfaces section.
+Collisionless Heating Coupling
+The Collisionless Heating Coupling multiphysics coupling node (
+) includes nonlocal 
+heating effects via an effective viscosity approximation. Typically this is only important 
+at very low pressures (less than 2 Pa) and frequencies above 10 MHz. This 
+multiphysics coupling node is only available in 2D axisymmetric models.
+C O U P L E D  I N T E R F A C E S
+The selection for this multiphysics coupling is locked, and corresponds to the 
+intersection of the Magnetic Fields and Plasma interfaces specified in the Coupled 
+Interfaces section.
+Nonisothermal Plasma Flow
+Use the Nonisothermal Plasma Flow (
+) multiphysics coupling node to simulate the 
+coupling between plasma, fluid flow and heat transfer. Specifically, it combines the 
+Plasma, Heat Transfer in Fluids, and Laminar Flow interfaces.
+It defines u, T, and p variables in order to set the Velocity field, Temperature, and 
+Absolute pressure in the Model Inputs section of the Plasma Model feature in the Plasma 
+interface, as well as in the Model Input section of the Fluid Properties feature in the 
+Laminar Flow interface, and in the Model Input section of the Fluid feature in the Heat 
+Transfer in Fluids interface.
+It also synchronizes the definition of the reference temperature between Heat Transfer 
+and Fluid Flow interfaces, and the definition of density can be synchronized from the 
+Plasma interface to the other two interfaces.
+In addition, it gets several fluid dynamics properties as well as thermodynamics 
+properties from the Plasma interface and provides these quantities to the 
+
+
+
+
+=== PAGE 206 ===
+206 ---
+206 |  C H A P T E R  6 :  P L A S M A  I N T E R F A C E S
+corresponding Heat Transfer and Fluid Flow interfaces (for example, thermal 
+conductivity, dynamic viscosity, heat capacity, and so on).
+S E T T I N G S
+The Label is the default multiphysics coupling feature name.
+The Name is used primarily as a scope prefix for variables defined by the coupling node. 
+Refer to such variables in expressions using the pattern <name>.<variable_name>. In 
+order to distinguish between variables belonging to different coupling nodes or physics 
+interfaces, the name string must be unique. Only letters, numbers, and underscores (_) 
+are permitted in the Name field. The first character must be a letter.
+The default Name (for the first multiphysics coupling feature in the model) is nipf1.
+D O M A I N  S E L E C T I O N
+The Nonisothermal Plasma Flow coupling node selection is locked to the Selection of 
+the coupled Plasma interface.
+C O U P L E D  I N T E R F A C E S
+This section defines the physics involved in the multiphysics coupling. The Plasma, 
+Fluid flow and Heat transfer lists include all applicable physics interfaces.
+The default values depend on how this coupling node is created:
+• If it is added from the Physics ribbon (Windows users), Physics contextual toolbar 
+(Mac and Linux users), or context menu (all users), then the first physics interface 
+of each type in the component is selected as the default.
+• If it is added automatically when a multiphysics interface is chosen in the Model 
+Wizard or Add Physics window, then the two participating physics interfaces are 
+selected.
+You can also select None from either list to uncouple the node from a physics interface. 
+If the physics interface is removed from the Model Builder, for example Heat Transfer in 
+The Nonisothermal Plasma Flow multiphysics coupling node is designed 
+based on the Nonisothermal Flow multiphysics coupling node, and the 
+couplings between the Plasma interface with the Fluid Flow and Heat 
+Transfer interfaces are introduced. Therefore, Nonisothermal Plasma Flow 
+should not be combined with the Nonisothermal Flow multiphysics 
+coupling node, as unwanted conflicts and duplicates could be induced.
+
+
+
+
+=== PAGE 207 ===
+207 ---
+M U L T I P H Y S I C S  C O U P L I N G S  |  207
+Fluids is deleted, then the Heat transfer list defaults to None as there is nothing to couple 
+to.
+M A T E R I A L  P R O P E R T I E S
+Reference Temperature
+Select an option from the Specify reference temperature list — From heat transfer 
+interface (the default), From fluid flow interface, or User defined.
+For From heat transfer interface, set the Reference temperature Tref (SI unit: K) in the 
+Physical Model section of the interface selected in the Heat transfer list of the Coupled 
+Interfaces section. The Reference temperature input in the Fluid flow interface is 
+synchronized to the same value or expression, and is not editable.
+For From fluid flow interface, set the Reference temperature Tref (SI unit: K) in the 
+Physical Model section of the interface selected in the Fluid flow list of the Coupled 
+Interfaces section. The Reference temperature input in the Heat transfer interface is 
+synchronized to the same value or expression, and is not editable.
+For User defined, set a value or expression. The Reference temperature inputs in the 
+Physical Model sections of the Heat transfer and Fluid flow interfaces are synchronized 
+to the same value or expression, and are not editable.
+Density
+Select an option from the Specify density list: From plasma interface (the default), or 
+User defined:
+• For From plasma interface: the Density is defined in the Density section of the Plasma 
+Model node, in the plasma coupled interface. The density value is defined either 
+using ideal gas law if Ideal gas is selected, or using manually entered value if Mixture 
+density is selected. The same value is automatically set in the Fluid Properties section 
+of the Fluid Properties node, in the Fluid Flow coupled interface, and is also set in 
+the Thermodynamics, Fluid section of the Fluid node, in the Heat Transfer coupled 
+interface.
+• For User defined, enter a Density ρ (SI unit: kg/m3). The same value is automatically 
+set in the Fluid Properties section of the Fluid Properties node, in the Fluid Flow 
+coupled interface, and in the Thermodynamics, Fluid section of the Fluid node, in the 
+Heat Transfer coupled interface.
+The density definition in the Nonisothermal Plasma Flow node ensures that the same 
+definition of the density is used on the plasma, fluid flow and heat transfer interfaces.
+
+
+
+
+=== PAGE 208 ===
+208 ---
+208 |  C H A P T E R  6 :  P L A S M A  I N T E R F A C E S
+F L U I D  F L O W  A N D  H E A T  T R A N S F E R  P R O P E R T I E S
+Some fluid dynamics properties and thermodynamics properties can be defined in this 
+section, including thermal conductivity, dynamic viscosity, heat capacity at constant 
+pressure, specific gas constant, mean molar mass, and ratio of specific heats. For each of 
+these properties, a selectable list can be selected to either specify the property From 
+plasma interface where the value is calculated in the Plasma coupled interface, or from 
+User defined where the value is manually entered, except for ratio of specific heats where 
+the value can only be manually entered.
+The value of these properties is automatically set in the Fluid Flow coupled interface 
+and in the Heat Transfer coupled interface:
+• The thermal conductivity is set in the Heat Conduction, Fluid section of the Fluid node, 
+in the Heat Transfer coupled interface.
+• The dynamic viscosity is set in the Fluid Properties section of the Fluid Properties 
+node, in the Fluid Flow coupled interface.
+• The heat capacity at constant pressure, specific gas constant, mean molar mass, and 
+ratio of specific heats are set in the Thermodynamics, Fluid section of the Fluid node, 
+in the Heat Transfer coupled interface. The Fluid type should be selected as either 
+Ideal gas or Gas/Liquid, and the proper thermodynamics properties will be supplied.
+H E A T  S O U R C E S
+The Include heat source checkbox is selected by default to account for the heat source 
+corresponding to plasma heating. The Specify volume heat source can be either From 
+plasma interface where the value is calculated in the Plasma coupled interface, or from 
+User defined where the Heat source is manually entered.
+
+
+
+
+=== PAGE 209 ===
+209 ---
+M U L T I P H Y S I C S  C O U P L I N G S  |  209
+Note this heat source is equivalent to adding a Heat Source node in the Heat Transfer 
+coupled interface and select Heat source for gas as the Heat source.
+If you build the multiphysics model from scratch — that is, you add the 
+three single physics interfaces first and then add the Nonisothermal Plasma 
+Flow node manually — there are some settings that need to be modified 
+from the their default values:
+• The Fluid type should be set as either Ideal gas or Gas/Liquid in the 
+Thermodynamics, Fluid section of the Fluid node in the Heat Transfer 
+coupled interface.
+• The Calculate thermodynamic properties and the Convection checkboxes 
+should be selected in the Transport Settings section in the main node of 
+the Plasma coupled interface.
+It is recommended to build the multiphysics model from one of the 
+predefined multiphysics interfaces instead, as these necessary 
+modifications have been taken care of in all of these multiphysics 
+interfaces. The multiphysics interfaces are located under Plasma > 
+Nonisothermal Plasma Flow when building a model using the Model Wizard.
+If a physics interface is deleted and then added to the model again, then 
+in order to reestablish the coupling, you need to choose the physics 
+interface again from the Plasma, Fluid flow or Heat transfer lists. This is 
+applicable to all multiphysics coupling nodes that would normally default 
+to the once present interface. See Multiphysics Modeling Workflow in the 
+COMSOL Multiphysics Reference Manual.
+
+
+
+
+=== PAGE 210 ===
+210 ---
+210 |  C H A P T E R  6 :  P L A S M A  I N T E R F A C E S
+Plasma Reactors Theory
+The Plasma interface couples the Drift Diffusion, Heavy Species and Electrostatic 
+interfaces. A brief explanation of the underlying equations is given here.
+The electron density and mean electron energy are computed by solving the following 
+set of electron transport equations in the drift-diffusion approximation
+If a strong DC magnetic field is present then the electron mobility can be a tensor:
+where the inverse of the mobility has been used because the actual expression for the 
+electron mobility cannot be written in a compact form. The quantity μdc is the electron 
+mobility in the absence of a magnetic field. The electron diffusivity, energy mobility, 
+and energy diffusivity are then calculated using:
+For detailed information about electron transport see Theory for the 
+Drift Diffusion Interface.
+For detailed information about the transport of the nonelectron species 
+see Theory for the Heavy Species Transport Interface.
+For detailed information about electrostatics see The Electrostatics 
+Interface.
+t
+∂
+∂ne
+(
+)
+∇
+ne μe
+E
+•
+(
+)
+–
+∇Dene
+(
+)
+–
+[
+]
+⋅
++
+Re
+=
+t
+∂
+∂nε
+(
+)
+∇
+nε με
+E
+•
+(
+)
+–
+∇Dεnε
+(
+)
+–
+[
+]
+E Γe
+⋅
++
+⋅
++
+Sen
+=
+μe
+1
+–
+1
+μdc
+--------
+Bz
+–
+By
+Bz
+1
+μdc
+--------
+Bx
+–
+By
+–
+Bx
+1
+μdc
+--------
+=
+De
+μeTe
+=
+με
+,
+5
+3--
+
+μe
+=
+Dε
+,
+μεTe
+=
+
+
+
+
+=== PAGE 211 ===
+211 ---
+P L A S M A  R E A C T O R S  T H E O R Y  |  211
+The electron rate expression is defined as
+where νe,j is the stoichiometric coefficient for electrons, and the reaction rate is defined 
+as
+where kjf is the forward rate constant and kjr is the reversed rate constant. Both the 
+Electron Impact Reaction feature and Reaction feature can contribute to the electron rate 
+expression. However, when using the Reaction feature it is important to note that the 
+associated electron energy gain or loss is not included in the source term of the electron 
+mean energy equation.
+In the plasma community, rate constants are referred as rate coefficients to emphasize 
+the fact that they are rarely constant when defining electron impact reactions, 
+depending strongly on the electron energy.
+When Townsend coefficients are used, the reaction rate is defined as
+where αj/Nn is the reduced Townsend coefficient for reaction j (SI unit: m2) and Γe is 
+the electron flux as defined above (SI unit: 1/(m2·s)). Townsend coefficients are 
+defined for two-body reactions; thus, in practice, the product operator reduces to the 
+concentration of the target species. Townsend coefficients can increase the stability of 
+the numerical scheme when the electron flux is field driven as is the case with DC 
+discharges.
+The total electron energy loss or gained is calculated by summing the collisional energy 
+changes from all reactions defined with the Electron Impact Reaction feature as
+where Δεj is the energy loss from reaction j (SI unit: V) and F is the Faraday constant 
+(SI unit: C/mol). For excitation and ionization collisions Δεj corresponds to the 
+Re
+NA
+νe j
+, rj
+j
+=
+rj
+kj
+f
+ci
+νi j
+,
+–
+kj
+r
+ck
+νi j
+,
+i
+prod
+∈∏
++
+i
+react
+∈∏
+=
+rj
+αj
+Nn
+------- Γe
+ci
+νi j
+,
+–
+i
+e
+≠
+react 
+∈∏
+=
+Sen
+rjΔεjF
+j
+–
+=
+
+
+
+
+=== PAGE 212 ===
+212 ---
+212 |  C H A P T E R  6 :  P L A S M A  I N T E R F A C E S
+energy of the excited state being excited/deexcited or ionized, for attachment Δεj is 
+set to zero, and for elastic collisions
+The rate coefficients can be computed from cross-section data by the following 
+integral:
+For nonelectron species, the following equation is solved for the mass fraction of each 
+species.
+The electrostatic field is computed using the following equation:
+The space charge density, ρ is automatically computed based on the plasma chemistry 
+specified in the model using the formula:
+.
+Δε
+2
+me
+mk
+-------
+
+
+
+3
+2-- Te
+kBTgas
+e
+------------------
+–
+
+
+
+
+=
+kf
+NAγ
+εσ
+ε
+( )f ε
+( ) ε
+d
+0
+∞
+
+=
+ρ t
+∂
+∂wk
+(
+)
+ρ u ∇
+⋅
+(
+)wk
++
+∇jk
+⋅
+Rk
++
+=
+∇
+–
+ε0εr V
+∇
+⋅
+ρ
+=
+ρ
+q
+Zknk
+k
+1
+=
+N
+
+ne
+–
+
+
+
+
+
+
+
+
+=
+
+
+
+
+=== PAGE 213 ===
+213 ---
+C A P A C I T I V E L Y  C O U P L E D  P L A S M A S  |  213
+Capacitively Coupled Plasmas
+Capacitively coupled plasmas (CCP) represent a monumental challenge when it comes 
+to numerical modeling for the following reasons. The main challenge is the 
+overwhelming number of RF cycles before the plasma evolves to a time-periodic 
+steady-state solution. The Plasma Module includes a special physics interface for such 
+applications, which removes the need to solve the problem in the time domain, while 
+still capturing all the nonlinearities involved in the discharge. This is the Plasma, Time 
+Periodic interface.
+Consider the following test problem, which roughly describes the evolution of a 
+metastable species in a capacitively coupled plasma:
+where u is representative of the amount of the metastable species. The first term on 
+the right-hand side represents the periodic production of the metastable in the plasma 
+sheath, oscillating with period ω. The second term represents losses due to collisions 
+with the background gas, and the third term losses due to collisions between the 
+metastables.
+The evolution of the metastable density is shown in Figure 6-1. It takes close to 100 
+cycles before the value evolves to its periodic steady-state solution. In many plasma 
+reactors, it can be more like 50 or 100,000 RF cycles before this evolution is complete. 
+Solving this in the time domain is computationally intractable.
+1
+f--
+
+
+t
+d
+du
+a
+ωt
+(
+)
+2
+bu
+–
+sin
+cu2
+–
+=
+
+
+
+
+=== PAGE 214 ===
+214 ---
+214 |  C H A P T E R  6 :  P L A S M A  I N T E R F A C E S
+Figure 6-1: Metastable density.
+The above equation can be reformulated as a boundary value problem:
+with periodic boundary conditions:
+.
+Solving this boundary value problem will immediately produce the solution during the 
+period when the periodic steady-state solution is reached. Thus, a time-dependent 
+problem with enormous computational cost is replaced by a simple boundary value 
+problem. This is the basic technique used in the Plasma, Time Periodic interface.
+In order to facilitate the modeling process, the conversion to a boundary problem is 
+accomplished by attaching an extra dimension to the reactor geometry. This forms a 
+product space where the boundary value problem can be solved while leaving the 
+model setup practically the same as when using the Plasma interface. All of the 
+dependent variables may be solved for in the product space, and periodic boundary 
+conditions are applied across the extra dimension. The Time Periodic study is used to 
+solve this problem, but it is basically the equivalent of a Stationary study.
+1
+f--
+
+
+x
+d
+du
+a
+ωx
+(
+)
+2
+bu
+–
+sin
+cu2
+–
+=
+u x
+0
+=
+(
+)
+u x
+π
+ω---
+=
+
+
+
+
+=
+
+
+
+
+=== PAGE 215 ===
+215 ---
+C A P A C I T I V E L Y  C O U P L E D  P L A S M A S  |  215
+As well as reducing the computational burden, the technique also has the following 
+advantages:
+• Integrals performed over both the extra dimension and the base geometry can be 
+used in the equations themselves. This allows the contacts and terminals to be driven 
+directly with a fixed power rather than a fixed voltage. This is important not only for 
+numerical stability, but also for discharges where an alpha to gamma transition 
+occurs. In these cases, a given voltage excitation could produce two different 
+solutions, depending on the initial conditions, but with a fixed power, only one 
+physical solution exists. Also, the discharge power is usually known, whereas the 
+electrode potential is often not.
+• The self-DC-bias can be computed easily with an additional equation, rather than 
+the ad hoc methods used in traditional methods.
+• Parametric sweeps over the operating conditions are fast and easy, since the problem 
+is not solved in the time domain. So, for 1D models, a range of powers, pressures, 
+frequencies, and so on can be swept in only a few minutes.
+• It is relatively easily to include a matching network in the model, so the plasma can 
+be driven from an L–type matching network. It is also easy to compute the plasma 
+impedance at the fundamental frequency which is useful when designing matching 
+networks.
+• The harmonics generated by the plasma are still resolved by the method, there are 
+no approximations in the model. It is possible to observe how these harmonics in 
+the discharge current can lead to an impedance mismatch when driving with an 
+external circuit.
+• The method is well suited for a modern computer architecture, since reassembling 
+and paging in and out of memory at each time step is not necessary. Nearly all the 
+time is spent performing the factorization of a sparse matrix with a direct solver, 
+which is highly parallelized and runs at a very high FLOP rate.
+There are, of course a couple of downsides worth mentioning:
+• Since an extra dimension is attached to the base geometry, the memory 
+requirements are high. For 2D models, 64+ GB of memory is recommended.
+• The problem formulation is highly nonlinear, which is quite a challenge for the 
+solver. Convergence might be very difficult for a given setup, depending on the 
+exact geometry and operating conditions.
+
+
+
+
+=== PAGE 216 ===
+216 ---
+216 |  C H A P T E R  6 :  P L A S M A  I N T E R F A C E S
+The Importance of 1D Modeling
+As explained above, 2D numerical models of a CCP can be very complex, demanding 
+in terms of computer memory, and time consuming. For these reasons it is strongly 
+suggested to start with a 1D version of the 2D model. 1D models are much faster and 
+numerical stable and as such are ideal to gain insight on the discharge regime of 
+operation, study the plasma chemistry, and investigate parameter spaces quickly.
+A 1D model version of an asymmetric CCP reactor is also possible by using a 1D axial 
+symmetric geometry. This way, it is possible to implement the asymmetry between the 
+areas of the ground and powered electrode and allow for the development of a DC 
+self–bias.
+In a preparatory phase for a 2D model it is also useful to use a 1D model to check if 
+the mesh resolution is sufficient to correctly describe the discharge physics.
+Electric Excitation
+In the Plasma, Time Periodic interface it is possible to sustain a plasma using power and 
+voltage sources. In both cases a periodic electric potential is applied at a terminal. If a 
+power source is chosen the voltage amplitude of the periodic signal is numerical found 
+to obtain a given power absorbed by the plasma. As an example, when using the Metal 
+Contact feature to drive a discharge with a fixed power the following expression and 
+constraint are used:
+.
+The constraint on the power Prf is used to compute the voltage amplitude Va such that 
+a fixed amount of power is absorbed by the plasma. In most cases it is numerically more 
+stable to drive a plasma with a power source.
+Solving a problem directly for a high power can be numerical difficult. It is strongly 
+recommended to start a simulation with a very low power (a few watts for an industrial 
+reactor) and increase the power to the desired value using the Auxiliary sweep in the 
+Study Extensions section in the Study node. This strategy is used in several models in 
+the application library. In an initial phase of the implementation of a model, a 
+two-study version of the power sweep can be used: first, a study is run at low power, 
+after, its solution is used as initial condition in another study that is used to increase 
+Vs
+Va
+2πfpt
+α
++
+(
+)
+cos
+=
+Prf
+fp
+Vs n Ji
+⋅
+n Je
+⋅
+n Jd
+⋅
++
++
+(
+) S
+d
+t
+d
+Ω
+∂
+t
+∂
+=
+
+
+
+
+=== PAGE 217 ===
+217 ---
+C A P A C I T I V E L Y  C O U P L E D  P L A S M A S  |  217
+the power. This approach saves the time of running the low power step while polishing 
+the model.
+When using the Auxiliary sweep the default option for the continuation solver is Last 
+parameter. When using this option the solver tries to predict the solution for the next 
+parameter. If power is used as a parameter and with a slow increase in the power (a few 
+watts) it is possible to obtain solutions in just a few iterations. However, in some cases 
+the variation in the parameter needs to be unreasonably small in order for the 
+continuation solver to work well. In those cases it is suggested to use the No parameter 
+option, and choose the option Yes in Reuse solution from previous step. When doing so, 
+the solver does not use a prediction for the next step but it still uses the solution from 
+the previous step as initial condition. With this option it is possible to increase the 
+power with much larger steps, but more iterations are needed.
+Meshing Guidelines
+When simulating a CCP discharge it is necessary to well resolve the plasma sheath 
+region. A poorly resolved sheath makes the convergence difficult and can lead to 
+physically incorrect results. Quantities that clearly show a poor mesh resolution are the 
+electron temperature and the power absorbed by the electrons. A visual inspection to 
+these quantities is always a good practice and can be done by plotting the results while 
+solving to identify problems at an early stage.
+Industrial CCP reactors have very large aspect ratios with the gap between electrodes 
+being about 3 cm and the reactors radius about 30 cm. Using an unstructured mesh 
+(with the same scale in the r and z directions) in such reactor can lead to a very large 
+number of degrees of freedom because the axial direction needs to be very well 
+resolved. The excessive meshing in the radial direction can be avoided by uncoupling 
+the resolution in the radial and axial directions with the use of a mapped mesh. When 
+using a mapped mesh it is important to convert the mesh (use the Convert feature in 
+the mesh node) to avoid spurious patterns in the electron temperature.
+Using Consistent Source Frequencies and Period Settings
+The Period property must correspond to the lower excitation frequency in the model. 
+In the case of one driving frequency, this is quite trivial: it is usually easiest to define a 
+parameter, f0, for the frequency, and set the Period setting to 1/f0 and the Frequency 
+in any Terminal or Metal Contact feature to f0. In the case of multiple frequencies, 
+things become a little more complicated. Because periodic boundary conditions are 
+used on an extra dimension, frequencies can only be exact integer multiples of each 
+
+
+
+
+=== PAGE 218 ===
+218 ---
+218 |  C H A P T E R  6 :  P L A S M A  I N T E R F A C E S
+other. It is possible to use the two frequencies of 10 and 20 MHz as presented in 
+Figure 6-2, but it is not possible to use two frequencies of 10 and 18 MHz as 
+presented in Figure 6-3.
+Figure 6-2: Voltage signals for 10 and 20 MHz.
+
+
+
+
+=== PAGE 219 ===
+219 ---
+C A P A C I T I V E L Y  C O U P L E D  P L A S M A S  |  219
+Figure 6-3: Voltage signals for 10 and 18 MHz.
+Choosing the Number of Elements in the Extra Dimension
+The Number of elements in the Extra Dimension Settings must be enough to resolve the 
+period evolution of the electric excitation. A minimum of 30 mesh elements per period 
+in the extra dimension is recommended. In some discharges the current and the 
+voltage at the electrodes departs from being a sinusoidal and fine structure might 
+appear. An example of this is a discharge where the electron current contributes 
+significantly to the total current when the sheath collapses. This leads to a burst of 
+electron current that needs to be resolved and consequently more mesh elements in 
+the extra dimension are needed.
+When using multiple frequencies to sustain a discharge the number of elements in the 
+extra dimension needs to increase in order to resolve the highest frequency. For a dual 
+frequency CCP reactor with an applied voltage of the from
+ (6-21)
+with a low frequency fl of 2 MHz and a higher frequency fh of 60 MHz one needs 900 
+mesh elements in the extra dimension in order to have 30 mesh elements per period of 
+the high frequency. Figure 6-4 and Figure 6-5 show the signal of Equation 6-21 with 
+different resolutions. When using 100 and 300 elements in the extra dimension the 
+Vs
+10
+2πfht
+(
+)
+cos
+2πflt
+(
+)
+cos
++
+=
+
+
+
+
+=== PAGE 220 ===
+220 ---
+220 |  C H A P T E R  6 :  P L A S M A  I N T E R F A C E S
+high frequency signal only has 3 and 10 elements per period, respectively, leading to 
+poorly resolved signals.
+When using multiple excitation frequencies with frequencies far apart from each other, 
+the number of elements in the extra dimension and consequently the number of 
+degrees of freedom increases dramatically, leading to computationally expensive 
+simulations. In these cases, it is recommended to use a 1D model to know how much 
+resolution of the highest frequency signal is needed to capture all the necessary physics.
+Figure 6-4: Dual frequency voltage for one period of the low frequency with 100 and 900 
+mesh elements in the extra dimension.
+
+
+
