@@ -607,8 +607,12 @@ window.addLog = function(msg, level) {
 
 // ============================================================
 // Pipeline state polling (reads pipeline_state.json)
+// Note: requires HTTP server when opened via file:// (use python -m http.server)
 // ============================================================
+const IS_FILE = window.location.protocol === 'file:';
+
 async function pollState() {
+  if (IS_FILE) return; // file:// protocol blocks fetch; run with local HTTP server instead
   try {
     const resp = await fetch('pipeline_state.json?t=' + Date.now());
     if (!resp.ok) return;
@@ -673,6 +677,7 @@ document.getElementById('md-modal-close').onclick = () => mdModal.classList.remo
 mdModal.onclick = (e) => { if (e.target === mdModal) mdModal.classList.remove('active'); };
 
 async function openMD(path) {
+  if (IS_FILE) { mdRender.innerHTML = '<p style=\"color:#e8c547\">Run with local HTTP server to view:<br><code>python -m http.server 8000</code></p>'; mdModal.classList.add('active'); return; }
   try {
     const resp = await fetch(path);
     if (!resp.ok) throw new Error('Not found');
@@ -687,6 +692,7 @@ async function openMD(path) {
 
 // Update Documents tab from pipeline_state.json, or use defaults
 async function loadDocs() {
+  if (IS_FILE) return;
   const container = document.getElementById('tab-documents').querySelector('.card');
   try {
     const resp = await fetch('pipeline_state.json?t=' + Date.now());
